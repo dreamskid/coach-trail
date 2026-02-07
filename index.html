@@ -1923,7 +1923,7 @@ function collectAllChecks() {
 
 function saveChecksToGitHub() {
     var token = getSyncToken();
-    if (!token) { showTokenModal(); return; }
+    if (!token) { showTokenModal(saveChecksToGitHub); return; }
 
     var btn = document.getElementById('save-checks-btn');
     btn.disabled = true;
@@ -2367,15 +2367,18 @@ function handleSync(e) {
     }
 }
 
-function showTokenModal() {
+var _tokenCallback = null;
+
+function showTokenModal(callback) {
+    _tokenCallback = callback || null;
     const modal = document.createElement('div');
     modal.className = 'sync-modal';
     modal.id = 'sync-modal';
     modal.innerHTML =
         '<div class="sync-modal-box">' +
-            '<h3>Configuration Sync (une seule fois)</h3>' +
+            '<h3>Configuration (une seule fois)</h3>' +
             '<p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">' +
-                'Pour synchroniser depuis le navigateur, il faut un <strong>GitHub Personal Access Token (classic)</strong>.' +
+                'Il faut un <strong>GitHub Personal Access Token (classic)</strong> pour sauvegarder et synchroniser.' +
             '</p>' +
             '<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">' +
                 '1. <a href="https://github.com/settings/tokens/new?scopes=repo&description=Coach+Trail+Sync" target="_blank" style="color:var(--accent);">Clique ici pour creer le token</a><br>' +
@@ -2384,10 +2387,10 @@ function showTokenModal() {
             '</p>' +
             '<input type="password" id="sync-token-input" placeholder="ghp_xxxxxxxxxxxx...">' +
             '<div>' +
-                '<button class="sync-modal-btn" onclick="saveTokenAndSync()">Enregistrer et Sync</button>' +
+                '<button class="sync-modal-btn" onclick="saveTokenAndGo()">Enregistrer</button>' +
                 '<button class="sync-modal-cancel" onclick="closeTokenModal()">Annuler</button>' +
             '</div>' +
-            '<p style="font-size:11px;color:var(--text-muted);margin-top:12px;">Le token reste dans ton navigateur (localStorage). Jamais envoye ailleurs que github.com.</p>' +
+            '<p style="font-size:11px;color:var(--text-muted);margin-top:12px;">Le token est sauvegarde sur tous tes appareils via GitHub.</p>' +
         '</div>';
     document.body.appendChild(modal);
     document.getElementById('sync-token-input').focus();
@@ -2398,13 +2401,40 @@ function closeTokenModal() {
     if (m) m.remove();
 }
 
-function saveTokenAndSync() {
+function saveTokenAndGo() {
     const input = document.getElementById('sync-token-input');
     const token = input.value.trim();
     if (!token) return;
     setSyncToken(token);
     closeTokenModal();
-    triggerSync(token);
+    // Persist token to coach-log.json for cross-device access
+    persistTokenToRepo(token);
+    if (_tokenCallback) { _tokenCallback(); _tokenCallback = null; }
+    else { triggerSync(token); }
+}
+
+function saveTokenAndSync() { saveTokenAndGo(); }
+
+function persistTokenToRepo(token) {
+    var repo = SYNC_REPO;
+    var filePath = 'data/coach-log.json';
+    fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(file) {
+        var content = JSON.parse(atob(file.content));
+        var sha = file.sha;
+        if (!content.settings) content.settings = {};
+        content.settings.gh_sync_token_b64 = btoa(token);
+        var newContent = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2) + '\n')));
+        return fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: 'Save sync token', content: newContent, sha: sha })
+        });
+    })
+    .catch(function(e) { console.error('Token persist error:', e); });
 }
 
 function triggerSync(token) {
