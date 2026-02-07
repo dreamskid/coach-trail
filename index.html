@@ -1361,17 +1361,14 @@ function loadActivities() {
             };
         });
 
-        // Deduplicate: if Strava has an activity within 2h of a Garmin activity of similar type, skip the Garmin one
-        const stravaKeys = new Set();
-        (stravaActs || []).forEach(sa => {
-            const d = new Date(sa.start_date_local).getTime();
-            stravaKeys.add(Math.round(d / 7200000)); // 2h buckets
-        });
+        // Deduplicate: Strava dates have misleading 'Z' but are local time, Garmin uses "YYYY-MM-DD HH:MM:SS"
+        // Normalize both to "YYYY-MM-DD HH:MM" and compare within 5 minutes
+        const parseLocal = s => new Date(s.replace('Z', '').replace(' ', 'T'));
+        const stravaStarts = (stravaActs || []).map(sa => parseLocal(sa.start_date_local).getTime());
 
         const garminOnly = garminNorm.filter(ga => {
-            const d = new Date(ga.start_date_local).getTime();
-            const bucket = Math.round(d / 7200000);
-            return !stravaKeys.has(bucket);
+            const gTime = parseLocal(ga.start_date_local).getTime();
+            return !stravaStarts.some(sTime => Math.abs(gTime - sTime) < 300000);
         });
 
         // Merge and sort by date (newest first)
