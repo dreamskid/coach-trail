@@ -312,7 +312,7 @@
         .sleep-rem { background: #8b5cf6; }
         .sleep-awake { background: #f97316; }
 
-        .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 80px; padding: 0 2px; }
+        .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 100px; padding: 18px 2px 0; }
         .mini-chart .bar {
             flex: 1;
             border-radius: 3px 3px 0 0;
@@ -320,6 +320,17 @@
             position: relative;
             transition: opacity 0.15s;
             cursor: default;
+        }
+        .mini-chart .bar::after {
+            content: attr(data-val);
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
         }
         .mini-chart .bar:hover { opacity: 0.8; }
         .mini-chart-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); padding: 4px 2px 0; }
@@ -2060,7 +2071,7 @@ function hrvStatusBadge(status) {
     return '<span class="hrv-status-badge" style="background:' + s.bg + ';color:' + s.color + ';">' + s.label + '</span>';
 }
 
-function renderMiniChart(containerId, labelsId, values, colorFn, unit) {
+function renderMiniChart(containerId, labelsId, values, colorFn, unit, formatLabel) {
     const container = document.getElementById(containerId);
     const labelsEl = document.getElementById(labelsId);
     if (!container) return;
@@ -2081,7 +2092,8 @@ function renderMiniChart(containerId, labelsId, values, colorFn, unit) {
         if (v.value != null && v.value > 0) {
             const pct = 15 + ((v.value - minVal) / range) * 85;
             const color = colorFn ? colorFn(v.value) : 'var(--accent)';
-            html += '<div class="bar" style="height:' + pct + '%;background:' + color + ';" title="' + v.label + ': ' + v.value + (unit || '') + '"></div>';
+            const label = formatLabel ? formatLabel(v.value) : v.value;
+            html += '<div class="bar" data-val="' + label + '" style="height:' + pct + '%;background:' + color + ';" title="' + v.label + ': ' + v.value + (unit || '') + '"></div>';
         } else {
             html += '<div class="bar" style="height:5%;background:var(--border);opacity:0.3;" title="' + v.label + ': --"></div>';
         }
@@ -2307,7 +2319,8 @@ function loadGarminData() {
             // Pas
             renderMiniChart('chart-steps', 'chart-steps-labels',
                 days.map(d => ({ value: d.steps, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
-                stepsColor, ''
+                stepsColor, '',
+                function(v) { return v >= 1000 ? (v / 1000).toFixed(1).replace('.0', '') + 'k' : v; }
             );
 
             // Body Battery
@@ -2330,7 +2343,8 @@ function loadGarminData() {
             // Sleep 14j
             renderMiniChart('chart-sleep', 'chart-sleep-labels',
                 days.map(d => ({ value: d.sleep ? Math.round(d.sleep.duration_seconds / 60) : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
-                function(mins) { return sleepColor(mins * 60); }, ' min'
+                function(mins) { return sleepColor(mins * 60); }, ' min',
+                function(mins) { var h = Math.floor(mins / 60); var m = mins % 60; return h + 'h' + String(m).padStart(2, '0'); }
             );
             // Sleep summary
             const sleepSummaryEl = document.getElementById('chart-sleep-summary');
