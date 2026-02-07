@@ -10,7 +10,7 @@
 
 | Paramètre | Valeur | Évaluation |
 |---|---|---|
-| Âge | 42 ans | Maturité physiologique — VO2max en déclin naturel (~0.7%/an après 30 ans) mais capacité d'endurance ultra préservée voire en progression |
+| Âge | 44 ans | Maturité physiologique — VO2max en déclin naturel (~0.7%/an après 30 ans) mais capacité d'endurance ultra préservée voire en progression |
 | Taille | 184 cm | Grand gabarit pour le trail |
 | Poids | 82 kg | Élevé pour l'ultra-trail montagne |
 | IMC | 24.2 | Normal-haut, au-dessus de la moyenne ultra-trail compétitif (19-22) |
@@ -34,7 +34,7 @@ Le poids est le **facteur limitant n°1 en montée**. À 82 kg, chaque mètre de
 | Paramètre | Valeur | Évaluation |
 |---|---|---|
 | FC repos | 50 bpm | Bon, témoigne d'une adaptation aérobie significative |
-| FC max | 178 bpm | Cohérent avec l'âge (formule Tanaka : 208 - 0.7×42 = 179) |
+| FC max | 178 bpm | Cohérent avec l'âge (formule Tanaka : 208 - 0.7×44 = 177) |
 | Réserve cardiaque | 128 bpm | Amplitude correcte |
 | VMA | Inconnue | **Donnée critique manquante** — à mesurer dès retour à la course |
 
@@ -72,7 +72,7 @@ La nicotine inhalée provoque :
 - **Altération du transport d'O2** : monoxyde de carbone des e-liquides chauffés (faible mais non nul)
 - **Récupération ralentie** : inflammation vasculaire chronique bas-grade
 
-**Impact estimé sur la performance** : **-5 à -10% de VO2max** par rapport au potentiel clean. À 42 ans, chaque point de VO2max est précieux. Le potentiel "sans nicotine" serait probablement de 48-53 ml/kg/min.
+**Impact estimé sur la performance** : **-5 à -10% de VO2max** par rapport au potentiel clean. À 44 ans, chaque point de VO2max est précieux. Le potentiel "sans nicotine" serait probablement de 48-53 ml/kg/min.
 
 **Note/10 : 6/10** — bon socle cardio pour l'âge, mais plafonné par la nicotine et non quantifié précisément (VMA manquante).
 
@@ -258,7 +258,7 @@ Le gap D+/km est le facteur le plus discriminant. Travail ciblé :
 
 ### Priorité 2 — Gestion de la récupération (impact : ÉLEVÉ)
 
-Pattern récurrent : course → récupération insuffisante → blessure. À 42 ans avec une fragilité soléaire bilatérale :
+Pattern récurrent : course → récupération insuffisante → blessure. À 44 ans avec une fragilité soléaire bilatérale :
 - Minimum 7-10 jours de récupération active post-course
 - Protocole de prévention soléaire quotidien non négociable
 - Suivi RPE + qualité sommeil comme indicateurs avancés
@@ -421,7 +421,7 @@ Tu progresses malgré ces handicaps — imagine ce que donnerait ta progression 
 
 ### Forces
 
-1. **Trajectoire de progression** : +146 points d'UTMB Index en 18 mois — rares sont les coureurs de 42 ans avec cette dynamique
+1. **Trajectoire de progression** : +146 points d'UTMB Index en 18 mois — rares sont les coureurs de 44 ans avec cette dynamique
 2. **Mental de finisseur** : 27 courses, 3 ultras, jamais d'abandon répertorié
 3. **Calendrier de préparation optimal** : 5 courses de mars à juin, montée progressive parfaite vers l'OCC
 4. **Équipement** : tapis haute performance = capacité à faire du spécifique montée toute l'année

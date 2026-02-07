@@ -2,7 +2,7 @@
 
 ## Identité
 
-- **Âge** : 42 ans
+- **Âge** : 44 ans
 - **Poids** : 82 kg
 - **Taille** : 184 cm
 - **IMC** : 24.2
@@ -63,7 +63,7 @@
 - **Cigarette électronique** : avec nicotine actuellement. Passage en 0 mg recommandé (gain cardio estimé +3-5%)
 - **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
 - **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)
-- À 42 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + nicotine ont un effet cumulé estimé à -12 à -20% sur la performance
+- À 44 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + nicotine ont un effet cumulé estimé à -12 à -20% sur la performance
 
 ## Nutrition
 
