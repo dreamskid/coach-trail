@@ -547,10 +547,13 @@
         <div class="update" id="header-update">Mise a jour : 7 fevrier 2026</div>
         <div>J-201 avant l'OCC</div>
         <div>Bloc 0 — Reprise & Soin</div>
-        <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-            <span id="sync-label">Sync</span>
-        </button>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+            <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)" style="margin-top: 0;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                <span id="sync-label">Sync</span>
+            </button>
+            <span id="garmin-status" style="font-size: 10px; color: var(--text-muted);"></span>
+        </div>
     </div>
 </header>
 
@@ -988,15 +991,6 @@
 <!-- TAB : SANTE (Garmin Connect)                                             -->
 <!-- ======================================================================== -->
 <div id="health" class="tab-content">
-
-    <!-- Garmin header -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Donnees Garmin Connect</span>
-        </div>
-        <span class="badge badge-blue" id="garmin-status">Synchro...</span>
-    </div>
 
     <!-- KPI Sante -->
     <div class="grid grid-4" style="margin-bottom: 24px;" id="health-kpi">
@@ -1475,15 +1469,6 @@
         </div>
     </div>
 
-    <!-- Strava header -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Activites Strava + Garmin</span>
-        </div>
-        <span class="badge badge-orange" id="strava-status">Synchro...</span>
-    </div>
-
     <div id="activities-list">
         <div style="text-align: center; padding: 40px; color: var(--text-muted);">
             <div style="font-size: 14px;">Chargement des activites...</div>
@@ -1729,8 +1714,8 @@ function loadActivities() {
         document.getElementById('sum-time').textContent = Math.round(totalTime / 3600) + 'h';
         summary.style.display = 'block';
 
-        document.getElementById('strava-status').className = 'badge badge-green';
-        document.getElementById('strava-status').textContent = 'Strava + Garmin OK';
+        var stravaEl = document.getElementById('strava-status');
+        if (stravaEl) { stravaEl.style.color = 'var(--green)'; stravaEl.textContent = 'Strava OK'; }
 
         // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
         updateWeekKPIs(all);
@@ -2222,11 +2207,11 @@ function loadGarminData() {
             }
 
             // Status badge
-            document.getElementById('garmin-status').className = 'badge badge-green';
-            document.getElementById('garmin-status').textContent = 'Synchro OK · ' + sum.last_sync;
+            document.getElementById('garmin-status').style.color = 'var(--green)';
+            document.getElementById('garmin-status').textContent = 'OK';
         })
         .catch(() => {
-            document.getElementById('garmin-status').className = 'badge badge-yellow';
+            document.getElementById('garmin-status').style.color = 'var(--yellow)';
             document.getElementById('garmin-status').textContent = 'Pas de donnees';
             document.getElementById('health-sleep-detail').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.<br><span style="font-size:12px;">Configure les secrets GARMIN_EMAIL / GARMIN_PASSWORD<br>et lance le workflow GitHub Actions.</span></div>';
             document.getElementById('health-hrv-stress').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
