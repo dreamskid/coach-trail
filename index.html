@@ -2143,6 +2143,15 @@ function collectAllDayData() {
         });
         result[date] = entry;
     });
+    // Hygiene toggles
+    document.querySelectorAll('.hyg-toggle').forEach(function(el) {
+        var date = el.dataset.date;
+        var key = el.dataset.key;
+        var ok = el.dataset.ok === '1';
+        if (!result[date]) result[date] = {};
+        if (!result[date]._hygiene) result[date]._hygiene = {};
+        result[date]._hygiene[key] = ok;
+    });
     return result;
 }
 
@@ -2167,21 +2176,24 @@ function saveChecksToGitHub() {
         var content = JSON.parse(atob(file.content));
         var sha = file.sha;
 
-        // 2. Merge checks + metrics into daily entries
+        // 2. Merge checks + metrics + hygiene into daily entries
         Object.keys(allData).forEach(function(date) {
             var dayData = allData[date];
             var entry = content.daily.find(function(d) { return d.date === date; });
-            if (entry) {
-                if (dayData.checks) entry.checks = dayData.checks;
-                if (dayData.soleaire !== undefined) entry.soleaire = dayData.soleaire;
-                if (dayData.rpe !== undefined) entry.rpe = dayData.rpe;
-            } else {
-                var newEntry = { date: date };
-                if (dayData.checks) newEntry.checks = dayData.checks;
-                if (dayData.soleaire !== undefined) newEntry.soleaire = dayData.soleaire;
-                if (dayData.rpe !== undefined) newEntry.rpe = dayData.rpe;
-                content.daily.push(newEntry);
+            if (!entry) {
+                entry = { date: date };
+                content.daily.push(entry);
                 content.daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
+            }
+            if (dayData.checks) entry.checks = dayData.checks;
+            if (dayData.soleaire !== undefined) entry.soleaire = dayData.soleaire;
+            if (dayData.rpe !== undefined) entry.rpe = dayData.rpe;
+            if (dayData._hygiene) {
+                var h = dayData._hygiene;
+                if (h.sommeil_h !== undefined) entry.sommeil_h = h.sommeil_h ? 7.5 : 0;
+                if (h.diner !== undefined) entry.diner = h.diner;
+                if (h.nicotine !== undefined) entry.nicotine = !h.nicotine;
+                if (h.hydratation !== undefined) entry.hydratation = h.hydratation;
             }
         });
 
@@ -2916,36 +2928,115 @@ function loadCoachLog() {
                 }
             }
 
-            // Hygiene trend (weekly table)
-            if (daily.length > 1) {
-                const last7 = daily.slice(-7);
-                let hygHtml = '<table style="width:100%;font-size:12px;">';
-                hygHtml += '<tr><th>Date</th><th>Sommeil</th><th>Diner</th><th>0 nico</th><th>Eau</th></tr>';
-                last7.forEach(d => {
-                    const dd = new Date(d.date + 'T00:00:00');
-                    const dayLabel = dd.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
-                    hygHtml += '<tr>';
-                    hygHtml += '<td>' + dayLabel + '</td>';
-                    hygHtml += '<td style="text-align:center;">' + (d.sommeil_h >= 7 ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
-                    hygHtml += '<td style="text-align:center;">' + (d.diner ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
-                    hygHtml += '<td style="text-align:center;">' + (!d.nicotine ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
-                    hygHtml += '<td style="text-align:center;">' + (d.hydratation ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
+            // Hygiene trend (current week, interactive)
+            (function() {
+                var now = new Date();
+                var dayOfWeek = now.getDay(); // 0=Sun
+                var mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+                var monday = new Date(now);
+                monday.setDate(now.getDate() + mondayOffset);
+                monday.setHours(0, 0, 0, 0);
+
+                var weekDays = [];
+                for (var i = 0; i < 7; i++) {
+                    var d = new Date(monday);
+                    d.setDate(monday.getDate() + i);
+                    weekDays.push(d.toISOString().slice(0, 10));
+                }
+
+                var dailyByDate = {};
+                daily.forEach(function(d) { dailyByDate[d.date] = d; });
+
+                var todayStr = now.toISOString().slice(0, 10);
+                var container = document.getElementById('trend-hygiene');
+                var hygHtml = '<table style="width:100%;font-size:13px;">';
+                hygHtml += '<tr><th style="text-align:left;">Date</th><th>Sommeil</th><th>Diner</th><th>0 nico</th><th>Eau</th></tr>';
+
+                weekDays.forEach(function(dateStr) {
+                    var entry = dailyByDate[dateStr] || {};
+                    var dd = new Date(dateStr + 'T00:00:00');
+                    var dayLabel = dd.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+                    var isToday = dateStr === todayStr;
+                    var isFuture = dateStr > todayStr;
+                    var rowStyle = isToday ? ' style="background:var(--bg-card-alt);font-weight:700;"' : '';
+
+                    hygHtml += '<tr' + rowStyle + '>';
+                    hygHtml += '<td>' + dayLabel + (isToday ? ' *' : '') + '</td>';
+
+                    var fields = [
+                        { key: 'sommeil_h', test: function(v) { return v >= 7; } },
+                        { key: 'diner', test: function(v) { return !!v; } },
+                        { key: 'nicotine', test: function(v) { return !v; } },
+                        { key: 'hydratation', test: function(v) { return !!v; } }
+                    ];
+
+                    fields.forEach(function(f) {
+                        var val = entry[f.key];
+                        var ok = val != null && val !== undefined ? f.test(val) : false;
+                        if (isFuture) {
+                            hygHtml += '<td style="text-align:center;color:var(--border);">—</td>';
+                        } else {
+                            hygHtml += '<td style="text-align:center;">'
+                                + '<span class="hyg-toggle" data-date="' + dateStr + '" data-key="' + f.key + '" data-ok="' + (ok ? '1' : '0') + '"'
+                                + ' style="cursor:pointer;font-size:16px;user-select:none;">'
+                                + (ok ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>')
+                                + '</span></td>';
+                        }
+                    });
                     hygHtml += '</tr>';
                 });
                 hygHtml += '</table>';
-                // Score
-                const scores = last7.map(d => {
-                    let s = 0;
-                    if (d.sommeil_h >= 7) s++;
-                    if (d.diner) s++;
-                    if (!d.nicotine) s++;
-                    if (d.hydratation) s++;
-                    return s;
+
+                // Score (past + today only)
+                var pastDays = weekDays.filter(function(d) { return d <= todayStr; });
+                if (pastDays.length > 0) {
+                    var totalScore = 0;
+                    pastDays.forEach(function(dateStr) {
+                        var e = dailyByDate[dateStr] || {};
+                        var s = 0;
+                        if (e.sommeil_h >= 7) s++;
+                        if (e.diner) s++;
+                        if (!e.nicotine) s++;
+                        if (e.hydratation) s++;
+                        totalScore += s;
+                    });
+                    var avgScore = (totalScore / pastDays.length).toFixed(1);
+                    hygHtml += '<div style="margin-top:8px;text-align:center;font-size:12px;color:var(--text-muted);">Score moyen : <strong style="color:' + (avgScore >= 3 ? 'var(--green)' : avgScore >= 2 ? 'var(--yellow)' : 'var(--red)') + ';">' + avgScore + '/4</strong></div>';
+                }
+
+                container.innerHTML = hygHtml;
+
+                // Make toggles interactive
+                container.querySelectorAll('.hyg-toggle').forEach(function(el) {
+                    el.addEventListener('click', function() {
+                        var date = this.dataset.date;
+                        var key = this.dataset.key;
+                        var wasOk = this.dataset.ok === '1';
+                        var nowOk = !wasOk;
+                        this.dataset.ok = nowOk ? '1' : '0';
+                        this.innerHTML = nowOk ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>';
+
+                        // Update the daily entry in memory
+                        var entry = dailyByDate[date];
+                        if (!entry) {
+                            entry = { date: date };
+                            daily.push(entry);
+                            daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
+                            dailyByDate[date] = entry;
+                        }
+                        if (key === 'sommeil_h') {
+                            entry.sommeil_h = nowOk ? 7.5 : 0;
+                        } else if (key === 'nicotine') {
+                            entry.nicotine = !nowOk;
+                        } else {
+                            entry[key] = nowOk;
+                        }
+
+                        _checksDirty = true;
+                        showSaveChecksBtn();
+                    });
                 });
-                const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-                hygHtml += '<div style="margin-top:8px;text-align:center;font-size:12px;color:var(--text-muted);">Score moyen : <strong style="color:' + (avgScore >= 3 ? 'var(--green)' : avgScore >= 2 ? 'var(--yellow)' : 'var(--red)') + ';">' + avgScore + '/4</strong></div>';
-                document.getElementById('trend-hygiene').innerHTML = hygHtml;
-            }
+            })();
 
             // Longterm trajectory
             if (lt.occ_weeks_remaining) {
