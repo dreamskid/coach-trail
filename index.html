@@ -1136,7 +1136,7 @@
             <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 80%;" title="422 - Astragale 2025"></div>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); padding: 0 4px;">
-            <span>2021</span><span>2023</span><span>2023</span><span>2023</span><span>2024</span><span>2024</span><span>2024</span><span>2024</span><span>2025</span><span>2025</span><span>2025</span><span>2025</span><span>2025</span>
+            <span>Nov 21</span><span>Mai 23</span><span>Jun 23</span><span>Nov 23</span><span>Mar 24</span><span>Jul 24</span><span>Aou 24</span><span>Nov 24</span><span>Mai 25</span><span>Jun 25</span><span>Sep 25</span><span>Nov 25</span><span>Dec 25</span>
         </div>
 
         <table style="margin-top: 20px;">
@@ -1192,8 +1192,8 @@
     <!-- Strava header -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--orange)"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Activites Strava</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Activites Strava + Garmin</span>
         </div>
         <span class="badge badge-orange" id="strava-status">Synchro...</span>
     </div>
@@ -1260,6 +1260,23 @@ const TYPES = {
     'Workout':        { icon: 'workout', iconClass: 'workout',    label: 'PPG',          color: 'var(--orange)' },
 };
 
+// Garmin typeKey → unified type
+const GARMIN_TYPE_MAP = {
+    'running':            'Run',
+    'trail_running':      'TrailRun',
+    'treadmill_running':  'Treadmill',
+    'walking':            'Walk',
+    'hiking':             'Hike',
+    'swimming':           'Swim',
+    'lap_swimming':       'Swim',
+    'open_water_swimming':'Swim',
+    'elliptical':         'Elliptical',
+    'strength_training':  'WeightTraining',
+    'cardio':             'Workout',
+    'yoga':               'Workout',
+    'other':              'Workout',
+};
+
 function detectType(act) {
     const st = act.sport_type || act.type;
     // Treadmill detection: Run with D+=0, or named "My Workout"/"Manual Workout"
@@ -1320,77 +1337,118 @@ function fmtDateShort(s) {
 }
 
 function loadActivities() {
-    fetch('data/strava-activities.json')
-        .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
-        .then(activities => {
-            if (!activities || activities.length === 0) return;
+    const stravaP = fetch('data/strava-activities.json').then(r => r.ok ? r.json() : []).catch(() => []);
+    const garminP = fetch('data/garmin-activities.json').then(r => r.ok ? r.json() : []).catch(() => []);
 
-            const list = document.getElementById('activities-list');
-            const summary = document.getElementById('activities-summary');
-            list.innerHTML = '';
+    Promise.all([stravaP, garminP]).then(([stravaActs, garminActs]) => {
+        // Normalize Garmin activities to match Strava format
+        const garminNorm = (garminActs || []).map(ga => {
+            const unified = GARMIN_TYPE_MAP[ga.type] || 'Workout';
+            return {
+                name: ga.name,
+                type: unified,
+                sport_type: unified,
+                start_date_local: ga.start_date_local,
+                distance: ga.distance || 0,
+                moving_time: ga.moving_time || 0,
+                elapsed_time: ga.elapsed_time || 0,
+                total_elevation_gain: ga.total_elevation_gain || 0,
+                average_speed: ga.average_speed || 0,
+                average_heartrate: ga.average_heartrate,
+                max_heartrate: ga.max_heartrate,
+                source: 'garmin',
+                _garmin_type: ga.type,
+            };
+        });
 
-            let totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
-            let currentDate = '';
+        // Deduplicate: if Strava has an activity within 2h of a Garmin activity of similar type, skip the Garmin one
+        const stravaKeys = new Set();
+        (stravaActs || []).forEach(sa => {
+            const d = new Date(sa.start_date_local).getTime();
+            stravaKeys.add(Math.round(d / 7200000)); // 2h buckets
+        });
 
-            activities.forEach(act => {
-                const st = detectType(act);
-                const t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
-                const dist = (act.distance / 1000).toFixed(1);
-                const elev = Math.round(act.total_elevation_gain || 0);
-                const isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
-                const isSwim = st === 'Swim';
-                const zone = getZone(act.average_heartrate);
-                const dateKey = fmtDate(act.start_date_local);
+        const garminOnly = garminNorm.filter(ga => {
+            const d = new Date(ga.start_date_local).getTime();
+            const bucket = Math.round(d / 7200000);
+            return !stravaKeys.has(bucket);
+        });
 
-                if (isRun) totalRuns++;
-                totalDist += act.distance / 1000;
-                totalElev += act.total_elevation_gain || 0;
-                totalTime += act.moving_time || 0;
+        // Merge and sort by date (newest first)
+        const all = [...(stravaActs || []).map(a => ({...a, source: 'strava'})), ...garminOnly];
+        all.sort((a, b) => new Date(b.start_date_local) - new Date(a.start_date_local));
 
-                // Date separator
-                if (dateKey !== currentDate) {
-                    currentDate = dateKey;
-                    list.innerHTML += '<div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:16px 0 6px; border-bottom:1px solid var(--border); margin-bottom:8px;">' + dateKey + '</div>';
-                }
-
-                let stats = '';
-                if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
-                if (elev > 0) stats += '<div class="act-stat"><div class="act-stat-value text-orange">' + elev + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> m</span></div><div class="act-stat-label">D+</div></div>';
-                stats += '<div class="act-stat"><div class="act-stat-value">' + fmt(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>';
-                if (act.average_heartrate) {
-                    const zHtml = zone ? '<span class="act-zone" style="background:' + zone.bg + ';color:' + zone.color + ';">' + zone.label + '</span>' : '';
-                    stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
-                }
-                if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
-                if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
-
-                list.innerHTML +=
-                    '<div class="activity-card">' +
-                        '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
-                        '<div class="act-body">' +
-                            '<div class="act-header">' +
-                                '<div><span class="act-name">' + act.name + '</span></div>' +
-                                '<div class="act-meta"><span class="act-type-label" style="color:' + t.color + ';">' + t.label + '</span></div>' +
-                            '</div>' +
-                            '<div class="act-stats">' + stats + '</div>' +
-                        '</div>' +
-                    '</div>';
-            });
-
-            document.getElementById('sum-runs').textContent = totalRuns;
-            document.getElementById('sum-distance').textContent = Math.round(totalDist);
-            document.getElementById('sum-elevation').textContent = Math.round(totalElev);
-            document.getElementById('sum-time').textContent = Math.round(totalTime / 3600) + 'h';
-            summary.style.display = 'block';
-
-            document.getElementById('strava-status').className = 'badge badge-green';
-            document.getElementById('strava-status').textContent = 'Synchro OK';
-        })
-        .catch(() => {
+        if (all.length === 0) {
             document.getElementById('activities-list').innerHTML =
                 '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
-                '<div style="font-size:14px;">Pas encore de donnees Strava.</div></div>';
+                '<div style="font-size:14px;">Pas encore de donnees.</div></div>';
+            return;
+        }
+
+        const list = document.getElementById('activities-list');
+        const summary = document.getElementById('activities-summary');
+        list.innerHTML = '';
+
+        let totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
+        let currentDate = '';
+
+        all.forEach(act => {
+            const st = detectType(act);
+            const t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
+            const dist = (act.distance / 1000).toFixed(1);
+            const elev = Math.round(act.total_elevation_gain || 0);
+            const isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
+            const isSwim = st === 'Swim';
+            const zone = getZone(act.average_heartrate);
+            const dateKey = fmtDate(act.start_date_local);
+
+            if (isRun) totalRuns++;
+            totalDist += act.distance / 1000;
+            totalElev += act.total_elevation_gain || 0;
+            totalTime += act.moving_time || 0;
+
+            // Date separator
+            if (dateKey !== currentDate) {
+                currentDate = dateKey;
+                list.innerHTML += '<div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:16px 0 6px; border-bottom:1px solid var(--border); margin-bottom:8px;">' + dateKey + '</div>';
+            }
+
+            // Source badge
+            const srcBadge = act.source === 'garmin' ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:400;">GARMIN</span>' : '';
+
+            let stats = '';
+            if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
+            if (elev > 0) stats += '<div class="act-stat"><div class="act-stat-value text-orange">' + elev + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> m</span></div><div class="act-stat-label">D+</div></div>';
+            stats += '<div class="act-stat"><div class="act-stat-value">' + fmt(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>';
+            if (act.average_heartrate) {
+                const zHtml = zone ? '<span class="act-zone" style="background:' + zone.bg + ';color:' + zone.color + ';">' + zone.label + '</span>' : '';
+                stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
+            }
+            if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
+            if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
+
+            list.innerHTML +=
+                '<div class="activity-card">' +
+                    '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
+                    '<div class="act-body">' +
+                        '<div class="act-header">' +
+                            '<div><span class="act-name">' + act.name + '</span></div>' +
+                            '<div class="act-meta"><span class="act-type-label" style="color:' + t.color + ';">' + t.label + '</span>' + srcBadge + '</div>' +
+                        '</div>' +
+                        '<div class="act-stats">' + stats + '</div>' +
+                    '</div>' +
+                '</div>';
         });
+
+        document.getElementById('sum-runs').textContent = totalRuns;
+        document.getElementById('sum-distance').textContent = Math.round(totalDist);
+        document.getElementById('sum-elevation').textContent = Math.round(totalElev);
+        document.getElementById('sum-time').textContent = Math.round(totalTime / 3600) + 'h';
+        summary.style.display = 'block';
+
+        document.getElementById('strava-status').className = 'badge badge-green';
+        document.getElementById('strava-status').textContent = 'Strava + Garmin OK';
+    });
 }
 
 loadActivities();

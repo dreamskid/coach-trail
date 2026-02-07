@@ -17,6 +17,7 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 OUTPUT_FILE = DATA_DIR / "garmin-wellness.json"
+ACTIVITIES_FILE = DATA_DIR / "garmin-activities.json"
 DAYS = 14
 
 
@@ -226,6 +227,37 @@ def fetch_vo2max(client):
         return None
 
 
+def fetch_activities(client, count=30):
+    """Fetch recent activities from Garmin Connect."""
+    try:
+        activities = client.get_activities(0, count)
+        if not activities:
+            return []
+        result = []
+        for act in activities:
+            atype = act.get("activityType", {})
+            result.append({
+                "id": act.get("activityId"),
+                "name": act.get("activityName", ""),
+                "type": atype.get("typeKey", "other") if isinstance(atype, dict) else "other",
+                "start_date_local": act.get("startTimeLocal", ""),
+                "distance": round(act.get("distance", 0) or 0, 1),
+                "moving_time": int(act.get("movingDuration", 0) or act.get("duration", 0) or 0),
+                "elapsed_time": int(act.get("duration", 0) or 0),
+                "total_elevation_gain": round(act.get("elevationGain", 0) or 0, 1),
+                "average_speed": round(act.get("averageSpeed", 0) or 0, 3),
+                "average_heartrate": act.get("averageHR"),
+                "max_heartrate": act.get("maxHR"),
+                "calories": act.get("calories", 0),
+                "steps": act.get("steps", 0),
+                "source": "garmin",
+            })
+        return result
+    except Exception as e:
+        print(f"  [WARN] get_activities: {e}")
+        return []
+
+
 def main():
     print("[INFO] Logging into Garmin Connect...")
     try:
@@ -234,6 +266,14 @@ def main():
         print(f"[ERROR] Garmin login failed: {e}")
         print("[INFO] Preserving existing data (if any). Exiting gracefully.")
         sys.exit(0)
+
+    # Fetch activities
+    print("[INFO] Fetching Garmin activities...")
+    activities = fetch_activities(client, count=30)
+    print(f"  Got {len(activities)} activities")
+    with open(ACTIVITIES_FILE, "w") as f:
+        json.dump(activities, f, indent=2, ensure_ascii=False)
+    print(f"[OK] Saved {len(activities)} activities to {ACTIVITIES_FILE}")
 
     print(f"[INFO] Fetching {DAYS} days of wellness data...")
 
