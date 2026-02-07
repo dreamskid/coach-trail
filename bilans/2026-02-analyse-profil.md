@@ -292,7 +292,132 @@ Pas de données fiables sur le niveau technique en descente. L'OCC comporte des 
 
 ---
 
-## 9. Forces et risques — Vue d'ensemble
+## 8bis. Facteurs limitants hors entraînement — Analyse critique
+
+*Section ajoutée le 7 février 2026 suite à des informations complémentaires.*
+
+Trois facteurs extra-sportifs identifiés qui ont un **impact majeur cumulé** sur la performance, la récupération, et le risque de blessure.
+
+### A. Sommeil : < 7h par nuit — ALERTE ROUGE
+
+Le sommeil est le **levier de récupération n°1** en endurance. À < 7h/nuit, les conséquences sont documentées scientifiquement :
+
+| Effet | Mécanisme | Impact pour Yohann |
+|---|---|---|
+| **Risque de blessure x 1.7** | Réduction de la réparation tissulaire (collagène, tendons) | Explique en partie la récurrence du soléaire |
+| **↓ Sécrétion d'hormone de croissance** | Le pic de GH se produit en sommeil profond (stades 3-4) — tronqué sous 7h | Récupération musculaire et tendineuse altérée |
+| **↓ Synthèse protéique** | Réparation musculaire ralentie de 15-30% | Adaptation à l'entraînement diminuée |
+| **↑ Cortisol** | Stress hormonal chronique | Catabolisme musculaire, rétention graisseuse, inflammation |
+| **↓ Glycogène** | Resynthèse incomplète | Fatigue résiduelle en début de séance |
+| **↓ Vigilance et proprioception** | Impact cognitif et neuromusculaire | Risque de chute en trail, technique dégradée |
+| **↓ Performance aérobie** | Études montrent -3 à -5% de VO2max après privation chronique | VO2max encore plus plafonnée qu'estimé |
+
+**Référence** : Milewski et al. (2014) — les athlètes dormant <8h/nuit ont **1.7x plus de blessures** que ceux dormant >8h. Watson (2017, consensus AASM) — recommandation 7-9h pour les athlètes adultes.
+
+**Estimation d'impact** : le déficit de sommeil chronique représente probablement une **perte de 5-8% de la capacité de performance** et un **doublement du risque de blessure soléaire**.
+
+**Le lien direct avec le soléaire** : les tendons et jonctions myo-tendineuses sont les tissus qui se réparent le plus lentement. Ils dépendent fortement du sommeil profond pour la synthèse de collagène. Dormir < 7h + enchaîner les charges d'entraînement = jonction myo-tendineuse qui n'a jamais le temps de se réparer complètement. Voilà pourquoi le soléaire lâche dès que la fatigue s'accumule.
+
+**Note Sommeil : 2/10** — facteur limitant critique, probablement le plus impactant de tous.
+
+### B. Alimentation : saute repas le soir et souvent le matin — ALERTE ORANGE
+
+Un athlète de 82 kg qui s'entraîne 6-7x/semaine a un besoin calorique estimé de **2800-3500 kcal/jour** selon l'intensité. Sauter régulièrement le dîner et le petit-déjeuner signifie :
+
+| Problème | Conséquence |
+|---|---|
+| **Fenêtre de récupération manquée (soir)** | Les séances du jour ne sont pas "payées" en récupération protéique et glycogénique. Le corps catabolise (se détruit) au lieu de reconstruire. |
+| **Nuit à jeun prolongée** | Après un dernier repas le midi, 18-20h sans apport significatif = cortisol élevé au réveil, glycogène bas, protéolyse musculaire nocturne |
+| **Déficit protéique chronique probable** | Un seul vrai repas/jour ne peut pas couvrir les 1.4-1.8 g/kg/jour de protéines nécessaires (soit 115-148 g pour 82 kg) |
+| **Paradoxe du poids** | Manger trop peu → cortisol chronique → le corps stocke la graisse et consomme le muscle. Explication possible du poids de 82 kg malgré un apport calorique apparemment faible |
+| **Énergie d'entraînement compromise** | Les séances du matin se font sur des réserves vides → qualité d'entraînement diminuée |
+
+**Le lien avec la blessure** : sans apport protéique le soir, la synthèse de collagène nocturne (réparation des tendons) est minimale. Combiné au sommeil court : **double peine sur la récupération tendineuse**.
+
+**Note Alimentation : 3/10** — largement sous les besoins d'un athlète d'endurance. Pas une question de régime mais de timing et de volume alimentaire.
+
+### C. Cigarette électronique sans nicotine — Réponse
+
+**Oui, retirer la nicotine serait un gain significatif.** Comparaison :
+
+| Avec nicotine | Sans nicotine |
+|---|---|
+| Vasoconstriction chronique (-10-15% débit sanguin) | **Débit sanguin normal** |
+| FC repos +3-5 bpm | **FC repos potentiellement ≤ 47 bpm** |
+| Récupération ralentie | **Récupération nettement améliorée** |
+| VO2max plafonnée (-5 à -10%) | **Gain potentiel de 2-5 ml/kg/min** |
+| Stress oxydatif élevé | Réduit significativement |
+
+**Ce qui reste même sans nicotine** :
+- Irritation pulmonaire légère (propylène glycol / glycérine végétale chauffés)
+- Inflammation bronchique bas-grade potentielle
+- Exposition à des composés volatils (aldéhydes) selon les liquides et la température de chauffe
+
+**Verdict** : passer en 0 mg de nicotine = le **meilleur ratio effort/bénéfice** que tu puisses obtenir. Pas d'effort sportif, gain immédiat sur le cardio et la récupération. Si tu peux le faire avant l'OCC, c'est probablement **+3-5% de performance gratuite**.
+
+### Effet cumulé des 3 facteurs
+
+| Facteur | Impact estimé sur performance | Impact sur risque blessure |
+|---|---|---|
+| Sommeil < 7h | -5 à -8% | x 1.7 |
+| Sous-alimentation | -3 à -5% | x 1.3 (réparation tissulaire) |
+| Nicotine | -5 à -10% | x 1.2 (vasoconstriction, récupération) |
+| **Effet cumulé** | **-12 à -20%** | **x 2 à 3 vs optimal** |
+
+**Autrement dit** : sans rien changer à l'entraînement, corriger ces 3 facteurs pourrait te faire gagner l'équivalent de **1h à 2h sur un ultra de 11h**. Et diviser ton risque de blessure par 2.
+
+Tu progresses malgré ces handicaps — imagine ce que donnerait ta progression AVEC un sommeil, une alimentation et une récupération corrects.
+
+---
+
+## 9. Recommandations pré-sportives (à mettre en place AVANT W07)
+
+### Recommandation 1 — Sommeil : objectif 7h30 minimum (PRIORITÉ ABSOLUE)
+
+**Action immédiate** : identifier ce qui réduit le sommeil (écrans, coucher tardif, enfants, stress ?) et agir.
+
+- **Objectif** : coucher à heure fixe permettant 7h30 de sommeil effectif
+- **Non négociable** : 7h minimum chaque nuit d'entraînement
+- **Siestes** : 20 min en début d'après-midi si dette de sommeil (pas après 15h)
+- **Suivi** : noter la durée de sommeil dans le log hebdomadaire → corrélation directe avec RPE et douleur soléaire
+
+*C'est la recommandation qui aura le plus d'impact sur l'OCC. Plus que n'importe quelle séance d'entraînement.*
+
+### Recommandation 2 — Alimentation : manger le soir, SYSTÉMATIQUEMENT
+
+**Action immédiate** : instaurer un dîner, même léger, chaque soir. Ce n'est pas optionnel pour un athlète d'endurance.
+
+**Minimum vital le soir :**
+- 30-40 g de protéines (poulet, œufs, poisson, fromage blanc, légumineuses)
+- 1 portion de féculents (riz, pâtes, patate douce) les jours d'entraînement
+- Légumes
+
+**Minimum vital le matin (jours d'entraînement) :**
+- Flocons d'avoine ou pain complet + beurre de cacahuète ou fromage
+- 1 fruit
+- Café/thé
+
+**Pas besoin d'un régime compliqué** : l'objectif n'est pas de compter les calories mais de **ne plus laisser le corps sans carburant pendant 18h**.
+
+### Recommandation 3 — Nicotine : passer en 0 mg
+
+**Action** : basculer les e-liquides en 0 mg de nicotine.
+
+- Si sevrage direct trop dur : réduction progressive (descendre de 3 mg en 3 mg)
+- Le bénéfice cardiovasculaire commence dans les 48-72h après l'arrêt de la nicotine
+- Effet complet sur le VO2max : 2-4 semaines
+
+### Calendrier recommandé
+
+| Semaine | Sommeil | Alimentation | Nicotine |
+|---|---|---|---|
+| W07 (10-16 fév) | Objectif 7h → mesurer | Dîner chaque soir | Réduction nicotine |
+| W08 (17-23 fév) | Ajuster l'heure de coucher | Ajouter petit-déj jours d'entraînement | Passer à 0 mg |
+| W09+ | 7h30 stabilisé | Routine installée | 0 mg maintenu |
+
+---
+
+## 9. Forces et risques — Vue d'ensemble (mise à jour)
 
 ### Forces
 

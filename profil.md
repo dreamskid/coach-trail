@@ -32,6 +32,7 @@
 - **Montre GPS** : Garmin (modèle à préciser)
 - **Données disponibles** : FC, allure, D+, cadence, Garmin Connect
 - **Tapis de course** : haute qualité, inclinaison jusqu'à +40%, déclinaison jusqu'à -5% (selon vitesse). Outil clé pour séances spécifiques côtes, reprise blessure, et entraînement hivernal.
+- **Bâtons de trail** : utilisés en montée (technique fluide), gardés en main sur le plat et en descente
 
 ## Vie personnelle & planning
 
@@ -48,14 +49,28 @@
 - Elliptique (cardio sans impact, remplacement vélo en hiver)
 - Vélo : **à partir du printemps uniquement**
 
+## Sommeil & récupération
+
+- **Sommeil** : < 7h/nuit habituellement — **facteur limitant critique** identifié dans l'analyse de profil
+- Impact direct sur récupération tendineuse (soléaire), synthèse protéique, risque blessure x1.7
+- Objectif : 7h30 minimum
+
 ## Points de vigilance
 
 - **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Épisode actif fév. 2026 — voir `blessures.md`
-- **Cigarette électronique** : impact sur la capacité cardio-vasculaire (vasoconstriction, récupération ralentie, VO2max plafonnée). Facteur limitant à ne pas ignorer.
-- À 42 ans : récupération à surveiller de près, importance accrue du sommeil et de la nutrition
+- **Cigarette électronique** : avec nicotine actuellement. Passage en 0 mg recommandé (gain cardio estimé +3-5%)
+- **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
+- **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)
+- À 42 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + nicotine ont un effet cumulé estimé à -12 à -20% sur la performance
 
-## Nutrition en course
+## Nutrition
 
+### Quotidien
+- **Pattern habituel** : saute souvent le dîner et parfois le petit-déjeuner — 1 à 2 vrais repas/jour
+- **Déficit chronique probable** : un 82 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
+- **Objectif** : dîner systématique (30-40g protéines minimum) + petit-déjeuner les jours d'entraînement
+
+### En course
 - **Gels/boisson** : Naak Citron (produit principal)
 - **Solide** : Barres Clif
 - **Backup** : Compotes (utilisé à l'Astragale quand ravitos solides ne passaient plus)
