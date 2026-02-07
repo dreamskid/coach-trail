@@ -7,7 +7,7 @@
 | 1 | Cabornis | 8 mars | 25 km | 1000 m | Trail court | **C** — Reprise / évaluation terrain |
 | 2 | MMT (Marathon Mistral Trail) | 26 avril | 51 km | 2500 m | Ultra court | **B** — Montée en charge, gestion effort long |
 | 3 | Marathon-eXpérience | 31 mai | 42 km | 1800 m | Marathon trail | **B** — Travail allure, gestion ravitaillement |
-| 4 | Monistrail | 14 juin | 55 km | 2100 m | Ultra court | **B** — Répétition format OCC, dernière grosse course avant affûtage |
+| 4 | Monistrail (Trail du Saint-Jacques UTMB) | 14 juin | ~53 km | ~1810 m | Ultra 50K | **B** — Même course qu'en 2025 (UTMB 451). Dernière grosse avant affûtage |
 | 5 | **OCC** | **27 août** | **57 km** | **3500 m** | **Ultra** | **A — OBJECTIF PRINCIPAL** |
 
 ### Classification

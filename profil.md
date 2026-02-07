@@ -22,8 +22,9 @@
 - **Niveau** : Confirmé (3+ ans de trail, 27+ courses depuis 2022)
 - **Volume habituel** : 60-100 km/semaine
 - **Disciplines** : Trail court à ultra (max 66 km — Astragale 2025)
-- **Indice BeTrail** : ~40-44 (pic), progression constante depuis 2022
-- **Expérience UTMB** : MCC 2024 (Chamonix), Saint-Jacques 2023 et 2025, Nice CdA 2025
+- **UTMB Index** : 20K = 446, 50K = 437. Pic à 451 (Bel'Montaise + Saint-Jacques 50K)
+- **Running Stones** : 4 (Nice CdA, Saint-Jacques x2, ETC Chamonix)
+- **Expérience UTMB** : ETC 2024 (Chamonix), Saint-Jacques 2023 et 2025, Nice CdA 2025
 - **Historique complet** : voir `courses/historique-courses.md`
 
 ## Équipement
