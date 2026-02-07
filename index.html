@@ -460,6 +460,30 @@
         }
         .day-check .check-icon { font-size: 14px; }
 
+        /* ===== SAVE CHECKS BUTTON ===== */
+        .save-checks-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 24px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+            transition: all 0.3s;
+            transform: translateY(80px);
+            opacity: 0;
+            z-index: 100;
+        }
+        .save-checks-btn.visible { transform: translateY(0); opacity: 1; }
+        .save-checks-btn:hover { opacity: 0.9; }
+        .save-checks-btn:disabled { opacity: 0.5; cursor: wait; }
+
         /* ===== ANALYSE TAB ===== */
         .analyse-kpi-grid {
             display: grid;
@@ -1835,16 +1859,23 @@ function matchWeekActivities(activities) {
 loadActivities();
 
 // ===== MANUAL CHECKS (renfo/iso/PPG) =====
+let _coachLogDaily = [];
+let _checksDirty = false;
+
 function initManualChecks() {
     document.querySelectorAll('.week-day[data-checks]').forEach(dayEl => {
         const date = dayEl.dataset.date;
         const items = dayEl.dataset.checks.split(',').map(s => s.trim()).filter(Boolean);
         const container = dayEl.querySelector('.day-checks');
         if (!container || items.length === 0) return;
+        container.innerHTML = '';
+
+        const coachEntry = _coachLogDaily.find(d => d.date === date);
+        const coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
 
         items.forEach(item => {
             const key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
-            const isChecked = localStorage.getItem(key) === '1';
+            const isChecked = coachChecks ? !!coachChecks[item] : localStorage.getItem(key) === '1';
 
             const chip = document.createElement('span');
             chip.className = 'day-check' + (isChecked ? ' checked' : '');
@@ -1854,10 +1885,101 @@ function initManualChecks() {
                 this.classList.toggle('checked', nowChecked);
                 this.querySelector('.check-icon').textContent = nowChecked ? '\u2713' : '\u25CB';
                 localStorage.setItem(key, nowChecked ? '1' : '0');
+                _checksDirty = true;
+                showSaveChecksBtn();
             });
 
             container.appendChild(chip);
         });
+    });
+}
+
+function showSaveChecksBtn() {
+    var btn = document.getElementById('save-checks-btn');
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'save-checks-btn';
+        btn.className = 'save-checks-btn';
+        btn.textContent = 'Sauvegarder';
+        btn.onclick = saveChecksToGitHub;
+        document.body.appendChild(btn);
+    }
+    setTimeout(function() { btn.classList.add('visible'); }, 10);
+}
+
+function collectAllChecks() {
+    var result = {};
+    document.querySelectorAll('.week-day[data-checks]').forEach(function(dayEl) {
+        var date = dayEl.dataset.date;
+        var checks = {};
+        dayEl.querySelectorAll('.day-check').forEach(function(chip) {
+            var name = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '');
+            checks[name] = chip.classList.contains('checked');
+        });
+        result[date] = checks;
+    });
+    return result;
+}
+
+function saveChecksToGitHub() {
+    var token = getSyncToken();
+    if (!token) { showTokenModal(); return; }
+
+    var btn = document.getElementById('save-checks-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sauvegarde...';
+
+    var allChecks = collectAllChecks();
+    var repo = SYNC_REPO;
+    var filePath = 'data/coach-log.json';
+
+    // 1. Read current file from GitHub
+    fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(file) {
+        var content = JSON.parse(atob(file.content));
+        var sha = file.sha;
+
+        // 2. Merge checks into daily entries
+        Object.keys(allChecks).forEach(function(date) {
+            var entry = content.daily.find(function(d) { return d.date === date; });
+            if (entry) {
+                entry.checks = allChecks[date];
+            } else {
+                content.daily.push({ date: date, checks: allChecks[date] });
+                content.daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
+            }
+        });
+
+        // 3. Write back
+        var newContent = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2) + '\n')));
+        return fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: 'Update checks', content: newContent, sha: sha })
+        });
+    })
+    .then(function(r) {
+        if (r.ok) {
+            btn.textContent = 'OK !';
+            btn.style.background = 'var(--green-dark)';
+            _checksDirty = false;
+            setTimeout(function() { btn.classList.remove('visible'); }, 1500);
+        } else {
+            return r.json().then(function(e) { throw new Error(e.message); });
+        }
+    })
+    .catch(function(err) {
+        btn.textContent = 'Erreur';
+        btn.style.background = 'var(--red)';
+        console.error('Save checks error:', err);
+        setTimeout(function() {
+            btn.textContent = 'Sauvegarder';
+            btn.style.background = '';
+            btn.disabled = false;
+        }, 2000);
     });
 }
 
@@ -2412,6 +2534,16 @@ function loadCoachLog() {
         .then(data => {
             const daily = data.daily || [];
             const lt = data.longterm || {};
+
+            // Sync token from coach-log (cross-device)
+            if (data.settings && data.settings.gh_sync_token_b64 && !getSyncToken()) {
+                try { setSyncToken(atob(data.settings.gh_sync_token_b64)); } catch(e) {}
+            }
+
+            // Feed manual checks from coach-log and re-render
+            _coachLogDaily = daily;
+            initManualChecks();
+
             if (daily.length === 0) return;
 
             // Latest entry
