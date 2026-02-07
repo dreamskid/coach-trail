@@ -2846,8 +2846,11 @@ function loadCoachLog() {
 
             if (daily.length === 0) return;
 
-            // Latest entry
-            const latest = daily[daily.length - 1];
+            // Today's entry, or most recent past entry
+            const todayISO = new Date().toISOString().slice(0, 10);
+            const todayEntry = daily.find(function(d) { return d.date === todayISO; });
+            const pastEntries = daily.filter(function(d) { return d.date <= todayISO; });
+            const latest = todayEntry || (pastEntries.length > 0 ? pastEntries[pastEntries.length - 1] : daily[0]);
 
             // Date
             const dateEl = document.getElementById('analyse-date');
@@ -2859,7 +2862,7 @@ function loadCoachLog() {
             // Phase badge
             const phaseEl = document.getElementById('analyse-phase');
             if (phaseEl && latest.phase) {
-                const dayNum = daily.length;
+                const dayNum = pastEntries.length;
                 phaseEl.textContent = 'JOUR ' + dayNum + ' ' + latest.phase.toUpperCase();
             }
 
@@ -2895,6 +2898,25 @@ function loadCoachLog() {
             setHygieneCheck('hyg-diner', latest.diner);
             setHygieneCheck('hyg-nicotine', !latest.nicotine);
             setHygieneCheck('hyg-hydratation', latest.hydratation);
+
+            // Seance du jour (from Programme tab)
+            const seanceEl = document.getElementById('analyse-seance');
+            if (seanceEl) {
+                const todayDay = document.querySelector('.week-day[data-date="' + todayISO + '"] .day-details');
+                const todayExercises = document.querySelector('.today-card[data-date="' + todayISO + '"] .today-exercises');
+                if (todayDay) {
+                    seanceEl.innerHTML = todayDay.innerHTML;
+                } else if (todayExercises) {
+                    var exHtml = '';
+                    todayExercises.querySelectorAll('.exercise-card').forEach(function(card) {
+                        var name = card.querySelector('.exercise-name');
+                        var detail = card.querySelector('.exercise-detail');
+                        if (name) exHtml += '<strong style="color:var(--text);">' + name.textContent + '</strong><br>';
+                        if (detail) exHtml += detail.innerHTML + '<br><br>';
+                    });
+                    seanceEl.innerHTML = exHtml;
+                }
+            }
 
             // Verdict
             const verdictEl = document.getElementById('analyse-verdict');
