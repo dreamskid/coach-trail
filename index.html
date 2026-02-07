@@ -1050,8 +1050,9 @@ const SVG = {
 };
 
 const TYPES = {
-    'Run':            { icon: 'run',     iconClass: 'run',        label: 'COURSE',       color: 'var(--green)' },
     'TrailRun':       { icon: 'trail',   iconClass: 'trail',      label: 'TRAIL',        color: 'var(--orange)' },
+    'Run':            { icon: 'run',     iconClass: 'run',        label: 'COURSE',       color: 'var(--green)' },
+    'Treadmill':      { icon: 'run',     iconClass: 'elliptical', label: 'TAPIS',        color: 'var(--purple)' },
     'Walk':           { icon: 'walk',    iconClass: 'walk',       label: 'MARCHE',       color: 'var(--yellow)' },
     'Hike':           { icon: 'walk',    iconClass: 'walk',       label: 'RANDO',        color: 'var(--yellow)' },
     'Swim':           { icon: 'swim',    iconClass: 'swim',       label: 'NATATION',     color: 'var(--cyan)' },
@@ -1059,6 +1060,28 @@ const TYPES = {
     'WeightTraining': { icon: 'workout', iconClass: 'workout',    label: 'MUSCU',        color: 'var(--orange)' },
     'Workout':        { icon: 'workout', iconClass: 'workout',    label: 'PPG',          color: 'var(--orange)' },
 };
+
+function detectType(act) {
+    const st = act.sport_type || act.type;
+    // Treadmill detection: Run with D+=0, or named "My Workout"/"Manual Workout"
+    if (st === 'Run') {
+        const name = (act.name || '').toLowerCase();
+        const isTreadmill = act.total_elevation_gain === 0
+            || name.includes('workout')
+            || name.includes('tapis')
+            || name.includes('treadmill');
+        if (isTreadmill) return 'Treadmill';
+    }
+    return st;
+}
+
+function fmtSwimPace(distance, movingTime) {
+    if (!distance || distance === 0) return '-';
+    const secPer100 = movingTime / (distance / 100);
+    const min = Math.floor(secPer100 / 60);
+    const sec = Math.round(secPer100 % 60);
+    return min + ':' + String(sec).padStart(2, '0') + '/100m';
+}
 
 // FC zones for coloring
 const FC_ZONES = [
@@ -1111,11 +1134,12 @@ function loadActivities() {
             let currentDate = '';
 
             activities.forEach(act => {
-                const st = act.sport_type || act.type;
-                const t = TYPES[st] || TYPES[act.type] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
+                const st = detectType(act);
+                const t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
                 const dist = (act.distance / 1000).toFixed(1);
                 const elev = Math.round(act.total_elevation_gain || 0);
-                const isRun = st === 'Run' || st === 'TrailRun';
+                const isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
+                const isSwim = st === 'Swim';
                 const zone = getZone(act.average_heartrate);
                 const dateKey = fmtDate(act.start_date_local);
 
@@ -1139,6 +1163,7 @@ function loadActivities() {
                     stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
                 }
                 if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
+                if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
 
                 list.innerHTML +=
                     '<div class="activity-card">' +
