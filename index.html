@@ -346,6 +346,58 @@
             letter-spacing: 0.5px;
         }
 
+        /* ===== SYNC BUTTON ===== */
+        .sync-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-top: 6px;
+        }
+        .sync-btn:hover { background: var(--bg-card-alt); color: var(--text); border-color: var(--accent); }
+        .sync-btn.syncing { color: var(--accent-light); border-color: var(--accent); cursor: wait; }
+        .sync-btn.syncing svg { animation: spin 1s linear infinite; }
+        .sync-btn.stale { border-color: var(--orange); color: var(--orange); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .sync-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); display: flex; align-items: center;
+            justify-content: center; z-index: 1000;
+        }
+        .sync-modal-box {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 24px; max-width: 480px; width: 90%;
+        }
+        .sync-modal-box h3 { font-size: 16px; margin-bottom: 12px; }
+        .sync-modal-box input {
+            width: 100%; padding: 10px 12px; border-radius: 8px;
+            border: 1px solid var(--border); background: var(--bg-card-alt);
+            color: var(--text); font-size: 13px; font-family: monospace;
+            margin: 8px 0 16px;
+        }
+        .sync-modal-box input:focus { outline: none; border-color: var(--accent); }
+        .sync-modal-btn {
+            padding: 8px 20px; border-radius: 8px; border: none;
+            background: var(--accent); color: #fff; font-weight: 600;
+            font-size: 13px; cursor: pointer; font-family: inherit;
+        }
+        .sync-modal-btn:hover { background: var(--accent-light); }
+        .sync-modal-cancel {
+            padding: 8px 20px; border-radius: 8px; border: 1px solid var(--border);
+            background: none; color: var(--text-muted); font-weight: 600;
+            font-size: 13px; cursor: pointer; margin-left: 8px; font-family: inherit;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             text-align: center; padding: 30px 0 20px; color: var(--text-muted);
@@ -371,9 +423,13 @@
         <p style="color: var(--text-muted); margin-top: 2px; font-size: 13px;">Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+</p>
     </div>
     <div class="header-meta">
-        <div class="update">Mise a jour : 7 fevrier 2026</div>
+        <div class="update" id="header-update">Mise a jour : 7 fevrier 2026</div>
         <div>J-201 avant l'OCC</div>
         <div>Bloc 0 — Reprise & Soin</div>
+        <button class="sync-btn" id="sync-btn" onclick="handleSync()" title="Synchroniser les donnees Strava + Garmin">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+            <span id="sync-label">Sync</span>
+        </button>
     </div>
 </header>
 
@@ -1717,6 +1773,154 @@ function findLatest(days, key) {
 }
 
 loadGarminData();
+
+// ===== SYNC BUTTON =====
+const SYNC_REPO = 'dreamskid/coach-trail';
+const SYNC_WORKFLOW = 'sync-strava.yml';
+const SYNC_STALE_HOURS = 6;
+
+function getSyncToken() { return localStorage.getItem('gh_sync_token'); }
+function setSyncToken(t) { localStorage.setItem('gh_sync_token', t); }
+
+function handleSync() {
+    const token = getSyncToken();
+    if (!token) {
+        showTokenModal();
+    } else {
+        triggerSync(token);
+    }
+}
+
+function showTokenModal() {
+    const modal = document.createElement('div');
+    modal.className = 'sync-modal';
+    modal.id = 'sync-modal';
+    modal.innerHTML =
+        '<div class="sync-modal-box">' +
+            '<h3>Configuration Sync (une seule fois)</h3>' +
+            '<p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">' +
+                'Pour synchroniser depuis le navigateur, il faut un <strong>GitHub Personal Access Token</strong> avec le scope <code>actions:write</code>.' +
+            '</p>' +
+            '<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">' +
+                '1. Va sur <strong>github.com &rarr; Settings &rarr; Developer settings &rarr; Fine-grained tokens</strong><br>' +
+                '2. Cree un token avec acces au repo <strong>' + SYNC_REPO + '</strong><br>' +
+                '3. Permission : <strong>Actions: Read & Write</strong><br>' +
+                '4. Colle le token ci-dessous' +
+            '</p>' +
+            '<input type="password" id="sync-token-input" placeholder="github_pat_xxxxxxxxxxxx...">' +
+            '<div>' +
+                '<button class="sync-modal-btn" onclick="saveTokenAndSync()">Enregistrer et Sync</button>' +
+                '<button class="sync-modal-cancel" onclick="closeTokenModal()">Annuler</button>' +
+            '</div>' +
+            '<p style="font-size:11px;color:var(--text-muted);margin-top:12px;">Le token reste dans ton navigateur (localStorage). Jamais envoye ailleurs que github.com.</p>' +
+        '</div>';
+    document.body.appendChild(modal);
+    document.getElementById('sync-token-input').focus();
+}
+
+function closeTokenModal() {
+    const m = document.getElementById('sync-modal');
+    if (m) m.remove();
+}
+
+function saveTokenAndSync() {
+    const input = document.getElementById('sync-token-input');
+    const token = input.value.trim();
+    if (!token) return;
+    setSyncToken(token);
+    closeTokenModal();
+    triggerSync(token);
+}
+
+function triggerSync(token) {
+    const btn = document.getElementById('sync-btn');
+    const label = document.getElementById('sync-label');
+    btn.classList.add('syncing');
+    btn.classList.remove('stale');
+    label.textContent = 'Sync...';
+
+    fetch('https://api.github.com/repos/' + SYNC_REPO + '/actions/workflows/' + SYNC_WORKFLOW + '/dispatches', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+        },
+        body: JSON.stringify({ ref: 'main' }),
+    })
+    .then(r => {
+        if (r.status === 204) {
+            label.textContent = 'Lance !';
+            startSyncCountdown(40);
+        } else if (r.status === 401 || r.status === 403) {
+            label.textContent = 'Token invalide';
+            btn.classList.remove('syncing');
+            localStorage.removeItem('gh_sync_token');
+            setTimeout(() => { label.textContent = 'Sync'; }, 3000);
+        } else {
+            r.text().then(t => console.error('Sync error:', r.status, t));
+            label.textContent = 'Erreur ' + r.status;
+            btn.classList.remove('syncing');
+            setTimeout(() => { label.textContent = 'Sync'; }, 3000);
+        }
+    })
+    .catch(e => {
+        console.error('Sync fetch error:', e);
+        label.textContent = 'Erreur reseau';
+        btn.classList.remove('syncing');
+        setTimeout(() => { label.textContent = 'Sync'; }, 3000);
+    });
+}
+
+function startSyncCountdown(seconds) {
+    const label = document.getElementById('sync-label');
+    const btn = document.getElementById('sync-btn');
+    let remaining = seconds;
+
+    const interval = setInterval(() => {
+        remaining--;
+        label.textContent = remaining + 's...';
+        if (remaining <= 0) {
+            clearInterval(interval);
+            label.textContent = 'Reload...';
+            // Reload data without full page refresh
+            loadActivities();
+            loadGarminData();
+            setTimeout(() => {
+                btn.classList.remove('syncing');
+                label.textContent = 'Sync';
+                updateSyncStatus();
+            }, 2000);
+        }
+    }, 1000);
+}
+
+function updateSyncStatus() {
+    fetch('data/garmin-wellness.json')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+            if (!data || !data.summary || !data.summary.last_sync) return;
+            const lastSync = new Date(data.summary.last_sync.replace(' ', 'T'));
+            const now = new Date();
+            const diffH = (now - lastSync) / (1000 * 60 * 60);
+            const btn = document.getElementById('sync-btn');
+            const label = document.getElementById('sync-label');
+            const headerUpdate = document.getElementById('header-update');
+
+            if (headerUpdate) {
+                const syncDate = lastSync.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+                const syncTime = lastSync.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                headerUpdate.textContent = 'Mise a jour : ' + syncDate + ' a ' + syncTime;
+            }
+
+            if (diffH > SYNC_STALE_HOURS && !btn.classList.contains('syncing')) {
+                btn.classList.add('stale');
+                label.textContent = 'Sync (' + Math.round(diffH) + 'h)';
+            }
+        })
+        .catch(() => {});
+}
+
+updateSyncStatus();
 </script>
 
 </body>
