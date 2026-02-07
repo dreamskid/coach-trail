@@ -6,6 +6,9 @@
     <meta name="theme-color" content="#0f1117">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Coach Trail — Yohann Tschudi — OCC 2026</title>
     <style>
         :root {
@@ -36,6 +39,7 @@
             color: var(--text);
             line-height: 1.6;
             padding: 0;
+            overflow-x: hidden;
         }
 
         /* ===== HEADER ===== */
@@ -405,12 +409,129 @@
             margin: 40px 24px 0; max-width: 1400px;
         }
 
+        /* ===== WEEK MATCH ===== */
+        .day-match {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        .day-match-done {
+            background: #0a1a0f;
+            border: 1px solid var(--green-dark);
+            border-radius: 6px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .day-match-miss {
+            background: #1c1012;
+            border: 1px solid var(--red-dark);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--red);
+        }
+        .day-match-future {
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 4px 0;
+        }
+
+        .day-checks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .day-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            transition: all 0.15s;
+        }
+        .day-check:hover { border-color: var(--accent); }
+        .day-check.checked {
+            background: #0a1a0f;
+            border-color: var(--green-dark);
+            color: var(--green);
+        }
+        .day-check .check-icon { font-size: 14px; }
+
+        /* ===== ANALYSE TAB ===== */
+        .analyse-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .analyse-kpi {
+            background: var(--bg-card-alt);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+        .analyse-kpi-value { font-size: 24px; font-weight: 800; line-height: 1.2; }
+        .analyse-kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+        .hygiene-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .hygiene-item {
+            background: var(--bg-card-alt);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .hygiene-item .check { font-size: 18px; display: block; margin-bottom: 2px; }
+
+        .trend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .mini-spark {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 60px;
+            padding: 0 2px;
+        }
+        .mini-spark .dot {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            min-width: 6px;
+            transition: opacity 0.15s;
+        }
+        .mini-spark .dot:hover { opacity: 0.7; }
+
+        .trajectory-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+        .trajectory-item:last-child { border-bottom: none; }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
+            body { overflow-x: hidden; }
             .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
+            .analyse-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .hygiene-grid { grid-template-columns: repeat(2, 1fr); }
+            .trend-grid { grid-template-columns: 1fr; }
             header { flex-direction: column; gap: 8px; }
             .header-meta { text-align: left; }
             .tab-btn { padding: 10px 14px; font-size: 12px; }
+            table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
     </style>
 </head>
@@ -436,12 +557,13 @@
 <!-- ===== TAB BAR ===== -->
 <nav class="tab-bar">
     <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
+    <button class="tab-btn" data-tab="health">Sante</button>
+    <button class="tab-btn" data-tab="activities">Activites</button>
     <button class="tab-btn" data-tab="week">Semaine</button>
     <button class="tab-btn" data-tab="injury">Blessure</button>
-    <button class="tab-btn" data-tab="health">Sante</button>
+    <button class="tab-btn" data-tab="analyse">Analyse</button>
     <button class="tab-btn" data-tab="calendar">Calendrier</button>
     <button class="tab-btn" data-tab="progress">Progression</button>
-    <button class="tab-btn" data-tab="activities">Activites</button>
 </nav>
 
 <!-- ======================================================================== -->
@@ -462,14 +584,14 @@
             <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-vo2max-sub">Garmin · 07/02/2026</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big text-red" id="kpi-sleep">6h03</div>
-            <div class="stat-label">Sommeil moyen /nuit</div>
-            <div style="font-size:12px; color: var(--red); margin-top:4px;" id="kpi-sleep-sub">Objectif : 7h30</div>
+            <div class="stat-big text-green" id="kpi-week-km">--</div>
+            <div class="stat-label">Km cette semaine</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-week-km-sub">Chargement...</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big text-orange">82<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
-            <div class="stat-label">Poids</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">184 cm · IMC 24.2</div>
+            <div class="stat-big text-orange" id="kpi-week-elev">--</div>
+            <div class="stat-label">D+ cette semaine</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-week-elev-sub">Chargement...</div>
         </div>
     </div>
 
@@ -523,75 +645,6 @@
         </div>
     </div>
 
-    <!-- Recommandations -->
-    <div class="section-title">Recommandations <span>prioritaires</span></div>
-
-    <div class="note-box">
-        <strong>Effet cumule estime des facteurs limitants hors entrainement : -12 a -20% de performance, risque blessure x2-3.</strong><br>
-        Corriger ces facteurs = gain equivalent a 1h-2h sur l'OCC, sans aucune seance supplementaire.
-    </div>
-
-    <div class="grid grid-3">
-        <div class="card">
-            <div class="reco-item reco-critical">
-                <div class="reco-title">Sommeil : objectif 7h30</div>
-                <div class="reco-text">
-                    Actuellement <strong>6h03/nuit</strong>. Facteur limitant n1.<br>
-                    Risque blessure x1.7. Synthese collagene tronquee. VO2max -3 a -5%.<br><br>
-                    <strong>Actions :</strong><br>
-                    · Coucher a heure fixe (22h30 max)<br>
-                    · Pas d'ecran 30 min avant<br>
-                    · Sieste 20 min si dette<br>
-                    · Suivi quotidien Fenix 7 Pro
-                </div>
-            </div>
-            <div style="margin-top: 12px;">
-                <div class="stat-row"><span class="label">Actuel</span><span class="value text-red">6h03</span></div>
-                <div class="stat-row"><span class="label">Objectif S1</span><span class="value text-orange">7h00</span></div>
-                <div class="stat-row"><span class="label">Objectif S2+</span><span class="value text-green">7h30</span></div>
-                <div class="progress-bar"><div class="fill" style="width: 40%; background: var(--red);"></div></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="reco-item reco-important">
-                <div class="reco-title">Alimentation : manger le soir</div>
-                <div class="reco-text">
-                    Saute diner + souvent petit-dej. Deficit proteique chronique.<br>
-                    Besoin : 2800-3500 kcal/j. Proteines : 115-148 g/j.<br><br>
-                    <strong>Actions :</strong><br>
-                    · Diner CHAQUE soir (30-40g proteines min.)<br>
-                    · Petit-dej jours d'entrainement<br>
-                    · Post-entrainement : proteines dans les 30 min<br>
-                    · Hydratation 2-2.5L/jour
-                </div>
-            </div>
-            <div style="margin-top: 12px;">
-                <div class="stat-row"><span class="label">Diner</span><span class="value text-red">Irregulier</span></div>
-                <div class="stat-row"><span class="label">Petit-dej</span><span class="value text-orange">Parfois</span></div>
-                <div class="stat-row"><span class="label">Objectif</span><span class="value text-green">3 repas/j</span></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="reco-item reco-positive">
-                <div class="reco-title">Nicotine : arret le 7 fevrier</div>
-                <div class="reco-text">
-                    <strong>Passage a 0 mg ce jour.</strong><br>
-                    Gain attendu : FC repos -3-5 bpm, VO2max +2-5 ml/kg/min, recuperation amelioree.<br><br>
-                    <strong>Calendrier :</strong><br>
-                    · 48-72h : vasoconstriction disparait<br>
-                    · 2-4 semaines : effet complet VO2max<br>
-                    · E-cigarette sans nicotine : OK
-                </div>
-            </div>
-            <div style="margin-top: 12px;">
-                <div class="stat-row"><span class="label">Nicotine</span><span class="value text-green">0 mg depuis 07/02</span></div>
-                <div class="stat-row"><span class="label">Gain FC repos</span><span class="value text-cyan">42-44 bpm</span></div>
-                <div class="stat-row"><span class="label">Gain VO2max</span><span class="value text-cyan">48-50 ml/kg/min</span></div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- ======================================================================== -->
@@ -612,7 +665,7 @@
             <strong>Priorite :</strong> Debut du travail de soin soleaire + maintien cardio cross-training.
         </div>
 
-        <div class="week-day" style="border-left: 3px solid var(--accent);">
+        <div class="week-day" style="border-left: 3px solid var(--accent);" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
             <div class="day-header">
                 <span class="day-name">Samedi 7 — AUJOURD'HUI</span>
                 <span class="badge badge-blue">Cross + Protocole iso</span>
@@ -624,9 +677,11 @@
                 <strong>2. Elliptique ou Natation</strong> — 45-60 min <span class="text-blue">Z1 (112-125 bpm)</span><br><br>
                 <strong>3. PPG haut du corps</strong> (si temps) — 20 min : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
             <div class="day-header">
                 <span class="day-name">Dimanche 8</span>
                 <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
@@ -635,6 +690,8 @@
                 <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
                 Protocole iso mollets (meme chose qu'hier)
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
     </div>
 
@@ -679,7 +736,7 @@
         </div>
 
         <!-- Planning jour par jour -->
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-10" data-checks="Iso mollets">
             <div class="day-header">
                 <span class="day-name">Lundi 10</span>
                 <span class="badge badge-green">Marche active</span>
@@ -689,9 +746,11 @@
                 <span class="text-blue">Z1 (112-125 bpm)</span> · 1h00 · Creneau midi<br>
                 Protocole iso mollets en fin de seance. Pas de trot.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-11" data-checks="PPG haut du corps,Iso mollets">
             <div class="day-header">
                 <span class="day-name">Mardi 11</span>
                 <span class="badge badge-blue">Elliptique + PPG</span>
@@ -701,9 +760,11 @@
                 Pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote, superman 3x10<br>
                 Protocole iso mollets apres.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-12" data-checks="Iso mollets">
             <div class="day-header">
                 <span class="day-name">Mercredi 12</span>
                 <span class="badge badge-purple">Natation</span>
@@ -713,9 +774,11 @@
                 Crawl principal. Battements moderes — pullbuoy si gene mollet.<br>
                 Protocole iso mollets le soir.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-13" data-checks="Test phase 2">
             <div class="day-header">
                 <span class="day-name">Jeudi 13</span>
                 <span class="badge badge-blue">Elliptique + Test phase 2</span>
@@ -725,9 +788,11 @@
                 <strong style="color: var(--yellow);">Test passage phase 2 :</strong> mollet unipodal G x 15 reps lentes.<br>
                 Si 0 gene : <span class="text-green">excentrique Stanish</span> (3x10 reps, descente 5s). Sinon : rester phase 1.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-14" data-checks="Iso / excentriques">
             <div class="day-header">
                 <span class="day-name">Vendredi 14</span>
                 <span class="badge badge-green">Marche active</span>
@@ -737,9 +802,11 @@
                 <span class="text-blue">Z1 (112-125 bpm)</span> · Creneau midi<br>
                 Tester sensations mollet en montee marchee. Protocole iso ou excentriques selon jeudi.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day" style="border-left: 3px solid var(--red);">
+        <div class="week-day" style="border-left: 3px solid var(--red);" data-date="2026-02-15" data-checks="PPG complete,Retest saut unipodal">
             <div class="day-header">
                 <span class="day-name">Samedi 15</span>
                 <span class="badge badge-red">RETEST + Double seance</span>
@@ -750,9 +817,11 @@
                 <span class="text-muted">Resultat 7 fev : 4-5/10. Si 2/10 ou moins : footing envisageable W08. Si 3+ : on continue phase 1-2.</span><br>
                 <strong style="color: var(--orange);">Point de decision Cabornis (8 mars)</strong>
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
 
-        <div class="week-day">
+        <div class="week-day" data-date="2026-02-16" data-checks="Iso / excentriques">
             <div class="day-header">
                 <span class="day-name">Dimanche 16</span>
                 <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
@@ -761,6 +830,18 @@
                 <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> si Body Battery > 50<br>
                 Protocole iso/excentriques. Bilan de la semaine.
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <!-- Regularite -->
+        <div id="week-regularity" style="margin-top: 16px; padding: 14px; background: var(--bg-card-alt); border-radius: 8px; display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Regularite</span>
+                <span id="week-regularity-badge" class="badge badge-yellow">--</span>
+            </div>
+            <div class="progress-bar" style="height: 10px;"><div class="fill" id="week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>
+            <div id="week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>
         </div>
 
         <!-- Volume resume -->
@@ -930,14 +1011,14 @@
             <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-bb-detail">--</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big" id="health-vo2max" style="color: var(--text-muted);">--</div>
-            <div class="stat-label">VO2max</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">ml/kg/min</div>
+            <div class="stat-big text-red" id="health-sleep-avg">--</div>
+            <div class="stat-label">Sommeil moyen /nuit</div>
+            <div style="font-size:12px; color: var(--red); margin-top:4px;" id="health-sleep-avg-sub">Objectif : 7h30</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big" id="health-rhr" style="color: var(--text-muted);">--</div>
-            <div class="stat-label">FC repos</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-rhr-avg">--</div>
+            <div class="stat-big text-orange">82<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
+            <div class="stat-label">Poids</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">184 cm · IMC 24.2</div>
         </div>
     </div>
 
@@ -1035,6 +1116,130 @@
             <div class="mini-chart" id="chart-sleep"></div>
             <div class="mini-chart-labels" id="chart-sleep-labels"></div>
             <div id="chart-sleep-summary" style="margin-top: 12px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- TAB : ANALYSE (Coach check-in)                                           -->
+<!-- ======================================================================== -->
+<div id="analyse" class="tab-content">
+
+    <!-- SECTION 1 : Analyse instantanee -->
+    <div class="card" style="border-left: 3px solid var(--accent); margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 style="margin: 0;">Analyse du jour — <span id="analyse-date" style="color: var(--accent-light);">7 fevrier 2026</span></h2>
+            <span class="badge badge-blue" id="analyse-phase">JOUR 1 BLOC 0</span>
+        </div>
+
+        <!-- KPI grid -->
+        <div class="analyse-kpi-grid" id="analyse-kpi-grid">
+            <div class="analyse-kpi">
+                <div class="analyse-kpi-value" id="analyse-soleaire" style="color: var(--orange);">4-5/10</div>
+                <div class="analyse-kpi-label">Soleaire</div>
+            </div>
+            <div class="analyse-kpi">
+                <div class="analyse-kpi-value" id="analyse-rpe" style="color: var(--text-muted);">--</div>
+                <div class="analyse-kpi-label">RPE seance</div>
+            </div>
+            <div class="analyse-kpi">
+                <div class="analyse-kpi-value" id="analyse-sommeil" style="color: var(--red);">6h03</div>
+                <div class="analyse-kpi-label">Sommeil</div>
+            </div>
+            <div class="analyse-kpi">
+                <div class="analyse-kpi-value" id="analyse-bb" style="color: var(--green);">80</div>
+                <div class="analyse-kpi-label">Body Battery</div>
+            </div>
+        </div>
+
+        <!-- Seance du jour -->
+        <h3>Seance du jour</h3>
+        <div id="analyse-seance" style="font-size: 13px; color: var(--text-muted); padding: 8px 0;">
+            <strong style="color: var(--text);">Repos course</strong> — Cross-training uniquement<br>
+            Protocole iso mollets bilateral + unipodal. Elliptique ou natation Z1 si possible.
+        </div>
+
+        <!-- Hygiene de vie -->
+        <h3>Hygiene de vie</h3>
+        <div class="hygiene-grid" id="analyse-hygiene">
+            <div class="hygiene-item">
+                <span class="check" id="hyg-sommeil">&#x2717;</span>
+                <span>Sommeil &ge; 7h</span>
+            </div>
+            <div class="hygiene-item">
+                <span class="check" id="hyg-diner">&#x2717;</span>
+                <span>Diner</span>
+            </div>
+            <div class="hygiene-item">
+                <span class="check" id="hyg-nicotine">&#x2717;</span>
+                <span>0 nicotine</span>
+            </div>
+            <div class="hygiene-item">
+                <span class="check" id="hyg-hydratation">&#x2717;</span>
+                <span>Hydratation 2L</span>
+            </div>
+        </div>
+
+        <!-- Verdict coach -->
+        <div class="note-box" style="margin-top: 16px;" id="analyse-verdict">
+            <strong>Verdict coach :</strong> Jour 1 du protocole. Lance les isos bilateraux + unipodal, note la gene. Cross-training pour maintenir le cardio. Arret nicotine aujourd'hui — courage, les 48-72h les plus dures commencent.
+        </div>
+    </div>
+
+    <!-- SECTION 2 : Tendances & Trajectoire -->
+    <div class="section-title">Tendances & <span>Trajectoire</span></div>
+
+    <div class="trend-grid">
+        <!-- Soleaire evolution -->
+        <div class="card">
+            <h2>Evolution soleaire</h2>
+            <div class="mini-spark" id="trend-soleaire"></div>
+            <div class="mini-chart-labels" id="trend-soleaire-labels"></div>
+            <div id="trend-soleaire-summary" style="margin-top: 10px; font-size: 12px; color: var(--text-muted);"></div>
+        </div>
+
+        <!-- Hygiene de vie semaine -->
+        <div class="card">
+            <h2>Hygiene de vie — Semaine</h2>
+            <div id="trend-hygiene">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 12px;">
+                    Les donnees se rempliront au fil des check-ins quotidiens.
+                </div>
+            </div>
+        </div>
+
+        <!-- Volume hebdo -->
+        <div class="card">
+            <h2>Volume hebdomadaire</h2>
+            <div class="mini-spark" id="trend-volume"></div>
+            <div class="mini-chart-labels" id="trend-volume-labels"></div>
+            <div id="trend-volume-summary" style="margin-top: 10px; font-size: 12px; color: var(--text-muted);"></div>
+        </div>
+
+        <!-- Trajectoire OCC -->
+        <div class="card">
+            <h2>Trajectoire OCC</h2>
+            <div id="trend-trajectory">
+                <div class="trajectory-item">
+                    <span class="text-muted">Semaines restantes</span>
+                    <span class="text-bold text-blue" id="traj-weeks">29</span>
+                </div>
+                <div class="trajectory-item">
+                    <span class="text-muted">Phase actuelle</span>
+                    <span class="text-bold" id="traj-block">Bloc 0 — Reprise & Soin</span>
+                </div>
+                <div class="trajectory-item">
+                    <span class="text-muted">Prochaine course</span>
+                    <span class="text-bold" id="traj-next-race">Cabornis (8 mars)</span>
+                </div>
+                <div class="trajectory-item">
+                    <span class="text-muted">Statut</span>
+                    <span id="traj-status"><span class="badge badge-yellow">PHASE DE SOIN</span></span>
+                </div>
+            </div>
+            <div class="note-box" style="margin-top: 12px;" id="traj-note">
+                Phase de soin active. Pas encore en retard sur la preparation OCC. Le retest du 15 fevrier determinera la suite.
+            </div>
         </div>
     </div>
 </div>
@@ -1222,19 +1427,19 @@
 
         <table style="margin-top: 20px;">
             <tr><th>Course</th><th>Date</th><th>Distance</th><th>D+</th><th>Temps</th><th>Class.</th><th>UTMB Index</th></tr>
-            <tr><td>SainteLyon SaintExpress</td><td>11/2021</td><td>45.9 km</td><td>1000 m</td><td>7:29:00</td><td>2131/2405</td><td><span class="text-red">358</span></td></tr>
-            <tr><td>Coursieres 25</td><td>05/2023</td><td>25 km</td><td>990 m</td><td>4:28:57</td><td>331/343</td><td><span class="text-red">339</span></td></tr>
-            <tr><td>Saint-Jacques 20K</td><td>06/2023</td><td>18 km</td><td>600 m</td><td>2:36:21</td><td>634/772</td><td><span class="text-red">356</span></td></tr>
-            <tr><td>Veni Vici</td><td>11/2023</td><td>27.8 km</td><td>640 m</td><td>4:33:24</td><td>1880/1917</td><td><span class="text-red text-bold">305</span></td></tr>
-            <tr><td>Sanglier 15</td><td>03/2024</td><td>15 km</td><td>700 m</td><td>1:55:57</td><td>143/240</td><td><span class="text-yellow">419</span></td></tr>
-            <tr><td>Bel'Montaise 15</td><td>07/2024</td><td>15 km</td><td>600 m</td><td>1:34:00</td><td>81/138</td><td><span class="text-green text-bold">451</span></td></tr>
-            <tr><td>ETC UTMB (Chamonix)</td><td>08/2024</td><td>15 km</td><td>1200 m</td><td>3:09:30</td><td>636/1182</td><td><span class="text-orange">380</span></td></tr>
-            <tr><td>Veni Vici</td><td>11/2024</td><td>27.9 km</td><td>700 m</td><td>3:14:07</td><td>918/2054</td><td><span class="text-yellow">433</span></td></tr>
-            <tr><td>Beaujol'trail 32</td><td>05/2025</td><td>32 km</td><td>1410 m</td><td>4:20:05</td><td>162/211</td><td><span class="text-yellow">426</span></td></tr>
-            <tr><td class="text-bold">Saint-Jacques 50K</td><td>06/2025</td><td>52.8 km</td><td>1810 m</td><td>7:48:40</td><td>946/1665</td><td><span class="text-green text-bold">451</span></td></tr>
-            <tr><td>Nice CdA UTMB</td><td>09/2025</td><td>23 km</td><td>680 m</td><td>2:54:58</td><td>364/1209</td><td><span class="text-green">447</span></td></tr>
-            <tr><td>SainteSprint</td><td>11/2025</td><td>25 km</td><td>347 m</td><td>2:30:20</td><td>551/2561</td><td><span class="text-green">446</span></td></tr>
             <tr><td>Astragale (Templiers)</td><td>12/2025</td><td>65.8 km</td><td>2247 m</td><td>10:53:27</td><td>480/677</td><td><span class="text-yellow">422</span></td></tr>
+            <tr><td>SainteSprint</td><td>11/2025</td><td>25 km</td><td>347 m</td><td>2:30:20</td><td>551/2561</td><td><span class="text-green">446</span></td></tr>
+            <tr><td>Nice CdA UTMB</td><td>09/2025</td><td>23 km</td><td>680 m</td><td>2:54:58</td><td>364/1209</td><td><span class="text-green">447</span></td></tr>
+            <tr><td class="text-bold">Saint-Jacques 50K</td><td>06/2025</td><td>52.8 km</td><td>1810 m</td><td>7:48:40</td><td>946/1665</td><td><span class="text-green text-bold">451</span></td></tr>
+            <tr><td>Beaujol'trail 32</td><td>05/2025</td><td>32 km</td><td>1410 m</td><td>4:20:05</td><td>162/211</td><td><span class="text-yellow">426</span></td></tr>
+            <tr><td>Veni Vici</td><td>11/2024</td><td>27.9 km</td><td>700 m</td><td>3:14:07</td><td>918/2054</td><td><span class="text-yellow">433</span></td></tr>
+            <tr><td>ETC UTMB (Chamonix)</td><td>08/2024</td><td>15 km</td><td>1200 m</td><td>3:09:30</td><td>636/1182</td><td><span class="text-orange">380</span></td></tr>
+            <tr><td>Bel'Montaise 15</td><td>07/2024</td><td>15 km</td><td>600 m</td><td>1:34:00</td><td>81/138</td><td><span class="text-green text-bold">451</span></td></tr>
+            <tr><td>Sanglier 15</td><td>03/2024</td><td>15 km</td><td>700 m</td><td>1:55:57</td><td>143/240</td><td><span class="text-yellow">419</span></td></tr>
+            <tr><td>Veni Vici</td><td>11/2023</td><td>27.8 km</td><td>640 m</td><td>4:33:24</td><td>1880/1917</td><td><span class="text-red text-bold">305</span></td></tr>
+            <tr><td>Saint-Jacques 20K</td><td>06/2023</td><td>18 km</td><td>600 m</td><td>2:36:21</td><td>634/772</td><td><span class="text-red">356</span></td></tr>
+            <tr><td>Coursieres 25</td><td>05/2023</td><td>25 km</td><td>990 m</td><td>4:28:57</td><td>331/343</td><td><span class="text-red">339</span></td></tr>
+            <tr><td>SainteLyon SaintExpress</td><td>11/2021</td><td>45.9 km</td><td>1000 m</td><td>7:29:00</td><td>2131/2405</td><td><span class="text-red">358</span></td></tr>
         </table>
     </div>
 </div>
@@ -1526,10 +1731,152 @@ function loadActivities() {
 
         document.getElementById('strava-status').className = 'badge badge-green';
         document.getElementById('strava-status').textContent = 'Strava + Garmin OK';
+
+        // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
+        updateWeekKPIs(all);
+
+        // ===== MATCHING SEMAINE vs ACTIVITES =====
+        matchWeekActivities(all);
     });
 }
 
+function updateWeekKPIs(activities) {
+    const now = new Date();
+    const day = now.getDay(); // 0=dim, 1=lun
+    const diffToMonday = (day === 0 ? 6 : day - 1);
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - diffToMonday);
+    monday.setHours(0, 0, 0, 0);
+
+    let weekKm = 0, weekElev = 0, weekCount = 0;
+    activities.forEach(act => {
+        const d = new Date(act.start_date_local.replace('Z', '').replace(' ', 'T'));
+        if (d >= monday) {
+            weekKm += (act.distance || 0) / 1000;
+            weekElev += act.total_elevation_gain || 0;
+            weekCount++;
+        }
+    });
+
+    const kmEl = document.getElementById('kpi-week-km');
+    const kmSub = document.getElementById('kpi-week-km-sub');
+    if (kmEl) {
+        kmEl.textContent = weekKm >= 10 ? Math.round(weekKm) : weekKm.toFixed(1);
+        kmEl.style.color = weekKm >= 40 ? 'var(--green)' : weekKm >= 20 ? 'var(--yellow)' : 'var(--text-muted)';
+    }
+    if (kmSub) kmSub.textContent = weekCount + ' activite' + (weekCount > 1 ? 's' : '') + ' cette semaine';
+
+    const elevEl = document.getElementById('kpi-week-elev');
+    const elevSub = document.getElementById('kpi-week-elev-sub');
+    if (elevEl) {
+        elevEl.innerHTML = Math.round(weekElev) + '<span style="font-size:18px; color: var(--text-muted);"> m</span>';
+        elevEl.style.color = weekElev >= 500 ? 'var(--green)' : weekElev >= 200 ? 'var(--yellow)' : 'var(--text-muted)';
+    }
+    if (elevSub) elevSub.textContent = 'D+ semaine en cours';
+}
+
+function matchWeekActivities(activities) {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    const todayStr = today.toISOString().slice(0, 10);
+
+    // Index activities by date (YYYY-MM-DD)
+    const actByDate = {};
+    activities.forEach(act => {
+        const d = new Date(act.start_date_local.replace('Z', '').replace(' ', 'T'));
+        const key = d.toISOString().slice(0, 10);
+        if (!actByDate[key]) actByDate[key] = [];
+        actByDate[key].push(act);
+    });
+
+    const dayEls = document.querySelectorAll('.week-day[data-date]');
+    let totalPlanned = 0, totalDone = 0;
+
+    dayEls.forEach(el => {
+        const date = el.dataset.date;
+        const matchEl = el.querySelector('.day-match');
+        if (!matchEl) return;
+
+        const isFuture = date > todayStr;
+        const dayActs = actByDate[date] || [];
+        const isRestDay = el.querySelector('.day-details').textContent.toLowerCase().includes('repos complet');
+
+        if (isFuture) {
+            matchEl.innerHTML = '<div class="day-match-future">A venir</div>';
+            return;
+        }
+
+        totalPlanned++;
+
+        if (dayActs.length > 0) {
+            totalDone++;
+            let html = '';
+            dayActs.forEach(act => {
+                const st = detectType(act);
+                const t = TYPES[st] || { label: st, color: 'var(--accent-light)' };
+                const dist = (act.distance / 1000).toFixed(1);
+                const dur = fmt(act.moving_time);
+                const fcStr = act.average_heartrate ? ' · ' + Math.round(act.average_heartrate) + ' bpm' : '';
+                html += '<div class="day-match-done">' +
+                    '<span style="color:var(--green);font-weight:700;">&#10003;</span> ' +
+                    '<span style="color:' + t.color + ';font-weight:600;">' + t.label + '</span> ' +
+                    '<span style="color:var(--text-muted);">' + act.name + ' — ' + dist + ' km · ' + dur + fcStr + '</span>' +
+                    '</div>';
+            });
+            matchEl.innerHTML = html;
+        } else if (isRestDay) {
+            totalDone++;
+            matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Repos respecte</span></div>';
+        } else {
+            matchEl.innerHTML = '<div class="day-match-miss">&#10007; Pas d\'activite enregistree</div>';
+        }
+    });
+
+    // Regularity widget
+    const regEl = document.getElementById('week-regularity');
+    if (regEl && totalPlanned > 0) {
+        regEl.style.display = 'block';
+        const pct = Math.round(totalDone / totalPlanned * 100);
+        const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
+        const badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
+        document.getElementById('week-regularity-badge').className = 'badge ' + badgeCls;
+        document.getElementById('week-regularity-badge').textContent = pct + '%';
+        document.getElementById('week-regularity-bar').style.width = pct + '%';
+        document.getElementById('week-regularity-bar').style.background = color;
+        document.getElementById('week-regularity-detail').textContent = totalDone + '/' + totalPlanned + ' seances realisees';
+    }
+}
+
 loadActivities();
+
+// ===== MANUAL CHECKS (renfo/iso/PPG) =====
+function initManualChecks() {
+    document.querySelectorAll('.week-day[data-checks]').forEach(dayEl => {
+        const date = dayEl.dataset.date;
+        const items = dayEl.dataset.checks.split(',').map(s => s.trim()).filter(Boolean);
+        const container = dayEl.querySelector('.day-checks');
+        if (!container || items.length === 0) return;
+
+        items.forEach(item => {
+            const key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
+            const isChecked = localStorage.getItem(key) === '1';
+
+            const chip = document.createElement('span');
+            chip.className = 'day-check' + (isChecked ? ' checked' : '');
+            chip.innerHTML = '<span class="check-icon">' + (isChecked ? '\u2713' : '\u25CB') + '</span>' + item;
+            chip.addEventListener('click', function() {
+                const nowChecked = !this.classList.contains('checked');
+                this.classList.toggle('checked', nowChecked);
+                this.querySelector('.check-icon').textContent = nowChecked ? '\u2713' : '\u25CB';
+                localStorage.setItem(key, nowChecked ? '1' : '0');
+            });
+
+            container.appendChild(chip);
+        });
+    });
+}
+
+initManualChecks();
 
 // ===== GARMIN WELLNESS DATA =====
 function fmtSeconds(s) {
@@ -1670,21 +2017,21 @@ function loadGarminData() {
             const bbDetail = document.getElementById('health-bb-detail');
             if (sum.body_battery_current) bbDetail.textContent = 'Pic du jour';
 
-            // VO2max
-            const vo2El = document.getElementById('health-vo2max');
-            if (sum.vo2max) {
-                vo2El.textContent = sum.vo2max;
-                vo2El.style.color = 'var(--green)';
+            // Sommeil moyen (Sante KPI)
+            if (sum.sleep_avg_seconds) {
+                const slAvgEl = document.getElementById('health-sleep-avg');
+                if (slAvgEl) {
+                    slAvgEl.textContent = fmtSeconds(sum.sleep_avg_seconds);
+                    const h = sum.sleep_avg_seconds / 3600;
+                    slAvgEl.style.color = h >= 7.5 ? 'var(--green)' : h >= 7 ? 'var(--yellow)' : h >= 6 ? 'var(--orange)' : 'var(--red)';
+                }
+                const slAvgSub = document.getElementById('health-sleep-avg-sub');
+                if (slAvgSub) {
+                    const h = sum.sleep_avg_seconds / 3600;
+                    slAvgSub.textContent = 'Objectif : 7h30';
+                    slAvgSub.style.color = h >= 7.5 ? 'var(--green)' : 'var(--red)';
+                }
             }
-
-            // RHR
-            const rhrEl = document.getElementById('health-rhr');
-            if (sum.resting_hr) {
-                rhrEl.textContent = sum.resting_hr;
-                rhrEl.style.color = rhrColor(sum.resting_hr);
-            }
-            const rhrAvgEl = document.getElementById('health-rhr-avg');
-            if (sum.resting_hr_avg) rhrAvgEl.textContent = 'Moy. 14j : ' + sum.resting_hr_avg + ' bpm';
 
             // ===== UPDATE OVERVIEW KPIs =====
             if (sum.vo2max) {
@@ -1693,21 +2040,6 @@ function loadGarminData() {
                 const ovSub = document.getElementById('kpi-vo2max-sub');
                 if (ovSub) ovSub.textContent = 'Garmin · ' + sum.last_sync.split(' ')[0];
             }
-            if (sum.sleep_avg_seconds) {
-                const slEl = document.getElementById('kpi-sleep');
-                if (slEl) {
-                    slEl.textContent = fmtSeconds(sum.sleep_avg_seconds);
-                    const h = sum.sleep_avg_seconds / 3600;
-                    slEl.style.color = h >= 7.5 ? 'var(--green)' : h >= 7 ? 'var(--yellow)' : h >= 6 ? 'var(--orange)' : 'var(--red)';
-                }
-                const slSub = document.getElementById('kpi-sleep-sub');
-                if (slSub) {
-                    const h = sum.sleep_avg_seconds / 3600;
-                    slSub.textContent = 'Objectif : 7h30';
-                    slSub.style.color = h >= 7.5 ? 'var(--green)' : 'var(--red)';
-                }
-            }
-
             // ===== SOMMEIL DETAIL =====
             const sleepDetail = document.getElementById('health-sleep-detail');
             const latestSleep = findLatest(days, 'sleep');
@@ -2079,6 +2411,209 @@ function updateSyncStatus() {
 }
 
 updateSyncStatus();
+
+// ===== ANALYSE TAB — Coach Log =====
+function soleaireColor(val) {
+    if (val == null) return 'var(--text-muted)';
+    if (val <= 1) return 'var(--green)';
+    if (val <= 3) return 'var(--yellow)';
+    if (val <= 5) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function loadCoachLog() {
+    fetch('data/coach-log.json')
+        .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
+        .then(data => {
+            const daily = data.daily || [];
+            const lt = data.longterm || {};
+            if (daily.length === 0) return;
+
+            // Latest entry
+            const latest = daily[daily.length - 1];
+
+            // Date
+            const dateEl = document.getElementById('analyse-date');
+            if (dateEl) {
+                const d = new Date(latest.date + 'T00:00:00');
+                dateEl.textContent = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
+
+            // Phase badge
+            const phaseEl = document.getElementById('analyse-phase');
+            if (phaseEl && latest.phase) {
+                const dayNum = daily.length;
+                phaseEl.textContent = 'JOUR ' + dayNum + ' ' + latest.phase.toUpperCase();
+            }
+
+            // KPIs
+            const solEl = document.getElementById('analyse-soleaire');
+            if (solEl && latest.soleaire != null) {
+                solEl.textContent = latest.soleaire + '/10';
+                solEl.style.color = soleaireColor(latest.soleaire);
+            }
+
+            const rpeEl = document.getElementById('analyse-rpe');
+            if (rpeEl) {
+                rpeEl.textContent = latest.rpe != null ? latest.rpe + '/10' : '--';
+                if (latest.rpe != null) rpeEl.style.color = latest.rpe <= 5 ? 'var(--green)' : latest.rpe <= 7 ? 'var(--yellow)' : 'var(--orange)';
+            }
+
+            const sommeilEl = document.getElementById('analyse-sommeil');
+            if (sommeilEl && latest.sommeil_h != null) {
+                const h = Math.floor(latest.sommeil_h);
+                const m = Math.round((latest.sommeil_h - h) * 60);
+                sommeilEl.textContent = h + 'h' + String(m).padStart(2, '0');
+                sommeilEl.style.color = latest.sommeil_h >= 7.5 ? 'var(--green)' : latest.sommeil_h >= 7 ? 'var(--yellow)' : latest.sommeil_h >= 6 ? 'var(--orange)' : 'var(--red)';
+            }
+
+            const bbEl = document.getElementById('analyse-bb');
+            if (bbEl && latest.body_battery != null) {
+                bbEl.textContent = latest.body_battery;
+                bbEl.style.color = bbColor(latest.body_battery);
+            }
+
+            // Hygiene checks
+            setHygieneCheck('hyg-sommeil', latest.sommeil_h >= 7);
+            setHygieneCheck('hyg-diner', latest.diner);
+            setHygieneCheck('hyg-nicotine', !latest.nicotine);
+            setHygieneCheck('hyg-hydratation', latest.hydratation);
+
+            // Verdict
+            const verdictEl = document.getElementById('analyse-verdict');
+            if (verdictEl && latest.verdict) {
+                verdictEl.innerHTML = '<strong>Verdict coach :</strong> ' + latest.verdict;
+            }
+
+            // === TRENDS ===
+
+            // Soleaire sparkline
+            if (daily.length > 0) {
+                renderSparkline('trend-soleaire', 'trend-soleaire-labels',
+                    daily.map(d => ({
+                        value: d.soleaire,
+                        label: fmtDateLabel(d.date),
+                        shortLabel: fmtDateDay(d.date)
+                    })),
+                    function(v) { return soleaireColor(v); },
+                    10, true
+                );
+                const solVals = daily.filter(d => d.soleaire != null).map(d => d.soleaire);
+                const solSummary = document.getElementById('trend-soleaire-summary');
+                if (solSummary && solVals.length > 0) {
+                    const last = solVals[solVals.length - 1];
+                    const first = solVals[0];
+                    const diff = last - first;
+                    const trend = diff < 0 ? '<span class="text-green">en baisse (' + diff.toFixed(1) + ')</span>' :
+                                  diff > 0 ? '<span class="text-red">en hausse (+' + diff.toFixed(1) + ')</span>' :
+                                  '<span class="text-yellow">stable</span>';
+                    solSummary.innerHTML = 'Tendance : ' + trend + ' · Dernier : ' + last + '/10';
+                }
+            }
+
+            // Hygiene trend (weekly table)
+            if (daily.length > 1) {
+                const last7 = daily.slice(-7);
+                let hygHtml = '<table style="width:100%;font-size:12px;">';
+                hygHtml += '<tr><th>Date</th><th>Sommeil</th><th>Diner</th><th>0 nico</th><th>Eau</th></tr>';
+                last7.forEach(d => {
+                    const dd = new Date(d.date + 'T00:00:00');
+                    const dayLabel = dd.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+                    hygHtml += '<tr>';
+                    hygHtml += '<td>' + dayLabel + '</td>';
+                    hygHtml += '<td style="text-align:center;">' + (d.sommeil_h >= 7 ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
+                    hygHtml += '<td style="text-align:center;">' + (d.diner ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
+                    hygHtml += '<td style="text-align:center;">' + (!d.nicotine ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
+                    hygHtml += '<td style="text-align:center;">' + (d.hydratation ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>') + '</td>';
+                    hygHtml += '</tr>';
+                });
+                hygHtml += '</table>';
+                // Score
+                const scores = last7.map(d => {
+                    let s = 0;
+                    if (d.sommeil_h >= 7) s++;
+                    if (d.diner) s++;
+                    if (!d.nicotine) s++;
+                    if (d.hydratation) s++;
+                    return s;
+                });
+                const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+                hygHtml += '<div style="margin-top:8px;text-align:center;font-size:12px;color:var(--text-muted);">Score moyen : <strong style="color:' + (avgScore >= 3 ? 'var(--green)' : avgScore >= 2 ? 'var(--yellow)' : 'var(--red)') + ';">' + avgScore + '/4</strong></div>';
+                document.getElementById('trend-hygiene').innerHTML = hygHtml;
+            }
+
+            // Longterm trajectory
+            if (lt.occ_weeks_remaining) {
+                const weeksEl = document.getElementById('traj-weeks');
+                if (weeksEl) weeksEl.textContent = lt.occ_weeks_remaining;
+            }
+            if (lt.current_block) {
+                const blockEl = document.getElementById('traj-block');
+                if (blockEl) blockEl.textContent = lt.current_block;
+            }
+            if (lt.next_race) {
+                const raceEl = document.getElementById('traj-next-race');
+                if (raceEl) raceEl.textContent = lt.next_race;
+            }
+            if (lt.trajectory) {
+                const noteEl = document.getElementById('traj-note');
+                if (noteEl) noteEl.textContent = lt.trajectory;
+            }
+            if (lt.status) {
+                const statusEl = document.getElementById('traj-status');
+                if (statusEl) {
+                    const statusMap = {
+                        'repos': { cls: 'badge-yellow', label: 'PHASE DE SOIN' },
+                        'en_retard': { cls: 'badge-red', label: 'EN RETARD' },
+                        'dans_les_temps': { cls: 'badge-green', label: 'DANS LES TEMPS' },
+                        'avance': { cls: 'badge-green', label: 'EN AVANCE' },
+                    };
+                    const s = statusMap[lt.status] || { cls: 'badge-yellow', label: lt.status.toUpperCase() };
+                    statusEl.innerHTML = '<span class="badge ' + s.cls + '">' + s.label + '</span>';
+                }
+            }
+        })
+        .catch(() => {});
+}
+
+function setHygieneCheck(id, ok) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = ok ? '\u2713' : '\u2717';
+    el.style.color = ok ? 'var(--green)' : 'var(--red)';
+}
+
+function renderSparkline(containerId, labelsId, values, colorFn, maxScale, invertColor) {
+    const container = document.getElementById(containerId);
+    const labelsEl = document.getElementById(labelsId);
+    if (!container) return;
+
+    const validValues = values.filter(v => v.value != null);
+    if (validValues.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px;width:100%;">Pas encore de donnees</div>';
+        return;
+    }
+
+    const scale = maxScale || Math.max(...validValues.map(v => v.value));
+    let html = '';
+    values.forEach(v => {
+        if (v.value != null) {
+            const pct = invertColor ? (v.value / scale) * 100 : (v.value / scale) * 100;
+            const height = Math.max(8, pct);
+            const color = colorFn ? colorFn(v.value) : 'var(--accent)';
+            html += '<div class="dot" style="height:' + height + '%;background:' + color + ';" title="' + v.label + ': ' + v.value + '"></div>';
+        } else {
+            html += '<div class="dot" style="height:5%;background:var(--border);opacity:0.3;" title="' + v.label + ': --"></div>';
+        }
+    });
+    container.innerHTML = html;
+
+    if (labelsEl && values.length > 0) {
+        labelsEl.innerHTML = '<span>' + values[0].shortLabel + '</span><span>' + values[values.length - 1].shortLabel + '</span>';
+    }
+}
+
+loadCoachLog();
 </script>
 
 </body>
