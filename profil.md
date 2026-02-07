@@ -11,11 +11,13 @@
 
 | Paramètre | Valeur | Date de mesure | Méthode |
 |---|---|---|---|
-| FC repos | 50 bpm | Fév. 2026 | Garmin |
-| FC max | 178 bpm | - | Connue |
-| Réserve cardiaque (RFC) | 128 bpm | - | Karvonen (FCmax - FCrepos) |
-| VMA | **À tester** | - | Test terrain à planifier |
-| VO2max estimée | **À tester** | - | - |
+| FC repos | **46 bpm** | 07/02/2026 | Garmin Connect (moy. 7 jours) |
+| FC max | **178 bpm** | 07/02/2026 | Garmin Connect (confirmé) |
+| Réserve cardiaque (RFC) | **132 bpm** | - | Karvonen (178 - 46) |
+| VO2max | **45 ml/kg/min** | 07/02/2026 | Garmin Connect |
+| VMA estimée | **~15.0 km/h** | - | Estimation (VO2max/3), **à confirmer par test** |
+| Sommeil moyen | **6h03 /nuit** | 07/02/2026 | Apple Health (moy. 7 jours) |
+| Body Battery | 80/100 | 07/02/2026 | Garmin Fenix 7 Pro |
 
 ## Niveau & expérience
 
@@ -29,7 +31,7 @@
 
 ## Équipement
 
-- **Montre GPS** : Garmin (modèle à préciser)
+- **Montre GPS** : Garmin Fenix 7 Pro (depuis 06/02/2026) — HR, HRV, sommeil, Body Battery, Training Readiness
 - **Données disponibles** : FC, allure, D+, cadence, Garmin Connect
 - **Tapis de course** : haute qualité, inclinaison jusqu'à +40%, déclinaison jusqu'à -5% (selon vitesse). Outil clé pour séances spécifiques côtes, reprise blessure, et entraînement hivernal.
 - **Bâtons de trail** : utilisés en montée (technique fluide), gardés en main sur le plat et en descente
@@ -51,9 +53,9 @@
 
 ## Sommeil & récupération
 
-- **Sommeil** : < 7h/nuit habituellement — **facteur limitant critique** identifié dans l'analyse de profil
+- **Sommeil** : **6h03/nuit** en moyenne (Apple Health, semaine du 31 jan — 7 fév) — **facteur limitant le plus critique**
 - Impact direct sur récupération tendineuse (soléaire), synthèse protéique, risque blessure x1.7
-- Objectif : 7h30 minimum
+- Objectif : 7h30 minimum, suivi via Garmin Fenix 7 Pro
 
 ## Points de vigilance
 
