@@ -426,7 +426,7 @@
         <div class="update" id="header-update">Mise a jour : 7 fevrier 2026</div>
         <div>J-201 avant l'OCC</div>
         <div>Bloc 0 — Reprise & Soin</div>
-        <button class="sync-btn" id="sync-btn" onclick="handleSync()" title="Synchroniser les donnees Strava + Garmin">
+        <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
             <span id="sync-label">Sync</span>
         </button>
@@ -1840,7 +1840,8 @@ const SYNC_STALE_HOURS = 6;
 function getSyncToken() { return localStorage.getItem('gh_sync_token'); }
 function setSyncToken(t) { localStorage.setItem('gh_sync_token', t); }
 
-function handleSync() {
+function handleSync(e) {
+    if (e && e.shiftKey) { localStorage.removeItem('gh_sync_token'); }
     const token = getSyncToken();
     if (!token) {
         showTokenModal();
@@ -1857,15 +1858,14 @@ function showTokenModal() {
         '<div class="sync-modal-box">' +
             '<h3>Configuration Sync (une seule fois)</h3>' +
             '<p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">' +
-                'Pour synchroniser depuis le navigateur, il faut un <strong>GitHub Personal Access Token</strong> avec le scope <code>actions:write</code>.' +
+                'Pour synchroniser depuis le navigateur, il faut un <strong>GitHub Personal Access Token (classic)</strong>.' +
             '</p>' +
             '<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">' +
-                '1. Va sur <strong>github.com &rarr; Settings &rarr; Developer settings &rarr; Fine-grained tokens</strong><br>' +
-                '2. Cree un token avec acces au repo <strong>' + SYNC_REPO + '</strong><br>' +
-                '3. Permission : <strong>Actions: Read & Write</strong><br>' +
-                '4. Colle le token ci-dessous' +
+                '1. <a href="https://github.com/settings/tokens/new?scopes=repo&description=Coach+Trail+Sync" target="_blank" style="color:var(--accent);">Clique ici pour creer le token</a><br>' +
+                '2. Laisse la coche <strong>repo</strong> activee, clique <strong>Generate token</strong><br>' +
+                '3. Copie le token et colle-le ci-dessous' +
             '</p>' +
-            '<input type="password" id="sync-token-input" placeholder="github_pat_xxxxxxxxxxxx...">' +
+            '<input type="password" id="sync-token-input" placeholder="ghp_xxxxxxxxxxxx...">' +
             '<div>' +
                 '<button class="sync-modal-btn" onclick="saveTokenAndSync()">Enregistrer et Sync</button>' +
                 '<button class="sync-modal-cancel" onclick="closeTokenModal()">Annuler</button>' +
@@ -1909,11 +1909,15 @@ function triggerSync(token) {
         if (r.status === 204) {
             label.textContent = 'Lance !';
             startSyncCountdown(40);
-        } else if (r.status === 401 || r.status === 403) {
-            label.textContent = 'Token invalide';
+        } else if (r.status === 401) {
+            label.textContent = 'Token expire';
             btn.classList.remove('syncing');
             localStorage.removeItem('gh_sync_token');
             setTimeout(() => { label.textContent = 'Sync'; }, 3000);
+        } else if (r.status === 403) {
+            label.textContent = 'Droits insuffisants';
+            btn.classList.remove('syncing');
+            setTimeout(() => { label.textContent = 'Sync'; }, 4000);
         } else {
             r.text().then(t => console.error('Sync error:', r.status, t));
             label.textContent = 'Erreur ' + r.status;
