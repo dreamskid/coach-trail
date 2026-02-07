@@ -1,7 +1,7 @@
 {
   "name": "Coach Trail — OCC 2026",
   "short_name": "Coach Trail",
-  "start_url": "/",
+  "start_url": "/coach-trail/",
   "display": "standalone",
   "background_color": "#0f1117",
   "theme_color": "#0f1117",
