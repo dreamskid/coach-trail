@@ -1632,8 +1632,9 @@ function fmtDateShort(s) {
 }
 
 function loadActivities() {
-    const stravaP = fetch('data/strava-activities.json').then(r => r.ok ? r.json() : []).catch(() => []);
-    const garminP = fetch('data/garmin-activities.json').then(r => r.ok ? r.json() : []).catch(() => []);
+    const _nc = '?t=' + Date.now();
+    const stravaP = fetch('data/strava-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
+    const garminP = fetch('data/garmin-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
 
     Promise.all([stravaP, garminP]).then(([stravaActs, garminActs]) => {
         // Normalize Garmin activities to match Strava format
@@ -2097,7 +2098,7 @@ function stepsColor(steps) {
 }
 
 function loadGarminData() {
-    fetch('data/garmin-wellness.json')
+    fetch('data/garmin-wellness.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
         .then(data => {
             const sum = data.summary;
@@ -2542,7 +2543,7 @@ function pollSyncWorkflow() {
 }
 
 function updateSyncStatus() {
-    fetch('data/garmin-wellness.json')
+    fetch('data/garmin-wellness.json?t=' + Date.now())
         .then(r => r.ok ? r.json() : null)
         .then(data => {
             if (!data || !data.summary || !data.summary.last_sync) return;
@@ -2579,7 +2580,7 @@ function soleaireColor(val) {
 }
 
 function loadCoachLog() {
-    fetch('data/coach-log.json')
+    fetch('data/coach-log.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
         .then(data => {
             const daily = data.daily || [];
