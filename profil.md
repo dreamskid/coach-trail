@@ -33,9 +33,13 @@
 - **Données disponibles** : FC, allure, D+, cadence, Garmin Connect
 - **Tapis de course** : haute qualité, inclinaison jusqu'à +40%, déclinaison jusqu'à -5% (selon vitesse). Outil clé pour séances spécifiques côtes, reprise blessure, et entraînement hivernal.
 
-## Vie personnelle
+## Vie personnelle & planning
 
-- 2 enfants (contrainte planning à intégrer)
+- 2 enfants (contrainte planning)
+- **Lundi + Vendredi** : bureau à Champagne au Mont d'Or — créneau midi uniquement (2 parcours habituels : 7-8 km / 150-200 D+ ou 12-13 km / 350-400 D+, terrain mixte)
+- **Mardi à Jeudi + Week-end** : flexible (télétravail), matins tôt et midis disponibles
+- **Disponibilité** : 6-7 séances/semaine (course + cross-training combinés)
+- **Strava** : https://www.strava.com/athletes/62485927
 
 ## Cross-training
 
@@ -46,9 +50,22 @@
 
 ## Points de vigilance
 
-- **Soléaire/mollet** : fragilité chronique connue (2 épisodes précédents traités). Épisode actif en février 2026 — voir `blessures.md`
+- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Épisode actif fév. 2026 — voir `blessures.md`
 - **Cigarette électronique** : impact sur la capacité cardio-vasculaire (vasoconstriction, récupération ralentie, VO2max plafonnée). Facteur limitant à ne pas ignorer.
 - À 42 ans : récupération à surveiller de près, importance accrue du sommeil et de la nutrition
+
+## Nutrition en course
+
+- **Gels/boisson** : Naak Citron (produit principal)
+- **Solide** : Barres Clif
+- **Backup** : Compotes (utilisé à l'Astragale quand ravitos solides ne passaient plus)
+- **Problèmes gastriques** : légers, ponctuels, rien de bloquant pour l'instant
+- **À travailler** : plan nutrition structuré pour effort >10h (OCC)
+
+## Coaching précédent
+
+- ChatGPT pendant 1.5 ans — bonne base mais problèmes de continuité (oubli du contexte, changements de plan fréquents)
+- Ce projet vise à corriger ce défaut : tout est versionné, persistant, cohérent dans le temps
 
 ## Objectif principal 2026
 
