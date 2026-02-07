@@ -1,5 +1,21 @@
 [
   {
+    "id": 21796073040,
+    "name": "Vélo elliptique",
+    "type": "elliptical",
+    "start_date_local": "2026-02-07 18:28:23",
+    "distance": 0,
+    "moving_time": 2704,
+    "elapsed_time": 2704,
+    "total_elevation_gain": 0,
+    "average_speed": 0,
+    "average_heartrate": 96.0,
+    "max_heartrate": 104.0,
+    "calories": 215.0,
+    "steps": 4724,
+    "source": "garmin"
+  },
+  {
     "id": 21784174637,
     "name": "Nat. piscine",
     "type": "lap_swimming",

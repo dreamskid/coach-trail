@@ -1,5 +1,22 @@
 [
   {
+    "id": 17320522706,
+    "name": "Vélo elliptique en soirée",
+    "type": "Elliptical",
+    "sport_type": "Elliptical",
+    "start_date_local": "2026-02-07T18:28:23Z",
+    "distance": 0.0,
+    "moving_time": 3529,
+    "elapsed_time": 3529,
+    "total_elevation_gain": 0,
+    "average_speed": 0.0,
+    "max_speed": 0.0,
+    "average_heartrate": 89.7,
+    "max_heartrate": 104.0,
+    "suffer_score": 8.0,
+    "kudos_count": 0
+  },
+  {
     "id": 17307620084,
     "name": "Natation dans l'après-midi",
     "type": "Swim",
@@ -14,7 +31,7 @@
     "average_heartrate": 109.9,
     "max_heartrate": 131.0,
     "suffer_score": 7.0,
-    "kudos_count": 5
+    "kudos_count": 6
   },
   {
     "id": 17305174341,
@@ -31,7 +48,7 @@
     "average_heartrate": 140.3,
     "max_heartrate": 171.0,
     "suffer_score": 73.0,
-    "kudos_count": 7
+    "kudos_count": 8
   },
   {
     "id": 17287478747,
@@ -491,22 +508,5 @@
     "max_heartrate": 173.0,
     "suffer_score": 415.0,
     "kudos_count": 15
-  },
-  {
-    "id": 16561063163,
-    "name": "Lunch Trail Run",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2025-11-25T12:04:47Z",
-    "distance": 7334.7,
-    "moving_time": 3068,
-    "elapsed_time": 3084,
-    "total_elevation_gain": 181.1,
-    "average_speed": 2.391,
-    "max_speed": 6.84,
-    "average_heartrate": 139.3,
-    "max_heartrate": 176.0,
-    "suffer_score": 65.0,
-    "kudos_count": 8
   }
 ]
