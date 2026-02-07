@@ -1908,7 +1908,7 @@ function triggerSync(token) {
     .then(r => {
         if (r.status === 204) {
             label.textContent = 'Lance !';
-            startSyncCountdown(40);
+            setTimeout(() => pollSyncWorkflow(), 3000);
         } else if (r.status === 401) {
             label.textContent = 'Token expire';
             btn.classList.remove('syncing');
@@ -1933,27 +1933,45 @@ function triggerSync(token) {
     });
 }
 
-function startSyncCountdown(seconds) {
+function pollSyncWorkflow() {
     const label = document.getElementById('sync-label');
     const btn = document.getElementById('sync-btn');
-    let remaining = seconds;
+    const token = getSyncToken();
+    let elapsed = 0;
 
-    const interval = setInterval(() => {
-        remaining--;
-        label.textContent = remaining + 's...';
-        if (remaining <= 0) {
-            clearInterval(interval);
-            label.textContent = 'Reload...';
-            // Reload data without full page refresh
-            loadActivities();
-            loadGarminData();
-            setTimeout(() => {
-                btn.classList.remove('syncing');
-                label.textContent = 'Sync';
-                updateSyncStatus();
-            }, 2000);
+    const poll = setInterval(() => {
+        elapsed += 5;
+        label.textContent = elapsed + 's...';
+
+        if (elapsed > 120) {
+            clearInterval(poll);
+            label.textContent = 'Timeout';
+            btn.classList.remove('syncing');
+            setTimeout(() => { label.textContent = 'Sync'; }, 3000);
+            return;
         }
-    }, 1000);
+
+        fetch('https://api.github.com/repos/' + SYNC_REPO + '/actions/runs?per_page=1', {
+            headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            const run = data.workflow_runs && data.workflow_runs[0];
+            if (!run) return;
+            if (run.status === 'completed') {
+                clearInterval(poll);
+                const ok = run.conclusion === 'success';
+                label.textContent = ok ? 'OK !' : 'Echec';
+                if (ok) { loadActivities(); loadGarminData(); }
+                setTimeout(() => {
+                    btn.classList.remove('syncing');
+                    label.textContent = 'Sync';
+                    updateSyncStatus();
+                }, 2000);
+            }
+        })
+        .catch(() => {});
+    }, 5000);
 }
 
 function updateSyncStatus() {
