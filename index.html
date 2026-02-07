@@ -516,74 +516,11 @@
         .save-checks-btn:hover { opacity: 0.9; }
         .save-checks-btn:disabled { opacity: 0.5; cursor: wait; }
 
-        /* ===== ANALYSE TAB ===== */
-        .analyse-kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .analyse-kpi {
-            background: var(--bg-card-alt);
-            border-radius: 10px;
-            padding: 14px;
-            text-align: center;
-        }
-        .analyse-kpi-value { font-size: 24px; font-weight: 800; line-height: 1.2; }
-        .analyse-kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
-
-        .hygiene-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 12px 0;
-        }
-        .hygiene-item {
-            background: var(--bg-card-alt);
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            font-size: 13px;
-        }
-        .hygiene-item .check { font-size: 18px; display: block; margin-bottom: 2px; }
-
-        .trend-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .mini-spark {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 60px;
-            padding: 0 2px;
-        }
-        .mini-spark .dot {
-            flex: 1;
-            border-radius: 3px 3px 0 0;
-            min-width: 6px;
-            transition: opacity 0.15s;
-        }
-        .mini-spark .dot:hover { opacity: 0.7; }
-
-        .trajectory-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-        }
-        .trajectory-item:last-child { border-bottom: none; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             body { overflow-x: hidden; }
             .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
-            .analyse-kpi-grid { grid-template-columns: repeat(2, 1fr); }
-            .hygiene-grid { grid-template-columns: repeat(2, 1fr); }
-            .trend-grid { grid-template-columns: 1fr; }
             header { flex-direction: column; gap: 8px; }
             .header-meta { text-align: left; }
             .tab-btn { padding: 10px 14px; font-size: 12px; }
@@ -631,11 +568,10 @@
 <!-- ===== TAB BAR ===== -->
 <nav class="tab-bar">
     <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
-    <button class="tab-btn" data-tab="health">Sante</button>
+    <button class="tab-btn" data-tab="health">Santé</button>
     <button class="tab-btn" data-tab="activities">Activités</button>
     <button class="tab-btn" data-tab="week">Programme</button>
     <button class="tab-btn" data-tab="injury">Blessure</button>
-    <button class="tab-btn" data-tab="analyse">Analyse</button>
     <button class="tab-btn" data-tab="calendar">Calendrier</button>
     <button class="tab-btn" data-tab="progress">Progression</button>
 </nav>
@@ -850,36 +786,9 @@
         </div>
 
         <div class="note-box">
-            <strong>Objectif :</strong> Soleaire : avancer dans le protocole (phase 1 vers 2). Maintenir le cardio. Installer les nouvelles habitudes (sommeil, alimentation, 0 nicotine).<br>
+            <strong>Objectif :</strong> Soleaire : avancer dans le protocole (phase 1 vers 2). Maintenir le cardio via cross-training.<br>
             <strong>Course a pied :</strong> ZERO. Pas de footing cette semaine.<br>
             <strong>Volume cible :</strong> 5-6h cross-training.
-        </div>
-
-        <!-- Habitudes -->
-        <div style="margin-bottom: 16px;">
-            <h3>Nouvelles habitudes a installer</h3>
-            <div class="grid grid-4" style="gap: 10px; margin-top: 8px;">
-                <div style="background: var(--bg-card-alt); border-radius: 8px; padding: 10px; text-align: center;">
-                    <div style="font-size: 18px;">SOMMEIL</div>
-                    <div style="font-size: 12px; font-weight: 600;">Coucher 22h30 max</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">Objectif : 7h00/nuit</div>
-                </div>
-                <div style="background: var(--bg-card-alt); border-radius: 8px; padding: 10px; text-align: center;">
-                    <div style="font-size: 18px;">REPAS</div>
-                    <div style="font-size: 12px; font-weight: 600;">Diner chaque soir</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">30-40g proteines min.</div>
-                </div>
-                <div style="background: var(--bg-card-alt); border-radius: 8px; padding: 10px; text-align: center;">
-                    <div style="font-size: 18px;">NICOTINE</div>
-                    <div style="font-size: 12px; font-weight: 600;">0 mg</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">Sevrage en cours — tenir bon</div>
-                </div>
-                <div style="background: var(--bg-card-alt); border-radius: 8px; padding: 10px; text-align: center;">
-                    <div style="font-size: 18px;">EAU</div>
-                    <div style="font-size: 12px; font-weight: 600;">Hydratation 2L+</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">Eau + infusions</div>
-                </div>
-            </div>
         </div>
 
         <!-- Planning jour par jour -->
@@ -1139,9 +1048,9 @@
     <!-- KPI Sante -->
     <div class="grid grid-4" style="margin-bottom: 24px;" id="health-kpi">
         <div class="card" style="text-align: center;">
-            <div class="stat-big" id="health-sleep-score" style="color: var(--text-muted);">--</div>
-            <div class="stat-label">Score sommeil</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-sleep-duration">--</div>
+            <div class="stat-big" id="health-last-night" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Dernière nuit</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-last-night-score">--</div>
         </div>
         <div class="card" style="text-align: center;">
             <div class="stat-big" id="health-body-battery" style="color: var(--text-muted);">--</div>
@@ -1254,130 +1163,6 @@
             <div class="mini-chart" id="chart-sleep"></div>
             <div class="mini-chart-labels" id="chart-sleep-labels"></div>
             <div id="chart-sleep-summary" style="margin-top: 12px;"></div>
-        </div>
-    </div>
-</div>
-
-<!-- ======================================================================== -->
-<!-- TAB : ANALYSE (Coach check-in)                                           -->
-<!-- ======================================================================== -->
-<div id="analyse" class="tab-content">
-
-    <!-- SECTION 1 : Analyse instantanee -->
-    <div class="card" style="border-left: 3px solid var(--accent); margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h2 style="margin: 0;">Analyse du jour — <span id="analyse-date" style="color: var(--accent-light);">7 fevrier 2026</span></h2>
-            <span class="badge badge-blue" id="analyse-phase">JOUR 1 BLOC 0</span>
-        </div>
-
-        <!-- KPI grid -->
-        <div class="analyse-kpi-grid" id="analyse-kpi-grid">
-            <div class="analyse-kpi">
-                <div class="analyse-kpi-value" id="analyse-soleaire" style="color: var(--orange);">4-5/10</div>
-                <div class="analyse-kpi-label">Soleaire</div>
-            </div>
-            <div class="analyse-kpi">
-                <div class="analyse-kpi-value" id="analyse-rpe" style="color: var(--text-muted);">--</div>
-                <div class="analyse-kpi-label">RPE seance</div>
-            </div>
-            <div class="analyse-kpi">
-                <div class="analyse-kpi-value" id="analyse-sommeil" style="color: var(--red);">6h03</div>
-                <div class="analyse-kpi-label">Sommeil</div>
-            </div>
-            <div class="analyse-kpi">
-                <div class="analyse-kpi-value" id="analyse-bb" style="color: var(--green);">80</div>
-                <div class="analyse-kpi-label">Body Battery</div>
-            </div>
-        </div>
-
-        <!-- Seance du jour -->
-        <h3>Seance du jour</h3>
-        <div id="analyse-seance" style="font-size: 13px; color: var(--text-muted); padding: 8px 0;">
-            <strong style="color: var(--text);">Repos course</strong> — Cross-training uniquement<br>
-            Protocole iso mollets bilateral + unipodal. Elliptique ou natation Z1 si possible.
-        </div>
-
-        <!-- Hygiene de vie -->
-        <h3>Hygiene de vie</h3>
-        <div class="hygiene-grid" id="analyse-hygiene">
-            <div class="hygiene-item">
-                <span class="check" id="hyg-sommeil">&#x2717;</span>
-                <span>Sommeil &ge; 7h</span>
-            </div>
-            <div class="hygiene-item">
-                <span class="check" id="hyg-diner">&#x2717;</span>
-                <span>Diner</span>
-            </div>
-            <div class="hygiene-item">
-                <span class="check" id="hyg-nicotine">&#x2717;</span>
-                <span>0 nicotine</span>
-            </div>
-            <div class="hygiene-item">
-                <span class="check" id="hyg-hydratation">&#x2717;</span>
-                <span>Hydratation 2L</span>
-            </div>
-        </div>
-
-        <!-- Verdict coach -->
-        <div class="note-box" style="margin-top: 16px;" id="analyse-verdict">
-            <strong>Verdict coach :</strong> Jour 1 du protocole. Lance les isos bilateraux + unipodal, note la gene. Cross-training pour maintenir le cardio. Arret nicotine aujourd'hui — courage, les 48-72h les plus dures commencent.
-        </div>
-    </div>
-
-    <!-- SECTION 2 : Tendances & Trajectoire -->
-    <div class="section-title">Tendances & <span>Trajectoire</span></div>
-
-    <div class="trend-grid">
-        <!-- Soleaire evolution -->
-        <div class="card">
-            <h2>Evolution soleaire</h2>
-            <div class="mini-spark" id="trend-soleaire"></div>
-            <div class="mini-chart-labels" id="trend-soleaire-labels"></div>
-            <div id="trend-soleaire-summary" style="margin-top: 10px; font-size: 12px; color: var(--text-muted);"></div>
-        </div>
-
-        <!-- Hygiene de vie semaine -->
-        <div class="card">
-            <h2>Hygiene de vie — Semaine</h2>
-            <div id="trend-hygiene">
-                <div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 12px;">
-                    Les donnees se rempliront au fil des check-ins quotidiens.
-                </div>
-            </div>
-        </div>
-
-        <!-- Volume hebdo -->
-        <div class="card">
-            <h2>Volume hebdomadaire</h2>
-            <div class="mini-spark" id="trend-volume"></div>
-            <div class="mini-chart-labels" id="trend-volume-labels"></div>
-            <div id="trend-volume-summary" style="margin-top: 10px; font-size: 12px; color: var(--text-muted);"></div>
-        </div>
-
-        <!-- Trajectoire OCC -->
-        <div class="card">
-            <h2>Trajectoire OCC</h2>
-            <div id="trend-trajectory">
-                <div class="trajectory-item">
-                    <span class="text-muted">Semaines restantes</span>
-                    <span class="text-bold text-blue" id="traj-weeks">29</span>
-                </div>
-                <div class="trajectory-item">
-                    <span class="text-muted">Phase actuelle</span>
-                    <span class="text-bold" id="traj-block">Bloc 0 — Reprise & Soin</span>
-                </div>
-                <div class="trajectory-item">
-                    <span class="text-muted">Prochaine course</span>
-                    <span class="text-bold" id="traj-next-race">Cabornis (8 mars)</span>
-                </div>
-                <div class="trajectory-item">
-                    <span class="text-muted">Statut</span>
-                    <span id="traj-status"><span class="badge badge-yellow">PHASE DE SOIN</span></span>
-                </div>
-            </div>
-            <div class="note-box" style="margin-top: 12px;" id="traj-note">
-                Phase de soin active. Pas encore en retard sur la preparation OCC. Le retest du 15 fevrier determinera la suite.
-            </div>
         </div>
     </div>
 </div>
@@ -2143,15 +1928,6 @@ function collectAllDayData() {
         });
         result[date] = entry;
     });
-    // Hygiene toggles
-    document.querySelectorAll('.hyg-toggle').forEach(function(el) {
-        var date = el.dataset.date;
-        var key = el.dataset.key;
-        var ok = el.dataset.ok === '1';
-        if (!result[date]) result[date] = {};
-        if (!result[date]._hygiene) result[date]._hygiene = {};
-        result[date]._hygiene[key] = ok;
-    });
     return result;
 }
 
@@ -2188,13 +1964,6 @@ function saveChecksToGitHub() {
             if (dayData.checks) entry.checks = dayData.checks;
             if (dayData.soleaire !== undefined) entry.soleaire = dayData.soleaire;
             if (dayData.rpe !== undefined) entry.rpe = dayData.rpe;
-            if (dayData._hygiene) {
-                var h = dayData._hygiene;
-                if (h.sommeil_h !== undefined) entry.sommeil_h = h.sommeil_h ? 7.5 : 0;
-                if (h.diner !== undefined) entry.diner = h.diner;
-                if (h.nicotine !== undefined) entry.nicotine = !h.nicotine;
-                if (h.hydratation !== undefined) entry.hydratation = h.hydratation;
-            }
         });
 
         // 3. Write back
@@ -2349,15 +2118,18 @@ function loadGarminData() {
             const days = data.days || [];
 
             // ===== KPI SANTE =====
-            // Sleep score
-            const scoreEl = document.getElementById('health-sleep-score');
-            if (sum.sleep_score) {
-                scoreEl.textContent = sum.sleep_score;
-                scoreEl.style.color = sleepScoreColor(sum.sleep_score);
-            }
-            const sleepDurEl = document.getElementById('health-sleep-duration');
-            if (sum.sleep_avg_seconds) {
-                sleepDurEl.textContent = 'Moy. ' + fmtSeconds(sum.sleep_avg_seconds) + ' / nuit';
+            // Last night sleep (duration + score)
+            const lastNightEl = document.getElementById('health-last-night');
+            const lastNightScoreEl = document.getElementById('health-last-night-score');
+            const latestSleepDay = findLatest(days, 'sleep');
+            if (latestSleepDay && latestSleepDay.sleep) {
+                const dur = latestSleepDay.sleep.duration_seconds;
+                lastNightEl.textContent = fmtSeconds(dur);
+                lastNightEl.style.color = sleepColor(dur);
+                if (latestSleepDay.sleep.score) {
+                    lastNightScoreEl.textContent = 'Score ' + latestSleepDay.sleep.score;
+                    lastNightScoreEl.style.color = sleepScoreColor(latestSleepDay.sleep.score);
+                }
             }
 
             // Body Battery
@@ -2814,7 +2586,7 @@ function updateSyncStatus() {
 
 updateSyncStatus();
 
-// ===== ANALYSE TAB — Coach Log =====
+// ===== COACH LOG =====
 function soleaireColor(val) {
     if (val == null) return 'var(--text-muted)';
     if (val <= 1) return 'var(--green)';
@@ -2844,253 +2616,6 @@ function loadCoachLog() {
             initManualChecks();
             initDayMetrics();
 
-            if (daily.length === 0) return;
-
-            // Today's entry, or most recent past entry
-            const todayISO = new Date().toISOString().slice(0, 10);
-            const todayEntry = daily.find(function(d) { return d.date === todayISO; });
-            const pastEntries = daily.filter(function(d) { return d.date <= todayISO; });
-            const latest = todayEntry || (pastEntries.length > 0 ? pastEntries[pastEntries.length - 1] : daily[0]);
-
-            // Date
-            const dateEl = document.getElementById('analyse-date');
-            if (dateEl) {
-                const d = new Date(latest.date + 'T00:00:00');
-                dateEl.textContent = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-            }
-
-            // Phase badge
-            const phaseEl = document.getElementById('analyse-phase');
-            if (phaseEl && latest.phase) {
-                const dayNum = pastEntries.length;
-                phaseEl.textContent = 'JOUR ' + dayNum + ' ' + latest.phase.toUpperCase();
-            }
-
-            // KPIs
-            const solEl = document.getElementById('analyse-soleaire');
-            if (solEl && latest.soleaire != null) {
-                solEl.textContent = latest.soleaire + '/10';
-                solEl.style.color = soleaireColor(latest.soleaire);
-            }
-
-            const rpeEl = document.getElementById('analyse-rpe');
-            if (rpeEl) {
-                rpeEl.textContent = latest.rpe != null ? latest.rpe + '/10' : '--';
-                if (latest.rpe != null) rpeEl.style.color = latest.rpe <= 5 ? 'var(--green)' : latest.rpe <= 7 ? 'var(--yellow)' : 'var(--orange)';
-            }
-
-            const sommeilEl = document.getElementById('analyse-sommeil');
-            if (sommeilEl && latest.sommeil_h != null) {
-                const h = Math.floor(latest.sommeil_h);
-                const m = Math.round((latest.sommeil_h - h) * 60);
-                sommeilEl.textContent = h + 'h' + String(m).padStart(2, '0');
-                sommeilEl.style.color = latest.sommeil_h >= 7.5 ? 'var(--green)' : latest.sommeil_h >= 7 ? 'var(--yellow)' : latest.sommeil_h >= 6 ? 'var(--orange)' : 'var(--red)';
-            }
-
-            const bbEl = document.getElementById('analyse-bb');
-            if (bbEl && latest.body_battery != null) {
-                bbEl.textContent = latest.body_battery;
-                bbEl.style.color = bbColor(latest.body_battery);
-            }
-
-            // Hygiene checks
-            setHygieneCheck('hyg-sommeil', latest.sommeil_h >= 7);
-            setHygieneCheck('hyg-diner', latest.diner);
-            setHygieneCheck('hyg-nicotine', !latest.nicotine);
-            setHygieneCheck('hyg-hydratation', latest.hydratation);
-
-            // Seance du jour (from Programme tab)
-            const seanceEl = document.getElementById('analyse-seance');
-            if (seanceEl) {
-                const todayDay = document.querySelector('.week-day[data-date="' + todayISO + '"] .day-details');
-                const todayExercises = document.querySelector('.today-card[data-date="' + todayISO + '"] .today-exercises');
-                if (todayDay) {
-                    seanceEl.innerHTML = todayDay.innerHTML;
-                } else if (todayExercises) {
-                    var exHtml = '';
-                    todayExercises.querySelectorAll('.exercise-card').forEach(function(card) {
-                        var name = card.querySelector('.exercise-name');
-                        var detail = card.querySelector('.exercise-detail');
-                        if (name) exHtml += '<strong style="color:var(--text);">' + name.textContent + '</strong><br>';
-                        if (detail) exHtml += detail.innerHTML + '<br><br>';
-                    });
-                    seanceEl.innerHTML = exHtml;
-                }
-            }
-
-            // Verdict
-            const verdictEl = document.getElementById('analyse-verdict');
-            if (verdictEl && latest.verdict) {
-                verdictEl.innerHTML = '<strong>Verdict coach :</strong> ' + latest.verdict;
-            }
-
-            // === TRENDS ===
-
-            // Soleaire sparkline
-            if (daily.length > 0) {
-                renderSparkline('trend-soleaire', 'trend-soleaire-labels',
-                    daily.map(d => ({
-                        value: d.soleaire,
-                        label: fmtDateLabel(d.date),
-                        shortLabel: fmtDateDay(d.date)
-                    })),
-                    function(v) { return soleaireColor(v); },
-                    10, true
-                );
-                const solVals = daily.filter(d => d.soleaire != null).map(d => d.soleaire);
-                const solSummary = document.getElementById('trend-soleaire-summary');
-                if (solSummary && solVals.length > 0) {
-                    const last = solVals[solVals.length - 1];
-                    const first = solVals[0];
-                    const diff = last - first;
-                    const trend = diff < 0 ? '<span class="text-green">en baisse (' + diff.toFixed(1) + ')</span>' :
-                                  diff > 0 ? '<span class="text-red">en hausse (+' + diff.toFixed(1) + ')</span>' :
-                                  '<span class="text-yellow">stable</span>';
-                    solSummary.innerHTML = 'Tendance : ' + trend + ' · Dernier : ' + last + '/10';
-                }
-            }
-
-            // Hygiene trend (current week, interactive)
-            (function() {
-                var now = new Date();
-                var dayOfWeek = now.getDay(); // 0=Sun
-                var mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-                var monday = new Date(now);
-                monday.setDate(now.getDate() + mondayOffset);
-                monday.setHours(0, 0, 0, 0);
-
-                var weekDays = [];
-                for (var i = 0; i < 7; i++) {
-                    var d = new Date(monday);
-                    d.setDate(monday.getDate() + i);
-                    weekDays.push(d.toISOString().slice(0, 10));
-                }
-
-                var dailyByDate = {};
-                daily.forEach(function(d) { dailyByDate[d.date] = d; });
-
-                var todayStr = now.toISOString().slice(0, 10);
-                var container = document.getElementById('trend-hygiene');
-                var hygHtml = '<table style="width:100%;font-size:13px;">';
-                hygHtml += '<tr><th style="text-align:left;">Date</th><th>Sommeil</th><th>Diner</th><th>0 nico</th><th>Eau</th></tr>';
-
-                weekDays.forEach(function(dateStr) {
-                    var entry = dailyByDate[dateStr] || {};
-                    var dd = new Date(dateStr + 'T00:00:00');
-                    var dayLabel = dd.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
-                    var isToday = dateStr === todayStr;
-                    var isFuture = dateStr > todayStr;
-                    var rowStyle = isToday ? ' style="background:var(--bg-card-alt);font-weight:700;"' : '';
-
-                    hygHtml += '<tr' + rowStyle + '>';
-                    hygHtml += '<td>' + dayLabel + (isToday ? ' *' : '') + '</td>';
-
-                    var fields = [
-                        { key: 'sommeil_h', test: function(v) { return v >= 7; } },
-                        { key: 'diner', test: function(v) { return !!v; } },
-                        { key: 'nicotine', test: function(v) { return !v; } },
-                        { key: 'hydratation', test: function(v) { return !!v; } }
-                    ];
-
-                    fields.forEach(function(f) {
-                        var val = entry[f.key];
-                        var ok = val != null && val !== undefined ? f.test(val) : false;
-                        if (isFuture) {
-                            hygHtml += '<td style="text-align:center;color:var(--border);">—</td>';
-                        } else {
-                            hygHtml += '<td style="text-align:center;">'
-                                + '<span class="hyg-toggle" data-date="' + dateStr + '" data-key="' + f.key + '" data-ok="' + (ok ? '1' : '0') + '"'
-                                + ' style="cursor:pointer;font-size:16px;user-select:none;">'
-                                + (ok ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>')
-                                + '</span></td>';
-                        }
-                    });
-                    hygHtml += '</tr>';
-                });
-                hygHtml += '</table>';
-
-                // Score (past + today only)
-                var pastDays = weekDays.filter(function(d) { return d <= todayStr; });
-                if (pastDays.length > 0) {
-                    var totalScore = 0;
-                    pastDays.forEach(function(dateStr) {
-                        var e = dailyByDate[dateStr] || {};
-                        var s = 0;
-                        if (e.sommeil_h >= 7) s++;
-                        if (e.diner) s++;
-                        if (!e.nicotine) s++;
-                        if (e.hydratation) s++;
-                        totalScore += s;
-                    });
-                    var avgScore = (totalScore / pastDays.length).toFixed(1);
-                    hygHtml += '<div style="margin-top:8px;text-align:center;font-size:12px;color:var(--text-muted);">Score moyen : <strong style="color:' + (avgScore >= 3 ? 'var(--green)' : avgScore >= 2 ? 'var(--yellow)' : 'var(--red)') + ';">' + avgScore + '/4</strong></div>';
-                }
-
-                container.innerHTML = hygHtml;
-
-                // Make toggles interactive
-                container.querySelectorAll('.hyg-toggle').forEach(function(el) {
-                    el.addEventListener('click', function() {
-                        var date = this.dataset.date;
-                        var key = this.dataset.key;
-                        var wasOk = this.dataset.ok === '1';
-                        var nowOk = !wasOk;
-                        this.dataset.ok = nowOk ? '1' : '0';
-                        this.innerHTML = nowOk ? '<span class="text-green">&#10003;</span>' : '<span class="text-red">&#10007;</span>';
-
-                        // Update the daily entry in memory
-                        var entry = dailyByDate[date];
-                        if (!entry) {
-                            entry = { date: date };
-                            daily.push(entry);
-                            daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
-                            dailyByDate[date] = entry;
-                        }
-                        if (key === 'sommeil_h') {
-                            entry.sommeil_h = nowOk ? 7.5 : 0;
-                        } else if (key === 'nicotine') {
-                            entry.nicotine = !nowOk;
-                        } else {
-                            entry[key] = nowOk;
-                        }
-
-                        _checksDirty = true;
-                        showSaveChecksBtn();
-                    });
-                });
-            })();
-
-            // Longterm trajectory
-            if (lt.occ_weeks_remaining) {
-                const weeksEl = document.getElementById('traj-weeks');
-                if (weeksEl) weeksEl.textContent = lt.occ_weeks_remaining;
-            }
-            if (lt.current_block) {
-                const blockEl = document.getElementById('traj-block');
-                if (blockEl) blockEl.textContent = lt.current_block;
-            }
-            if (lt.next_race) {
-                const raceEl = document.getElementById('traj-next-race');
-                if (raceEl) raceEl.textContent = lt.next_race;
-            }
-            if (lt.trajectory) {
-                const noteEl = document.getElementById('traj-note');
-                if (noteEl) noteEl.textContent = lt.trajectory;
-            }
-            if (lt.status) {
-                const statusEl = document.getElementById('traj-status');
-                if (statusEl) {
-                    const statusMap = {
-                        'repos': { cls: 'badge-yellow', label: 'PHASE DE SOIN' },
-                        'en_retard': { cls: 'badge-red', label: 'EN RETARD' },
-                        'dans_les_temps': { cls: 'badge-green', label: 'DANS LES TEMPS' },
-                        'avance': { cls: 'badge-green', label: 'EN AVANCE' },
-                    };
-                    const s = statusMap[lt.status] || { cls: 'badge-yellow', label: lt.status.toUpperCase() };
-                    statusEl.innerHTML = '<span class="badge ' + s.cls + '">' + s.label + '</span>';
-                }
-            }
-
             // Protocol phase badges
             var currentPhase = lt.protocol_phase || 1;
             for (var p = 1; p <= 5; p++) {
@@ -3106,43 +2631,6 @@ function loadCoachLog() {
             }
         })
         .catch(() => {});
-}
-
-function setHygieneCheck(id, ok) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = ok ? '\u2713' : '\u2717';
-    el.style.color = ok ? 'var(--green)' : 'var(--red)';
-}
-
-function renderSparkline(containerId, labelsId, values, colorFn, maxScale, invertColor) {
-    const container = document.getElementById(containerId);
-    const labelsEl = document.getElementById(labelsId);
-    if (!container) return;
-
-    const validValues = values.filter(v => v.value != null);
-    if (validValues.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px;width:100%;">Pas encore de donnees</div>';
-        return;
-    }
-
-    const scale = maxScale || Math.max(...validValues.map(v => v.value));
-    let html = '';
-    values.forEach(v => {
-        if (v.value != null) {
-            const pct = invertColor ? (v.value / scale) * 100 : (v.value / scale) * 100;
-            const height = Math.max(8, pct);
-            const color = colorFn ? colorFn(v.value) : 'var(--accent)';
-            html += '<div class="dot" style="height:' + height + '%;background:' + color + ';" title="' + v.label + ': ' + v.value + '"></div>';
-        } else {
-            html += '<div class="dot" style="height:5%;background:var(--border);opacity:0.3;" title="' + v.label + ': --"></div>';
-        }
-    });
-    container.innerHTML = html;
-
-    if (labelsEl && values.length > 0) {
-        labelsEl.innerHTML = '<span>' + values[0].shortLabel + '</span><span>' + values[values.length - 1].shortLabel + '</span>';
-    }
 }
 
 loadCoachLog();
