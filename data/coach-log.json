@@ -12,8 +12,8 @@
       "verdict": "Jour 1 du protocole. Lancement isos + cross-training. Arret nicotine ce jour.",
       "phase": "bloc0",
       "checks": {
-        "Iso mollets": true,
-        "PPG haut du corps": true
+        "Iso mollets": false,
+        "PPG haut du corps": false
       }
     },
     {
@@ -71,8 +71,8 @@
     "updated": "2026-02-07",
     "status": "repos",
     "occ_weeks_remaining": 29,
-    "current_block": "Bloc 0 â Reprise & Soin",
-    "next_race": "Cabornis (8 mars) â decision le 15 fev",
+    "current_block": "Bloc 0 Ã¢ÂÂ Reprise & Soin",
+    "next_race": "Cabornis (8 mars) Ã¢ÂÂ decision le 15 fev",
     "trajectory": "Phase de soin, pas encore en retard"
   }
 }
