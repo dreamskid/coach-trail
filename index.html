@@ -2415,10 +2415,22 @@ function saveTokenAndGo() {
 
 function saveTokenAndSync() { saveTokenAndGo(); }
 
+var _obfKey = 'coachtrail2026';
+function obfuscate(s) {
+    var out = [];
+    for (var i = 0; i < s.length; i++) out.push(s.charCodeAt(i) ^ _obfKey.charCodeAt(i % _obfKey.length));
+    return btoa(String.fromCharCode.apply(null, out));
+}
+function deobfuscate(s) {
+    var bytes = atob(s);
+    var out = [];
+    for (var i = 0; i < bytes.length; i++) out.push(bytes.charCodeAt(i) ^ _obfKey.charCodeAt(i % _obfKey.length));
+    return String.fromCharCode.apply(null, out);
+}
+
 function persistTokenToRepo(token) {
     var repo = SYNC_REPO;
     var filePath = 'data/coach-log.json';
-    console.log('[token-persist] Starting...');
     fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
         headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
     })
@@ -2430,17 +2442,17 @@ function persistTokenToRepo(token) {
         var content = JSON.parse(atob(file.content));
         var sha = file.sha;
         if (!content.settings) content.settings = {};
-        content.settings.gh_sync_token_b64 = btoa(token);
+        content.settings.gh_sync_token_obf = obfuscate(token);
+        delete content.settings.gh_sync_token_b64;
         var newContent = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2) + '\n')));
         return fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: 'Save sync token', content: newContent, sha: sha })
+            body: JSON.stringify({ message: 'Save settings', content: newContent, sha: sha })
         });
     })
     .then(function(r) {
-        if (r.ok) console.log('[token-persist] OK — token saved to repo');
-        else r.json().then(function(e) { console.error('[token-persist] PUT failed:', e.message); });
+        if (!r.ok) r.json().then(function(e) { console.error('[token-persist] Failed:', e.message); });
     })
     .catch(function(e) { console.error('[token-persist] Error:', e); });
 }
@@ -2573,14 +2585,12 @@ function loadCoachLog() {
             const daily = data.daily || [];
             const lt = data.longterm || {};
 
-            // Sync token cross-device
-            var hasTokenInJson = data.settings && data.settings.gh_sync_token_b64;
+            // Sync token cross-device (XOR obfuscated)
+            var hasTokenInJson = data.settings && data.settings.gh_sync_token_obf;
             var hasTokenLocal = getSyncToken();
             if (hasTokenInJson && !hasTokenLocal) {
-                // Restore token from JSON to localStorage
-                try { setSyncToken(atob(data.settings.gh_sync_token_b64)); } catch(e) {}
+                try { setSyncToken(deobfuscate(data.settings.gh_sync_token_obf)); } catch(e) {}
             } else if (hasTokenLocal && !hasTokenInJson) {
-                // Token exists locally but not in JSON — persist it for other devices
                 persistTokenToRepo(hasTokenLocal);
             }
 
