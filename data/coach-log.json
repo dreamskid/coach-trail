@@ -7,18 +7,72 @@
       "diner": false,
       "nicotine": true,
       "hydratation": false,
-      "sommeil_h": 6.0,
+      "sommeil_h": 6,
       "body_battery": 80,
       "verdict": "Jour 1 du protocole. Lancement isos + cross-training. Arret nicotine ce jour.",
-      "phase": "bloc0"
+      "phase": "bloc0",
+      "checks": {
+        "Iso mollets": true,
+        "PPG haut du corps": true
+      }
+    },
+    {
+      "date": "2026-02-08",
+      "checks": {
+        "Iso mollets": false
+      }
+    },
+    {
+      "date": "2026-02-10",
+      "checks": {
+        "Iso mollets": false
+      }
+    },
+    {
+      "date": "2026-02-11",
+      "checks": {
+        "PPG haut du corps": false,
+        "Iso mollets": false
+      }
+    },
+    {
+      "date": "2026-02-12",
+      "checks": {
+        "Iso mollets": false
+      }
+    },
+    {
+      "date": "2026-02-13",
+      "checks": {
+        "Test phase 2": false
+      }
+    },
+    {
+      "date": "2026-02-14",
+      "checks": {
+        "Iso / excentriques": false
+      }
+    },
+    {
+      "date": "2026-02-15",
+      "checks": {
+        "PPG complete": false,
+        "Retest saut unipodal": false
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "checks": {
+        "Iso / excentriques": false
+      }
     }
   ],
   "longterm": {
     "updated": "2026-02-07",
     "status": "repos",
     "occ_weeks_remaining": 29,
-    "current_block": "Bloc 0 — Reprise & Soin",
-    "next_race": "Cabornis (8 mars) — decision le 15 fev",
+    "current_block": "Bloc 0 â Reprise & Soin",
+    "next_race": "Cabornis (8 mars) â decision le 15 fev",
     "trajectory": "Phase de soin, pas encore en retard"
   }
 }
