@@ -460,6 +460,37 @@
         }
         .day-check .check-icon { font-size: 14px; }
 
+        /* ===== DAY METRICS (Soléaire + RPE dots) ===== */
+        .day-metrics { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+        .metric-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .metric-label { color: var(--text-muted); min-width: 28px; }
+        .metric-dots { display: flex; gap: 2px; }
+        .metric-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.12s;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .metric-dot:hover { border-color: var(--text-muted); transform: scale(1.15); }
+        .metric-dot.filled { border-color: transparent; }
+        .metric-value {
+            min-width: 16px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+            margin-left: 2px;
+        }
+
         /* ===== SAVE CHECKS BUTTON ===== */
         .save-checks-btn {
             position: fixed;
@@ -1895,6 +1926,97 @@ function initManualChecks() {
     });
 }
 
+function rpeColor(val) {
+    if (val == null) return 'var(--text-muted)';
+    if (val <= 4) return 'var(--green)';
+    if (val <= 6) return 'var(--yellow)';
+    if (val <= 8) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function initDayMetrics() {
+    document.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
+        var date = dayEl.dataset.date;
+        // Remove previous metrics if re-init
+        var old = dayEl.querySelector('.day-metrics');
+        if (old) old.remove();
+
+        var coachEntry = _coachLogDaily.find(function(d) { return d.date === date; });
+
+        var container = document.createElement('div');
+        container.className = 'day-metrics';
+
+        var metrics = [
+            { key: 'soleaire', label: 'Sol.', colorFn: soleaireColor },
+            { key: 'rpe', label: 'RPE', colorFn: rpeColor }
+        ];
+
+        metrics.forEach(function(m) {
+            var row = document.createElement('div');
+            row.className = 'metric-row';
+            row.dataset.metric = m.key;
+
+            var savedVal = coachEntry && coachEntry[m.key] != null ? Math.round(coachEntry[m.key]) : null;
+            row.dataset.value = savedVal != null ? savedVal : '';
+
+            var lbl = document.createElement('span');
+            lbl.className = 'metric-label';
+            lbl.textContent = m.label;
+            row.appendChild(lbl);
+
+            var dots = document.createElement('span');
+            dots.className = 'metric-dots';
+
+            for (var i = 0; i <= 10; i++) {
+                (function(idx) {
+                    var dot = document.createElement('button');
+                    dot.className = 'metric-dot';
+                    dot.dataset.idx = idx;
+                    dot.title = idx + '/10';
+                    if (savedVal != null && idx <= savedVal) {
+                        dot.classList.add('filled');
+                        dot.style.background = m.colorFn(savedVal);
+                    }
+                    dot.addEventListener('click', function() {
+                        var current = row.dataset.value !== '' ? parseInt(row.dataset.value) : null;
+                        var newVal = (current === idx) ? null : idx;
+                        row.dataset.value = newVal != null ? newVal : '';
+                        // Update all dots
+                        row.querySelectorAll('.metric-dot').forEach(function(d) {
+                            var di = parseInt(d.dataset.idx);
+                            if (newVal != null && di <= newVal) {
+                                d.classList.add('filled');
+                                d.style.background = m.colorFn(newVal);
+                            } else {
+                                d.classList.remove('filled');
+                                d.style.background = '';
+                            }
+                        });
+                        // Update value display
+                        var valSpan = row.querySelector('.metric-value');
+                        valSpan.textContent = newVal != null ? newVal : '';
+                        valSpan.style.color = m.colorFn(newVal);
+                        _checksDirty = true;
+                        showSaveChecksBtn();
+                    });
+                    dots.appendChild(dot);
+                })(i);
+            }
+            row.appendChild(dots);
+
+            var valSpan = document.createElement('span');
+            valSpan.className = 'metric-value';
+            valSpan.textContent = savedVal != null ? savedVal : '';
+            valSpan.style.color = m.colorFn(savedVal);
+            row.appendChild(valSpan);
+
+            container.appendChild(row);
+        });
+
+        dayEl.appendChild(container);
+    });
+}
+
 function showSaveChecksBtn() {
     var btn = document.getElementById('save-checks-btn');
     if (!btn) {
@@ -1908,16 +2030,25 @@ function showSaveChecksBtn() {
     setTimeout(function() { btn.classList.add('visible'); }, 10);
 }
 
-function collectAllChecks() {
+function collectAllDayData() {
     var result = {};
-    document.querySelectorAll('.week-day[data-checks]').forEach(function(dayEl) {
+    document.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
         var date = dayEl.dataset.date;
+        var entry = {};
+        // Checks
         var checks = {};
         dayEl.querySelectorAll('.day-check').forEach(function(chip) {
             var name = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '');
             checks[name] = chip.classList.contains('checked');
         });
-        result[date] = checks;
+        if (Object.keys(checks).length > 0) entry.checks = checks;
+        // Metrics (soléaire, RPE)
+        dayEl.querySelectorAll('.metric-row').forEach(function(row) {
+            var key = row.dataset.metric;
+            var val = row.dataset.value;
+            entry[key] = val !== '' ? parseInt(val) : null;
+        });
+        result[date] = entry;
     });
     return result;
 }
@@ -1930,7 +2061,7 @@ function saveChecksToGitHub() {
     btn.disabled = true;
     btn.textContent = 'Sauvegarde...';
 
-    var allChecks = collectAllChecks();
+    var allData = collectAllDayData();
     var repo = SYNC_REPO;
     var filePath = 'data/coach-log.json';
 
@@ -1943,13 +2074,20 @@ function saveChecksToGitHub() {
         var content = JSON.parse(atob(file.content));
         var sha = file.sha;
 
-        // 2. Merge checks into daily entries
-        Object.keys(allChecks).forEach(function(date) {
+        // 2. Merge checks + metrics into daily entries
+        Object.keys(allData).forEach(function(date) {
+            var dayData = allData[date];
             var entry = content.daily.find(function(d) { return d.date === date; });
             if (entry) {
-                entry.checks = allChecks[date];
+                if (dayData.checks) entry.checks = dayData.checks;
+                if (dayData.soleaire !== undefined) entry.soleaire = dayData.soleaire;
+                if (dayData.rpe !== undefined) entry.rpe = dayData.rpe;
             } else {
-                content.daily.push({ date: date, checks: allChecks[date] });
+                var newEntry = { date: date };
+                if (dayData.checks) newEntry.checks = dayData.checks;
+                if (dayData.soleaire !== undefined) newEntry.soleaire = dayData.soleaire;
+                if (dayData.rpe !== undefined) newEntry.rpe = dayData.rpe;
+                content.daily.push(newEntry);
                 content.daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
             }
         });
@@ -1959,7 +2097,7 @@ function saveChecksToGitHub() {
         return fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: 'Update checks', content: newContent, sha: sha })
+            body: JSON.stringify({ message: 'Update daily log', content: newContent, sha: sha })
         });
     })
     .then(function(r) {
@@ -1985,6 +2123,7 @@ function saveChecksToGitHub() {
 }
 
 initManualChecks();
+initDayMetrics();
 
 // ===== GARMIN WELLNESS DATA =====
 function fmtSeconds(s) {
@@ -2598,6 +2737,7 @@ function loadCoachLog() {
             // Feed manual checks from coach-log and re-render
             _coachLogDaily = daily;
             initManualChecks();
+            initDayMetrics();
 
             if (daily.length === 0) return;
 
