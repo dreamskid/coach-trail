@@ -810,6 +810,7 @@
             </div>
         </div>
 
+        <div class="day-match"></div>
         <div class="day-checks"></div>
     </div>
 
@@ -824,22 +825,6 @@
             <strong>Objectif :</strong> Premiere seance + lancer le protocole iso mollets.<br>
             <strong>Course a pied :</strong> ZERO.<br>
             <strong>Priorite :</strong> Debut du travail de soin soleaire + maintien cardio cross-training.
-        </div>
-
-        <div class="week-day" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
-            <div class="day-header">
-                <span class="day-name">Samedi 7</span>
-                <span class="badge badge-blue">Cross + Protocole iso</span>
-            </div>
-            <div class="day-details">
-                <strong>1. Protocole iso mollets</strong> (LE PLUS IMPORTANT) :<br>
-                · Bilateral : montee sur pointes, tenir <strong>30s x 4 series</strong> (1 min repos)<br>
-                · Unipodal gauche : idem, <strong>30s x 4</strong> — <strong style="color: var(--yellow);">noter la gene /10</strong><br><br>
-                <strong>2. Elliptique ou Natation</strong> — 45-60 min <span class="text-blue">Z1 (112-125 bpm)</span><br><br>
-                <strong>3. PPG haut du corps</strong> (si temps) — 20 min : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
-            </div>
-            <div class="day-match"></div>
-            <div class="day-checks"></div>
         </div>
 
         <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
@@ -1943,7 +1928,8 @@ function matchWeekActivities(activities) {
 
         const isFuture = date > todayStr;
         const dayActs = actByDate[date] || [];
-        const isRestDay = el.querySelector('.day-details').textContent.toLowerCase().includes('repos complet');
+        const detailEl = el.querySelector('.day-details');
+        const isRestDay = detailEl ? detailEl.textContent.toLowerCase().includes('repos complet') : false;
 
         if (isFuture) {
             matchEl.innerHTML = '<div class="day-match-future">A venir</div>';
