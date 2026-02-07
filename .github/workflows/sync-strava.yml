@@ -1,4 +1,4 @@
-name: Sync Strava Activities
+name: Sync Data (Strava + Garmin)
 
 on:
   schedule:
@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install garminconnect
+
       - name: Sync Strava activities
         env:
           STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
@@ -26,10 +29,15 @@ jobs:
           STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
         run: python scripts/sync_strava.py
 
+      - name: Sync Garmin wellness data
+        env:
+          GARMINTOKENS: ${{ secrets.GARMINTOKENS }}
+        run: python scripts/sync_garmin.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/strava-activities.json
-          git diff --cached --quiet || git commit -m "Auto-sync Strava activities $(date -u +%Y-%m-%d)"
+          git add data/strava-activities.json data/garmin-wellness.json
+          git diff --cached --quiet || git commit -m "Auto-sync Strava + Garmin data $(date -u +%Y-%m-%d)"
           git push

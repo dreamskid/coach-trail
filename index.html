@@ -299,6 +299,53 @@
             margin-left: 8px;
         }
 
+        /* ===== HEALTH TAB ===== */
+        .sleep-phases-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 8px 0; }
+        .sleep-phases-bar div { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+        .sleep-deep { background: #1e3a8a; }
+        .sleep-light { background: #3b82f6; }
+        .sleep-rem { background: #8b5cf6; }
+        .sleep-awake { background: #f97316; }
+
+        .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 80px; padding: 0 2px; }
+        .mini-chart .bar {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            min-width: 8px;
+            position: relative;
+            transition: opacity 0.15s;
+            cursor: default;
+        }
+        .mini-chart .bar:hover { opacity: 0.8; }
+        .mini-chart-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); padding: 4px 2px 0; }
+
+        .health-metric {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .health-metric:last-child { border-bottom: none; }
+        .health-metric-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .health-metric-value { font-size: 20px; font-weight: 700; }
+        .health-metric-label { font-size: 12px; color: var(--text-muted); }
+
+        .hrv-status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             text-align: center; padding: 30px 0 20px; color: var(--text-muted);
@@ -335,6 +382,7 @@
     <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
     <button class="tab-btn" data-tab="week">Semaine</button>
     <button class="tab-btn" data-tab="injury">Blessure</button>
+    <button class="tab-btn" data-tab="health">Sante</button>
     <button class="tab-btn" data-tab="calendar">Calendrier</button>
     <button class="tab-btn" data-tab="progress">Progression</button>
     <button class="tab-btn" data-tab="activities">Activites</button>
@@ -353,14 +401,14 @@
             <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">20K: 446 · 50K: 437</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big text-green">45</div>
+            <div class="stat-big text-green" id="kpi-vo2max">45</div>
             <div class="stat-label">VO2max (ml/kg/min)</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">Garmin · 07/02/2026</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-vo2max-sub">Garmin · 07/02/2026</div>
         </div>
         <div class="card" style="text-align: center;">
-            <div class="stat-big text-red">6h03</div>
+            <div class="stat-big text-red" id="kpi-sleep">6h03</div>
             <div class="stat-label">Sommeil moyen /nuit</div>
-            <div style="font-size:12px; color: var(--red); margin-top:4px;">Objectif : 7h30</div>
+            <div style="font-size:12px; color: var(--red); margin-top:4px;" id="kpi-sleep-sub">Objectif : 7h30</div>
         </div>
         <div class="card" style="text-align: center;">
             <div class="stat-big text-orange">82<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
@@ -756,6 +804,101 @@
             <tr><td>3</td><td>Jonction mollet/soleaire</td><td>Droit</td><td>Leger</td><td class="text-green">Resolu</td></tr>
             <tr><td class="text-bold">4</td><td class="text-bold">Jonction mollet/soleaire</td><td class="text-bold">Gauche</td><td class="text-bold">Leger</td><td class="text-red text-bold">En cours</td></tr>
         </table>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- TAB : SANTE (Garmin Connect)                                             -->
+<!-- ======================================================================== -->
+<div id="health" class="tab-content">
+
+    <!-- Garmin header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Donnees Garmin Connect</span>
+        </div>
+        <span class="badge badge-blue" id="garmin-status">Synchro...</span>
+    </div>
+
+    <!-- KPI Sante -->
+    <div class="grid grid-4" style="margin-bottom: 24px;" id="health-kpi">
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="health-sleep-score" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Score sommeil</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-sleep-duration">--</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="health-body-battery" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Body Battery</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-bb-detail">--</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="health-vo2max" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">VO2max</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">ml/kg/min</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="health-rhr" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">FC repos</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="health-rhr-avg">--</div>
+        </div>
+    </div>
+
+    <!-- Sommeil detail + VFC/Stress -->
+    <div class="grid grid-2">
+        <!-- Sommeil -->
+        <div class="card">
+            <h2>Sommeil</h2>
+            <div id="health-sleep-detail">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
+        </div>
+
+        <!-- VFC + Stress -->
+        <div class="card">
+            <h2>Variabilite cardiaque & Stress</h2>
+            <div id="health-hrv-stress">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts 14 jours -->
+    <div class="section-title">Tendances <span>14 jours</span></div>
+
+    <div class="grid grid-3">
+        <div class="card">
+            <h2>FC repos (bpm)</h2>
+            <div class="mini-chart" id="chart-rhr"></div>
+            <div class="mini-chart-labels" id="chart-rhr-labels"></div>
+        </div>
+        <div class="card">
+            <h2>VFC — Moyenne nocturne (ms)</h2>
+            <div class="mini-chart" id="chart-hrv"></div>
+            <div class="mini-chart-labels" id="chart-hrv-labels"></div>
+        </div>
+        <div class="card">
+            <h2>Pas quotidiens</h2>
+            <div class="mini-chart" id="chart-steps"></div>
+            <div class="mini-chart-labels" id="chart-steps-labels"></div>
+        </div>
+    </div>
+
+    <!-- Body Battery 14j + Sommeil 14j -->
+    <div class="grid grid-2">
+        <div class="card">
+            <h2>Body Battery — 14 jours</h2>
+            <div class="mini-chart" id="chart-bb"></div>
+            <div class="mini-chart-labels" id="chart-bb-labels"></div>
+            <div id="chart-bb-summary" style="margin-top: 12px;"></div>
+        </div>
+        <div class="card">
+            <h2>Sommeil — 14 jours</h2>
+            <div class="mini-chart" id="chart-sleep"></div>
+            <div class="mini-chart-labels" id="chart-sleep-labels"></div>
+            <div id="chart-sleep-summary" style="margin-top: 12px;"></div>
+        </div>
     </div>
 </div>
 
@@ -1195,6 +1338,385 @@ function loadActivities() {
 }
 
 loadActivities();
+
+// ===== GARMIN WELLNESS DATA =====
+function fmtSeconds(s) {
+    if (!s || s <= 0) return '--';
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    return h + 'h' + String(m).padStart(2, '0');
+}
+
+function fmtDateLabel(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }).replace('.', '');
+}
+
+function fmtDateDay(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return String(d.getDate());
+}
+
+function sleepScoreColor(score) {
+    if (!score) return 'var(--text-muted)';
+    if (score >= 80) return 'var(--green)';
+    if (score >= 60) return 'var(--yellow)';
+    if (score >= 40) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function bbColor(val) {
+    if (!val) return 'var(--text-muted)';
+    if (val >= 70) return 'var(--green)';
+    if (val >= 40) return 'var(--yellow)';
+    if (val >= 20) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function rhrColor(val) {
+    if (!val) return 'var(--text-muted)';
+    if (val <= 48) return 'var(--green)';
+    if (val <= 55) return 'var(--yellow)';
+    return 'var(--orange)';
+}
+
+function stressColor(val) {
+    if (!val) return 'var(--text-muted)';
+    if (val <= 25) return 'var(--green)';
+    if (val <= 50) return 'var(--yellow)';
+    if (val <= 75) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function hrvStatusBadge(status) {
+    if (!status || status === 'UNKNOWN') return '<span class="hrv-status-badge" style="background:#333;color:#999;">INCONNU</span>';
+    const map = {
+        'BALANCED': { bg: 'var(--green-dark)', color: 'var(--green)', label: 'EQUILIBRE' },
+        'UNBALANCED': { bg: '#854d0e', color: 'var(--yellow)', label: 'DESEQUILIBRE' },
+        'LOW': { bg: 'var(--red-dark)', color: '#fca5a5', label: 'BAS' },
+        'POOR': { bg: 'var(--red-dark)', color: '#fca5a5', label: 'FAIBLE' },
+    };
+    const s = map[status] || { bg: '#333', color: '#999', label: status };
+    return '<span class="hrv-status-badge" style="background:' + s.bg + ';color:' + s.color + ';">' + s.label + '</span>';
+}
+
+function renderMiniChart(containerId, labelsId, values, colorFn, unit) {
+    const container = document.getElementById(containerId);
+    const labelsEl = document.getElementById(labelsId);
+    if (!container) return;
+
+    const validValues = values.filter(v => v.value != null && v.value > 0);
+    if (validValues.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px;width:100%;">Pas de donnees</div>';
+        return;
+    }
+
+    const nums = validValues.map(v => v.value);
+    const maxVal = Math.max(...nums);
+    const minVal = Math.min(...nums);
+    const range = maxVal - minVal || 1;
+
+    let html = '';
+    values.forEach(v => {
+        if (v.value != null && v.value > 0) {
+            const pct = 15 + ((v.value - minVal) / range) * 85;
+            const color = colorFn ? colorFn(v.value) : 'var(--accent)';
+            html += '<div class="bar" style="height:' + pct + '%;background:' + color + ';" title="' + v.label + ': ' + v.value + (unit || '') + '"></div>';
+        } else {
+            html += '<div class="bar" style="height:5%;background:var(--border);opacity:0.3;" title="' + v.label + ': --"></div>';
+        }
+    });
+    container.innerHTML = html;
+
+    if (labelsEl && values.length > 0) {
+        labelsEl.innerHTML = '<span>' + values[0].shortLabel + '</span><span>' + values[values.length - 1].shortLabel + '</span>';
+    }
+}
+
+function sleepColor(seconds) {
+    if (!seconds) return 'var(--text-muted)';
+    const h = seconds / 3600;
+    if (h >= 7.5) return 'var(--green)';
+    if (h >= 7) return 'var(--yellow)';
+    if (h >= 6) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function stepsColor(steps) {
+    if (!steps) return 'var(--text-muted)';
+    if (steps >= 10000) return 'var(--green)';
+    if (steps >= 7000) return 'var(--yellow)';
+    if (steps >= 5000) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function loadGarminData() {
+    fetch('data/garmin-wellness.json')
+        .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
+        .then(data => {
+            const sum = data.summary;
+            const days = data.days || [];
+
+            // ===== KPI SANTE =====
+            // Sleep score
+            const scoreEl = document.getElementById('health-sleep-score');
+            if (sum.sleep_score) {
+                scoreEl.textContent = sum.sleep_score;
+                scoreEl.style.color = sleepScoreColor(sum.sleep_score);
+            }
+            const sleepDurEl = document.getElementById('health-sleep-duration');
+            if (sum.sleep_avg_seconds) {
+                sleepDurEl.textContent = 'Moy. ' + fmtSeconds(sum.sleep_avg_seconds) + ' / nuit';
+            }
+
+            // Body Battery
+            const bbEl = document.getElementById('health-body-battery');
+            if (sum.body_battery_current) {
+                bbEl.textContent = sum.body_battery_current;
+                bbEl.style.color = bbColor(sum.body_battery_current);
+            }
+            const bbDetail = document.getElementById('health-bb-detail');
+            if (sum.body_battery_current) bbDetail.textContent = 'Pic du jour';
+
+            // VO2max
+            const vo2El = document.getElementById('health-vo2max');
+            if (sum.vo2max) {
+                vo2El.textContent = sum.vo2max;
+                vo2El.style.color = 'var(--green)';
+            }
+
+            // RHR
+            const rhrEl = document.getElementById('health-rhr');
+            if (sum.resting_hr) {
+                rhrEl.textContent = sum.resting_hr;
+                rhrEl.style.color = rhrColor(sum.resting_hr);
+            }
+            const rhrAvgEl = document.getElementById('health-rhr-avg');
+            if (sum.resting_hr_avg) rhrAvgEl.textContent = 'Moy. 14j : ' + sum.resting_hr_avg + ' bpm';
+
+            // ===== UPDATE OVERVIEW KPIs =====
+            if (sum.vo2max) {
+                const ov = document.getElementById('kpi-vo2max');
+                if (ov) ov.textContent = sum.vo2max;
+                const ovSub = document.getElementById('kpi-vo2max-sub');
+                if (ovSub) ovSub.textContent = 'Garmin · ' + sum.last_sync.split(' ')[0];
+            }
+            if (sum.sleep_avg_seconds) {
+                const slEl = document.getElementById('kpi-sleep');
+                if (slEl) {
+                    slEl.textContent = fmtSeconds(sum.sleep_avg_seconds);
+                    const h = sum.sleep_avg_seconds / 3600;
+                    slEl.style.color = h >= 7.5 ? 'var(--green)' : h >= 7 ? 'var(--yellow)' : h >= 6 ? 'var(--orange)' : 'var(--red)';
+                }
+                const slSub = document.getElementById('kpi-sleep-sub');
+                if (slSub) {
+                    const h = sum.sleep_avg_seconds / 3600;
+                    slSub.textContent = 'Objectif : 7h30';
+                    slSub.style.color = h >= 7.5 ? 'var(--green)' : 'var(--red)';
+                }
+            }
+
+            // ===== SOMMEIL DETAIL =====
+            const sleepDetail = document.getElementById('health-sleep-detail');
+            const latestSleep = findLatest(days, 'sleep');
+            if (latestSleep && latestSleep.sleep) {
+                const sl = latestSleep.sleep;
+                const total = sl.duration_seconds || 1;
+                const deepPct = Math.round(sl.deep_seconds / total * 100);
+                const lightPct = Math.round(sl.light_seconds / total * 100);
+                const remPct = Math.round(sl.rem_seconds / total * 100);
+                const awakePct = Math.max(0, 100 - deepPct - lightPct - remPct);
+
+                let html = '<div style="margin-bottom:12px;"><span style="font-size:11px;color:var(--text-muted);">Derniere nuit (' + fmtDateLabel(latestSleep.date) + ')</span></div>';
+                html += '<div style="text-align:center;margin-bottom:12px;"><span style="font-size:28px;font-weight:700;color:' + sleepColor(total) + ';">' + fmtSeconds(total) + '</span>';
+                if (sl.score) html += ' <span style="font-size:14px;color:' + sleepScoreColor(sl.score) + ';font-weight:600;">Score ' + sl.score + '</span>';
+                html += '</div>';
+
+                // Phases bar
+                html += '<div class="sleep-phases-bar">';
+                if (deepPct > 0) html += '<div class="sleep-deep" style="width:' + deepPct + '%;">' + (deepPct >= 10 ? deepPct + '%' : '') + '</div>';
+                if (lightPct > 0) html += '<div class="sleep-light" style="width:' + lightPct + '%;">' + (lightPct >= 10 ? lightPct + '%' : '') + '</div>';
+                if (remPct > 0) html += '<div class="sleep-rem" style="width:' + remPct + '%;">' + (remPct >= 10 ? remPct + '%' : '') + '</div>';
+                if (awakePct > 0) html += '<div class="sleep-awake" style="width:' + awakePct + '%;">' + (awakePct >= 10 ? awakePct + '%' : '') + '</div>';
+                html += '</div>';
+
+                // Legend
+                html += '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:12px;">';
+                html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1e3a8a;margin-right:4px;"></span>Profond ' + fmtSeconds(sl.deep_seconds) + '</span>';
+                html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#3b82f6;margin-right:4px;"></span>Leger ' + fmtSeconds(sl.light_seconds) + '</span>';
+                html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#8b5cf6;margin-right:4px;"></span>REM ' + fmtSeconds(sl.rem_seconds) + '</span>';
+                html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#f97316;margin-right:4px;"></span>Eveil ' + fmtSeconds(sl.awake_seconds) + '</span>';
+                html += '</div>';
+
+                // 7-day trend
+                const last7 = days.slice(-7);
+                const sleepDurs = last7.filter(d => d.sleep && d.sleep.duration_seconds > 0).map(d => d.sleep.duration_seconds);
+                if (sleepDurs.length > 0) {
+                    const avg = Math.round(sleepDurs.reduce((a, b) => a + b, 0) / sleepDurs.length);
+                    html += '<div style="margin-top:16px;padding:10px;background:var(--bg-card-alt);border-radius:8px;">';
+                    html += '<div style="display:flex;justify-content:space-between;font-size:13px;">';
+                    html += '<span class="text-muted">Moyenne 7 jours</span>';
+                    html += '<span style="font-weight:700;color:' + sleepColor(avg) + ';">' + fmtSeconds(avg) + '</span>';
+                    html += '</div>';
+                    html += '<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:4px;">';
+                    html += '<span class="text-muted">Objectif</span>';
+                    html += '<span style="font-weight:700;color:var(--green);">7h30</span>';
+                    html += '</div></div>';
+                }
+
+                sleepDetail.innerHTML = html;
+            } else {
+                sleepDetail.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas de donnees sommeil</div>';
+            }
+
+            // ===== VFC + STRESS =====
+            const hrvStress = document.getElementById('health-hrv-stress');
+            const latestHrv = findLatest(days, 'hrv');
+            const latestStress = findLatest(days, 'stress');
+            let hrvHtml = '';
+
+            if (latestHrv && latestHrv.hrv) {
+                const h = latestHrv.hrv;
+                hrvHtml += '<div style="margin-bottom:16px;">';
+                hrvHtml += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
+                hrvHtml += '<span style="font-size:13px;color:var(--text-muted);">Statut VFC</span>';
+                hrvHtml += hrvStatusBadge(h.status);
+                hrvHtml += '</div>';
+
+                hrvHtml += '<div class="health-metric">';
+                hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#581c87,#a855f7);">';
+                hrvHtml += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>';
+                hrvHtml += '</div>';
+                hrvHtml += '<div><div class="health-metric-value text-purple">' + (h.weekly_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
+                hrvHtml += '<div class="health-metric-label">Moyenne hebdo</div></div>';
+                hrvHtml += '</div>';
+
+                hrvHtml += '<div class="health-metric">';
+                hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#4338ca,#818cf8);">';
+                hrvHtml += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a5 5 0 015 5c0 6-5 8-5 13-2-3-5-7-5-13a5 5 0 015-5z"/></svg>';
+                hrvHtml += '</div>';
+                hrvHtml += '<div><div class="health-metric-value" style="color:#818cf8;">' + (h.last_night_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
+                hrvHtml += '<div class="health-metric-label">Derniere nuit</div></div>';
+                hrvHtml += '</div>';
+
+                if (h.baseline_balanced_low && h.baseline_balanced_upper) {
+                    hrvHtml += '<div style="font-size:12px;color:var(--text-muted);margin-top:8px;">Baseline : ' + h.baseline_balanced_low + ' — ' + h.baseline_balanced_upper + ' ms</div>';
+                }
+            }
+
+            if (latestStress && latestStress.stress) {
+                const st = latestStress.stress;
+                hrvHtml += '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">';
+                hrvHtml += '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Stress (' + fmtDateLabel(latestStress.date) + ')</div>';
+
+                hrvHtml += '<div class="health-metric">';
+                hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#9a3412,#f97316);">';
+                hrvHtml += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2v6M12 18v4M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M18 12h4M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg>';
+                hrvHtml += '</div>';
+                hrvHtml += '<div><div class="health-metric-value" style="color:' + stressColor(st.avg) + ';">' + (st.avg || '--') + '</div>';
+                hrvHtml += '<div class="health-metric-label">Niveau moyen</div></div>';
+                hrvHtml += '</div>';
+
+                // Stress durations
+                const restH = st.rest_stress_duration ? Math.round(st.rest_stress_duration / 60) : 0;
+                const lowH = st.low_stress_duration ? Math.round(st.low_stress_duration / 60) : 0;
+                const medH = st.medium_stress_duration ? Math.round(st.medium_stress_duration / 60) : 0;
+                const highH = st.high_stress_duration ? Math.round(st.high_stress_duration / 60) : 0;
+                const totalStressMin = restH + lowH + medH + highH || 1;
+
+                hrvHtml += '<div style="display:flex;height:20px;border-radius:4px;overflow:hidden;margin-top:8px;">';
+                if (restH > 0) hrvHtml += '<div style="width:' + (restH / totalStressMin * 100) + '%;background:var(--green);" title="Repos ' + restH + ' min"></div>';
+                if (lowH > 0) hrvHtml += '<div style="width:' + (lowH / totalStressMin * 100) + '%;background:var(--yellow);" title="Bas ' + lowH + ' min"></div>';
+                if (medH > 0) hrvHtml += '<div style="width:' + (medH / totalStressMin * 100) + '%;background:var(--orange);" title="Moyen ' + medH + ' min"></div>';
+                if (highH > 0) hrvHtml += '<div style="width:' + (highH / totalStressMin * 100) + '%;background:var(--red);" title="Eleve ' + highH + ' min"></div>';
+                hrvHtml += '</div>';
+
+                hrvHtml += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:11px;">';
+                hrvHtml += '<span><span style="color:var(--green);">●</span> Repos ' + restH + 'm</span>';
+                hrvHtml += '<span><span style="color:var(--yellow);">●</span> Bas ' + lowH + 'm</span>';
+                hrvHtml += '<span><span style="color:var(--orange);">●</span> Moyen ' + medH + 'm</span>';
+                hrvHtml += '<span><span style="color:var(--red);">●</span> Eleve ' + highH + 'm</span>';
+                hrvHtml += '</div>';
+                hrvHtml += '</div>';
+            }
+
+            if (!hrvHtml) hrvHtml = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas de donnees VFC/stress</div>';
+            hrvStress.innerHTML = hrvHtml;
+
+            // ===== CHARTS 14 JOURS =====
+            // FC repos
+            renderMiniChart('chart-rhr', 'chart-rhr-labels',
+                days.map(d => ({ value: d.resting_hr, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
+                rhrColor, ' bpm'
+            );
+
+            // VFC
+            renderMiniChart('chart-hrv', 'chart-hrv-labels',
+                days.map(d => ({ value: d.hrv ? d.hrv.last_night_avg : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
+                function(v) { return v >= 50 ? 'var(--green)' : v >= 30 ? 'var(--yellow)' : 'var(--orange)'; }, ' ms'
+            );
+
+            // Pas
+            renderMiniChart('chart-steps', 'chart-steps-labels',
+                days.map(d => ({ value: d.steps, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
+                stepsColor, ''
+            );
+
+            // Body Battery
+            renderMiniChart('chart-bb', 'chart-bb-labels',
+                days.map(d => ({ value: d.body_battery ? d.body_battery.highest : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
+                bbColor, ''
+            );
+            // BB summary
+            const bbSummaryEl = document.getElementById('chart-bb-summary');
+            const bbDays = days.filter(d => d.body_battery);
+            if (bbDays.length > 0 && bbSummaryEl) {
+                const avgHigh = Math.round(bbDays.reduce((a, d) => a + d.body_battery.highest, 0) / bbDays.length);
+                const avgLow = Math.round(bbDays.reduce((a, d) => a + d.body_battery.lowest, 0) / bbDays.length);
+                bbSummaryEl.innerHTML = '<div style="display:flex;justify-content:space-around;font-size:12px;">' +
+                    '<div style="text-align:center;"><div style="font-weight:700;color:' + bbColor(avgHigh) + ';">' + avgHigh + '</div><div class="text-muted">Pic moy.</div></div>' +
+                    '<div style="text-align:center;"><div style="font-weight:700;color:' + bbColor(avgLow) + ';">' + avgLow + '</div><div class="text-muted">Min moy.</div></div>' +
+                    '</div>';
+            }
+
+            // Sleep 14j
+            renderMiniChart('chart-sleep', 'chart-sleep-labels',
+                days.map(d => ({ value: d.sleep ? Math.round(d.sleep.duration_seconds / 60) : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
+                function(mins) { return sleepColor(mins * 60); }, ' min'
+            );
+            // Sleep summary
+            const sleepSummaryEl = document.getElementById('chart-sleep-summary');
+            const sleepDays = days.filter(d => d.sleep && d.sleep.duration_seconds > 0);
+            if (sleepDays.length > 0 && sleepSummaryEl) {
+                const avgSec = Math.round(sleepDays.reduce((a, d) => a + d.sleep.duration_seconds, 0) / sleepDays.length);
+                const scores = sleepDays.filter(d => d.sleep.score > 0).map(d => d.sleep.score);
+                const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+                sleepSummaryEl.innerHTML = '<div style="display:flex;justify-content:space-around;font-size:12px;">' +
+                    '<div style="text-align:center;"><div style="font-weight:700;color:' + sleepColor(avgSec) + ';">' + fmtSeconds(avgSec) + '</div><div class="text-muted">Duree moy.</div></div>' +
+                    (avgScore ? '<div style="text-align:center;"><div style="font-weight:700;color:' + sleepScoreColor(avgScore) + ';">' + avgScore + '</div><div class="text-muted">Score moy.</div></div>' : '') +
+                    '</div>';
+            }
+
+            // Status badge
+            document.getElementById('garmin-status').className = 'badge badge-green';
+            document.getElementById('garmin-status').textContent = 'Synchro OK · ' + sum.last_sync;
+        })
+        .catch(() => {
+            document.getElementById('garmin-status').className = 'badge badge-yellow';
+            document.getElementById('garmin-status').textContent = 'Pas de donnees';
+            document.getElementById('health-sleep-detail').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.<br><span style="font-size:12px;">Configure les secrets GARMIN_EMAIL / GARMIN_PASSWORD<br>et lance le workflow GitHub Actions.</span></div>';
+            document.getElementById('health-hrv-stress').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
+        });
+}
+
+function findLatest(days, key) {
+    for (let i = days.length - 1; i >= 0; i--) {
+        if (days[i][key]) return days[i];
+    }
+    return null;
+}
+
+loadGarminData();
 </script>
 
 </body>
