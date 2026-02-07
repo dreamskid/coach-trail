@@ -3094,14 +3094,14 @@ function loadCoachLog() {
             // Protocol phase badges
             var currentPhase = lt.protocol_phase || 1;
             for (var p = 1; p <= 5; p++) {
-                var phaseEl = document.getElementById('proto-phase-' + p);
-                if (!phaseEl) continue;
+                var protoEl = document.getElementById('proto-phase-' + p);
+                if (!protoEl) continue;
                 if (p < currentPhase) {
-                    phaseEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
+                    protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
                 } else if (p === currentPhase) {
-                    phaseEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
+                    protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
                 } else {
-                    phaseEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
+                    protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
                 }
             }
         })
