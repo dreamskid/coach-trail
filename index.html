@@ -2565,9 +2565,15 @@ function loadCoachLog() {
             const daily = data.daily || [];
             const lt = data.longterm || {};
 
-            // Sync token from coach-log (cross-device)
-            if (data.settings && data.settings.gh_sync_token_b64 && !getSyncToken()) {
+            // Sync token cross-device
+            var hasTokenInJson = data.settings && data.settings.gh_sync_token_b64;
+            var hasTokenLocal = getSyncToken();
+            if (hasTokenInJson && !hasTokenLocal) {
+                // Restore token from JSON to localStorage
                 try { setSyncToken(atob(data.settings.gh_sync_token_b64)); } catch(e) {}
+            } else if (hasTokenLocal && !hasTokenInJson) {
+                // Token exists locally but not in JSON — persist it for other devices
+                persistTokenToRepo(hasTokenLocal);
             }
 
             // Feed manual checks from coach-log and re-render
