@@ -2027,6 +2027,9 @@ function showSaveChecksBtn() {
         btn.onclick = saveChecksToGitHub;
         document.body.appendChild(btn);
     }
+    btn.disabled = false;
+    btn.textContent = 'Sauvegarder';
+    btn.style.background = '';
     setTimeout(function() { btn.classList.add('visible'); }, 10);
 }
 
