@@ -1066,31 +1066,31 @@
                     <td class="text-bold">1 — Isometrique</td>
                     <td>Maintenant</td>
                     <td class="text-muted">Iso mollet 30sx4, bilateral puis unipodal</td>
-                    <td><span class="badge badge-blue">EN COURS</span></td>
+                    <td id="proto-phase-1"><span class="badge badge-blue">EN COURS</span></td>
                 </tr>
                 <tr>
                     <td class="text-bold">2 — Excentrique</td>
                     <td>Unipodal 15 reps 0 gene</td>
                     <td class="text-muted">Stanish lent + marche pente tapis</td>
-                    <td><span class="badge badge-yellow">A VENIR</span></td>
+                    <td id="proto-phase-2"><span class="badge badge-yellow">A VENIR</span></td>
                 </tr>
                 <tr>
                     <td class="text-bold">3 — Footing</td>
                     <td>Saut unipodal &le; 1/10</td>
                     <td class="text-muted">Tapis plat, 7-8 km/h, 15-20 min</td>
-                    <td><span class="badge badge-yellow">A VENIR</span></td>
+                    <td id="proto-phase-3"><span class="badge badge-yellow">A VENIR</span></td>
                 </tr>
                 <tr>
                     <td class="text-bold">4 — Progression</td>
                     <td>30 min tapis indolore</td>
                     <td class="text-muted">Duree augmentee, intro inclinaison</td>
-                    <td><span class="badge badge-yellow">A VENIR</span></td>
+                    <td id="proto-phase-4"><span class="badge badge-yellow">A VENIR</span></td>
                 </tr>
                 <tr>
                     <td class="text-bold">5 — Validation</td>
                     <td>10 sauts unipodaux 0/10</td>
                     <td class="text-muted">Course normale, reintro D+</td>
-                    <td><span class="badge badge-yellow">A VENIR</span></td>
+                    <td id="proto-phase-5"><span class="badge badge-yellow">A VENIR</span></td>
                 </tr>
             </table>
 
@@ -3066,6 +3066,20 @@ function loadCoachLog() {
                     };
                     const s = statusMap[lt.status] || { cls: 'badge-yellow', label: lt.status.toUpperCase() };
                     statusEl.innerHTML = '<span class="badge ' + s.cls + '">' + s.label + '</span>';
+                }
+            }
+
+            // Protocol phase badges
+            var currentPhase = lt.protocol_phase || 1;
+            for (var p = 1; p <= 5; p++) {
+                var phaseEl = document.getElementById('proto-phase-' + p);
+                if (!phaseEl) continue;
+                if (p < currentPhase) {
+                    phaseEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
+                } else if (p === currentPhase) {
+                    phaseEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
+                } else {
+                    phaseEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
                 }
             }
         })
