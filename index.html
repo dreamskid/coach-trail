@@ -2418,10 +2418,14 @@ function saveTokenAndSync() { saveTokenAndGo(); }
 function persistTokenToRepo(token) {
     var repo = SYNC_REPO;
     var filePath = 'data/coach-log.json';
+    console.log('[token-persist] Starting...');
     fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
         headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
     })
-    .then(function(r) { return r.json(); })
+    .then(function(r) {
+        if (!r.ok) throw new Error('GET failed: ' + r.status);
+        return r.json();
+    })
     .then(function(file) {
         var content = JSON.parse(atob(file.content));
         var sha = file.sha;
@@ -2434,7 +2438,11 @@ function persistTokenToRepo(token) {
             body: JSON.stringify({ message: 'Save sync token', content: newContent, sha: sha })
         });
     })
-    .catch(function(e) { console.error('Token persist error:', e); });
+    .then(function(r) {
+        if (r.ok) console.log('[token-persist] OK — token saved to repo');
+        else r.json().then(function(e) { console.error('[token-persist] PUT failed:', e.message); });
+    })
+    .catch(function(e) { console.error('[token-persist] Error:', e); });
 }
 
 function triggerSync(token) {
