@@ -251,22 +251,53 @@
         /* ===== ACTIVITY CARD (Strava) ===== */
         .activity-card {
             background: var(--bg-card-alt);
-            border-radius: 8px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 0;
             margin-bottom: 10px;
-            border-left: 3px solid var(--accent);
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
-        .activity-card.run { border-color: var(--green); }
-        .activity-card.swim { border-color: var(--cyan); }
-        .activity-card.elliptical { border-color: var(--purple); }
-        .activity-card.walk { border-color: var(--yellow); }
-        .activity-card.workout { border-color: var(--orange); }
-        .activity-card .act-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .activity-card .act-name { font-weight: 700; font-size: 14px; }
-        .activity-card .act-date { font-size: 12px; color: var(--text-muted); }
-        .activity-card .act-stats { display: flex; gap: 24px; font-size: 13px; }
-        .activity-card .act-stat-value { font-weight: 700; }
-        .activity-card .act-stat-label { font-size: 11px; color: var(--text-muted); }
+        .activity-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+        .act-icon {
+            width: 56px;
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .act-icon svg { width: 26px; height: 26px; }
+        .act-icon.run { background: linear-gradient(135deg, #15803d, #22c55e); }
+        .act-icon.trail { background: linear-gradient(135deg, #b45309, #f97316); }
+        .act-icon.swim { background: linear-gradient(135deg, #0e7490, #06b6d4); }
+        .act-icon.elliptical { background: linear-gradient(135deg, #7e22ce, #a855f7); }
+        .act-icon.walk { background: linear-gradient(135deg, #a16207, #eab308); }
+        .act-icon.workout { background: linear-gradient(135deg, #9a3412, #f97316); }
+        .act-icon.default { background: linear-gradient(135deg, #1e3a5f, #3b82f6); }
+        .act-body { flex: 1; padding: 14px 16px; }
+        .act-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .act-name { font-weight: 700; font-size: 14px; letter-spacing: -0.2px; }
+        .act-meta { font-size: 11px; color: var(--text-muted); text-align: right; line-height: 1.4; }
+        .act-type-label { font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .act-stats { display: flex; gap: 6px; flex-wrap: wrap; }
+        .act-stat {
+            background: var(--bg-card);
+            border-radius: 6px;
+            padding: 6px 12px;
+            text-align: center;
+            min-width: 72px;
+        }
+        .act-stat-value { font-weight: 800; font-size: 14px; letter-spacing: -0.3px; }
+        .act-stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
+        .act-zone {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
 
         /* ===== FOOTER ===== */
         footer {
@@ -933,47 +964,44 @@
 <!-- ======================================================================== -->
 <div id="activities" class="tab-content">
 
-    <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h2 style="margin: 0;">Activites recentes</h2>
-            <span class="badge badge-orange" id="strava-status">Strava</span>
-        </div>
-
-        <div id="activities-list">
-            <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-                <div style="font-size: 48px; margin-bottom: 16px;">&#9201;</div>
-                <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Synchronisation Strava</div>
-                <div style="font-size: 13px; max-width: 500px; margin: 0 auto;">
-                    Les activites Strava apparaitront ici automatiquement apres la configuration.<br><br>
-                    <strong>Setup requis (une seule fois) :</strong><br>
-                    1. Creer une app sur <a href="https://www.strava.com/settings/api" style="color: var(--accent-light);">strava.com/settings/api</a><br>
-                    2. Obtenir les tokens OAuth<br>
-                    3. Ajouter les secrets au repo GitHub<br><br>
-                    <span class="text-muted">Voir <code>scripts/SETUP-STRAVA.md</code> pour le guide complet.</span>
-                </div>
+    <!-- Summary bar -->
+    <div id="activities-summary" style="display: none; margin-bottom: 20px;">
+        <div class="grid grid-4" style="gap: 12px;">
+            <div class="card" style="text-align: center; padding: 16px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <div class="stat-big text-green" id="sum-runs" style="font-size: 28px;">0</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div class="stat-big text-blue" id="sum-distance" style="font-size: 28px;">0</div>
+                <div class="stat-label">km total</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px;"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/></svg>
+                <div class="stat-big text-orange" id="sum-elevation" style="font-size: 28px;">0</div>
+                <div class="stat-label">D+ total</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <div class="stat-big text-purple" id="sum-time" style="font-size: 28px;">0h</div>
+                <div class="stat-label">Temps total</div>
             </div>
         </div>
+    </div>
 
-        <!-- Resume stats (sera rempli par JS) -->
-        <div id="activities-summary" style="display: none; margin-top: 16px; padding: 16px; background: var(--bg-card-alt); border-radius: 8px;">
-            <div class="grid grid-4" style="gap: 16px;">
-                <div style="text-align: center;">
-                    <div class="stat-big text-green" id="sum-runs">0</div>
-                    <div class="stat-label">Courses</div>
-                </div>
-                <div style="text-align: center;">
-                    <div class="stat-big text-blue" id="sum-distance">0</div>
-                    <div class="stat-label">km total</div>
-                </div>
-                <div style="text-align: center;">
-                    <div class="stat-big text-orange" id="sum-elevation">0</div>
-                    <div class="stat-label">D+ total</div>
-                </div>
-                <div style="text-align: center;">
-                    <div class="stat-big text-purple" id="sum-time">0</div>
-                    <div class="stat-label">heures</div>
-                </div>
-            </div>
+    <!-- Strava header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--orange)"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+            <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Activites Strava</span>
+        </div>
+        <span class="badge badge-orange" id="strava-status">Synchro...</span>
+    </div>
+
+    <div id="activities-list">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <div style="font-size: 14px;">Chargement des activites...</div>
         </div>
     </div>
 </div>
@@ -1005,35 +1033,68 @@ if (hash) {
     if (btn) btn.click();
 }
 
-// ===== STRAVA ACTIVITIES LOADER =====
-const ACTIVITY_TYPES = {
-    'Run': { class: 'run', label: 'Course' },
-    'TrailRun': { class: 'run', label: 'Trail' },
-    'Walk': { class: 'walk', label: 'Marche' },
-    'Hike': { class: 'walk', label: 'Randonnee' },
-    'Swim': { class: 'swim', label: 'Natation' },
-    'Elliptical': { class: 'elliptical', label: 'Elliptique' },
-    'WeightTraining': { class: 'workout', label: 'Musculation' },
-    'Workout': { class: 'workout', label: 'Entrainement' },
+// ===== SVG ICONS =====
+const SVG = {
+    run: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M7 21l3-7 2.5 2 4.5-6"/><path d="M10 14l-2 3"/><path d="M17 8l-4.5 6"/></svg>',
+    trail: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/><circle cx="17" cy="5" r="2"/></svg>',
+    swim: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c2-1 4 1 6 0s4-1 6 0 4 1 6 0"/><path d="M2 14c2-1 4 1 6 0s4-1 6 0 4 1 6 0"/><circle cx="8" cy="6" r="2"/><path d="M10 6l4 4-3 3"/></svg>',
+    elliptical: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="8" ry="5"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="22"/></svg>',
+    walk: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M10 21l1-7 3 3 3-8"/><path d="M11 14l-3 7"/></svg>',
+    workout: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5v14"/><path d="M18 5v14"/><path d="M6 12h12"/><rect x="3" y="7" width="2" height="10" rx="1"/><rect x="19" y="7" width="2" height="10" rx="1"/></svg>',
+    default: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    distance: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6l-6 6-6-6"/><path d="M18 18l-6-6-6 6"/></svg>',
+    elevation: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/></svg>',
+    clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    heart: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+    pace: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
 };
 
-function formatDuration(seconds) {
+const TYPES = {
+    'Run':            { icon: 'run',     iconClass: 'run',        label: 'COURSE',       color: 'var(--green)' },
+    'TrailRun':       { icon: 'trail',   iconClass: 'trail',      label: 'TRAIL',        color: 'var(--orange)' },
+    'Walk':           { icon: 'walk',    iconClass: 'walk',       label: 'MARCHE',       color: 'var(--yellow)' },
+    'Hike':           { icon: 'walk',    iconClass: 'walk',       label: 'RANDO',        color: 'var(--yellow)' },
+    'Swim':           { icon: 'swim',    iconClass: 'swim',       label: 'NATATION',     color: 'var(--cyan)' },
+    'Elliptical':     { icon: 'elliptical', iconClass: 'elliptical', label: 'ELLIPTIQUE', color: 'var(--purple)' },
+    'WeightTraining': { icon: 'workout', iconClass: 'workout',    label: 'MUSCU',        color: 'var(--orange)' },
+    'Workout':        { icon: 'workout', iconClass: 'workout',    label: 'PPG',          color: 'var(--orange)' },
+};
+
+// FC zones for coloring
+const FC_ZONES = [
+    { max: 112, label: 'Repos',  bg: '#1e3a5f', color: '#60a5fa' },
+    { max: 125, label: 'Z1',     bg: '#1e3a5f', color: '#3b82f6' },
+    { max: 138, label: 'Z2',     bg: '#0a2e1a', color: '#22c55e' },
+    { max: 152, label: 'Z3',     bg: '#2d2206', color: '#eab308' },
+    { max: 165, label: 'Z4',     bg: '#3d1c08', color: '#f97316' },
+    { max: 999, label: 'Z5',     bg: '#3d0a0a', color: '#ef4444' },
+];
+
+function getZone(hr) {
+    if (!hr) return null;
+    return FC_ZONES.find(z => hr <= z.max);
+}
+
+function fmt(seconds) {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
-    return h > 0 ? h + 'h' + String(m).padStart(2, '0') : m + ' min';
+    return h > 0 ? h + 'h' + String(m).padStart(2, '0') : m + 'min';
 }
 
-function formatPace(metersPerSec) {
-    if (!metersPerSec || metersPerSec === 0) return '-';
-    const secPerKm = 1000 / metersPerSec;
-    const min = Math.floor(secPerKm / 60);
-    const sec = Math.round(secPerKm % 60);
-    return min + ':' + String(sec).padStart(2, '0') + '/km';
+function fmtPace(mps) {
+    if (!mps || mps === 0) return '-';
+    const spk = 1000 / mps;
+    return Math.floor(spk / 60) + ':' + String(Math.round(spk % 60)).padStart(2, '0') + '/km';
 }
 
-function formatDate(dateStr) {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+function fmtDate(s) {
+    const d = new Date(s);
+    return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function fmtDateShort(s) {
+    const d = new Date(s);
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 }
 
 function loadActivities() {
@@ -1047,44 +1108,64 @@ function loadActivities() {
             list.innerHTML = '';
 
             let totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
+            let currentDate = '';
 
             activities.forEach(act => {
-                const type = ACTIVITY_TYPES[act.type] || { class: '', label: act.type };
+                const st = act.sport_type || act.type;
+                const t = TYPES[st] || TYPES[act.type] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
                 const dist = (act.distance / 1000).toFixed(1);
                 const elev = Math.round(act.total_elevation_gain || 0);
+                const isRun = st === 'Run' || st === 'TrailRun';
+                const zone = getZone(act.average_heartrate);
+                const dateKey = fmtDate(act.start_date_local);
 
-                if (act.type === 'Run' || act.type === 'TrailRun') totalRuns++;
+                if (isRun) totalRuns++;
                 totalDist += act.distance / 1000;
                 totalElev += act.total_elevation_gain || 0;
                 totalTime += act.moving_time || 0;
 
-                list.innerHTML += '<div class="activity-card ' + type.class + '">' +
-                    '<div class="act-header">' +
-                        '<span class="act-name">' + act.name + '</span>' +
-                        '<span class="act-date">' + formatDate(act.start_date_local) + ' · <span class="badge badge-blue">' + type.label + '</span></span>' +
-                    '</div>' +
-                    '<div class="act-stats">' +
-                        '<div><div class="act-stat-value">' + dist + ' km</div><div class="act-stat-label">Distance</div></div>' +
-                        '<div><div class="act-stat-value">' + elev + ' m</div><div class="act-stat-label">D+</div></div>' +
-                        '<div><div class="act-stat-value">' + formatDuration(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>' +
-                        (act.average_heartrate ? '<div><div class="act-stat-value">' + Math.round(act.average_heartrate) + ' bpm</div><div class="act-stat-label">FC moy</div></div>' : '') +
-                        (act.type === 'Run' || act.type === 'TrailRun' ? '<div><div class="act-stat-value">' + formatPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>' : '') +
-                    '</div>' +
-                '</div>';
+                // Date separator
+                if (dateKey !== currentDate) {
+                    currentDate = dateKey;
+                    list.innerHTML += '<div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:16px 0 6px; border-bottom:1px solid var(--border); margin-bottom:8px;">' + dateKey + '</div>';
+                }
+
+                let stats = '';
+                if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
+                if (elev > 0) stats += '<div class="act-stat"><div class="act-stat-value text-orange">' + elev + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> m</span></div><div class="act-stat-label">D+</div></div>';
+                stats += '<div class="act-stat"><div class="act-stat-value">' + fmt(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>';
+                if (act.average_heartrate) {
+                    const zHtml = zone ? '<span class="act-zone" style="background:' + zone.bg + ';color:' + zone.color + ';">' + zone.label + '</span>' : '';
+                    stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
+                }
+                if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
+
+                list.innerHTML +=
+                    '<div class="activity-card">' +
+                        '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
+                        '<div class="act-body">' +
+                            '<div class="act-header">' +
+                                '<div><span class="act-name">' + act.name + '</span></div>' +
+                                '<div class="act-meta"><span class="act-type-label" style="color:' + t.color + ';">' + t.label + '</span></div>' +
+                            '</div>' +
+                            '<div class="act-stats">' + stats + '</div>' +
+                        '</div>' +
+                    '</div>';
             });
 
-            // Update summary
             document.getElementById('sum-runs').textContent = totalRuns;
             document.getElementById('sum-distance').textContent = Math.round(totalDist);
             document.getElementById('sum-elevation').textContent = Math.round(totalElev);
-            document.getElementById('sum-time').textContent = Math.round(totalTime / 3600);
+            document.getElementById('sum-time').textContent = Math.round(totalTime / 3600) + 'h';
             summary.style.display = 'block';
 
             document.getElementById('strava-status').className = 'badge badge-green';
             document.getElementById('strava-status').textContent = 'Synchro OK';
         })
         .catch(() => {
-            // No data file yet, keep the setup message
+            document.getElementById('activities-list').innerHTML =
+                '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
+                '<div style="font-size:14px;">Pas encore de donnees Strava.</div></div>';
         });
 }
 
