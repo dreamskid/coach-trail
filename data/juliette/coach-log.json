@@ -113,6 +113,23 @@
           "puissance_montee": 6,
           "resistance_musculaire": 8,
           "recuperation": 6
+        },
+        "reasons": {
+          "progression": "MDS 50h a 36h, UTMB Index 437 a 570 en 2 ans",
+          "mental": "2x MDS, 18 courses UTMB, force mentale prouvee",
+          "gestion_effort": "Solide en multi-etapes, a affiner sur effort quotidien G2G",
+          "socle_aerobie": "VO2max 51.2, base solide, volume a augmenter pour G2G",
+          "endurance_ultra": "250km MDS + 108km Kullamannen, endurance confirmee",
+          "technique_descente": "Menisque limite les descentes techniques, genouillere necessaire",
+          "regularite": "Entrainement regulier, bon volume hebdomadaire",
+          "puissance_montee": "Correcte, a developper pour les etapes montagne G2G",
+          "resistance_musculaire": "Tient les efforts repetes sur plusieurs jours (MDS)",
+          "recuperation": "Recup inter-etapes a optimiser pour 6 jours consecutifs"
+        },
+        "global_comment": {
+          "forces": "Profil ultra-endurant d'exception. Mental (9/10) et endurance ultra (9/10) la placent dans le top 3% des traileuses UTMB. L'experience MDS x2 (250km autosuffisant, progression 50h a 36h) est un avantage decisif pour le G2G.",
+          "axes": "Technique descente (5/10) + menisque = combo limitant sur terrain technique. Recuperation inter-etapes (6/10) a optimiser pour tenir 6 jours consecutifs. Puissance montee a renforcer pour les etapes de montagne du G2G (Grand Canyon, 40°C).",
+          "positionnement": "UTMB Index 570 = top 5% des traileuses sur la plateforme. VO2max 51.2 ml/kg/min = percentile 95+ pour une femme de 41 ans (norme ACSM). Son profil multi-etapes desert (2x MDS) est quasi unique dans le peloton G2G — avantage competitif majeur."
         }
       },
       "history": [
@@ -130,6 +147,18 @@
             "puissance_montee": 6,
             "resistance_musculaire": 8,
             "recuperation": 6
+          },
+          "reasons": {
+            "progression": "MDS 50h a 36h, UTMB Index 437 a 570 en 2 ans",
+            "mental": "2x MDS, 18 courses UTMB, force mentale prouvee",
+            "gestion_effort": "Solide en multi-etapes, a affiner sur effort quotidien G2G",
+            "socle_aerobie": "VO2max 51.2, base solide, volume a augmenter pour G2G",
+            "endurance_ultra": "250km MDS + 108km Kullamannen, endurance confirmee",
+            "technique_descente": "Menisque limite les descentes techniques, genouillere necessaire",
+            "regularite": "Entrainement regulier, bon volume hebdomadaire",
+            "puissance_montee": "Correcte, a developper pour les etapes montagne G2G",
+            "resistance_musculaire": "Tient les efforts repetes sur plusieurs jours (MDS)",
+            "recuperation": "Recup inter-etapes a optimiser pour 6 jours consecutifs"
           }
         }
       ]
