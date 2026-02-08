@@ -4394,6 +4394,7 @@ _loadedAthletes[currentAthlete] = true;
             if (m.type === 'longterm') return 'Trajectoire';
             if (m.type === 'week_plan') return 'Plan ' + m.week;
             if (m.type === 'evaluation') return '\u00c9valuation';
+            if (m.type === 'reference') return 'Fichier ' + (m.file || '');
             return m.type;
         });
         var div = document.createElement('div');

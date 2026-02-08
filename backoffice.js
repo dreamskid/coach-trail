@@ -189,6 +189,7 @@ DONNEES ATHLETE (ecriture) :
 - update_longterm : modifier trajectoire (statut, bloc, next_race)
 - update_evaluation : modifier les scores d'evaluation (10 dimensions) et le commentaire global
 - write_week_plan : creer ou modifier le plan d'entrainement d'une semaine
+- write_reference_file : modifier n'importe quel fichier de reference (profil, blessures, zones, calendrier, previsions, race_history). IMPORTANT : le contenu du profil/blessures/zones/calendrier est deja dans ce prompt — lis-le ci-dessus avant de modifier. Pour previsions et race_history, utilise read_race_predictions ou read_race_history d'abord.
 
 INTERNET :
 - web_search : rechercher sur internet. Utilise pour :
@@ -377,6 +378,25 @@ const CHAT_TOOLS = [
             },
             required: ['trigger', 'scores']
         }
+    },
+    {
+        name: 'write_reference_file',
+        description: 'Modifier un fichier de reference markdown. Fichiers disponibles : profil (donnees physiques, historique), blessures (suivi blessures, protocoles), zones (zones FC et allures), calendrier (courses 2026, periodisation), previsions (previsions de temps courses 2026), race_history (historique complet des courses). Tu recois le contenu COMPLET du fichier — pas un diff, pas un extrait.',
+        input_schema: {
+            type: 'object',
+            properties: {
+                file: {
+                    type: 'string',
+                    enum: ['profil', 'blessures', 'zones', 'calendrier', 'previsions', 'race_history'],
+                    description: 'Quel fichier modifier'
+                },
+                content: {
+                    type: 'string',
+                    description: 'Contenu markdown COMPLET du fichier (remplace entierement le fichier existant). IMPORTANT : lis le fichier d\'abord avec l\'outil de lecture correspondant, puis modifie et renvoie le contenu complet.'
+                }
+            },
+            required: ['file', 'content']
+        }
     }
 ];
 
@@ -514,6 +534,27 @@ function executeTool(toolName, toolInput, athlete) {
             writeData(data, athlete);
             modifications.push({ type: 'evaluation' });
             result = 'Evaluation mise a jour (' + toolInput.trigger + ').';
+            break;
+        }
+        case 'write_reference_file': {
+            const ctx = ATHLETE_CONTEXT_FILES[athlete] || ATHLETE_CONTEXT_FILES.yohann;
+            const fileMap = {
+                profil: ctx.profil,
+                blessures: ctx.blessures,
+                zones: ctx.zones,
+                calendrier: ctx.calendrier,
+                previsions: (RACE_PREDICTIONS_FILES[athlete] || RACE_PREDICTIONS_FILES.yohann),
+                race_history: (RACE_HISTORY_FILES[athlete] || RACE_HISTORY_FILES.yohann)
+            };
+            const filePath = fileMap[toolInput.file];
+            if (!filePath) {
+                result = 'Fichier inconnu: ' + toolInput.file;
+                break;
+            }
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
+            fs.writeFileSync(filePath, toolInput.content, 'utf8');
+            modifications.push({ type: 'reference', file: toolInput.file });
+            result = 'Fichier ' + toolInput.file + ' mis a jour.';
             break;
         }
         default:
