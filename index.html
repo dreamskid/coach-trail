@@ -744,16 +744,18 @@
         .chat-typing {
             display: none;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             padding: 8px 18px;
             flex-shrink: 0;
+            font-size: 12px;
+            color: var(--text-muted);
         }
         .chat-typing.visible { display: flex; }
         .chat-typing-dot {
-            width: 7px;
-            height: 7px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background: var(--text-muted);
+            background: var(--accent);
             animation: chat-bounce 1.2s infinite;
         }
         .chat-typing-dot:nth-child(2) { animation-delay: 0.15s; }
@@ -761,7 +763,11 @@
 
         @keyframes chat-bounce {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-6px); opacity: 1; }
+            30% { transform: translateY(-3px); opacity: 1; }
+        }
+        .chat-typing-text {
+            font-style: italic;
+            margin-left: 2px;
         }
 
         .chat-input-row {
@@ -811,7 +817,6 @@
         /* ===== CHAT RESPONSIVE ===== */
         @media (max-width: 768px) {
             .chat-container {
-                height: calc(100vh - 130px);
                 height: calc(100dvh - 130px);
                 border-radius: 0;
                 border: none;
@@ -1812,6 +1817,7 @@
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
+            <span class="chat-typing-text">Ton coach analyse et recherche...</span>
         </div>
         <div class="chat-input-row">
             <textarea id="chat-input" placeholder="Parle a ton coach..." rows="1"></textarea>
@@ -2467,6 +2473,7 @@
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
+            <span class="chat-typing-text">Ton coach analyse et recherche...</span>
         </div>
         <div class="chat-input-row">
             <textarea id="j-chat-input" placeholder="Parle a ton coach..." rows="1"></textarea>
@@ -4440,16 +4447,24 @@ _loadedAthletes[currentAthlete] = true;
     // Init both athletes (in case loaded via URL hash)
     ['yohann', 'juliette'].forEach(function(a) { initChat(a); });
 
-    // Handle keyboard resize on mobile
+    // Handle keyboard resize on mobile — keep input above keyboard
     if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', function() {
+        var onViewportResize = function() {
             var containers = document.querySelectorAll('.chat-container');
+            var vpH = window.visualViewport.height;
+            var vpTop = window.visualViewport.offsetTop;
             containers.forEach(function(c) {
-                if (c.offsetParent) { // visible
-                    c.style.height = window.visualViewport.height - 130 + 'px';
+                if (!c.offsetParent) return; // hidden
+                // Calculate available height: viewport height minus the container's offset from viewport top
+                var rect = c.getBoundingClientRect();
+                var available = vpH - (rect.top - vpTop);
+                if (available > 200) {
+                    c.style.height = available + 'px';
                 }
             });
-        });
+        };
+        window.visualViewport.addEventListener('resize', onViewportResize);
+        window.visualViewport.addEventListener('scroll', onViewportResize);
     }
 })();
 </script>
