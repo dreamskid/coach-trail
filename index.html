@@ -553,6 +553,12 @@
         .exercise-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
         .exercise-detail { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
+        /* Today icon strip */
+        .today-icons { display: flex; gap: 16px; margin-bottom: 4px; }
+        .today-icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .today-icon-item .exercise-svg { width: 48px; height: 48px; }
+        .today-icon-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
         /* Past days: compact + greyed out, expandable on hover/tap */
         .day-past { opacity: 0.5; }
         .day-past .day-details { max-height: 0; overflow: hidden; margin: 0; padding: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
@@ -684,31 +690,18 @@
     <!-- AUJOURD'HUI (dynamique) -->
     <div id="today-container"></div>
 
-    <!-- CE WEEK-END : LANCEMENT -->
-    <div class="card" style="border-left: 3px solid var(--accent);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h2 style="margin: 0;">Ce week-end — Lancement Bloc 0</h2>
-            <span class="badge badge-blue">7-8 FEVRIER</span>
+    <!-- Jour source pour buildTodayCard (masqué automatiquement par JS) -->
+    <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
+        <div class="day-header">
+            <span class="day-name">Dimanche 8</span>
+            <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
         </div>
-
-        <div class="note-box">
-            <strong>Objectif :</strong> Premiere seance + lancer le protocole iso mollets.<br>
-            <strong>Course a pied :</strong> ZERO.<br>
-            <strong>Priorite :</strong> Debut du travail de soin soleaire + maintien cardio cross-training.
+        <div class="day-details">
+            <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
+            Protocole iso mollets (meme chose qu'hier)
         </div>
-
-        <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
-            <div class="day-header">
-                <span class="day-name">Dimanche 8</span>
-                <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
-            </div>
-            <div class="day-details">
-                <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
-                Protocole iso mollets (meme chose qu'hier)
-            </div>
-            <div class="day-match"></div>
-            <div class="day-checks"></div>
-        </div>
+        <div class="day-match"></div>
+        <div class="day-checks"></div>
     </div>
 
     <!-- W07 -->
@@ -2008,14 +2001,18 @@ function buildTodayCard() {
         }
     }
 
-    // Build exercise cards HTML
-    var exHTML = '';
-    exercises.forEach(function(ex, i) {
-        exHTML += '<div class="exercise-card">' +
-            '<div class="exercise-svg">' + (EXERCISE_SVGS[ex.key] || '') + '</div>' +
-            '<div class="exercise-info"><div class="exercise-name">' + (i + 1) + '. ' + ex.label + '</div></div>' +
-            '</div>';
-    });
+    // Build exercise icon strip (compact row of detected SVGs)
+    var iconsHTML = '';
+    if (exercises.length > 0) {
+        iconsHTML = '<div class="today-icons">';
+        exercises.forEach(function(ex) {
+            iconsHTML += '<div class="today-icon-item">' +
+                '<div class="exercise-svg">' + (EXERCISE_SVGS[ex.key] || '') + '</div>' +
+                '<span class="today-icon-label">' + ex.label + '</span>' +
+                '</div>';
+        });
+        iconsHTML += '</div>';
+    }
 
     var cardHTML = '<div class="card today-card week-day" data-date="' + todayISO + '"' +
         (checksAttr ? ' data-checks="' + checksAttr + '"' : '') + '>' +
@@ -2023,8 +2020,8 @@ function buildTodayCard() {
         '<h2>Aujourd\'hui — ' + jourNom + ' ' + jourNum + ' ' + moisNom + '</h2>' +
         badgeHTML +
         '</div>' +
-        '<div class="today-exercises">' + exHTML + '</div>' +
-        (detailsHTML ? '<div class="day-details" style="margin-top: 12px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">' + detailsHTML + '</div>' : '') +
+        iconsHTML +
+        '<div class="day-details" style="margin-top: 12px; line-height: 1.7;">' + detailsHTML + '</div>' +
         '<div class="day-match"></div>' +
         '<div class="day-checks"></div>' +
         '</div>';
