@@ -2252,18 +2252,41 @@ function loadActivities(athlete) {
             };
         });
 
-        // Deduplicate: Strava dates have misleading 'Z' but are local time, Garmin uses "YYYY-MM-DD HH:MM:SS"
-        // Normalize both to "YYYY-MM-DD HH:MM" and compare within 5 minutes
+        // Merge Strava + Garmin: when both have the same activity (within 5min), combine best data
         const parseLocal = s => new Date(s.replace('Z', '').replace(' ', 'T'));
-        const stravaStarts = (stravaActs || []).map(sa => parseLocal(sa.start_date_local).getTime());
+        const merged = [];
+        const usedGarmin = new Set();
 
-        const garminOnly = garminNorm.filter(ga => {
-            const gTime = parseLocal(ga.start_date_local).getTime();
-            return !stravaStarts.some(sTime => Math.abs(gTime - sTime) < 300000);
+        (stravaActs || []).forEach(sa => {
+            const sTime = parseLocal(sa.start_date_local).getTime();
+            const match = garminNorm.find((ga, i) => {
+                if (usedGarmin.has(i)) return false;
+                return Math.abs(parseLocal(ga.start_date_local).getTime() - sTime) < 300000;
+            });
+            if (match) {
+                usedGarmin.add(garminNorm.indexOf(match));
+                // Strava wins: name, sport_type, kudos. Garmin fills gaps: HR, elevation
+                merged.push({
+                    ...sa,
+                    source: 'strava+garmin',
+                    average_heartrate: sa.average_heartrate || match.average_heartrate,
+                    max_heartrate: sa.max_heartrate || match.max_heartrate,
+                    total_elevation_gain: (sa.total_elevation_gain > 0 ? sa.total_elevation_gain : match.total_elevation_gain) || 0,
+                    distance: sa.distance > 0 ? sa.distance : match.distance,
+                    moving_time: sa.moving_time > 0 ? sa.moving_time : match.moving_time,
+                    calories: sa.calories || match.calories,
+                });
+            } else {
+                merged.push({...sa, source: 'strava'});
+            }
         });
 
-        // Merge and sort by date (newest first)
-        const all = [...(stravaActs || []).map(a => ({...a, source: 'strava'})), ...garminOnly];
+        // Add Garmin-only activities
+        garminNorm.forEach((ga, i) => {
+            if (!usedGarmin.has(i)) merged.push(ga);
+        });
+
+        const all = merged;
         all.sort((a, b) => new Date(b.start_date_local) - new Date(a.start_date_local));
 
         if (all.length === 0) {
@@ -2302,7 +2325,8 @@ function loadActivities(athlete) {
             }
 
             // Source badge
-            const srcBadge = act.source === 'garmin' ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:400;">GARMIN</span>' : '';
+            const srcBadge = act.source === 'garmin' ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:400;">GARMIN</span>'
+                : act.source === 'strava+garmin' ? ' <span style="font-size:9px;color:var(--green);font-weight:400;">S+G</span>' : '';
 
             let stats = '';
             if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
