@@ -566,6 +566,14 @@
         .day-past:hover { opacity: 0.8; }
         .day-past:hover .day-details { max-height: 200px; }
         .day-hidden { display: none; }
+
+        /* Sub-tabs (Programme: A venir / Passés) */
+        .sub-tabs { display: flex !important; gap: 0; margin-bottom: 20px; border-bottom: 2px solid var(--border); background: var(--bg-card); border-radius: 8px 8px 0 0; padding: 4px 4px 0; }
+        .sub-tab { padding: 10px 20px; background: none; border: none; color: var(--text-muted); font-size: 14px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s; letter-spacing: 0.3px; }
+        .sub-tab:hover { color: var(--text); }
+        .sub-tab.active { color: var(--accent-light); border-bottom-color: var(--accent-light); border-bottom-width: 3px; }
+        .sub-content { display: none; }
+        .sub-content.active { display: block; animation: fadeIn 0.2s; }
     </style>
 </head>
 <body>
@@ -687,22 +695,17 @@
 <!-- ======================================================================== -->
 <div id="week" class="tab-content">
 
+    <!-- Sous-onglets -->
+    <div class="sub-tabs">
+        <button class="sub-tab active" data-subtab="upcoming">A venir</button>
+        <button class="sub-tab" data-subtab="past">Passes</button>
+    </div>
+
+    <!-- SUB-TAB : A venir -->
+    <div id="week-upcoming" class="sub-content active">
+
     <!-- AUJOURD'HUI (dynamique) -->
     <div id="today-container"></div>
-
-    <!-- Jour source pour buildTodayCard (masqué automatiquement par JS) -->
-    <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
-        <div class="day-header">
-            <span class="day-name">Dimanche 8</span>
-            <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
-        </div>
-        <div class="day-details">
-            <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
-            Protocole iso mollets (meme chose qu'hier)
-        </div>
-        <div class="day-match"></div>
-        <div class="day-checks"></div>
-    </div>
 
     <!-- W07 -->
     <div class="card" style="margin-top: 20px;">
@@ -857,6 +860,46 @@
             <tr><td class="text-bold">Dimanche</td><td>Libre</td><td>Matin</td><td class="text-muted">2 enfants — adapter</td></tr>
         </table>
     </div>
+
+    </div><!-- /week-upcoming -->
+
+    <!-- SUB-TAB : Passés -->
+    <div id="week-past" class="sub-content">
+        <h3 style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Historique recent</h3>
+
+        <!-- W06 : 7-8 fév (week-end) -->
+        <div class="card past-week-card">
+            <h3 style="margin-bottom: 12px;">Ce week-end — 7-8 fevrier</h3>
+
+            <div class="week-day day-past" data-date="2026-02-08" data-checks="Iso mollets">
+                <div class="day-header">
+                    <span class="day-name">Dimanche 8</span>
+                    <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
+                </div>
+                <div class="day-details">
+                    <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
+                    Protocole iso mollets (meme chose qu'hier)
+                </div>
+                <div class="day-match"></div>
+                <div class="day-checks"></div>
+            </div>
+
+            <div class="week-day day-past" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
+                <div class="day-header">
+                    <span class="day-name">Samedi 7</span>
+                    <span class="badge badge-blue">Cross + Protocole iso</span>
+                </div>
+                <div class="day-details">
+                    <strong>Protocole iso mollets</strong> : bilateral montee sur pointes 30s x 4, unipodal gauche 30s x 4<br>
+                    <strong>Elliptique ou Natation</strong> 45-60 min Z1 (112-125 bpm)<br>
+                    <strong>PPG haut du corps</strong> : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
+                </div>
+                <div class="day-match"></div>
+                <div class="day-checks"></div>
+            </div>
+        </div>
+    </div><!-- /week-past -->
+
 </div>
 
 <!-- ======================================================================== -->
@@ -1357,6 +1400,17 @@ if (hash) {
     const btn = document.querySelector('[data-tab="' + hash + '"]');
     if (btn) btn.click();
 }
+
+// ===== SUB-TAB NAVIGATION =====
+document.querySelectorAll('.sub-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var parent = btn.closest('.tab-content');
+        parent.querySelectorAll('.sub-tab').forEach(function(b) { b.classList.remove('active'); });
+        parent.querySelectorAll('.sub-content').forEach(function(c) { c.classList.remove('active'); });
+        btn.classList.add('active');
+        parent.querySelector('#week-' + btn.dataset.subtab).classList.add('active');
+    });
+});
 
 // ===== SVG ICONS =====
 const SVG = {
@@ -1986,8 +2040,10 @@ function buildTodayCard() {
         }
         checksAttr = sourceEl.dataset.checks || '';
         exercises = detectExercises(badgeEl ? badgeEl.textContent : '', detailsHTML);
-        // Hide original in planning
-        sourceEl.classList.add('day-hidden');
+        // Hide original in planning (but not if it's in #week-past — it stays visible there)
+        if (!sourceEl.closest('#week-past')) {
+            sourceEl.classList.add('day-hidden');
+        }
     }
 
     // Fallback: repos if no exercises detected
@@ -2034,8 +2090,9 @@ function markPastDays() {
     var todayISO = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
 
     document.querySelectorAll('.week-day[data-date]').forEach(function(el) {
-        // Skip elements inside today-container
+        // Skip elements inside today-container or week-past (already styled)
         if (el.closest('#today-container')) return;
+        if (el.closest('#week-past')) return;
         var date = el.dataset.date;
         if (date < todayISO) {
             el.classList.add('day-past');
