@@ -1,6 +1,26 @@
 {
   "daily": [
     {
+      "date": "2026-02-08",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Footing EF 1h30, Z1-Z2 (118-145 bpm). Terrain plat ou legerement vallonne. Renfo quadriceps apres si possible.",
+      "phase": "build1",
+      "checks": {
+        "Renfo quadriceps": false
+      }
+    },
+    {
+      "date": "2026-02-09",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Repos complet ou footing recup 30-40min Z1 (118-131 bpm) selon sensations. Etirements + glace genou si besoin.",
+      "phase": "build1",
+      "checks": {
+        "Etirements": false
+      }
+    },
+    {
       "date": "2026-02-10",
       "genou": null,
       "rpe": null,
