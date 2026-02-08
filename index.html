@@ -4352,10 +4352,9 @@ _loadedAthletes[currentAthlete] = true;
                 appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
                 if (data.modifications && data.modifications.length > 0) {
                     addModNotice(el.messages, data.modifications);
-                    if (data.modifications.some(function(m) { return m.type === 'week_plan'; })) {
-                        loadWeekPlan(athlete);
-                    }
+                    // Refresh all dashboard data after any AI modification
                     loadCoachLog(athlete);
+                    loadWeekPlan(athlete);
                 }
             }
             scrollBot(el.messages);
