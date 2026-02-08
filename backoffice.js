@@ -54,6 +54,11 @@ const RACE_HISTORY_FILES = {
     juliette: path.join(__dirname, 'juliette', 'courses', 'historique-courses.md')
 };
 
+const RACE_PREDICTIONS_FILES = {
+    yohann: path.join(__dirname, 'courses', 'previsions-2026.md'),
+    juliette: path.join(__dirname, 'juliette', 'courses', 'previsions-2026.md')
+};
+
 // ===== ANTHROPIC CLIENT =====
 const anthropic = process.env.ANTHROPIC_API_KEY
     ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -177,6 +182,7 @@ LECTURE :
 - read_wellness : donnees sante Garmin (sommeil, stress, FC repos, body battery, VO2max)
 - read_week_plan : plan d'une semaine (fichier markdown)
 - read_race_history : historique des courses (resultats, temps, classements, UTMB Index)
+- read_race_predictions : PREVISIONS de temps pour les courses a venir (temps, index cibles, classements, scenarios)
 
 ECRITURE :
 - update_daily : enregistrer/modifier les metriques d'une journee (blessure, RPE, verdict, checks...)
@@ -190,25 +196,7 @@ REGLES D'UTILISATION :
 - Quand on demande un bilan/evaluation → lire tout (coach-log, activites, wellness, courses) puis update_evaluation
 - Quand on parle de sante/sommeil → read_wellness pour avoir les vraies donnees Garmin
 - Quand on analyse une seance → read_activities pour les donnees reelles (FC, allure, D+)
-- Quand on demande des previsions/projections de temps → read_race_history puis CALCULER (voir methode ci-dessous)
-
-=== PROJECTIONS DE TEMPS ===
-Quand l'athlete demande des previsions de temps pour ses courses a venir, tu DOIS :
-1. Lire l'historique avec read_race_history
-2. Lire le calendrier (deja dans le prompt systeme)
-3. Calculer des estimations pour CHAQUE course a venir en utilisant cette methode :
-   - Identifier les courses de reference les plus proches (distance, D+, terrain)
-   - Ajuster avec le ratio D+/km : plus le D+/km est eleve, plus l'allure ralentit
-   - Utiliser l'UTMB Index comme indicateur de niveau (~450 = niveau actuel)
-   - Donner une FOURCHETTE (optimiste si en forme / realiste / prudent si reprise blessure)
-   - Prendre en compte le contexte actuel (blessure, forme, bloc d'entrainement)
-4. Presenter les projections dans un TABLEAU clair avec : course, distance, D+, objectif, fourchette temps
-5. Ne JAMAIS dire "je n'ai pas de previsions" — tu es le coach, c'est TON JOB de les calculer
-
-Formule indicative d'allure trail :
-- Allure plate de base (ref semi/10K) + majoration D+ (~6-8 min/100m D+ selon pente et technique)
-- Facteur fatigue ultra : +5-10% au-dela de 40km, +15-20% au-dela de 60km
-- Facteur montagne : ratio D+/km > 50 m/km = terrain montagne, ralentissement significatif vs trail valonne`;
+- Quand on demande des previsions/projections/objectifs de temps → read_race_predictions (les previsions sont DEJA calculees, il suffit de les lire)`;
 }
 
 function getISOWeek(date) {
@@ -324,6 +312,15 @@ const CHAT_TOOLS = [
     {
         name: 'read_race_history',
         description: 'Lire l\'historique complet des courses : dates, distances, D+, temps, classements, UTMB Index, notes.',
+        input_schema: {
+            type: 'object',
+            properties: {},
+            required: []
+        }
+    },
+    {
+        name: 'read_race_predictions',
+        description: 'Lire les PREVISIONS de temps pour les courses a venir (Cabornis, MMT, MaraXP, Monistrail, OCC). Contient temps estimes, index cibles, classements estimes, scenarios "si entrainement tenu", et notes tactiques. UTILISE CET OUTIL quand l\'athlete demande ses previsions, objectifs chrono, ou projections.',
         input_schema: {
             type: 'object',
             properties: {},
@@ -469,6 +466,15 @@ function executeTool(toolName, toolInput, athlete) {
                 result = fs.readFileSync(raceFile, 'utf8');
             } catch {
                 result = 'Pas d\'historique de courses disponible.';
+            }
+            break;
+        }
+        case 'read_race_predictions': {
+            const predFile = RACE_PREDICTIONS_FILES[athlete] || RACE_PREDICTIONS_FILES.yohann;
+            try {
+                result = fs.readFileSync(predFile, 'utf8');
+            } catch {
+                result = 'Pas de previsions de courses disponibles.';
             }
             break;
         }
