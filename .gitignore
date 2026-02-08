@@ -13,3 +13,6 @@
 # Temp files
 *.tmp
 *.bak
+
+# Node
+node_modules/
