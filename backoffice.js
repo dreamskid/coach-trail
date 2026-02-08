@@ -800,8 +800,32 @@ function executeTool(toolName, toolInput, athlete) {
 const COST_FILE = path.join(__dirname, 'data', 'api-costs.json');
 const COST_PER_M_INPUT = 15;   // Opus: $15 / 1M input tokens
 const COST_PER_M_OUTPUT = 75;  // Opus: $75 / 1M output tokens
-const DAILY_BUDGET_USD = 5;    // $5/jour max
+const DAILY_BUDGET_USD = 6;    // $6/jour max
 const MONTHLY_BUDGET_USD = 50; // $50/mois max
+
+const BUDGET_JOKES_DAILY = [
+    'Je suis ton coach, pas ton psy. Reviens demain.',
+    'Va voir Yohann, il est de bon conseil. Et gratuit.',
+    'Casse pas ton PEL pour me parler.',
+    'T\'as claque {cost} aujourd\'hui. Mon comptable pleure.',
+    'Meme ton soleaire a besoin de repos. Moi aussi.',
+    '{cost} en une journee... tu veux pas plutot courir ?',
+    'Budget crame. Va faire du gainage, c\'est gratuit.',
+    'Claude a besoin de dormir aussi. Reviens demain.',
+    'T\'as depense {cost}. C\'est plus cher que ta licence UTMB par jour.',
+    'Fin de service. Je vais faire mes iso mollets.',
+    '{cost} claques. A ce rythme tu finances l\'OCC en tokens.',
+    'Mon Body Battery est a 0. Recharge demain.',
+    'Meme Juliette depense moins que toi.',
+    '{cost}... Tu sais que pour ce prix tu peux acheter 3 gels ?',
+    'Le protocole du jour : repos vocal. Reviens demain.',
+];
+
+const BUDGET_JOKES_MONTHLY = [
+    'Budget du mois explose ({cost}). On se retrouve le 1er.',
+    '{cost} ce mois-ci. Tu veux pas investir dans des chaussures plutot ?',
+    'Meme l\'UTMB coute moins cher par mois. Reviens le mois prochain.',
+];
 
 function readCosts() {
     try { return JSON.parse(fs.readFileSync(COST_FILE, 'utf8')); }
@@ -845,10 +869,12 @@ function checkBudget() {
     const monthlyCost = costs.monthly[month] || 0;
 
     if (dailyCost >= DAILY_BUDGET_USD) {
-        return `Budget journalier atteint ($${dailyCost.toFixed(2)}/$${DAILY_BUDGET_USD}). Reessaie demain.`;
+        const joke = BUDGET_JOKES_DAILY[Math.floor(Math.random() * BUDGET_JOKES_DAILY.length)];
+        return joke.replace(/\{cost\}/g, '$' + dailyCost.toFixed(2));
     }
     if (monthlyCost >= MONTHLY_BUDGET_USD) {
-        return `Budget mensuel atteint ($${monthlyCost.toFixed(2)}/$${MONTHLY_BUDGET_USD}). Reessaie le mois prochain.`;
+        const joke = BUDGET_JOKES_MONTHLY[Math.floor(Math.random() * BUDGET_JOKES_MONTHLY.length)];
+        return joke.replace(/\{cost\}/g, '$' + monthlyCost.toFixed(2));
     }
     return null;
 }
