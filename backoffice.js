@@ -174,9 +174,9 @@ ${zones}
 ${calendrier}
 
 === UTILISATION DES OUTILS ===
-Tu disposes d'outils pour lire et modifier TOUTES les donnees d'entrainement :
+Tu disposes d'outils pour lire et modifier TOUTES les donnees d'entrainement + un acces internet :
 
-LECTURE :
+DONNEES ATHLETE (lecture) :
 - read_coach_log : coach-log complet (daily metrics + longterm + evaluation)
 - read_activities : activites Strava + Garmin recentes (courses, natation, elliptique, velo)
 - read_wellness : donnees sante Garmin (sommeil, stress, FC repos, body battery, VO2max)
@@ -184,11 +184,20 @@ LECTURE :
 - read_race_history : historique des courses (resultats, temps, classements, UTMB Index)
 - read_race_predictions : PREVISIONS de temps pour les courses a venir (temps, index cibles, classements, scenarios)
 
-ECRITURE :
+DONNEES ATHLETE (ecriture) :
 - update_daily : enregistrer/modifier les metriques d'une journee (blessure, RPE, verdict, checks...)
 - update_longterm : modifier trajectoire (statut, bloc, next_race)
 - update_evaluation : modifier les scores d'evaluation (10 dimensions) et le commentaire global
 - write_week_plan : creer ou modifier le plan d'entrainement d'une semaine
+
+INTERNET :
+- web_search : rechercher sur internet. Utilise pour :
+  * Resultats de courses (utmb.world, livetrail.net, bases-trail.fr)
+  * Infos nutrition sportive (protocoles, produits, dosages)
+  * Plans d'entrainement et methodes (etudes, articles specialises)
+  * Profils de course (traces GPX, D+, ravitaillements, meteo)
+  * Donnees de reference (temps moyens, percentiles, UTMB Index)
+  * Tout sujet trail/running que tu ne connais pas avec certitude
 
 REGLES D'UTILISATION :
 - Quand l'athlete donne des infos sur sa journee → update_daily
@@ -196,7 +205,9 @@ REGLES D'UTILISATION :
 - Quand on demande un bilan/evaluation → lire tout (coach-log, activites, wellness, courses) puis update_evaluation
 - Quand on parle de sante/sommeil → read_wellness pour avoir les vraies donnees Garmin
 - Quand on analyse une seance → read_activities pour les donnees reelles (FC, allure, D+)
-- Quand on demande des previsions/projections/objectifs de temps → read_race_predictions (les previsions sont DEJA calculees, il suffit de les lire)`;
+- Quand on demande des previsions/projections/objectifs de temps → read_race_predictions (les previsions sont DEJA calculees, il suffit de les lire)
+- Quand on pose une question factuelle (resultats course, nutrition, materiel, meteo) → web_search
+- Quand tu n'es pas sur d'une info → web_search plutot que repondre approximativement`;
 }
 
 function getISOWeek(date) {
@@ -560,7 +571,7 @@ async function handleChat(athlete, message) {
 
     let response;
     let iterations = 0;
-    const MAX_ITERATIONS = 5;
+    const MAX_ITERATIONS = 8;
     let currentMessages = apiMessages;
 
     while (iterations < MAX_ITERATIONS) {
@@ -572,7 +583,10 @@ async function handleChat(athlete, message) {
                     model: 'claude-sonnet-4-5-20250929',
                     max_tokens: 4096,
                     system: systemPrompt,
-                    tools: CHAT_TOOLS,
+                    tools: [
+                        { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
+                        ...CHAT_TOOLS
+                    ],
                     messages: currentMessages
                 });
                 break;
