@@ -59,6 +59,36 @@ const RACE_PREDICTIONS_FILES = {
     juliette: path.join(__dirname, 'juliette', 'courses', 'previsions-2026.md')
 };
 
+const ATHLETE_DATA_FILES = {
+    yohann: path.join(__dirname, 'data', 'athlete-data.json'),
+    juliette: path.join(__dirname, 'data', 'juliette', 'athlete-data.json')
+};
+
+function readAthleteData(athlete) {
+    const file = ATHLETE_DATA_FILES[athlete] || ATHLETE_DATA_FILES.yohann;
+    try { return JSON.parse(fs.readFileSync(file, 'utf8')); }
+    catch { return {}; }
+}
+
+function writeAthleteData(data, athlete) {
+    const file = ATHLETE_DATA_FILES[athlete] || ATHLETE_DATA_FILES.yohann;
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n', 'utf8');
+}
+
+function deepMerge(target, source) {
+    const result = { ...target };
+    for (const key of Object.keys(source)) {
+        if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])
+            && target[key] && typeof target[key] === 'object' && !Array.isArray(target[key])) {
+            result[key] = deepMerge(target[key], source[key]);
+        } else {
+            result[key] = source[key];
+        }
+    }
+    return result;
+}
+
 // ===== ANTHROPIC CLIENT =====
 const anthropic = process.env.ANTHROPIC_API_KEY
     ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -187,7 +217,18 @@ ${calendrier}
 === OUTILS ===
 Tu as des outils pour lire et modifier toutes les donnees + internet (web_search).
 Utilise-les. Lis avant de repondre. Lis le plan de semaine avant de parler d'un jour.
-Ne reponds jamais de memoire quand tu peux verifier avec un outil.`;
+Ne reponds jamais de memoire quand tu peux verifier avec un outil.
+
+=== DASHBOARD ===
+L'outil update_athlete_data modifie les donnees affichees dans le dashboard en temps reel.
+Utilise-le AUTOMATIQUEMENT quand l'athlete donne une info qui change un chiffre du dashboard :
+- Poids, taille, FC repos, FC max, VO2max → section "profile"
+- Zones FC → section "zones"
+- Bilan blessure, tests, protocole → section "injury"
+- Resultat de course, nouvelle course → section "calendar" ou "race_history"
+- Previsions de temps → section "predictions"
+- Facteurs sante (sommeil, nicotine, etc.) → section "health_factors"
+N'oublie pas : modifie AUSSI le fichier markdown de reference (write_reference_file) pour garder la coherence.`;
 }
 
 function getISOWeek(date) {
@@ -612,6 +653,24 @@ const CHAT_TOOLS = [
         }
     },
     {
+        name: 'update_athlete_data',
+        description: 'Modifier les donnees affichees dans le dashboard (profil, zones FC, blessure, calendrier, previsions, projection, axes de travail, historique courses, progression index, facteurs sante). Utilise cet outil quand l\'athlete donne une info qui change un chiffre du dashboard : poids, FC, bilan medical, resultat de course, etc. L\'outil fait un deep-merge pour les objets ou un remplacement pour les tableaux.',
+        input_schema: {
+            type: 'object',
+            properties: {
+                section: {
+                    type: 'string',
+                    enum: ['profile', 'zones', 'injury', 'calendar', 'predictions', 'projection', 'work_axes', 'race_history', 'index_progression', 'health_factors', 'health_note', 'health_perf_impact', 'health_intro'],
+                    description: 'Section du dashboard a modifier'
+                },
+                data: {
+                    description: 'Donnees partielles a merger (deep merge pour objets, remplacement pour tableaux)'
+                }
+            },
+            required: ['section', 'data']
+        }
+    },
+    {
         name: 'write_reference_file',
         description: 'Modifier un fichier de reference markdown. Fichiers disponibles : profil (donnees physiques, historique), blessures (suivi blessures, protocoles), zones (zones FC et allures), calendrier (courses 2026, periodisation), previsions (previsions de temps courses 2026), race_history (historique complet des courses). Tu recois le contenu COMPLET du fichier — pas un diff, pas un extrait.',
         input_schema: {
@@ -766,6 +825,25 @@ function executeTool(toolName, toolInput, athlete) {
             writeData(data, athlete);
             modifications.push({ type: 'evaluation' });
             result = 'Evaluation mise a jour (' + toolInput.trigger + ').';
+            break;
+        }
+        case 'update_athlete_data': {
+            const ad = readAthleteData(athlete);
+            const section = toolInput.section;
+            if (Array.isArray(toolInput.data)) {
+                ad[section] = toolInput.data;
+            } else if (typeof toolInput.data === 'object' && toolInput.data !== null) {
+                if (typeof ad[section] === 'object' && ad[section] !== null && !Array.isArray(ad[section])) {
+                    ad[section] = deepMerge(ad[section], toolInput.data);
+                } else {
+                    ad[section] = toolInput.data;
+                }
+            } else {
+                ad[section] = toolInput.data;
+            }
+            writeAthleteData(ad, athlete);
+            modifications.push({ type: 'athlete_data', section });
+            result = 'Donnees ' + section + ' mises a jour dans le dashboard.';
             break;
         }
         case 'write_reference_file': {
@@ -1104,6 +1182,15 @@ const server = http.createServer(async (req, res) => {
         } catch (e) {
             json(res, 400, { error: e.message });
         }
+        return;
+    }
+
+    // GET /api/athlete-data — All dashboard data for an athlete
+    if (req.method === 'GET' && url.pathname === '/api/athlete-data') {
+        setCorsHeaders(res);
+        res.setHeader('Cache-Control', 'no-cache');
+        const athlete = url.searchParams.get('athlete') || 'yohann';
+        json(res, 200, readAthleteData(athlete));
         return;
     }
 

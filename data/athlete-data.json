@@ -1,0 +1,707 @@
+{
+  "profile": {
+    "age": 44,
+    "height_cm": 184,
+    "weight_kg": 83,
+    "imc": 24.5,
+    "fc_repos": 46,
+    "fc_max": 178,
+    "rfc": 132,
+    "vo2max": 45,
+    "vma": 15,
+    "vma_tested": false,
+    "running_stones": 4,
+    "races_count": 27,
+    "longest_race": "65.8 km (Astragale)",
+    "utmb_pic": 451,
+    "utmb_20k": 446,
+    "utmb_50k": 437,
+    "utmb_100k": null,
+    "utmb_100m": null
+  },
+  "zones": [
+    {
+      "label": "Z1",
+      "min": 112,
+      "max": 125
+    },
+    {
+      "label": "Z2",
+      "min": 125,
+      "max": 138
+    },
+    {
+      "label": "Z3",
+      "min": 138,
+      "max": 152
+    },
+    {
+      "label": "Z4",
+      "min": 152,
+      "max": 165
+    },
+    {
+      "label": "Z5",
+      "min": 165,
+      "max": 178
+    }
+  ],
+  "injury": {
+    "location": "Soléaire gauche",
+    "episode": 4,
+    "detail": "Jonction myo-tendineuse · Grade léger",
+    "status": "active",
+    "assessment_date": "2026-02-07",
+    "tests": [
+      {
+        "name": "Palpation",
+        "value": "0/10",
+        "color": "green"
+      },
+      {
+        "name": "Mollets bilatéral",
+        "value": "0/10",
+        "color": "green"
+      },
+      {
+        "name": "Mollet unipodal G",
+        "value": "~1/10 (gêne en haut)",
+        "color": "yellow"
+      },
+      {
+        "name": "Saut unipodal G",
+        "value": "4-5/10",
+        "color": "red"
+      },
+      {
+        "name": "Marche rapide",
+        "value": "0/10",
+        "color": "green"
+      }
+    ],
+    "context": [
+      {
+        "label": "Déclencheur",
+        "value": "Raidlight WT (31/01) puis sortie fatiguée (06/02)"
+      },
+      {
+        "label": "Historique",
+        "value": "4 épisodes (3x G, 1x D) — fragilité bilatérale chronique"
+      }
+    ],
+    "observation": "Raideur bilatérale systématique à la jonction mollet/soléaire en début de chaque séance. Pattern chronique = fragilité structurelle permanente. Protocole de prévention à vie, pas uniquement en phase de blessure.",
+    "protocol": [
+      {
+        "phase": "1 — Isométrique",
+        "entry": "Maintenant",
+        "content": "Iso mollet 30sx4, bilatéral puis unipodal",
+        "status": "en_cours"
+      },
+      {
+        "phase": "2 — Excentrique",
+        "entry": "Unipodal 15 reps 0 gêne",
+        "content": "Stanish lent + marche pente tapis",
+        "status": "a_venir"
+      },
+      {
+        "phase": "3 — Footing",
+        "entry": "Saut unipodal ≤ 1/10",
+        "content": "Tapis plat, 7-8 km/h, 15-20 min",
+        "status": "a_venir"
+      },
+      {
+        "phase": "4 — Progression",
+        "entry": "30 min tapis indolore",
+        "content": "Durée augmentée, intro inclinaison",
+        "status": "a_venir"
+      },
+      {
+        "phase": "5 — Validation",
+        "entry": "10 sauts unipodaux 0/10",
+        "content": "Course normale, réintro D+",
+        "status": "a_venir"
+      }
+    ],
+    "decision_point": "Point de décision Cabornis (8 mars) : retest saut unipodal le 15 février. Si phase 3 non atteinte au 20 février : Cabornis annulée.",
+    "prevention": [
+      {
+        "action": "Échauffement obligatoire : 10 min marche + montées mollets progressives",
+        "frequency": "Avant CHAQUE course"
+      },
+      {
+        "action": "Isométrique mollet unipodal 4x30s",
+        "frequency": "Quotidien"
+      },
+      {
+        "action": "Excentrique Stanish 3x15 reps",
+        "frequency": "3x / semaine"
+      },
+      {
+        "action": "Ne JAMAIS courir en fatigue accumulée",
+        "frequency": "Règle absolue"
+      },
+      {
+        "action": "Auto-test : 10 sauts unipodaux",
+        "frequency": "Chaque lundi matin"
+      }
+    ],
+    "history": [
+      {
+        "num": 1,
+        "location": "Jonction mollet/soléaire",
+        "side": "Gauche",
+        "severity": "Modéré",
+        "resolution": "Résolu"
+      },
+      {
+        "num": 2,
+        "location": "Jonction mollet/soléaire",
+        "side": "Gauche",
+        "severity": "Modéré",
+        "resolution": "Résolu"
+      },
+      {
+        "num": 3,
+        "location": "Jonction mollet/soléaire",
+        "side": "Droit",
+        "severity": "Léger",
+        "resolution": "Résolu"
+      },
+      {
+        "num": 4,
+        "location": "Jonction mollet/soléaire",
+        "side": "Gauche",
+        "severity": "Léger",
+        "resolution": "En cours"
+      }
+    ]
+  },
+  "calendar": {
+    "races": [
+      {
+        "date": "2026-01-31",
+        "name": "Raidlight Winter Trail",
+        "distance": "19 km",
+        "dplus": "1000 D+",
+        "objective": "done",
+        "result": "3:10:59 · 99e/116",
+        "note": null
+      },
+      {
+        "date": "2026-03-08",
+        "name": "Cabornis",
+        "distance": "25 km",
+        "dplus": "1000 D+",
+        "objective": "C",
+        "result": null,
+        "note": "Conditionné à la guérison soléaire"
+      },
+      {
+        "date": "2026-04-26",
+        "name": "MMT (Marathon Mistral Trail)",
+        "distance": "51 km",
+        "dplus": "2500 D+",
+        "objective": "B",
+        "result": null,
+        "note": null
+      },
+      {
+        "date": "2026-05-31",
+        "name": "Marathon-eXperience",
+        "distance": "42 km",
+        "dplus": "1800 D+",
+        "objective": "B",
+        "result": null,
+        "note": null
+      },
+      {
+        "date": "2026-06-14",
+        "name": "Monistrail (Saint-Jacques UTMB)",
+        "distance": "~53 km",
+        "dplus": "~1810 D+",
+        "objective": "B",
+        "result": null,
+        "note": null
+      },
+      {
+        "date": "2026-08-27",
+        "name": "OCC (UTMB Week)",
+        "distance": "57 km",
+        "dplus": "3500 D+",
+        "objective": "A",
+        "result": null,
+        "note": "Projection : 10h30 — 12h30 · Cutoff : 14h30"
+      }
+    ],
+    "periodisation": [
+      {
+        "bloc": "BLOC 0",
+        "badge_class": "badge-blue",
+        "period": "Fév. (actuel)",
+        "focus": "Reprise & soin soléaire. Cross-training. Zéro course.\n+ Arrêt nicotine + sommeil + alimentation",
+        "races": "—"
+      },
+      {
+        "bloc": "BLOC 1",
+        "badge_class": "badge-green",
+        "period": "Mars",
+        "focus": "Reconstruction volume. Reprise D+ progressive. PPG bas du corps.",
+        "races": "Cabornis (C)"
+      },
+      {
+        "bloc": "BLOC 2",
+        "badge_class": "badge-yellow",
+        "period": "Avril",
+        "focus": "Build volume + D+. Sorties longues 3-5h. Seuil en côte.",
+        "races": "MMT (B)"
+      },
+      {
+        "bloc": "BLOC 3",
+        "badge_class": "badge-orange",
+        "period": "Mai",
+        "focus": "Build 2. Sorties longues avec fort D+. Nutrition longue durée.",
+        "races": "MaraXP (B)"
+      },
+      {
+        "bloc": "BLOC 4",
+        "badge_class": "badge-red",
+        "period": "Juin",
+        "focus": "Spécifique OCC. Profil D+/km élevé. Descente technique.",
+        "races": "Monistrail (B)"
+      },
+      {
+        "bloc": "BLOC 5",
+        "badge_class": "badge-purple",
+        "period": "Juillet",
+        "focus": "Volume pic. Sorties montagne. Altitude si possible.",
+        "races": "—"
+      },
+      {
+        "bloc": "AFFÛT",
+        "badge_class": "badge-dark",
+        "period": "Août",
+        "focus": "Tapering 10-14j. Maintien intensité, volume réduit. Logistique OCC.",
+        "races": "OCC (A)"
+      }
+    ],
+    "gap_analysis": [
+      {
+        "indicator": "D+/km",
+        "current": "34 m/km",
+        "target": "61 m/km",
+        "gap": "x 1.8",
+        "color": "red"
+      },
+      {
+        "indicator": "D+ total",
+        "current": "2247 m max",
+        "target": "3500 m",
+        "gap": "+1253 m",
+        "color": "red"
+      },
+      {
+        "indicator": "Altitude",
+        "current": "~1500 m max",
+        "target": "~2600 m",
+        "gap": "à travailler",
+        "color": "orange"
+      },
+      {
+        "indicator": "Durée effort",
+        "current": "10h53 max",
+        "target": "10h30-12h30",
+        "gap": "dans la zone",
+        "color": "yellow"
+      }
+    ]
+  },
+  "predictions": [
+    {
+      "name": "Cabornis",
+      "date": "8 mars",
+      "distance": "25 km · 1200 D+",
+      "edition_info": "Éd. 2024 : 649 finishers · UTMB 20K Index race · Source : utmb.world",
+      "border_color": "yellow",
+      "rows": [
+        {
+          "label": "Temps estimé",
+          "value": "2h30 — 3h00",
+          "bold": true
+        },
+        {
+          "label": "Classement estimé",
+          "value": "~300e — 400e / 650 (2e moitié)"
+        },
+        {
+          "label": "Si entraînement tenu",
+          "value": "2h15 — 2h40 · ~200e — 300e / 650",
+          "green": true
+        }
+      ],
+      "notes": "Course de reprise post-soléaire. Aucun enjeu chrono. Allure Z1-Z2 uniquement. Si douleur soléaire > 3/10, on coupe. Conditionné au retest du 15 février."
+    },
+    {
+      "name": "MMT (Marathon Mistral Trail)",
+      "date": "26 avril",
+      "distance": "51 km · 2500 D+",
+      "edition_info": "1ère édition GRV 50K 2025 (même orga UTMB Ventoux) : vainqueur 3h38 · Source : esprit-trail.com",
+      "border_color": "orange",
+      "rows": [
+        {
+          "label": "Temps estimé",
+          "value": "7h30 — 9h00",
+          "bold": true
+        },
+        {
+          "label": "Index cible",
+          "value": "440 — 460"
+        },
+        {
+          "label": "Classement estimé",
+          "value": "~60e — 70e percentile"
+        },
+        {
+          "label": "Si entraînement tenu",
+          "value": "6h45 — 8h00 · Index 455-475 · top 50%",
+          "green": true
+        }
+      ],
+      "notes": "Premier ultra de l'année. Ratio D+/km = 49 m/km, se rapproche du profil OCC. Objectif : gestion négative (2e partie plus rapide). Tester nutrition longue durée. Risque : départ trop rapide après 3 mois sans ultra."
+    },
+    {
+      "name": "Marathon-eXperience",
+      "date": "31 mai",
+      "distance": "42 km · 1800 D+",
+      "edition_info": "Référence perso : Saint-Jacques 2025, 53km/1810D+ en ~7h43 (Index 451) · Source : utmb.world",
+      "border_color": "orange",
+      "rows": [
+        {
+          "label": "Temps estimé",
+          "value": "5h30 — 6h30",
+          "bold": true
+        },
+        {
+          "label": "Index cible",
+          "value": "450 — 470"
+        },
+        {
+          "label": "Classement estimé",
+          "value": "2e moitié de peloton"
+        },
+        {
+          "label": "Si entraînement tenu",
+          "value": "5h00 — 5h45 · Index 460-480 · top 40-50%",
+          "green": true
+        }
+      ],
+      "notes": "Profil plus roulant (43 m D+/km). Idéal pour allure soutenue Z2 haute. Cible : valider nutrition 250-300 kcal/h sur 5-6h. FC moyenne sous 145 bpm. Si index > 460, la progression est en ligne pour l'OCC."
+    },
+    {
+      "name": "Monistrail (Saint-Jacques UTMB)",
+      "date": "14 juin",
+      "distance": "53 km · 1810 D+",
+      "edition_info": "Éd. 2025 : 1667 finishers · Vainqueur 4h02 (Martínez) · Vainqueuse 4h54 (Magliano) · Source : live.utmb.world",
+      "border_color": "orange",
+      "rows": [
+        {
+          "label": "Temps estimé",
+          "value": "7h00 — 8h00 (réf. perso 2025 : ~7h43)",
+          "bold": true
+        },
+        {
+          "label": "Index cible",
+          "value": "460 — 480 (vs 451 en 2025)"
+        },
+        {
+          "label": "Classement estimé",
+          "value": "~950e — 1100e / 1667 (55e — 65e percentile)"
+        },
+        {
+          "label": "Si entraînement tenu",
+          "value": "6h30 — 7h15 · Index 470-500 · ~750e — 950e / 1667",
+          "green": true
+        }
+      ],
+      "notes": "Même parcours qu'en 2025 (Index 451) — étalon de progression idéal. Dernière course avant l'OCC. Objectif : améliorer le temps et l'index 2025. Répétition générale nutrition / matériel / gestion mentale."
+    },
+    {
+      "name": "OCC (UTMB Week)",
+      "date": "27 août",
+      "distance": "57 km · 3500 D+",
+      "edition_info": "Éd. 2024 : 1534 finishers, 230 DNF · Cutoff 14h30 · Vainqueur 5h11 (Hemming) · Vainqueuse 5h54 (Yao) · Source : live.utmb.world",
+      "border_color": "red",
+      "rows": [
+        {
+          "label": "Temps estimé",
+          "value": "10h30 — 12h30 (cutoff 14h30)",
+          "bold": true
+        },
+        {
+          "label": "Index cible",
+          "value": "450 — 480"
+        },
+        {
+          "label": "Classement estimé",
+          "value": "~950e — 1200e / 1534 (60e — 75e percentile)"
+        },
+        {
+          "label": "Si entraînement tenu",
+          "value": "9h30 — 11h00 · Index 470-500 · ~700e — 950e / 1534",
+          "green": true
+        }
+      ],
+      "notes": "Le défi clé : ratio D+/km de 61 m/km = quasi double de ses courses habituelles (34 m/km). Avec le travail spécifique montée + continuité d'entraînement sans blessure, le gain estimé est de +20 à +50 points d'index. Le cutoff de 14h30 laisse une marge confortable si la gestion d'effort est bonne. Facteurs limitants : résistance musculaire en descente sur 3500 D- et gestion nutritionnelle au-delà de 8h."
+    }
+  ],
+  "projection": {
+    "title": "Projection OCC",
+    "scenarios": [
+      {
+        "label": "AMBITIEUX",
+        "value": "< 11h",
+        "detail": "Tout se passe bien, bonne gestion, forme optimale",
+        "color": "green"
+      },
+      {
+        "label": "RÉALISTE",
+        "value": "11h — 12h",
+        "detail": "Gestion prudente, forme correcte",
+        "color": "blue"
+      },
+      {
+        "label": "SÉCURITÉ",
+        "value": "12h — 13h",
+        "detail": "Conditions difficiles ou forme sous-optimale",
+        "color": "orange"
+      }
+    ]
+  },
+  "work_axes": [
+    {
+      "rank": 1,
+      "name": "Spécifique montée (D+/km)",
+      "impact": "TRÈS ÉLEVÉ",
+      "impact_color": "red",
+      "tool": "Tapis 20-40%, côtes terrain",
+      "success": "Confort en Z3 à 25%+ d'inclinaison"
+    },
+    {
+      "rank": 2,
+      "name": "Sommeil ≥ 7h30",
+      "impact": "TRÈS ÉLEVÉ",
+      "impact_color": "red",
+      "tool": "Discipline + suivi Fenix",
+      "success": "Moyenne Garmin ≥ 7h30"
+    },
+    {
+      "rank": 3,
+      "name": "Alimentation complète",
+      "impact": "TRÈS ÉLEVÉ",
+      "impact_color": "red",
+      "tool": "Dîner systématique",
+      "success": "3 repas/j, 120g+ protéines"
+    },
+    {
+      "rank": 4,
+      "name": "Endurance > 8h",
+      "impact": "ÉLEVÉ",
+      "impact_color": "orange",
+      "tool": "Sorties longues + courses prépa",
+      "success": "MMT et Monistrail bouclés"
+    },
+    {
+      "rank": 5,
+      "name": "Prévention soléaire",
+      "impact": "ÉLEVÉ",
+      "impact_color": "orange",
+      "tool": "Protocole quotidien iso + excentriques",
+      "success": "0 épisode d'ici l'OCC"
+    },
+    {
+      "rank": 6,
+      "name": "PPG / Renforcement",
+      "impact": "MODÉRÉ",
+      "impact_color": "yellow",
+      "tool": "Musculation 2x/sem",
+      "success": "Excentrique quadri + chaîne post."
+    },
+    {
+      "rank": 7,
+      "name": "Nutrition course > 10h",
+      "impact": "MODÉRÉ",
+      "impact_color": "yellow",
+      "tool": "Tests en sortie longue + courses",
+      "success": "Plan validé à 250-300 kcal/h"
+    },
+    {
+      "rank": 8,
+      "name": "Technique descente",
+      "impact": "MODÉRÉ",
+      "impact_color": "yellow",
+      "tool": "Séances spécifiques + tapis -5%",
+      "success": "Aisance en descente technique"
+    }
+  ],
+  "race_history": [
+    {
+      "name": "Astragale (Templiers)",
+      "date": "12/2025",
+      "distance": "65.8 km",
+      "dplus": "2247 m",
+      "time": "10:53:27",
+      "ranking": "480/677",
+      "utmb_index": 422
+    },
+    {
+      "name": "SainteSprint",
+      "date": "11/2025",
+      "distance": "25 km",
+      "dplus": "347 m",
+      "time": "2:30:20",
+      "ranking": "551/2561",
+      "utmb_index": 446
+    },
+    {
+      "name": "Nice CdA UTMB",
+      "date": "09/2025",
+      "distance": "23 km",
+      "dplus": "680 m",
+      "time": "2:54:58",
+      "ranking": "364/1209",
+      "utmb_index": 447
+    },
+    {
+      "name": "Saint-Jacques 50K",
+      "date": "06/2025",
+      "distance": "52.8 km",
+      "dplus": "1810 m",
+      "time": "7:48:40",
+      "ranking": "946/1665",
+      "utmb_index": 451,
+      "highlight": true
+    },
+    {
+      "name": "Beaujol'trail 32",
+      "date": "05/2025",
+      "distance": "32 km",
+      "dplus": "1410 m",
+      "time": "4:20:05",
+      "ranking": "162/211",
+      "utmb_index": 426
+    },
+    {
+      "name": "Veni Vici",
+      "date": "11/2024",
+      "distance": "27.9 km",
+      "dplus": "700 m",
+      "time": "3:14:07",
+      "ranking": "918/2054",
+      "utmb_index": 433
+    },
+    {
+      "name": "ETC UTMB (Chamonix)",
+      "date": "08/2024",
+      "distance": "15 km",
+      "dplus": "1200 m",
+      "time": "3:09:30",
+      "ranking": "636/1182",
+      "utmb_index": 380
+    },
+    {
+      "name": "Bel'Montaise 15",
+      "date": "07/2024",
+      "distance": "15 km",
+      "dplus": "600 m",
+      "time": "1:34:00",
+      "ranking": "81/138",
+      "utmb_index": 451,
+      "highlight": true
+    },
+    {
+      "name": "Sanglier 15",
+      "date": "03/2024",
+      "distance": "15 km",
+      "dplus": "700 m",
+      "time": "1:55:57",
+      "ranking": "143/240",
+      "utmb_index": 419
+    },
+    {
+      "name": "Veni Vici",
+      "date": "11/2023",
+      "distance": "27.8 km",
+      "dplus": "640 m",
+      "time": "4:33:24",
+      "ranking": "1880/1917",
+      "utmb_index": 305,
+      "highlight": true
+    },
+    {
+      "name": "Saint-Jacques 20K",
+      "date": "06/2023",
+      "distance": "18 km",
+      "dplus": "600 m",
+      "time": "2:36:21",
+      "ranking": "634/772",
+      "utmb_index": 356
+    },
+    {
+      "name": "Coursières 25",
+      "date": "05/2023",
+      "distance": "25 km",
+      "dplus": "990 m",
+      "time": "4:28:57",
+      "ranking": "331/343",
+      "utmb_index": 339
+    },
+    {
+      "name": "SainteLyon SaintExpress",
+      "date": "11/2021",
+      "distance": "45.9 km",
+      "dplus": "1000 m",
+      "time": "7:29:00",
+      "ranking": "2131/2405",
+      "utmb_index": 358
+    }
+  ],
+  "index_progression": {
+    "start_index": 305,
+    "start_date": "Nov. 2023",
+    "current_index": 451,
+    "current_date": "Juin 2025",
+    "gain_text": "+146 points en 18 mois"
+  },
+  "health_factors": [
+    {
+      "name": "Sommeil",
+      "current": "6h03 / nuit",
+      "color": "red",
+      "impact": "Le + critique : récup tendineuse ralentie, risque blessure x1.7",
+      "target": "7h30 min"
+    },
+    {
+      "name": "Nicotine",
+      "current": "Sevrage en cours",
+      "color": "yellow",
+      "impact": "+3-5% cardio à récupérer, vasoconstriction = cicatrisation ralentie",
+      "target": "0 mg permanent"
+    },
+    {
+      "name": "Alimentation",
+      "current": "1-2 repas / jour",
+      "color": "red",
+      "impact": "Déficit protéique chronique, besoin 2800-3500 kcal/j pour 83 kg à 6-7 séances/sem",
+      "target": "Dîner syst. (30-40g prot) + petit-déj jours séance"
+    },
+    {
+      "name": "Hydratation",
+      "current": "Non suivi",
+      "color": "yellow",
+      "impact": "Tendons = 70% eau. Déshydratation chronique = élasticité réduite",
+      "target": "2L+ / jour"
+    }
+  ],
+  "health_note": "Pour le soléaire : sommeil + protéines + hydratation = les 3 piliers de la cicatrisation tendineuse. Sans ces 3, le protocole iso fait la moitié du boulot.",
+  "health_perf_impact": "-12 à -20% perf estimée",
+  "health_intro": "À 44 ans, ces facteurs combinés freinent la performance ET la guérison du soléaire. Marge de progression énorme sans changer une seule séance."
+}

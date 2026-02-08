@@ -951,47 +951,9 @@
 <!-- TAB 1 : VUE D'ENSEMBLE                                                  -->
 <!-- ======================================================================== -->
 <div id="overview" class="tab-content active">
-
-    <!-- KPI cards -->
-    <div class="grid grid-4" style="margin-bottom: 24px;">
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-blue">451</div>
-            <div class="stat-label">UTMB Index Pic</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">20K: 446 · 50K: 437</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-green" id="kpi-vo2max">45</div>
-            <div class="stat-label">VO2max (ml/kg/min)</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-vo2max-sub">Garmin · 07/02/2026</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-green" id="kpi-week-km">--</div>
-            <div class="stat-label">Km cette semaine</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-week-km-sub">Chargement...</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-orange" id="kpi-week-elev">--</div>
-            <div class="stat-label">D+ cette semaine</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="kpi-week-elev-sub">Chargement...</div>
-        </div>
-    </div>
-
-    <!-- Profil + Evaluation -->
+    <div id="overview-kpi" class="grid grid-4" style="margin-bottom: 24px;"></div>
     <div class="grid grid-2-1">
-        <div class="card">
-            <h2>Profil athlète</h2>
-            <div class="stat-row"><span class="label">Age</span><span class="value">44 ans</span></div>
-            <div class="stat-row"><span class="label">Taille / Poids</span><span class="value">184 cm / 82 kg</span></div>
-            <div class="stat-row"><span class="label">FC repos</span><span class="value">46 bpm</span></div>
-            <div class="stat-row"><span class="label">FC max</span><span class="value">178 bpm</span></div>
-            <div class="stat-row"><span class="label">Reserve cardiaque</span><span class="value">132 bpm</span></div>
-            <div class="stat-row"><span class="label">VO2max (Garmin)</span><span class="value">45 ml/kg/min</span></div>
-            <div class="stat-row"><span class="label">VMA estimée</span><span class="value">~15.0 km/h <span class="badge badge-yellow">à tester</span></span></div>
-            <div class="stat-row"><span class="label">Running Stones</span><span class="value">4</span></div>
-            <div class="stat-row"><span class="label">Courses depuis 2022</span><span class="value">27</span></div>
-            <div class="stat-row"><span class="label">Plus longue course</span><span class="value">65.8 km (Astragale)</span></div>
-        </div>
-
+        <div class="card" id="profile-card"></div>
         <div class="card">
             <h2>Evaluation /10</h2>
             <div id="eval-scores">
@@ -1004,20 +966,7 @@
             <div id="eval-comment" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); text-align: left;"></div>
         </div>
     </div>
-
-    <!-- Zones FC -->
-    <div class="card" style="margin-top: 4px;">
-        <h2>Zones de fréquence cardiaque</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Méthode Karvonen · FC repos 46 · FC max 178 · RFC 132 bpm</p>
-        <div class="zone-bar">
-            <div class="zone-1" style="width:20%;">Z1 112-125</div>
-            <div class="zone-2" style="width:20%;">Z2 125-138</div>
-            <div class="zone-3" style="width:20%;">Z3 138-152</div>
-            <div class="zone-4" style="width:20%;">Z4 152-165</div>
-            <div class="zone-5" style="width:20%;">Z5 165-178</div>
-        </div>
-    </div>
-
+    <div class="card" id="zones-card" style="margin-top: 4px;"></div>
 </div>
 
 <!-- ======================================================================== -->
@@ -1083,109 +1032,7 @@
 <!-- TAB 3 : BLESSURE                                                         -->
 <!-- ======================================================================== -->
 <div id="injury" class="tab-content">
-
-    <div class="grid grid-2">
-        <div class="card">
-            <div class="injury-status injury-active">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <div style="font-weight: 700; font-size: 16px;">Soleaire gauche — Episode 4</div>
-                        <div style="font-size: 13px; color: var(--text-muted);">Jonction myo-tendineuse · Grade leger</div>
-                    </div>
-                    <span class="badge badge-red">ACTIF</span>
-                </div>
-            </div>
-
-            <h3>Bilan du 7 fevrier</h3>
-            <div class="stat-row"><span class="label">Palpation</span><span class="value text-green">0/10</span></div>
-            <div class="stat-row"><span class="label">Mollets bilateral</span><span class="value text-green">0/10</span></div>
-            <div class="stat-row"><span class="label">Mollet unipodal G</span><span class="value text-yellow">~1/10 (gene en haut)</span></div>
-            <div class="stat-row"><span class="label">Saut unipodal G</span><span class="value text-red">4-5/10</span></div>
-            <div class="stat-row"><span class="label">Marche rapide</span><span class="value text-green">0/10</span></div>
-
-            <h3>Contexte</h3>
-            <div class="stat-row"><span class="label">Déclencheur</span><span class="value">Raidlight WT (31/01) puis sortie fatiguée (06/02)</span></div>
-            <div class="stat-row"><span class="label">Historique</span><span class="value">4 episodes (3x G, 1x D) — fragilite bilaterale chronique</span></div>
-
-            <h3>Observation chronique</h3>
-            <div class="note-box">
-                Raideur bilaterale systematique a la jonction mollet/soleaire en debut de chaque seance. Pattern chronique = fragilite structurelle permanente. Protocole de prevention a vie, pas uniquement en phase de blessure.
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Protocole de retour a la course</h2>
-            <table>
-                <tr><th>Phase</th><th>Critere d'entree</th><th>Contenu</th><th>Statut</th></tr>
-                <tr>
-                    <td class="text-bold">1 — Isometrique</td>
-                    <td>Maintenant</td>
-                    <td class="text-muted">Iso mollet 30sx4, bilateral puis unipodal</td>
-                    <td id="proto-phase-1"><span class="badge badge-blue">EN COURS</span></td>
-                </tr>
-                <tr>
-                    <td class="text-bold">2 — Excentrique</td>
-                    <td>Unipodal 15 reps 0 gene</td>
-                    <td class="text-muted">Stanish lent + marche pente tapis</td>
-                    <td id="proto-phase-2"><span class="badge badge-yellow">A VENIR</span></td>
-                </tr>
-                <tr>
-                    <td class="text-bold">3 — Footing</td>
-                    <td>Saut unipodal &le; 1/10</td>
-                    <td class="text-muted">Tapis plat, 7-8 km/h, 15-20 min</td>
-                    <td id="proto-phase-3"><span class="badge badge-yellow">A VENIR</span></td>
-                </tr>
-                <tr>
-                    <td class="text-bold">4 — Progression</td>
-                    <td>30 min tapis indolore</td>
-                    <td class="text-muted">Duree augmentee, intro inclinaison</td>
-                    <td id="proto-phase-4"><span class="badge badge-yellow">A VENIR</span></td>
-                </tr>
-                <tr>
-                    <td class="text-bold">5 — Validation</td>
-                    <td>10 sauts unipodaux 0/10</td>
-                    <td class="text-muted">Course normale, reintro D+</td>
-                    <td id="proto-phase-5"><span class="badge badge-yellow">A VENIR</span></td>
-                </tr>
-            </table>
-
-            <div class="note-box" style="margin-top: 16px;">
-                <strong>Point de décision Cabornis (8 mars) :</strong> retest saut unipodal le 15 février.<br>
-                Si phase 3 non atteinte au 20 fevrier : Cabornis annulee.
-            </div>
-
-            <h3>Prevention permanente</h3>
-            <table>
-                <tr><th>Action</th><th>Frequence</th></tr>
-                <tr><td>Echauffement obligatoire : 10 min marche + montees mollets progressives</td><td>Avant CHAQUE course</td></tr>
-                <tr><td>Isometrique mollet unipodal 4x30s</td><td>Quotidien</td></tr>
-                <tr><td>Excentrique Stanish 3x15 reps</td><td>3x / semaine</td></tr>
-                <tr><td>Ne JAMAIS courir en fatigue accumulee</td><td>Regle absolue</td></tr>
-                <tr><td>Auto-test : 10 sauts unipodaux</td><td>Chaque lundi matin</td></tr>
-            </table>
-
-            <h3>Evolution soleaire (14 derniers jours)</h3>
-            <div class="mini-chart" id="chart-soleaire" style="height: 80px;"></div>
-            <div class="mini-chart-labels" id="chart-soleaire-labels"></div>
-
-            <h3>Journal de suivi</h3>
-            <div id="injury-journal">
-                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Historique blessures -->
-    <div class="card" style="margin-top: 20px;">
-        <h2>Historique des blessures</h2>
-        <table>
-            <tr><th>#</th><th>Localisation</th><th>Cote</th><th>Gravite</th><th>Resolution</th></tr>
-            <tr><td>1</td><td>Jonction mollet/soleaire</td><td>Gauche</td><td>Modere</td><td class="text-green">Resolu</td></tr>
-            <tr><td>2</td><td>Jonction mollet/soleaire</td><td>Gauche</td><td>Modere</td><td class="text-green">Resolu</td></tr>
-            <tr><td>3</td><td>Jonction mollet/soleaire</td><td>Droit</td><td>Leger</td><td class="text-green">Resolu</td></tr>
-            <tr><td class="text-bold">4</td><td class="text-bold">Jonction mollet/soleaire</td><td class="text-bold">Gauche</td><td class="text-bold">Leger</td><td class="text-red text-bold">En cours</td></tr>
-        </table>
-    </div>
+    <div id="injury-content"></div>
 </div>
 
 <!-- ======================================================================== -->
@@ -1210,24 +1057,17 @@
             <div class="stat-label">Sommeil moyen /nuit</div>
             <div style="font-size:12px; color: var(--red); margin-top:4px;" id="health-sleep-avg-sub">Objectif : 7h30</div>
         </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-orange">82<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
-            <div class="stat-label">Poids</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">184 cm · IMC 24.2</div>
-        </div>
+        <div class="card" style="text-align: center;" id="health-weight-card"></div>
     </div>
 
     <!-- Sommeil detail + VFC/Stress -->
     <div class="grid grid-2">
-        <!-- Sommeil -->
         <div class="card">
             <h2>Sommeil</h2>
             <div id="health-sleep-detail">
                 <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
             </div>
         </div>
-
-        <!-- VFC + Stress -->
         <div class="card">
             <h2>Variabilite cardiaque & Stress</h2>
             <div id="health-hrv-stress">
@@ -1236,46 +1076,7 @@
         </div>
     </div>
 
-    <!-- Facteurs limitants hygiene de vie -->
-    <div class="card" style="margin-bottom: 24px; border-left: 3px solid var(--orange);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h2 style="margin: 0;">Facteurs limitants — Hygiene de vie</h2>
-            <span class="badge badge-orange">-12 a -20% perf estimee</span>
-        </div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-            A 44 ans, ces facteurs combines freinent la performance ET la guerison du soleaire. Marge de progression enorme sans changer une seule seance.
-        </p>
-        <table>
-            <tr><th>Facteur</th><th>Etat actuel</th><th>Impact</th><th>Objectif</th></tr>
-            <tr>
-                <td class="text-bold">Sommeil</td>
-                <td class="text-red text-bold">6h03 / nuit</td>
-                <td class="text-muted">Le + critique : recup tendineuse ralentie, risque blessure x1.7</td>
-                <td class="text-green">7h30 min</td>
-            </tr>
-            <tr>
-                <td class="text-bold">Nicotine</td>
-                <td class="text-yellow text-bold">Sevrage en cours</td>
-                <td class="text-muted">+3-5% cardio a recuperer, vasoconstriction = cicatrisation ralentie</td>
-                <td class="text-green">0 mg permanent</td>
-            </tr>
-            <tr>
-                <td class="text-bold">Alimentation</td>
-                <td class="text-red text-bold">1-2 repas / jour</td>
-                <td class="text-muted">Deficit protéique chronique, besoin 2800-3500 kcal/j pour 82 kg a 6-7 seances/sem</td>
-                <td class="text-green">Diner syst. (30-40g prot) + petit-dej jours seance</td>
-            </tr>
-            <tr>
-                <td class="text-bold">Hydratation</td>
-                <td class="text-yellow text-bold">Non suivi</td>
-                <td class="text-muted">Tendons = 70% eau. Deshydratation chronique = elasticite reduite</td>
-                <td class="text-green">2L+ / jour</td>
-            </tr>
-        </table>
-        <div class="note-box" style="margin-top: 12px;">
-            <strong>Pour le soleaire :</strong> sommeil + proteines + hydratation = les 3 piliers de la cicatrisation tendineuse. Sans ces 3, le protocole iso fait la moitie du boulot.
-        </div>
-    </div>
+    <div id="health-factors-card"></div>
 
     <!-- Charts 14 jours -->
     <div class="section-title">Tendances <span>14 jours</span></div>
@@ -1319,290 +1120,17 @@
 <!-- TAB 4 : CALENDRIER                                                       -->
 <!-- ======================================================================== -->
 <div id="calendar" class="tab-content">
-
-    <div class="grid grid-1-2">
-        <div class="card">
-            <h2>Courses 2026</h2>
-            <div class="race-timeline">
-                <div class="race-item race-done">
-                    <div class="race-date">31 janvier — <span class="badge badge-green">TERMINE</span></div>
-                    <div class="race-name">Raidlight Winter Trail</div>
-                    <div class="race-details">19 km · 1000 D+ · 3:10:59 · 99e/116</div>
-                </div>
-                <div class="race-item race-c">
-                    <div class="race-date">8 mars — <span class="badge badge-yellow">OBJECTIF C</span></div>
-                    <div class="race-name">Cabornis</div>
-                    <div class="race-details">25 km · 1000 D+ · Reprise / evaluation</div>
-                    <div style="font-size: 12px; color: var(--red); margin-top: 2px;">Conditionne a la guerison soleaire</div>
-                </div>
-                <div class="race-item race-b">
-                    <div class="race-date">26 avril — <span class="badge badge-orange">OBJECTIF B</span></div>
-                    <div class="race-name">MMT (Marathon Mistral Trail)</div>
-                    <div class="race-details">51 km · 2500 D+ · Test ultra + gestion effort long</div>
-                </div>
-                <div class="race-item race-b">
-                    <div class="race-date">31 mai — <span class="badge badge-orange">OBJECTIF B</span></div>
-                    <div class="race-name">Marathon-eXperience</div>
-                    <div class="race-details">42 km · 1800 D+ · Allure + nutrition</div>
-                </div>
-                <div class="race-item race-b">
-                    <div class="race-date">14 juin — <span class="badge badge-orange">OBJECTIF B</span></div>
-                    <div class="race-name">Monistrail (Saint-Jacques UTMB)</div>
-                    <div class="race-details">~53 km · ~1810 D+ · Même course 2025 (UTMB 451) — étalon</div>
-                </div>
-                <div class="race-item race-a">
-                    <div class="race-date">27 aout — <span class="badge badge-red">OBJECTIF A</span></div>
-                    <div class="race-name" style="font-size: 18px;">OCC (UTMB Week)</div>
-                    <div class="race-details">57 km · 3500 D+ · 61 m D+/km</div>
-                    <div style="font-size: 12px; color: var(--accent-light); margin-top: 2px;">Projection : 10h30 — 12h30 · Cutoff : 14h30</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Périodisation macro</h2>
-            <table>
-                <tr><th>Bloc</th><th>Periode</th><th>Focus</th><th>Courses</th></tr>
-                <tr>
-                    <td><span class="badge badge-blue">BLOC 0</span></td>
-                    <td>Fev. (actuel)</td>
-                    <td>Reprise & soin soléaire. Cross-training. Zéro course.<br><span class="text-green text-bold">+ Arrêt nicotine + sommeil + alimentation</span></td>
-                    <td class="text-muted">—</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-green">BLOC 1</span></td>
-                    <td>Mars</td>
-                    <td>Reconstruction volume. Reprise D+ progressive. PPG bas du corps.</td>
-                    <td>Cabornis (C)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-yellow">BLOC 2</span></td>
-                    <td>Avril</td>
-                    <td>Build volume + D+. Sorties longues 3-5h. Seuil en cote.</td>
-                    <td>MMT (B)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-orange">BLOC 3</span></td>
-                    <td>Mai</td>
-                    <td>Build 2. Sorties longues avec fort D+. Nutrition longue duree.</td>
-                    <td>MaraXP (B)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-red">BLOC 4</span></td>
-                    <td>Juin</td>
-                    <td>Spécifique OCC. Profil D+/km élevé. Descente technique.</td>
-                    <td>Monistrail (B)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-purple">BLOC 5</span></td>
-                    <td>Juillet</td>
-                    <td>Volume pic. Sorties montagne. Altitude si possible.</td>
-                    <td>—</td>
-                </tr>
-                <tr>
-                    <td><span class="badge" style="background:#333; color:#fff;">AFFÛT</span></td>
-                    <td>Août</td>
-                    <td>Tapering 10-14j. Maintien intensite, volume reduit. Logistique OCC.</td>
-                    <td><strong>OCC (A)</strong></td>
-                </tr>
-            </table>
-
-            <h3>Gap OCC — Le défi clé</h3>
-            <table>
-                <tr><th>Indicateur</th><th>Tes ultras</th><th>OCC</th><th>Gap</th></tr>
-                <tr><td>D+/km</td><td>34 m/km</td><td class="text-red text-bold">61 m/km</td><td class="text-red">x 1.8</td></tr>
-                <tr><td>D+ total</td><td>2247 m max</td><td class="text-red text-bold">3500 m</td><td class="text-red">+1253 m</td></tr>
-                <tr><td>Altitude</td><td>~1500 m max</td><td class="text-orange text-bold">~2600 m</td><td class="text-orange">a travailler</td></tr>
-                <tr><td>Duree effort</td><td>10h53 max</td><td class="text-yellow text-bold">10h30-12h30</td><td class="text-yellow">dans la zone</td></tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- Prévisions courses -->
-    <div class="card" style="margin-top: 20px;">
-        <h2>Prévisions courses 2026</h2>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Méthodologie : corrélation UTMB Index / temps de course (données utmb.world), historique personnel, VO2max Garmin. Sources : éditions 2024-2025.</p>
-
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-
-            <!-- Cabornis -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--yellow);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>Cabornis</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">25 km · 1200 D+ · 8 mars</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2024 : 649 finishers · UTMB 20K Index race · Source : utmb.world</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>2h30 — 3h00</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement estimé</td><td>~300e — 400e / 650 <span style="color: var(--text-muted);">(2e moitié)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">2h15 — 2h40 · ~200e — 300e / 650</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Course de reprise post-soléaire. Aucun enjeu chrono. Allure Z1-Z2 uniquement. Si douleur soléaire > 3/10, on coupe. Conditionné au retest du 15 février.</div>
-            </div>
-
-            <!-- MMT -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--orange);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>MMT (Marathon Mistral Trail)</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">51 km · 2500 D+ · 26 avril</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">1ère édition GRV 50K 2025 (même orga UTMB Ventoux) : vainqueur 3h38 · Source : esprit-trail.com</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>7h30 — 9h00</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>440 — 460</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement estimé</td><td>~60e — 70e percentile</td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">6h45 — 8h00 · Index 455-475 · top 50%</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Premier ultra de l'année. Ratio D+/km = 49 m/km, se rapproche du profil OCC. Objectif : gestion négative (2e partie plus rapide). Tester nutrition longue durée. Risque : départ trop rapide après 3 mois sans ultra.</div>
-            </div>
-
-            <!-- MaraXP -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--orange);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>Marathon-eXperience</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">42 km · 1800 D+ · 31 mai</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Référence perso : Saint-Jacques 2025, 53km/1810D+ en ~7h43 (Index 451) · Source : utmb.world</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>5h30 — 6h30</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>450 — 470</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement estimé</td><td>2e moitié de peloton</td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">5h00 — 5h45 · Index 460-480 · top 40-50%</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Profil plus roulant (43 m D+/km). Idéal pour allure soutenue Z2 haute. Cible : valider nutrition 250-300 kcal/h sur 5-6h. FC moyenne sous 145 bpm. Si index > 460, la progression est en ligne pour l'OCC.</div>
-            </div>
-
-            <!-- Monistrail -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--orange);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>Monistrail (Saint-Jacques UTMB)</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">53 km · 1810 D+ · 14 juin</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2025 : 1667 finishers · Vainqueur 4h02 (Martínez) · Vainqueuse 4h54 (Magliano) · Source : live.utmb.world</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>7h00 — 8h00</strong> <span style="color: var(--text-muted);">(réf. perso 2025 : ~7h43)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>460 — 480 <span style="color: var(--text-muted);">(vs 451 en 2025)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement estimé</td><td>~950e — 1100e / 1667 <span style="color: var(--text-muted);">(55e — 65e percentile)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">6h30 — 7h15 · Index 470-500 · ~750e — 950e / 1667</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Même parcours qu'en 2025 (Index 451) — étalon de progression idéal. Dernière course avant l'OCC. Objectif : améliorer le temps et l'index 2025. Répétition générale nutrition / matériel / gestion mentale.</div>
-            </div>
-
-            <!-- OCC -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--red);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong style="font-size: 15px;">OCC (UTMB Week)</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">57 km · 3500 D+ · 27 août</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2024 : 1534 finishers, 230 DNF · Cutoff 14h30 · Vainqueur 5h11 (Hemming) · Vainqueuse 5h54 (Yao) · Source : live.utmb.world</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>10h30 — 12h30</strong> <span style="color: var(--text-muted);">(cutoff 14h30)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>450 — 480</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement estimé</td><td>~950e — 1200e / 1534 <span style="color: var(--text-muted);">(60e — 75e percentile)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">9h30 — 11h00 · Index 470-500 · ~700e — 950e / 1534</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Le défi clé : ratio D+/km de 61 m/km = quasi double de ses courses habituelles (34 m/km). Avec le travail spécifique montée + continuité d'entraînement sans blessure, le gain estimé est de +20 à +50 points d'index. Le cutoff de 14h30 laisse une marge confortable si la gestion d'effort est bonne. Facteurs limitants : résistance musculaire en descente sur 3500 D- et gestion nutritionnelle au-delà de 8h.</div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Projection OCC -->
-    <div class="section-title">Projection <span>OCC</span></div>
-
-    <div class="grid grid-3">
-        <div class="card" style="text-align: center; border-color: var(--green-dark);">
-            <div class="stat-label" style="margin-bottom: 8px;">AMBITIEUX</div>
-            <div class="stat-big text-green">&lt; 11h</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Tout se passe bien, bonne gestion, forme optimale</div>
-        </div>
-        <div class="card" style="text-align: center; border-color: var(--accent);">
-            <div class="stat-label" style="margin-bottom: 8px;">REALISTE</div>
-            <div class="stat-big text-blue">11h — 12h</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Gestion prudente, forme correcte</div>
-        </div>
-        <div class="card" style="text-align: center; border-color: var(--orange);">
-            <div class="stat-label" style="margin-bottom: 8px;">SECURITE</div>
-            <div class="stat-big text-orange">12h — 13h</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Conditions difficiles ou forme sous-optimale</div>
-        </div>
-    </div>
-
-    <!-- Axes de travail -->
-    <div class="card" style="margin-top: 20px;">
-        <h2>Axes de travail — Par ordre d'impact sur l'OCC</h2>
-        <table>
-            <tr><th>#</th><th>Axe</th><th>Impact</th><th>Outil principal</th><th>Indicateur de succes</th></tr>
-            <tr><td class="text-bold">1</td><td class="text-bold">Spécifique montée (D+/km)</td><td><span class="badge badge-red">TRÈS ÉLEVÉ</span></td><td>Tapis 20-40%, côtes terrain</td><td>Confort en Z3 à 25%+ d'inclinaison</td></tr>
-            <tr><td class="text-bold">2</td><td class="text-bold">Sommeil &ge; 7h30</td><td><span class="badge badge-red">TRÈS ÉLEVÉ</span></td><td>Discipline + suivi Fenix</td><td>Moyenne Garmin &ge; 7h30</td></tr>
-            <tr><td class="text-bold">3</td><td class="text-bold">Alimentation complète</td><td><span class="badge badge-red">TRÈS ÉLEVÉ</span></td><td>Dîner systématique</td><td>3 repas/j, 120g+ protéines</td></tr>
-            <tr><td class="text-bold">4</td><td class="text-bold">Endurance &gt; 8h</td><td><span class="badge badge-orange">ÉLEVÉ</span></td><td>Sorties longues + courses prépa</td><td>MMT et Monistrail bouclés</td></tr>
-            <tr><td class="text-bold">5</td><td class="text-bold">Prévention soléaire</td><td><span class="badge badge-orange">ÉLEVÉ</span></td><td>Protocole quotidien iso + excentriques</td><td>0 épisode d'ici l'OCC</td></tr>
-            <tr><td class="text-bold">6</td><td class="text-bold">PPG / Renforcement</td><td><span class="badge badge-yellow">MODÉRÉ</span></td><td>Musculation 2x/sem</td><td>Excentrique quadri + chaîne post.</td></tr>
-            <tr><td class="text-bold">7</td><td class="text-bold">Nutrition course &gt; 10h</td><td><span class="badge badge-yellow">MODÉRÉ</span></td><td>Tests en sortie longue + courses</td><td>Plan validé à 250-300 kcal/h</td></tr>
-            <tr><td class="text-bold">8</td><td class="text-bold">Technique descente</td><td><span class="badge badge-yellow">MODÉRÉ</span></td><td>Séances spécifiques + tapis -5%</td><td>Aisance en descente technique</td></tr>
-        </table>
-    </div>
+    <div id="calendar-content"></div>
+    <div id="predictions-content" style="margin-top: 20px;"></div>
+    <div id="projection-content"></div>
+    <div id="work-axes-content" style="margin-top: 20px;"></div>
 </div>
 
 <!-- ======================================================================== -->
 <!-- TAB 5 : PROGRESSION                                                      -->
 <!-- ======================================================================== -->
 <div id="progress" class="tab-content">
-
-    <div class="card">
-        <h2>Progression UTMB Index</h2>
-        <div style="display: flex; gap: 40px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
-            <div style="text-align: center;">
-                <div class="stat-big text-red">305</div>
-                <div class="stat-label">Nov. 2023</div>
-            </div>
-            <div style="font-size: 32px; color: var(--text-muted);">&rarr;</div>
-            <div style="text-align: center;">
-                <div class="stat-big text-green">451</div>
-                <div class="stat-label">Juin 2025</div>
-            </div>
-            <div style="font-size: 14px; color: var(--green); font-weight: 700;">+146 points en 18 mois</div>
-        </div>
-
-        <!-- Graphique simplifie en CSS -->
-        <div style="display: flex; align-items: flex-end; gap: 4px; height: 120px; margin: 20px 0; padding: 0 4px;">
-            <div style="flex:1; background: var(--red); border-radius: 4px 4px 0 0; height: 36%;" title="358 - SainteLyon 2021"></div>
-            <div style="flex:1; background: var(--red); border-radius: 4px 4px 0 0; height: 23%;" title="339 - Coursieres 2023"></div>
-            <div style="flex:1; background: var(--red); border-radius: 4px 4px 0 0; height: 35%;" title="356 - StJacques 20K 2023"></div>
-            <div style="flex:1; background: var(--red); border-radius: 4px 4px 0 0; height: 0%;" title="305 - Veni Vici 2023"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 78%;" title="419 - Sanglier 2024"></div>
-            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 100%;" title="451 - BelMontaise 2024"></div>
-            <div style="flex:1; background: var(--orange); border-radius: 4px 4px 0 0; height: 51%;" title="380 - ETC UTMB 2024"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 88%;" title="433 - Veni Vici 2024"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 83%;" title="426 - Beaujoltrail 2025"></div>
-            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 100%;" title="451 - StJacques 50K 2025"></div>
-            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 97%;" title="447 - Nice CdA 2025"></div>
-            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 96%;" title="446 - SainteSprint 2025"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 80%;" title="422 - Astragale 2025"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); padding: 0 4px;">
-            <span>Nov 21</span><span>Mai 23</span><span>Jun 23</span><span>Nov 23</span><span>Mar 24</span><span>Jul 24</span><span>Aou 24</span><span>Nov 24</span><span>Mai 25</span><span>Jun 25</span><span>Sep 25</span><span>Nov 25</span><span>Dec 25</span>
-        </div>
-
-        <table style="margin-top: 20px;">
-            <tr><th>Course</th><th>Date</th><th>Distance</th><th>D+</th><th>Temps</th><th>Class.</th><th>UTMB Index</th></tr>
-            <tr><td>Astragale (Templiers)</td><td>12/2025</td><td>65.8 km</td><td>2247 m</td><td>10:53:27</td><td>480/677</td><td><span class="text-yellow">422</span></td></tr>
-            <tr><td>SainteSprint</td><td>11/2025</td><td>25 km</td><td>347 m</td><td>2:30:20</td><td>551/2561</td><td><span class="text-green">446</span></td></tr>
-            <tr><td>Nice CdA UTMB</td><td>09/2025</td><td>23 km</td><td>680 m</td><td>2:54:58</td><td>364/1209</td><td><span class="text-green">447</span></td></tr>
-            <tr><td class="text-bold">Saint-Jacques 50K</td><td>06/2025</td><td>52.8 km</td><td>1810 m</td><td>7:48:40</td><td>946/1665</td><td><span class="text-green text-bold">451</span></td></tr>
-            <tr><td>Beaujol'trail 32</td><td>05/2025</td><td>32 km</td><td>1410 m</td><td>4:20:05</td><td>162/211</td><td><span class="text-yellow">426</span></td></tr>
-            <tr><td>Veni Vici</td><td>11/2024</td><td>27.9 km</td><td>700 m</td><td>3:14:07</td><td>918/2054</td><td><span class="text-yellow">433</span></td></tr>
-            <tr><td>ETC UTMB (Chamonix)</td><td>08/2024</td><td>15 km</td><td>1200 m</td><td>3:09:30</td><td>636/1182</td><td><span class="text-orange">380</span></td></tr>
-            <tr><td>Bel'Montaise 15</td><td>07/2024</td><td>15 km</td><td>600 m</td><td>1:34:00</td><td>81/138</td><td><span class="text-green text-bold">451</span></td></tr>
-            <tr><td>Sanglier 15</td><td>03/2024</td><td>15 km</td><td>700 m</td><td>1:55:57</td><td>143/240</td><td><span class="text-yellow">419</span></td></tr>
-            <tr><td>Veni Vici</td><td>11/2023</td><td>27.8 km</td><td>640 m</td><td>4:33:24</td><td>1880/1917</td><td><span class="text-red text-bold">305</span></td></tr>
-            <tr><td>Saint-Jacques 20K</td><td>06/2023</td><td>18 km</td><td>600 m</td><td>2:36:21</td><td>634/772</td><td><span class="text-red">356</span></td></tr>
-            <tr><td>Coursieres 25</td><td>05/2023</td><td>25 km</td><td>990 m</td><td>4:28:57</td><td>331/343</td><td><span class="text-red">339</span></td></tr>
-            <tr><td>SainteLyon SaintExpress</td><td>11/2021</td><td>45.9 km</td><td>1000 m</td><td>7:29:00</td><td>2131/2405</td><td><span class="text-red">358</span></td></tr>
-        </table>
-    </div>
-
+    <div id="progression-content"></div>
     <div class="card" style="margin-top: 20px;">
         <h2>Evolution Evaluation /10</h2>
         <div id="eval-history">
@@ -1689,47 +1217,9 @@
 <!-- J-TAB 1 : VUE D'ENSEMBLE                                                -->
 <!-- ======================================================================== -->
 <div id="j-overview" class="tab-content active">
-
-    <!-- KPI cards -->
-    <div class="grid grid-4" style="margin-bottom: 24px;">
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-blue">555</div>
-            <div class="stat-label">UTMB Index Pic</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">20K: 553 · 50K: 510 · 100K: 506 · 100M: 555</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-green" id="j-kpi-vo2max">50</div>
-            <div class="stat-label">VO2max (ml/kg/min)</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-vo2max-sub">Garmin</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-green" id="j-kpi-week-km">--</div>
-            <div class="stat-label">Km cette semaine</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-week-km-sub">Chargement...</div>
-        </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-orange" id="j-kpi-week-elev">--</div>
-            <div class="stat-label">D+ cette semaine</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-week-elev-sub">Chargement...</div>
-        </div>
-    </div>
-
-    <!-- Profil + Evaluation -->
+    <div id="j-overview-kpi" class="grid grid-4" style="margin-bottom: 24px;"></div>
     <div class="grid grid-2-1">
-        <div class="card">
-            <h2>Profil athlète</h2>
-            <div class="stat-row"><span class="label">Age</span><span class="value">41 ans</span></div>
-            <div class="stat-row"><span class="label">Taille / Poids</span><span class="value">164 cm / 58 kg</span></div>
-            <div class="stat-row"><span class="label">FC repos</span><span class="value">48 bpm</span></div>
-            <div class="stat-row"><span class="label">FC max</span><span class="value">187 bpm</span></div>
-            <div class="stat-row"><span class="label">Reserve cardiaque</span><span class="value">139 bpm</span></div>
-            <div class="stat-row"><span class="label">VO2max (Garmin)</span><span class="value">51.2 ml/kg/min</span></div>
-            <div class="stat-row"><span class="label">VMA estimée</span><span class="value">— <span class="badge badge-yellow">non testée</span></span></div>
-            <div class="stat-row"><span class="label">Running Stones</span><span class="value">5</span></div>
-            <div class="stat-row"><span class="label">Courses depuis 2022</span><span class="value">18</span></div>
-            <div class="stat-row"><span class="label">Plus longue course</span><span class="value">108 km (Kullamannen)</span></div>
-        </div>
-
+        <div class="card" id="j-profile-card"></div>
         <div class="card">
             <h2>Evaluation /10</h2>
             <div id="j-eval-scores">
@@ -1742,20 +1232,7 @@
             <div id="j-eval-comment" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); text-align: left;"></div>
         </div>
     </div>
-
-    <!-- Zones FC -->
-    <div class="card" style="margin-top: 4px;">
-        <h2>Zones de fréquence cardiaque</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Méthode Karvonen · FC repos 48 · FC max 187 · RFC 139 bpm</p>
-        <div class="zone-bar">
-            <div class="zone-1" style="width:20%;">Z1 118-131</div>
-            <div class="zone-2" style="width:20%;">Z2 131-145</div>
-            <div class="zone-3" style="width:20%;">Z3 145-159</div>
-            <div class="zone-4" style="width:20%;">Z4 159-173</div>
-            <div class="zone-5" style="width:20%;">Z5 173-187</div>
-        </div>
-    </div>
-
+    <div class="card" id="j-zones-card" style="margin-top: 4px;"></div>
 </div>
 
 <!-- ======================================================================== -->
@@ -1792,65 +1269,7 @@
 <!-- J-TAB 3 : BLESSURE                                                       -->
 <!-- ======================================================================== -->
 <div id="j-injury" class="tab-content">
-
-    <div class="grid grid-2">
-        <div class="card">
-            <div class="injury-status injury-healing">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <div style="font-weight: 700; font-size: 16px;">Genou droit — Fissure meniscale</div>
-                        <div style="font-size: 13px; color: var(--text-muted);">IRM confirmee · Gestion chronique</div>
-                    </div>
-                    <span class="badge badge-yellow">GESTION</span>
-                </div>
-            </div>
-
-            <h3>Bilan</h3>
-            <div class="stat-row"><span class="label">Douleur moyenne</span><span class="value text-yellow">2-3/10</span></div>
-            <div class="stat-row"><span class="label">Douleur en descente</span><span class="value text-orange">3-5/10</span></div>
-            <div class="stat-row"><span class="label">Gonflement</span><span class="value text-green">Non</span></div>
-            <div class="stat-row"><span class="label">Marche</span><span class="value text-green">OK</span></div>
-            <div class="stat-row"><span class="label">Course plat</span><span class="value text-green">OK</span></div>
-            <div class="stat-row"><span class="label">Descente technique</span><span class="value text-yellow">Avec precaution</span></div>
-
-            <h3>Observation</h3>
-            <div class="note-box">
-                Fissure meniscale non operee. Gestion par renforcement musculaire, adaptation de la charge et genouillere en descente technique. Surveillance permanente. Pas de contre-indication a l'ultra si gestion adequat.
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Protocole de gestion</h2>
-            <table>
-                <tr><th>Action</th><th>Frequence</th></tr>
-                <tr><td>Renforcement quadriceps (chaise, squats)</td><td>3x / semaine</td></tr>
-                <tr><td>Etirements ischio-jambiers</td><td>Quotidien</td></tr>
-                <tr><td>Genouillere en descente technique</td><td>Chaque sortie D-</td></tr>
-                <tr><td>Glace apres longue sortie</td><td>Systematique</td></tr>
-                <tr><td>Stopper si douleur > 4/10</td><td>Regle absolue</td></tr>
-            </table>
-
-            <h3>Evolution genou (14 derniers jours)</h3>
-            <div class="mini-chart" id="j-chart-genou" style="height: 80px;"></div>
-            <div class="mini-chart-labels" id="j-chart-genou-labels"></div>
-
-            <h3>Journal de suivi</h3>
-            <div id="j-injury-journal">
-                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Historique blessures -->
-    <div class="card" style="margin-top: 20px;">
-        <h2>Historique des blessures</h2>
-        <table>
-            <tr><th>#</th><th>Localisation</th><th>Gravite</th><th>Resolution</th></tr>
-            <tr><td>1</td><td>Tendon d'Achille gauche</td><td>Modere</td><td class="text-green">Resolu</td></tr>
-            <tr><td>2</td><td>Entorse cheville droite</td><td>Leger</td><td class="text-green">Resolu</td></tr>
-            <tr><td class="text-bold">3</td><td class="text-bold">Genou droit (menisque)</td><td class="text-bold">Chronique</td><td class="text-yellow text-bold">En gestion</td></tr>
-        </table>
-    </div>
+    <div id="j-injury-content"></div>
 </div>
 
 <!-- ======================================================================== -->
@@ -1874,11 +1293,7 @@
             <div class="stat-label">Sommeil moyen /nuit</div>
             <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-health-sleep-avg-sub">Objectif : 7h30</div>
         </div>
-        <div class="card" style="text-align: center;">
-            <div class="stat-big text-green">58<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
-            <div class="stat-label">Poids</div>
-            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">164 cm · IMC 21.6</div>
-        </div>
+        <div class="card" style="text-align: center;" id="j-health-weight-card"></div>
     </div>
 
     <div class="grid grid-2">
@@ -1928,230 +1343,24 @@
             <div id="j-chart-sleep-summary" style="margin-top: 12px;"></div>
         </div>
     </div>
+    <div id="j-health-factors-card"></div>
 </div>
 
 <!-- ======================================================================== -->
 <!-- J-TAB 5 : CALENDRIER                                                     -->
 <!-- ======================================================================== -->
 <div id="j-calendar" class="tab-content">
-
-    <div class="grid grid-1-2">
-        <div class="card">
-            <h2>Courses 2026</h2>
-            <div class="race-timeline">
-                <div class="race-item race-b">
-                    <div class="race-date">25 avril — <span class="badge badge-orange">OBJECTIF B</span></div>
-                    <div class="race-name">UTMB Mont Ventoux GRV 100K</div>
-                    <div class="race-details">100 km · 4200 D+ · Test endurance ultra</div>
-                </div>
-                <div class="race-item race-b">
-                    <div class="race-date">23 mai — <span class="badge badge-orange">OBJECTIF B</span></div>
-                    <div class="race-name">Maxi-Race (Annecy)</div>
-                    <div class="race-details">57 km · 3500 D+ · Gestion effort + nutrition</div>
-                </div>
-                <div class="race-item race-c">
-                    <div class="race-date">4 juillet — <span class="badge badge-yellow">OBJECTIF C</span></div>
-                    <div class="race-name">Trail des Pierres Dorées</div>
-                    <div class="race-details">30 km · 1200 D+ · Entretien</div>
-                </div>
-                <div class="race-item race-a">
-                    <div class="race-date">20 septembre — <span class="badge badge-red">OBJECTIF A</span></div>
-                    <div class="race-name" style="font-size: 18px;">Grand to Grand Ultra</div>
-                    <div class="race-details">275 km · 6 étapes · Course à étapes autosuffisante</div>
-                    <div style="font-size: 12px; color: var(--accent-light); margin-top: 2px;">Grand Canyon, Arizona, USA</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Périodisation macro</h2>
-            <table>
-                <tr><th>Bloc</th><th>Periode</th><th>Focus</th><th>Courses</th></tr>
-                <tr>
-                    <td><span class="badge badge-green">BUILD 1</span></td>
-                    <td>Fev-Mars (actuel)</td>
-                    <td>Construction base. Volume progressif. PPG.</td>
-                    <td class="text-muted">—</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-yellow">BUILD 2</span></td>
-                    <td>Avril</td>
-                    <td>Volume + D+. Sortie longue 5-7h.</td>
-                    <td>GRV 100K (B)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-orange">BUILD 3</span></td>
-                    <td>Mai</td>
-                    <td>Endurance ultra. Gestion effort long. Nutrition.</td>
-                    <td>Maxi-Race (B)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-red">SPECIFIQUE</span></td>
-                    <td>Juin-Juillet</td>
-                    <td>Spécifique multi-étapes. Back-to-back. Autosuffisance.</td>
-                    <td>Pierres Dorées (C)</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-purple">PIC</span></td>
-                    <td>Août</td>
-                    <td>Volume pic. Simulation conditions G2G.</td>
-                    <td>—</td>
-                </tr>
-                <tr>
-                    <td><span class="badge" style="background:#333; color:#fff;">AFFÛT</span></td>
-                    <td>Sept</td>
-                    <td>Tapering 10-14j. Logistique G2G.</td>
-                    <td><strong>G2G Ultra (A)</strong></td>
-                </tr>
-            </table>
-
-            <h3>Gap G2G — Le défi clé</h3>
-            <table>
-                <tr><th>Indicateur</th><th>Actuel</th><th>Requis G2G</th><th>Gap</th></tr>
-                <tr><td>Plus longue course</td><td class="text-green">250 km MDS / 108 km solo</td><td class="text-bold">275 km (6 étapes)</td><td class="text-green">Format similaire au MDS</td></tr>
-                <tr><td>Multi-étapes désert</td><td class="text-green">2x MDS (50h → 36h)</td><td class="text-bold">6 étapes autosuffisant</td><td class="text-green">Expérience acquise</td></tr>
-                <tr><td>Autosuffisance</td><td class="text-green">Testée MDS</td><td class="text-bold">Obligatoire G2G</td><td class="text-green">Acquis, adapter format</td></tr>
-                <tr><td>Chaleur</td><td class="text-green">Sahara 40°C+</td><td class="text-bold">Désert Arizona</td><td class="text-green">Acquis, rappel été</td></tr>
-                <tr><td>Nutrition multi-jours</td><td class="text-orange">Testée MDS</td><td class="text-bold">Autonome 6 jours</td><td class="text-orange">Affiner plan G2G</td></tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- Prévisions courses -->
-    <div class="card" style="margin-top: 20px;">
-        <h2>Prévisions courses 2026</h2>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Méthodologie : corrélation UTMB Index / temps de course (données utmb.world), historique personnel (MDS x2, Kullamannen), VO2max Garmin. Sources : éditions 2024-2025.</p>
-
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-
-            <!-- GRV 100K -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--orange);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>GRV 100K Mont Ventoux</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">89 km · 4600 D+ · 25 avril</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2025 (1ère) : 3000+ coureurs (toutes distances) · Vainqueur 7h35 (Dhiman) · Vainqueuse 9h14 (Paradan) · Source : esprit-trail.com, ventoux.utmb.world</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>14h00 — 17h00</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>500 — 530</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement femmes estimé</td><td>Top 20 — 30%</td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">12h30 — 15h00 · Index 520-550 · top 15-20% femmes</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Référence : Kullamannen 108km en 12h02 (index 570, profil plat 18 m D+/km). Le GRV est très différent : 52 m D+/km, Mont Ventoux (1909m). La pénalisation D+/km estimée est de +40 à +60% sur le temps. Point critique : gestion ménisque sur ~4000m de D- (genouillère obligatoire). Objectif principal : valider l'endurance 14h+ en vue du G2G.</div>
-            </div>
-
-            <!-- Maxi-Race -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--orange);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>Maxi-Race (Annecy)</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">57 km · 3500 D+ · 23 mai</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2024 (Marathon Race) : 266 finishers · Réf. perso : Beaujol'Trail 50K en 6h32 (index 517) · Source : utmb.world, my.raceresult.com</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>8h30 — 10h30</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>510 — 540</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement femmes estimé</td><td>Top 30 — 40% <span style="color: var(--text-muted);">(petit peloton : ~266 finishers)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">7h30 — 9h00 · Index 530-560 · top 20-30% femmes</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Profil alpin technique (61 m D+/km, sentiers lac d'Annecy). À 4 semaines du GRV 100K : la fatigue résiduelle peut impacter le chrono de -5 à -10%. Objectif : pas de performance, gestion d'effort. L'enchaînement GRV → Maxi en 4 semaines simule un back-to-back G2G. Tester récupération rapide.</div>
-            </div>
-
-            <!-- Pierres Dorées -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--yellow);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong>Trail des Pierres Dorées</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">30 km · 1200 D+ · 4 juillet</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2024 : format 24km/1200D+, ~650 participants · Beaujolais · Source : traildespierresdorees.fr</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps estimé</td><td><strong>3h00 — 3h45</strong></td></tr>
-                    <tr><td style="color: var(--text-muted);">Index cible</td><td>Non ciblé</td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement femmes estimé</td><td>Top 15 — 25%</td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">2h40 — 3h15 · top 10-15% femmes</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">Course d'entretien en milieu de bloc spécifique G2G. Aucun enjeu chrono. Effort contrôlé Z2. Coupure mentale positive avant le bloc pic d'août. Son index UTMB (570) est largement supérieur au niveau moyen de cette course locale.</div>
-            </div>
-
-            <!-- G2G Ultra -->
-            <div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid var(--red);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
-                    <strong style="font-size: 15px;">Grand to Grand Ultra</strong>
-                    <span style="font-size: 12px; color: var(--text-muted);">275 km · 6 étapes · 20 septembre</span>
-                </div>
-                <div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Éd. 2024 : 38 finishers (16 femmes), 18 DNF (taux d'abandon 32%) · Vainqueur 33h19 (Robert) · Vainqueuse 45h30 (Lubics) · Source : g2gultra.com</div>
-                <table style="width: 100%; font-size: 12px;">
-                    <tr><td style="width:40%; color: var(--text-muted);">Temps total estimé</td><td><strong>38h — 48h</strong> <span style="color: var(--text-muted);">(6 étapes)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Classement femmes estimé</td><td>3e — 6e / ~16 femmes <span style="color: var(--text-muted);">(top 20-40%)</span></td></tr>
-                    <tr><td style="color: var(--text-muted);">Si entraînement tenu</td><td style="color: var(--green);">35h — 43h · 2e — 4e femme · podium possible</td></tr>
-                </table>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"><strong style="color: var(--text);">Analyse comparative :</strong> La vainqueuse 2024 Szilvia Lubics a terminé en 45h30. Le MDS 2025 de Juliette (250km en 36h22) montre une capacité supérieure en multi-étapes désert. Mais le G2G est 10% plus long avec un profil canyon plus technique (Grand Canyon, chaleur sèche 40°C+). La projection intègre : (1) sa progression MDS démontrée (-14h entre 2024 et 2025), (2) le terrain plus technique, (3) les 6 jours vs 5.5 au MDS. <br><strong style="color: var(--text);">Facteurs limitants :</strong> gestion ménisque sur 6 jours (point le plus critique), récupération inter-étapes, acclimatation chaleur Arizona. <br><strong style="color: var(--text);">Avantage compétitif :</strong> l'expérience MDS x2 en autosuffisance désert est rare dans le peloton G2G (38 participants). Petit peloton = podium réaliste si le ménisque coopère.</div>
-            </div>
-
-        </div>
-    </div>
-
+    <div id="j-calendar-content"></div>
+    <div id="j-predictions-content" style="margin-top: 20px;"></div>
+    <div id="j-projection-content"></div>
+    <div id="j-work-axes-content" style="margin-top: 20px;"></div>
 </div>
 
 <!-- ======================================================================== -->
 <!-- J-TAB 6 : PROGRESSION                                                    -->
 <!-- ======================================================================== -->
 <div id="j-progress" class="tab-content">
-
-    <div class="card">
-        <h2>Progression UTMB Index</h2>
-        <div style="display: flex; gap: 40px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
-            <div style="text-align: center;">
-                <div class="stat-big text-yellow">437</div>
-                <div class="stat-label">Dec 2022</div>
-            </div>
-            <div style="font-size: 32px; color: var(--text-muted);">&rarr;</div>
-            <div style="text-align: center;">
-                <div class="stat-big text-green">570</div>
-                <div class="stat-label">Oct 2025</div>
-            </div>
-            <div style="font-size: 14px; color: var(--green); font-weight: 700;">+133 points en 3 ans</div>
-        </div>
-
-        <!-- Graphique CSS — 18 courses chronologiques -->
-        <div style="display: flex; align-items: flex-end; gap: 3px; height: 120px; margin: 20px 0; padding: 0 4px;">
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 37%;" title="437 - SaintExpress 12/22"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 53%;" title="459 - Romagnatoise 01/23"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 38%;" title="438 - Coursieres 05/23"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 46%;" title="449 - St-Jacques 06/23"></div>
-            <div style="flex:1; background: var(--red); border-radius: 3px 3px 0 0; height: 22%;" title="412 - XTrail Courchevel 07/23"></div>
-            <div style="flex:1; background: var(--red); border-radius: 3px 3px 0 0; height: 17%;" title="405 - Nice UTMB 09/23"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 60%;" title="491 - Veni Vici 11/23"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 52%;" title="455 - SainteLyon 12/23"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 57%;" title="488 - Winter Trail 01/24"></div>
-            <div style="flex:1; background: var(--red); border-radius: 3px 3px 0 0; height: 0%;" title="360 - MDS 04/24"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 68%;" title="517 - Beaujol'Trail 05/24"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 63%;" title="510 - Bel'Montaise 07/24"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 73%;" title="526 - Veni Vici 11/24"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 65%;" title="505 - SainteLyon 11/24"></div>
-            <div style="flex:1; background: var(--yellow); border-radius: 3px 3px 0 0; height: 60%;" title="491 - MDS Legendary 04/25"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 66%;" title="500 - St-Jacques 06/25"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 74%;" title="524 - Vercors 10/25"></div>
-            <div style="flex:1; background: var(--green); border-radius: 3px 3px 0 0; height: 100%;" title="570 - Kullamannen 10/25"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); padding: 0 4px;">
-            <span>Dec 22</span><span></span><span></span><span>2023</span><span></span><span></span><span></span><span></span><span>2024</span><span></span><span></span><span></span><span></span><span></span><span>2025</span><span></span><span></span><span>Oct 25</span>
-        </div>
-
-        <table style="margin-top: 20px;">
-            <tr><th>Course</th><th>Date</th><th>Distance</th><th>D+</th><th>Temps</th><th>UTMB Index</th></tr>
-            <tr><td class="text-bold">Kullamannen by UTMB</td><td>10/2025</td><td>108 km</td><td>749 m</td><td>12:08:03</td><td><span class="text-green text-bold">570</span></td></tr>
-            <tr><td>Trail du Vercors</td><td>10/2025</td><td>33 km</td><td>1500 m</td><td>04:15:25</td><td><span class="text-green">524</span></td></tr>
-            <tr><td>Trail du Saint-Jacques 100K</td><td>06/2025</td><td>81.9 km</td><td>3080 m</td><td>12:45:19</td><td><span class="text-green">500</span></td></tr>
-            <tr><td>MDS Legendary 2025</td><td>04/2025</td><td>250 km</td><td>2710 m</td><td>36:22:15</td><td><span class="text-yellow">491</span></td></tr>
-            <tr><td>La Veni Vici 47km</td><td>11/2024</td><td>47.7 km</td><td>1250 m</td><td>05:21:39</td><td><span class="text-green">526</span></td></tr>
-            <tr><td>SainteLyon 2024</td><td>11/2024</td><td>82 km</td><td>2273 m</td><td>10:26:14</td><td><span class="text-green">505</span></td></tr>
-            <tr><td>Beaujol'Trail Morgon</td><td>05/2024</td><td>32 km</td><td>1410 m</td><td>03:43:02</td><td><span class="text-green">517</span></td></tr>
-            <tr><td>MDS 2024 (38e)</td><td>04/2024</td><td>252.8 km</td><td>2788 m</td><td>50:05:21</td><td><span class="text-red">360</span></td></tr>
-            <tr><td>Nice Cote d'Azur 50K</td><td>09/2023</td><td>62 km</td><td>3300 m</td><td>13:39:44</td><td><span class="text-red">405</span></td></tr>
-            <tr><td>SaintExpress 2022</td><td>12/2022</td><td>44 km</td><td>1150 m</td><td>06:09:38</td><td><span class="text-yellow">437</span></td></tr>
-        </table>
-    </div>
-
+    <div id="j-progression-content"></div>
     <div class="card" style="margin-top: 20px;">
         <h2>Evolution Evaluation /10</h2>
         <div id="j-eval-history">
@@ -4145,12 +3354,360 @@ function loadCoachLog(athlete) {
         .catch(() => {});
 }
 
+// ===== ATHLETE DATA (dynamic dashboard) =====
+var _athleteDataByAthlete = {};
+
+function loadAthleteProfile(athlete) {
+    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            _athleteDataByAthlete[athlete] = data;
+            renderProfile(data, athlete);
+            renderZones(data, athlete);
+            renderInjury(data, athlete);
+            renderCalendar(data, athlete);
+            renderPredictions(data, athlete);
+            renderProgression(data, athlete);
+            renderHealthFactors(data, athlete);
+            // Re-render injury chart/journal if coach-log already loaded
+            if (_coachLogByAthlete[athlete]) {
+                renderInjuryJournal(athlete);
+                renderInjuryChart(athlete);
+            }
+            // Re-render week activity matching (needs zone data)
+            if (_activitiesByAthlete[athlete]) {
+                matchWeekActivities(_activitiesByAthlete[athlete], athlete);
+            }
+        })
+        .catch(function(e) { console.warn('loadAthleteProfile error:', e); });
+}
+
+function esc(s) { return (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function renderProfile(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var prof = data.profile || {};
+    // KPI cards
+    var kpiEl = document.getElementById(p + 'overview-kpi');
+    if (kpiEl) {
+        var utmbSub = [];
+        if (prof.utmb_20k) utmbSub.push('20K: ' + prof.utmb_20k);
+        if (prof.utmb_50k) utmbSub.push('50K: ' + prof.utmb_50k);
+        if (prof.utmb_100k) utmbSub.push('100K: ' + prof.utmb_100k);
+        if (prof.utmb_100m) utmbSub.push('100M: ' + prof.utmb_100m);
+        kpiEl.innerHTML =
+            '<div class="card" style="text-align: center;"><div class="stat-big text-blue">' + (prof.utmb_pic || '--') + '</div><div class="stat-label">UTMB Index Pic</div><div style="font-size:12px; color: var(--text-muted); margin-top:4px;">' + utmbSub.join(' · ') + '</div></div>' +
+            '<div class="card" style="text-align: center;"><div class="stat-big text-green" id="' + p + 'kpi-vo2max">' + (prof.vo2max || '--') + '</div><div class="stat-label">VO2max (ml/kg/min)</div><div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="' + p + 'kpi-vo2max-sub">Garmin</div></div>' +
+            '<div class="card" style="text-align: center;"><div class="stat-big text-green" id="' + p + 'kpi-week-km">--</div><div class="stat-label">Km cette semaine</div><div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="' + p + 'kpi-week-km-sub">Chargement...</div></div>' +
+            '<div class="card" style="text-align: center;"><div class="stat-big text-orange" id="' + p + 'kpi-week-elev">--</div><div class="stat-label">D+ cette semaine</div><div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="' + p + 'kpi-week-elev-sub">Chargement...</div></div>';
+    }
+    // Profile card
+    var profEl = document.getElementById(p + 'profile-card');
+    if (profEl) {
+        var vmaText = prof.vma ? ('~' + prof.vma + ' km/h') : '—';
+        var vmaBadge = prof.vma_tested ? '' : ' <span class="badge badge-yellow">' + (prof.vma ? 'à tester' : 'non testée') + '</span>';
+        profEl.innerHTML =
+            '<h2>Profil athlète</h2>' +
+            '<div class="stat-row"><span class="label">Age</span><span class="value">' + prof.age + ' ans</span></div>' +
+            '<div class="stat-row"><span class="label">Taille / Poids</span><span class="value">' + prof.height_cm + ' cm / ' + prof.weight_kg + ' kg</span></div>' +
+            '<div class="stat-row"><span class="label">FC repos</span><span class="value">' + prof.fc_repos + ' bpm</span></div>' +
+            '<div class="stat-row"><span class="label">FC max</span><span class="value">' + prof.fc_max + ' bpm</span></div>' +
+            '<div class="stat-row"><span class="label">Réserve cardiaque</span><span class="value">' + prof.rfc + ' bpm</span></div>' +
+            '<div class="stat-row"><span class="label">VO2max (Garmin)</span><span class="value">' + (prof.vo2max || '—') + ' ml/kg/min</span></div>' +
+            '<div class="stat-row"><span class="label">VMA estimée</span><span class="value">' + vmaText + vmaBadge + '</span></div>' +
+            '<div class="stat-row"><span class="label">Running Stones</span><span class="value">' + (prof.running_stones || '—') + '</span></div>' +
+            '<div class="stat-row"><span class="label">Courses depuis 2022</span><span class="value">' + (prof.races_count || '—') + '</span></div>' +
+            '<div class="stat-row"><span class="label">Plus longue course</span><span class="value">' + esc(prof.longest_race || '—') + '</span></div>';
+    }
+    // Health weight card
+    var weightEl = document.getElementById(p + 'health-weight-card');
+    if (weightEl) {
+        weightEl.innerHTML =
+            '<div class="stat-big text-orange">' + prof.weight_kg + '<span style="font-size:18px; color: var(--text-muted);">kg</span></div>' +
+            '<div class="stat-label">Poids</div>' +
+            '<div style="font-size:12px; color: var(--text-muted); margin-top:4px;">' + prof.height_cm + ' cm · IMC ' + (prof.imc || (prof.weight_kg / ((prof.height_cm/100) * (prof.height_cm/100))).toFixed(1)) + '</div>';
+    }
+}
+
+function renderZones(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var zones = data.zones || [];
+    var prof = data.profile || {};
+    var el = document.getElementById(p + 'zones-card');
+    if (!el || zones.length === 0) return;
+    var barHtml = '<div class="zone-bar">';
+    zones.forEach(function(z, i) {
+        barHtml += '<div class="zone-' + (i+1) + '" style="width:' + (100/zones.length) + '%;">' + z.label + ' ' + z.min + '-' + z.max + '</div>';
+    });
+    barHtml += '</div>';
+    el.innerHTML =
+        '<h2>Zones de fréquence cardiaque</h2>' +
+        '<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Méthode Karvonen · FC repos ' + prof.fc_repos + ' · FC max ' + prof.fc_max + ' · RFC ' + prof.rfc + ' bpm</p>' +
+        barHtml;
+    // Update FC_ZONES for activity matching
+    if (zones.length >= 5) {
+        FC_ZONES[0].max = zones[0].min - 1;
+        FC_ZONES[1].max = zones[0].max;
+        FC_ZONES[2].max = zones[1].max;
+        FC_ZONES[3].max = zones[2].max;
+        FC_ZONES[4].max = zones[3].max;
+        FC_ZONES[5].max = 999;
+    }
+}
+
+function renderInjury(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var inj = data.injury || {};
+    var cfg = ATHLETES[athlete];
+    var el = document.getElementById(p + 'injury-content');
+    if (!el) return;
+    var statusClass = inj.status === 'active' ? 'injury-active' : 'injury-healing';
+    var statusBadge = inj.status === 'active' ? '<span class="badge badge-red">ACTIF</span>' : '<span class="badge badge-yellow">GESTION</span>';
+    var h = '<div class="grid grid-2"><div class="card">';
+    h += '<div class="injury-status ' + statusClass + '"><div style="display: flex; justify-content: space-between; align-items: center;"><div>';
+    h += '<div style="font-weight: 700; font-size: 16px;">' + esc(inj.location) + (inj.episode ? ' — Épisode ' + inj.episode : '') + '</div>';
+    h += '<div style="font-size: 13px; color: var(--text-muted);">' + esc(inj.detail) + '</div>';
+    h += '</div>' + statusBadge + '</div></div>';
+    // Tests
+    if (inj.tests && inj.tests.length > 0) {
+        h += '<h3>Bilan' + (inj.assessment_date ? ' du ' + new Date(inj.assessment_date).toLocaleDateString('fr-FR', {day:'numeric',month:'long'}) : '') + '</h3>';
+        inj.tests.forEach(function(t) {
+            h += '<div class="stat-row"><span class="label">' + esc(t.name) + '</span><span class="value text-' + t.color + '">' + esc(t.value) + '</span></div>';
+        });
+    }
+    // Context
+    if (inj.context && inj.context.length > 0) {
+        h += '<h3>Contexte</h3>';
+        inj.context.forEach(function(c) {
+            h += '<div class="stat-row"><span class="label">' + esc(c.label) + '</span><span class="value">' + esc(c.value) + '</span></div>';
+        });
+    }
+    // Observation
+    if (inj.observation) {
+        h += '<h3>Observation chronique</h3><div class="note-box">' + esc(inj.observation) + '</div>';
+    }
+    h += '</div>'; // close left card
+
+    // Right card: Protocol
+    h += '<div class="card">';
+    if (inj.protocol && inj.protocol.length > 0) {
+        h += '<h2>Protocole de retour à la course</h2><table><tr><th>Phase</th><th>Critère d\'entrée</th><th>Contenu</th><th>Statut</th></tr>';
+        inj.protocol.forEach(function(pr, i) {
+            var badge = pr.status === 'en_cours' ? '<span class="badge badge-blue">EN COURS</span>' : '<span class="badge badge-yellow">A VENIR</span>';
+            h += '<tr><td class="text-bold">' + esc(pr.phase) + '</td><td>' + esc(pr.entry) + '</td><td class="text-muted">' + esc(pr.content) + '</td><td id="' + p + 'proto-phase-' + (i+1) + '">' + badge + '</td></tr>';
+        });
+        h += '</table>';
+    }
+    if (inj.decision_point) {
+        h += '<div class="note-box" style="margin-top: 16px;"><strong>' + esc(inj.decision_point).replace(/\n/g, '<br>') + '</strong></div>';
+    }
+    // Prevention
+    if (inj.prevention && inj.prevention.length > 0) {
+        h += '<h3>Prévention permanente</h3><table><tr><th>Action</th><th>Fréquence</th></tr>';
+        inj.prevention.forEach(function(prev) {
+            h += '<tr><td>' + esc(prev.action) + '</td><td>' + esc(prev.frequency) + '</td></tr>';
+        });
+        h += '</table>';
+    }
+    // Chart + Journal (dynamic from coach-log)
+    h += '<h3>Évolution ' + esc(cfg.injuryKey) + ' (14 derniers jours)</h3>';
+    h += '<div class="mini-chart" id="' + p + 'chart-' + cfg.injuryKey + '" style="height: 80px;"></div>';
+    h += '<div class="mini-chart-labels" id="' + p + 'chart-' + cfg.injuryKey + '-labels"></div>';
+    h += '<h3>Journal de suivi</h3>';
+    h += '<div id="' + p + 'injury-journal"><div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div></div>';
+    h += '</div></div>'; // close right card + grid
+
+    // Injury history
+    if (inj.history && inj.history.length > 0) {
+        h += '<div class="card" style="margin-top: 20px;"><h2>Historique des blessures</h2><table>';
+        var hasside = inj.history.some(function(hi) { return hi.side; });
+        h += '<tr><th>#</th><th>Localisation</th>' + (hasside ? '<th>Côté</th>' : '') + '<th>Gravité</th><th>Résolution</th></tr>';
+        inj.history.forEach(function(hi) {
+            var isCurrent = hi.resolution === 'En cours' || hi.resolution === 'En gestion';
+            var cls = isCurrent ? ' class="text-bold"' : '';
+            var resCls = isCurrent ? (hi.resolution === 'En gestion' ? 'text-yellow text-bold' : 'text-red text-bold') : 'text-green';
+            h += '<tr><td' + cls + '>' + hi.num + '</td><td' + cls + '>' + esc(hi.location) + '</td>';
+            if (hasside) h += '<td' + cls + '>' + esc(hi.side || '') + '</td>';
+            h += '<td' + cls + '>' + esc(hi.severity) + '</td><td class="' + resCls + '">' + esc(hi.resolution) + '</td></tr>';
+        });
+        h += '</table></div>';
+    }
+    el.innerHTML = h;
+}
+
+function renderCalendar(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var cal = data.calendar || {};
+    var el = document.getElementById(p + 'calendar-content');
+    if (!el) return;
+    var h = '<div class="grid grid-1-2"><div class="card"><h2>Courses 2026</h2><div class="race-timeline">';
+    // Races
+    (cal.races || []).forEach(function(r) {
+        var objMap = {done:'race-done', A:'race-a', B:'race-b', C:'race-c'};
+        var cls = objMap[r.objective] || 'race-c';
+        var badgeMap = {done:'<span class="badge badge-green">TERMINÉ</span>', A:'<span class="badge badge-red">OBJECTIF A</span>', B:'<span class="badge badge-orange">OBJECTIF B</span>', C:'<span class="badge badge-yellow">OBJECTIF C</span>'};
+        var badge = badgeMap[r.objective] || '';
+        var dateStr = new Date(r.date).toLocaleDateString('fr-FR', {day:'numeric', month:'long'});
+        h += '<div class="race-item ' + cls + '">';
+        h += '<div class="race-date">' + dateStr + ' — ' + badge + '</div>';
+        var isA = r.objective === 'A';
+        h += '<div class="race-name"' + (isA ? ' style="font-size: 18px;"' : '') + '>' + esc(r.name) + '</div>';
+        h += '<div class="race-details">' + esc(r.distance) + ' · ' + esc(r.dplus) + (r.result ? ' · ' + esc(r.result) : '') + '</div>';
+        if (r.note) h += '<div style="font-size: 12px; color: ' + (r.objective === 'A' ? 'var(--accent-light)' : 'var(--red)') + '; margin-top: 2px;">' + esc(r.note) + '</div>';
+        h += '</div>';
+    });
+    h += '</div></div>';
+    // Periodisation
+    h += '<div class="card"><h2>Périodisation macro</h2><table><tr><th>Bloc</th><th>Période</th><th>Focus</th><th>Courses</th></tr>';
+    (cal.periodisation || []).forEach(function(per) {
+        var badgeSt = per.badge_class === 'badge-dark' ? 'background:#333; color:#fff;' : '';
+        var badgeCls = per.badge_class === 'badge-dark' ? 'badge' : 'badge ' + per.badge_class;
+        h += '<tr><td><span class="' + badgeCls + '"' + (badgeSt ? ' style="' + badgeSt + '"' : '') + '>' + esc(per.bloc) + '</span></td>';
+        h += '<td>' + esc(per.period) + '</td><td>' + (per.focus || '').replace(/\n/g, '<br>') + '</td>';
+        h += '<td' + (per.races === '—' ? ' class="text-muted"' : '') + '>' + (per.races.indexOf('(A)') >= 0 ? '<strong>' + esc(per.races) + '</strong>' : esc(per.races)) + '</td></tr>';
+    });
+    h += '</table>';
+    // Gap analysis
+    if (cal.gap_analysis && cal.gap_analysis.length > 0) {
+        h += '<h3>Gap — Le défi clé</h3><table><tr><th>Indicateur</th><th>Actuel</th><th>Cible</th><th>Gap</th></tr>';
+        cal.gap_analysis.forEach(function(g) {
+            h += '<tr><td>' + esc(g.indicator) + '</td><td>' + esc(g.current) + '</td><td class="text-' + g.color + ' text-bold">' + esc(g.target) + '</td><td class="text-' + g.color + '">' + esc(g.gap) + '</td></tr>';
+        });
+        h += '</table>';
+    }
+    h += '</div></div>';
+    el.innerHTML = h;
+}
+
+function renderPredictions(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var preds = data.predictions || [];
+    var proj = data.projection;
+    var axes = data.work_axes || [];
+    // Predictions
+    var predEl = document.getElementById(p + 'predictions-content');
+    if (predEl && preds.length > 0) {
+        var h = '<div class="card"><h2>Prévisions courses 2026</h2>';
+        h += '<p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Méthodologie : corrélation UTMB Index / temps de course, historique personnel, VO2max Garmin.</p>';
+        h += '<div style="display: flex; flex-direction: column; gap: 16px;">';
+        preds.forEach(function(pr) {
+            var bc = pr.border_color || 'yellow';
+            var colorVar = bc === 'red' ? 'var(--red)' : bc === 'orange' ? 'var(--orange)' : 'var(--yellow)';
+            h += '<div style="padding: 14px; background: var(--bg-card-alt); border-radius: 8px; border-left: 3px solid ' + colorVar + ';">';
+            h += '<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">';
+            var isMain = pr.name && pr.name.indexOf('OCC') >= 0 || pr.name && pr.name.indexOf('Grand to Grand') >= 0;
+            h += (isMain ? '<strong style="font-size: 15px;">' : '<strong>') + esc(pr.name) + '</strong>';
+            h += '<span style="font-size: 12px; color: var(--text-muted);">' + esc(pr.distance) + ' · ' + esc(pr.date) + '</span></div>';
+            if (pr.edition_info) h += '<div style="font-size: 11px; color: var(--text-muted); margin: 6px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">' + esc(pr.edition_info) + '</div>';
+            h += '<table style="width: 100%; font-size: 12px;">';
+            (pr.rows || []).forEach(function(row) {
+                h += '<tr><td style="width:40%; color: var(--text-muted);">' + esc(row.label) + '</td><td' + (row.green ? ' style="color: var(--green);"' : '') + '>' + (row.bold ? '<strong>' + esc(row.value) + '</strong>' : esc(row.value)) + '</td></tr>';
+            });
+            h += '</table>';
+            if (pr.notes) h += '<div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">' + esc(pr.notes) + '</div>';
+            h += '</div>';
+        });
+        h += '</div></div>';
+        predEl.innerHTML = h;
+    }
+    // Projection
+    var projEl = document.getElementById(p + 'projection-content');
+    if (projEl && proj && proj.scenarios) {
+        var h2 = '<div class="section-title">Projection <span>' + esc(proj.title || '') + '</span></div><div class="grid grid-3">';
+        var colorMap = {green:'var(--green-dark)', blue:'var(--accent)', orange:'var(--orange)', red:'var(--red)'};
+        proj.scenarios.forEach(function(s) {
+            h2 += '<div class="card" style="text-align: center; border-color: ' + (colorMap[s.color] || 'var(--border)') + ';">';
+            h2 += '<div class="stat-label" style="margin-bottom: 8px;">' + esc(s.label) + '</div>';
+            h2 += '<div class="stat-big text-' + s.color + '">' + esc(s.value) + '</div>';
+            h2 += '<div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">' + esc(s.detail) + '</div></div>';
+        });
+        h2 += '</div>';
+        projEl.innerHTML = h2;
+    }
+    // Work axes
+    var axesEl = document.getElementById(p + 'work-axes-content');
+    if (axesEl && axes.length > 0) {
+        var h3 = '<div class="card"><h2>Axes de travail — Par ordre d\'impact</h2><table>';
+        h3 += '<tr><th>#</th><th>Axe</th><th>Impact</th><th>Outil principal</th><th>Indicateur de succès</th></tr>';
+        axes.forEach(function(a) {
+            h3 += '<tr><td class="text-bold">' + a.rank + '</td><td class="text-bold">' + esc(a.name) + '</td>';
+            h3 += '<td><span class="badge badge-' + a.impact_color + '">' + esc(a.impact) + '</span></td>';
+            h3 += '<td>' + esc(a.tool) + '</td><td>' + esc(a.success) + '</td></tr>';
+        });
+        h3 += '</table></div>';
+        axesEl.innerHTML = h3;
+    }
+}
+
+function renderProgression(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var hist = data.race_history || [];
+    var idx = data.index_progression || {};
+    var el = document.getElementById(p + 'progression-content');
+    if (!el) return;
+    var h = '<div class="card"><h2>Progression UTMB Index</h2>';
+    h += '<div style="display: flex; gap: 40px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">';
+    h += '<div style="text-align: center;"><div class="stat-big text-red">' + (idx.start_index || '--') + '</div><div class="stat-label">' + esc(idx.start_date || '') + '</div></div>';
+    h += '<div style="font-size: 32px; color: var(--text-muted);">&rarr;</div>';
+    h += '<div style="text-align: center;"><div class="stat-big text-green">' + (idx.current_index || '--') + '</div><div class="stat-label">' + esc(idx.current_date || '') + '</div></div>';
+    h += '<div style="font-size: 14px; color: var(--green); font-weight: 700;">' + esc(idx.gain_text || '') + '</div></div>';
+    // Bar chart
+    if (hist.length > 0) {
+        var maxIdx = Math.max.apply(null, hist.map(function(r) { return r.utmb_index; }));
+        var minIdx = Math.min.apply(null, hist.map(function(r) { return r.utmb_index; }));
+        var range = maxIdx - minIdx || 1;
+        h += '<div style="display: flex; align-items: flex-end; gap: ' + (hist.length > 15 ? '3' : '4') + 'px; height: 120px; margin: 20px 0; padding: 0 4px;">';
+        hist.slice().reverse().forEach(function(r) {
+            var pct = Math.round(((r.utmb_index - minIdx) / range) * 100);
+            var color = r.utmb_index >= maxIdx - 10 ? 'var(--green)' : r.utmb_index >= maxIdx - 40 ? 'var(--yellow)' : r.utmb_index >= maxIdx - 80 ? 'var(--orange)' : 'var(--red)';
+            h += '<div style="flex:1; background: ' + color + '; border-radius: ' + (hist.length > 15 ? '3' : '4') + 'px ' + (hist.length > 15 ? '3' : '4') + 'px 0 0; height: ' + pct + '%;" title="' + r.utmb_index + ' - ' + esc(r.name) + '"></div>';
+        });
+        h += '</div>';
+    }
+    // Race history table
+    h += '<table style="margin-top: 20px;"><tr><th>Course</th><th>Date</th><th>Distance</th><th>D+</th><th>Temps</th>' + (hist.some(function(r) { return r.ranking; }) ? '<th>Class.</th>' : '') + '<th>UTMB Index</th></tr>';
+    hist.forEach(function(r) {
+        var bold = r.highlight ? ' class="text-bold"' : '';
+        var idxColor = r.utmb_index >= (idx.current_index || 999) - 5 ? 'text-green' : r.utmb_index >= (idx.current_index || 999) - 30 ? 'text-yellow' : r.utmb_index >= (idx.current_index || 999) - 60 ? 'text-orange' : 'text-red';
+        var idxBold = r.highlight ? ' text-bold' : '';
+        h += '<tr><td' + bold + '>' + esc(r.name) + '</td><td>' + esc(r.date) + '</td><td>' + esc(r.distance) + '</td><td>' + esc(r.dplus) + '</td><td>' + esc(r.time) + '</td>';
+        if (hist.some(function(r2) { return r2.ranking; })) h += '<td>' + esc(r.ranking || '') + '</td>';
+        h += '<td><span class="' + idxColor + idxBold + '">' + r.utmb_index + '</span></td></tr>';
+    });
+    h += '</table></div>';
+    el.innerHTML = h;
+}
+
+function renderHealthFactors(data, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var factors = data.health_factors || [];
+    var el = document.getElementById(p + 'health-factors-card');
+    if (!el) return;
+    if (factors.length === 0) { el.innerHTML = ''; return; }
+    var h = '<div class="card" style="margin-bottom: 24px; border-left: 3px solid var(--orange);">';
+    h += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">';
+    h += '<h2 style="margin: 0;">Facteurs limitants — Hygiène de vie</h2>';
+    if (data.health_perf_impact) h += '<span class="badge badge-orange">' + esc(data.health_perf_impact) + '</span>';
+    h += '</div>';
+    if (data.health_intro) h += '<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">' + esc(data.health_intro) + '</p>';
+    h += '<table><tr><th>Facteur</th><th>État actuel</th><th>Impact</th><th>Objectif</th></tr>';
+    factors.forEach(function(f) {
+        h += '<tr><td class="text-bold">' + esc(f.name) + '</td><td class="text-' + f.color + ' text-bold">' + esc(f.current) + '</td>';
+        h += '<td class="text-muted">' + esc(f.impact) + '</td><td class="text-green">' + esc(f.target) + '</td></tr>';
+    });
+    h += '</table>';
+    if (data.health_note) h += '<div class="note-box" style="margin-top: 12px;"><strong>Pour le ' + esc(ATHLETES[athlete].injuryKey) + ' :</strong> ' + esc(data.health_note).replace(/^Pour le .+? : /, '') + '</div>';
+    h += '</div>';
+    el.innerHTML = h;
+}
+
 // ===== LOAD ATHLETE DATA (all data for one athlete) =====
 function loadAthleteData(athlete) {
     loadCoachLog(athlete);
     loadActivities(athlete);
     loadGarminData(athlete);
     loadWeekPlan(athlete);
+    loadAthleteProfile(athlete);
 }
 
 // Initial load
@@ -4355,6 +3912,9 @@ _loadedAthletes[currentAthlete] = true;
                     // Refresh all dashboard data after any AI modification
                     loadCoachLog(athlete);
                     loadWeekPlan(athlete);
+                    if (data.modifications.some(function(m) { return m.type === 'athlete_data'; })) {
+                        loadAthleteProfile(athlete);
+                    }
                 }
             }
             scrollBot(el.messages);
@@ -4404,6 +3964,7 @@ _loadedAthletes[currentAthlete] = true;
             if (m.type === 'week_plan') return 'Plan ' + m.week;
             if (m.type === 'evaluation') return '\u00c9valuation';
             if (m.type === 'reference') return 'Fichier ' + (m.file || '');
+            if (m.type === 'athlete_data') return 'Dashboard ' + (m.section || '');
             return m.type;
         });
         var div = document.createElement('div');

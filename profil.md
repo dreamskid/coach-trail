@@ -3,9 +3,9 @@
 ## Identité
 
 - **Âge** : 44 ans
-- **Poids** : 82 kg
+- **Poids** : 83 kg
 - **Taille** : 184 cm
-- **IMC** : 24.2
+- **IMC** : 24.5
 
 ## Données physiologiques
 
@@ -69,7 +69,7 @@
 
 ### Quotidien
 - **Pattern habituel** : saute souvent le dîner et parfois le petit-déjeuner — 1 à 2 vrais repas/jour
-- **Déficit chronique probable** : un 82 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
+- **Déficit chronique probable** : un 83 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
 - **Objectif** : dîner systématique (30-40g protéines minimum) + petit-déjeuner les jours d'entraînement
 
 ### En course

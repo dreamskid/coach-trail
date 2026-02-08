@@ -1,0 +1,165 @@
+{
+  "profile": {
+    "age": 41,
+    "height_cm": 164,
+    "weight_kg": 58,
+    "imc": 21.6,
+    "fc_repos": 48,
+    "fc_max": 187,
+    "rfc": 139,
+    "vo2max": 51.2,
+    "vma": null,
+    "vma_tested": false,
+    "running_stones": 5,
+    "races_count": 18,
+    "longest_race": "108 km (Kullamannen)",
+    "utmb_pic": 570,
+    "utmb_20k": 553,
+    "utmb_50k": 510,
+    "utmb_100k": 506,
+    "utmb_100m": 555
+  },
+  "zones": [
+    { "label": "Z1", "min": 118, "max": 131 },
+    { "label": "Z2", "min": 131, "max": 145 },
+    { "label": "Z3", "min": 145, "max": 159 },
+    { "label": "Z4", "min": 159, "max": 173 },
+    { "label": "Z5", "min": 173, "max": 187 }
+  ],
+  "injury": {
+    "location": "Genou droit",
+    "episode": 3,
+    "detail": "Fissure méniscale · IRM confirmée · Gestion chronique",
+    "status": "managing",
+    "assessment_date": null,
+    "tests": [
+      { "name": "Douleur moyenne", "value": "2-3/10", "color": "yellow" },
+      { "name": "Douleur en descente", "value": "3-5/10", "color": "orange" },
+      { "name": "Gonflement", "value": "Non", "color": "green" },
+      { "name": "Marche", "value": "OK", "color": "green" },
+      { "name": "Course plat", "value": "OK", "color": "green" },
+      { "name": "Descente technique", "value": "Avec précaution", "color": "yellow" }
+    ],
+    "context": [],
+    "observation": "Fissure méniscale non opérée. Gestion par renforcement musculaire, adaptation de la charge et genouillère en descente technique. Surveillance permanente. Pas de contre-indication à l'ultra si gestion adéquate.",
+    "protocol": [],
+    "decision_point": null,
+    "prevention": [
+      { "action": "Renforcement quadriceps (chaise, squats)", "frequency": "3x / semaine" },
+      { "action": "Étirements ischio-jambiers", "frequency": "Quotidien" },
+      { "action": "Genouillère en descente technique", "frequency": "Chaque sortie D-" },
+      { "action": "Glace après longue sortie", "frequency": "Systématique" },
+      { "action": "Stopper si douleur > 4/10", "frequency": "Règle absolue" }
+    ],
+    "history": [
+      { "num": 1, "location": "Tendon d'Achille gauche", "severity": "Modéré", "resolution": "Résolu" },
+      { "num": 2, "location": "Entorse cheville droite", "severity": "Léger", "resolution": "Résolu" },
+      { "num": 3, "location": "Genou droit (ménisque)", "severity": "Chronique", "resolution": "En gestion" }
+    ]
+  },
+  "calendar": {
+    "races": [
+      { "date": "2026-04-25", "name": "UTMB Mont Ventoux GRV 100K", "distance": "100 km", "dplus": "4200 D+", "objective": "B", "result": null, "note": null },
+      { "date": "2026-05-23", "name": "Maxi-Race (Annecy)", "distance": "57 km", "dplus": "3500 D+", "objective": "B", "result": null, "note": null },
+      { "date": "2026-07-04", "name": "Trail des Pierres Dorées", "distance": "30 km", "dplus": "1200 D+", "objective": "C", "result": null, "note": null },
+      { "date": "2026-09-20", "name": "Grand to Grand Ultra", "distance": "275 km", "dplus": "6 étapes", "objective": "A", "result": null, "note": "Grand Canyon, Arizona, USA" }
+    ],
+    "periodisation": [
+      { "bloc": "BUILD 1", "badge_class": "badge-green", "period": "Fév-Mars (actuel)", "focus": "Construction base. Volume progressif. PPG.", "races": "—" },
+      { "bloc": "BUILD 2", "badge_class": "badge-yellow", "period": "Avril", "focus": "Volume + D+. Sortie longue 5-7h.", "races": "GRV 100K (B)" },
+      { "bloc": "BUILD 3", "badge_class": "badge-orange", "period": "Mai", "focus": "Endurance ultra. Gestion effort long. Nutrition.", "races": "Maxi-Race (B)" },
+      { "bloc": "SPÉCIFIQUE", "badge_class": "badge-red", "period": "Juin-Juillet", "focus": "Spécifique multi-étapes. Back-to-back. Autosuffisance.", "races": "Pierres Dorées (C)" },
+      { "bloc": "PIC", "badge_class": "badge-purple", "period": "Août", "focus": "Volume pic. Simulation conditions G2G.", "races": "—" },
+      { "bloc": "AFFÛT", "badge_class": "badge-dark", "period": "Sept", "focus": "Tapering 10-14j. Logistique G2G.", "races": "G2G Ultra (A)" }
+    ],
+    "gap_analysis": [
+      { "indicator": "Plus longue course", "current": "250 km MDS / 108 km solo", "target": "275 km (6 étapes)", "gap": "Format similaire au MDS", "color": "green" },
+      { "indicator": "Multi-étapes désert", "current": "2x MDS (50h → 36h)", "target": "6 étapes autosuffisant", "gap": "Expérience acquise", "color": "green" },
+      { "indicator": "Autosuffisance", "current": "Testée MDS", "target": "Obligatoire G2G", "gap": "Acquis, adapter format", "color": "green" },
+      { "indicator": "Chaleur", "current": "Sahara 40°C+", "target": "Désert Arizona", "gap": "Acquis, rappel été", "color": "green" },
+      { "indicator": "Nutrition multi-jours", "current": "Testée MDS", "target": "Autonome 6 jours", "gap": "Affiner plan G2G", "color": "orange" }
+    ]
+  },
+  "predictions": [
+    {
+      "name": "GRV 100K Mont Ventoux",
+      "date": "25 avril",
+      "distance": "89 km · 4600 D+",
+      "edition_info": "Éd. 2025 (1ère) : 3000+ coureurs (toutes distances) · Vainqueur 7h35 (Dhiman) · Vainqueuse 9h14 (Paradan) · Source : esprit-trail.com, ventoux.utmb.world",
+      "border_color": "orange",
+      "rows": [
+        { "label": "Temps estimé", "value": "14h00 — 17h00", "bold": true },
+        { "label": "Index cible", "value": "500 — 530" },
+        { "label": "Classement femmes estimé", "value": "Top 20 — 30%" },
+        { "label": "Si entraînement tenu", "value": "12h30 — 15h00 · Index 520-550 · top 15-20% femmes", "green": true }
+      ],
+      "notes": "Référence : Kullamannen 108km en 12h02 (index 570, profil plat 18 m D+/km). Le GRV est très différent : 52 m D+/km, Mont Ventoux (1909m). La pénalisation D+/km estimée est de +40 à +60% sur le temps. Point critique : gestion ménisque sur ~4000m de D- (genouillère obligatoire). Objectif principal : valider l'endurance 14h+ en vue du G2G."
+    },
+    {
+      "name": "Maxi-Race (Annecy)",
+      "date": "23 mai",
+      "distance": "57 km · 3500 D+",
+      "edition_info": "Éd. 2024 (Marathon Race) : 266 finishers · Réf. perso : Beaujol'Trail 50K en 6h32 (index 517) · Source : utmb.world, my.raceresult.com",
+      "border_color": "orange",
+      "rows": [
+        { "label": "Temps estimé", "value": "8h30 — 10h30", "bold": true },
+        { "label": "Index cible", "value": "510 — 540" },
+        { "label": "Classement femmes estimé", "value": "Top 30 — 40% (petit peloton : ~266 finishers)" },
+        { "label": "Si entraînement tenu", "value": "7h30 — 9h00 · Index 530-560 · top 20-30% femmes", "green": true }
+      ],
+      "notes": "Profil alpin technique (61 m D+/km, sentiers lac d'Annecy). À 4 semaines du GRV 100K : la fatigue résiduelle peut impacter le chrono de -5 à -10%. Objectif : pas de performance, gestion d'effort. L'enchaînement GRV → Maxi en 4 semaines simule un back-to-back G2G. Tester récupération rapide."
+    },
+    {
+      "name": "Trail des Pierres Dorées",
+      "date": "4 juillet",
+      "distance": "30 km · 1200 D+",
+      "edition_info": "Éd. 2024 : format 24km/1200D+, ~650 participants · Beaujolais · Source : traildespierresdorees.fr",
+      "border_color": "yellow",
+      "rows": [
+        { "label": "Temps estimé", "value": "3h00 — 3h45", "bold": true },
+        { "label": "Index cible", "value": "Non ciblé" },
+        { "label": "Classement femmes estimé", "value": "Top 15 — 25%" },
+        { "label": "Si entraînement tenu", "value": "2h40 — 3h15 · top 10-15% femmes", "green": true }
+      ],
+      "notes": "Course d'entretien en milieu de bloc spécifique G2G. Aucun enjeu chrono. Effort contrôlé Z2. Coupure mentale positive avant le bloc pic d'août. Son index UTMB (570) est largement supérieur au niveau moyen de cette course locale."
+    },
+    {
+      "name": "Grand to Grand Ultra",
+      "date": "20 septembre",
+      "distance": "275 km · 6 étapes",
+      "edition_info": "Éd. 2024 : 38 finishers (16 femmes), 18 DNF (taux d'abandon 32%) · Vainqueur 33h19 (Robert) · Vainqueuse 45h30 (Lubics) · Source : g2gultra.com",
+      "border_color": "red",
+      "rows": [
+        { "label": "Temps total estimé", "value": "38h — 48h (6 étapes)", "bold": true },
+        { "label": "Classement femmes estimé", "value": "3e — 6e / ~16 femmes (top 20-40%)" },
+        { "label": "Si entraînement tenu", "value": "35h — 43h · 2e — 4e femme · podium possible", "green": true }
+      ],
+      "notes": "Analyse comparative : La vainqueuse 2024 Szilvia Lubics a terminé en 45h30. Le MDS 2025 de Juliette (250km en 36h22) montre une capacité supérieure en multi-étapes désert. Mais le G2G est 10% plus long avec un profil canyon plus technique (Grand Canyon, chaleur sèche 40°C+). La projection intègre : (1) sa progression MDS démontrée (-14h entre 2024 et 2025), (2) le terrain plus technique, (3) les 6 jours vs 5.5 au MDS. Facteurs limitants : gestion ménisque sur 6 jours (point le plus critique), récupération inter-étapes, acclimatation chaleur Arizona. Avantage compétitif : l'expérience MDS x2 en autosuffisance désert est rare dans le peloton G2G (38 participants). Petit peloton = podium réaliste si le ménisque coopère."
+    }
+  ],
+  "projection": null,
+  "work_axes": [],
+  "race_history": [
+    { "name": "Kullamannen by UTMB", "date": "10/2025", "distance": "108 km", "dplus": "749 m", "time": "12:08:03", "utmb_index": 570, "highlight": true },
+    { "name": "Trail du Vercors", "date": "10/2025", "distance": "33 km", "dplus": "1500 m", "time": "04:15:25", "utmb_index": 524 },
+    { "name": "Trail du Saint-Jacques 100K", "date": "06/2025", "distance": "81.9 km", "dplus": "3080 m", "time": "12:45:19", "utmb_index": 500 },
+    { "name": "MDS Legendary 2025", "date": "04/2025", "distance": "250 km", "dplus": "2710 m", "time": "36:22:15", "utmb_index": 491 },
+    { "name": "La Veni Vici 47km", "date": "11/2024", "distance": "47.7 km", "dplus": "1250 m", "time": "05:21:39", "utmb_index": 526 },
+    { "name": "SainteLyon 2024", "date": "11/2024", "distance": "82 km", "dplus": "2273 m", "time": "10:26:14", "utmb_index": 505 },
+    { "name": "Beaujol'Trail Morgon", "date": "05/2024", "distance": "32 km", "dplus": "1410 m", "time": "03:43:02", "utmb_index": 517 },
+    { "name": "MDS 2024 (38e)", "date": "04/2024", "distance": "252.8 km", "dplus": "2788 m", "time": "50:05:21", "utmb_index": 360 },
+    { "name": "Nice Côte d'Azur 50K", "date": "09/2023", "distance": "62 km", "dplus": "3300 m", "time": "13:39:44", "utmb_index": 405 },
+    { "name": "SaintExpress 2022", "date": "12/2022", "distance": "44 km", "dplus": "1150 m", "time": "06:09:38", "utmb_index": 437 }
+  ],
+  "index_progression": {
+    "start_index": 437,
+    "start_date": "Déc. 2022",
+    "current_index": 570,
+    "current_date": "Oct. 2025",
+    "gain_text": "+133 points en 3 ans"
+  },
+  "health_factors": [],
+  "health_note": null,
+  "health_perf_impact": null,
+  "health_intro": null
+}
