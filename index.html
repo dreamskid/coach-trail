@@ -4318,7 +4318,7 @@ _loadedAthletes[currentAthlete] = true;
     var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     var CHAT_API = isLocal ? 'http://localhost:3000' : 'https://unguillotined-norris-historically.ngrok-free.dev';
     var chatOpen = false;
-    var chatLoaded = {};
+    var chatLoadedFor = null; // tracks which athlete is currently displayed
     var chatSending = false;
 
     var fab = document.getElementById('chat-fab');
@@ -4338,8 +4338,10 @@ _loadedAthletes[currentAthlete] = true;
         chatOpen = true;
         panel.classList.add('open');
         fab.classList.add('hidden');
-        athleteNameEl.textContent = currentAthlete === 'juliette' ? 'Juliette' : 'Yohann';
-        if (!chatLoaded[getChatAthlete()]) {
+        var athlete = getChatAthlete();
+        athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
+        if (chatLoadedFor !== athlete) {
+            messagesEl.innerHTML = '';
             loadChatHistory();
         }
         setTimeout(function() { inputEl.focus(); }, 100);
@@ -4359,7 +4361,7 @@ _loadedAthletes[currentAthlete] = true;
         fetch(CHAT_API + '/api/chat-clear?athlete=' + getChatAthlete(), { method: 'POST', headers: { 'ngrok-skip-browser-warning': '1' } })
             .then(function() {
                 messagesEl.innerHTML = '';
-                chatLoaded[getChatAthlete()] = false;
+                chatLoadedFor = null;
                 addWelcomeMessage();
             })
             .catch(function() {});
@@ -4369,11 +4371,14 @@ _loadedAthletes[currentAthlete] = true;
     document.querySelectorAll('.athlete-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var athlete = btn.dataset.athlete;
+            athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
             if (chatOpen) {
-                athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
                 messagesEl.innerHTML = '';
-                chatLoaded[athlete] = false;
+                chatLoadedFor = null;
                 loadChatHistory();
+            } else {
+                // Force reload on next open
+                chatLoadedFor = null;
             }
         });
     });
@@ -4399,11 +4404,11 @@ _loadedAthletes[currentAthlete] = true;
                     });
                 }
                 scrollToBottom();
-                chatLoaded[athlete] = true;
+                chatLoadedFor = athlete;
             })
             .catch(function() {
                 addWelcomeMessage();
-                chatLoaded[athlete] = true;
+                chatLoadedFor = athlete;
             });
     }
 
