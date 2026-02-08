@@ -12,7 +12,7 @@
 | Date | Course | Distance | D+ | Objectif | Statut |
 |------|--------|----------|-----|----------|--------|
 | 25 avril | UTMB Mont Ventoux GRV 100K | 100 km | 4200 m | B | A venir |
-| 23 mai | Maxi-Race (Annecy) | 57 km | — | B | A venir |
+| 23 mai | Maxi-Race (Annecy) | 57 km | 3500 m | B | A venir |
 | 4 juillet | Trail des Pierres Dorees | 30 km | 1200 m | C | A venir |
 | 20 sept | **Grand to Grand Ultra** | **275 km** | **6 etapes** | **A** | A venir |
 
