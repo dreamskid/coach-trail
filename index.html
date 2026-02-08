@@ -568,7 +568,7 @@
         .day-hidden { display: none; }
 
         /* Sub-tabs (Programme: A venir / Passés) */
-        .sub-tabs { display: flex !important; gap: 0; margin-bottom: 20px; border-bottom: 2px solid var(--border); background: var(--bg-card); border-radius: 8px 8px 0 0; padding: 4px 4px 0; }
+        .sub-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 2px solid var(--border); background: var(--bg-card); border-radius: 8px 8px 0 0; padding: 4px 4px 0; }
         .sub-tab { padding: 10px 20px; background: none; border: none; color: var(--text-muted); font-size: 14px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: inherit; transition: all 0.2s; letter-spacing: 0.3px; }
         .sub-tab:hover { color: var(--text); }
         .sub-tab.active { color: var(--accent-light); border-bottom-color: var(--accent-light); border-bottom-width: 3px; }
@@ -698,7 +698,7 @@
     <!-- Sous-onglets -->
     <div class="sub-tabs">
         <button class="sub-tab active" data-subtab="upcoming">A venir</button>
-        <button class="sub-tab" data-subtab="past">Passes</button>
+        <button class="sub-tab" data-subtab="past">Pass&#233;s</button>
     </div>
 
     <!-- SUB-TAB : A venir -->
@@ -706,6 +706,20 @@
 
     <!-- AUJOURD'HUI (dynamique) -->
     <div id="today-container"></div>
+
+    <!-- Jour source pour buildTodayCard (masqué automatiquement par JS) -->
+    <div class="week-day" data-date="2026-02-08" data-checks="Iso mollets">
+        <div class="day-header">
+            <span class="day-name">Dimanche 8</span>
+            <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
+        </div>
+        <div class="day-details">
+            <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
+            Protocole iso mollets (meme chose qu'hier)
+        </div>
+        <div class="day-match"></div>
+        <div class="day-checks"></div>
+    </div>
 
     <!-- W07 -->
     <div class="card" style="margin-top: 20px;">
@@ -867,36 +881,19 @@
     <div id="week-past" class="sub-content">
         <h3 style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Historique recent</h3>
 
-        <!-- W06 : 7-8 fév (week-end) -->
-        <div class="card past-week-card">
-            <h3 style="margin-bottom: 12px;">Ce week-end — 7-8 fevrier</h3>
-
-            <div class="week-day day-past" data-date="2026-02-08" data-checks="Iso mollets">
-                <div class="day-header">
-                    <span class="day-name">Dimanche 8</span>
-                    <span class="badge" style="background: #333; color: #999;">Repos / Souple</span>
-                </div>
-                <div class="day-details">
-                    <strong>Repos complet</strong> OU elliptique souple 30 min <span class="text-blue">Z1</span> selon fatigue<br>
-                    Protocole iso mollets (meme chose qu'hier)
-                </div>
-                <div class="day-match"></div>
-                <div class="day-checks"></div>
+        <!-- Samedi 7 fév (jour isolé, pas de semaine complète) -->
+        <div class="week-day day-past" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
+            <div class="day-header">
+                <span class="day-name">Samedi 7 fevrier</span>
+                <span class="badge badge-blue">Cross + Protocole iso</span>
             </div>
-
-            <div class="week-day day-past" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
-                <div class="day-header">
-                    <span class="day-name">Samedi 7</span>
-                    <span class="badge badge-blue">Cross + Protocole iso</span>
-                </div>
-                <div class="day-details">
-                    <strong>Protocole iso mollets</strong> : bilateral montee sur pointes 30s x 4, unipodal gauche 30s x 4<br>
-                    <strong>Elliptique ou Natation</strong> 45-60 min Z1 (112-125 bpm)<br>
-                    <strong>PPG haut du corps</strong> : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
-                </div>
-                <div class="day-match"></div>
-                <div class="day-checks"></div>
+            <div class="day-details">
+                <strong>Protocole iso mollets</strong> : bilateral montee sur pointes 30s x 4, unipodal gauche 30s x 4<br>
+                <strong>Elliptique ou Natation</strong> 45-60 min Z1 (112-125 bpm)<br>
+                <strong>PPG haut du corps</strong> : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
             </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
         </div>
     </div><!-- /week-past -->
 
