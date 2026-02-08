@@ -100,7 +100,8 @@ const server = http.createServer(async (req, res) => {
             const cwd = __dirname;
             execSync('git add ' + dataFile, { cwd });
             const today = new Date().toISOString().slice(0, 10);
-            execSync(`git commit -m "Coach log: ${today}"`, { cwd });
+            const name = athlete === 'juliette' ? 'Juliette' : 'Yohann';
+            execSync(`git commit -m "Coach log ${name}: ${today}"`, { cwd });
             execSync('git push origin main', { cwd });
             json(res, 200, { ok: true, message: 'Pushed to main' });
         } catch (e) {
@@ -373,10 +374,10 @@ textarea { resize: vertical; min-height: 80px; }
 
     <!-- Metriques -->
     <div class="card">
-        <h2>Metriques du jour</h2>
+        <h2>M\u00e9triques du jour</h2>
 
         <div class="field">
-            <label>Soleaire <span id="sol-color" style="font-size:11px;"></span></label>
+            <label><span id="injury-label">Sol\u00e9aire</span> <span id="sol-color" style="font-size:11px;"></span></label>
             <div class="slider-row">
                 <input type="range" id="f-soleaire" min="0" max="10" step="0.5" value="0">
                 <span class="slider-val" id="sol-val">0</span>
@@ -385,7 +386,7 @@ textarea { resize: vertical; min-height: 80px; }
 
         <div class="field">
             <label>RPE
-                <button class="toggle-btn no-session" id="f-no-session" onclick="toggleNoSession()">Pas de seance</button>
+                <button class="toggle-btn no-session" id="f-no-session" onclick="toggleNoSession()">Pas de s\u00e9ance</button>
             </label>
             <div class="slider-row" id="rpe-row">
                 <input type="range" id="f-rpe" min="0" max="10" step="0.5" value="5">
@@ -404,11 +405,11 @@ textarea { resize: vertical; min-height: 80px; }
         </div>
     </div>
 
-    <!-- Hygiene -->
+    <!-- Hygi\u00e8ne -->
     <div class="card">
-        <h2>Hygiene de vie</h2>
+        <h2>Hygi\u00e8ne de vie</h2>
         <div class="toggle-row">
-            <button class="toggle-btn" id="f-diner" onclick="toggleBtn('f-diner')">Diner leger</button>
+            <button class="toggle-btn" id="f-diner" onclick="toggleBtn('f-diner')">D\u00eener l\u00e9ger</button>
             <button class="toggle-btn" id="f-nicotine" onclick="toggleBtn('f-nicotine', true)">Nicotine</button>
             <button class="toggle-btn" id="f-hydratation" onclick="toggleBtn('f-hydratation')">Hydratation OK</button>
         </div>
@@ -447,6 +448,7 @@ textarea { resize: vertical; min-height: 80px; }
                 <label>Statut</label>
                 <div class="toggle-row">
                     <button class="toggle-btn" id="lt-repos" onclick="setLtStatus('repos')">Repos/Soin</button>
+                    <button class="toggle-btn" id="lt-en_forme" onclick="setLtStatus('en_forme')">En forme</button>
                     <button class="toggle-btn" id="lt-en_retard" onclick="setLtStatus('en_retard')">En retard</button>
                     <button class="toggle-btn" id="lt-dans_les_temps" onclick="setLtStatus('dans_les_temps')">Dans les temps</button>
                     <button class="toggle-btn" id="lt-avance" onclick="setLtStatus('avance')">En avance</button>
@@ -471,13 +473,13 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
         <div class="collapsible-header" onclick="toggleCollapsible(this)">
             <span class="arrow">&#9654;</span>
-            <h2 style="margin-bottom:0;">Reglages</h2>
+            <h2 style="margin-bottom:0;">R\u00e9glages</h2>
         </div>
         <div class="collapsible-body" id="settings-section">
             <div class="field">
                 <label>GitHub Token (sync Strava/Garmin)</label>
                 <input type="password" id="f-gh-token" placeholder="ghp_xxxxxxxxxxxx...">
-                <p style="font-size:11px;color:var(--text-muted);margin-top:4px;">Stocke en base64 dans coach-log.json. Partage entre tous les devices.</p>
+                <p style="font-size:11px;color:var(--text-muted);margin-top:4px;">Stock\u00e9 en base64 dans coach-log.json. Partag\u00e9 entre tous les devices.</p>
             </div>
         </div>
     </div>
@@ -492,9 +494,13 @@ textarea { resize: vertical; min-height: 80px; }
 <div class="toast" id="toast"></div>
 
 <script>
+const INJURY_CONFIG = {
+    yohann: { key: 'soleaire', label: 'Sol\u00e9aire' },
+    juliette: { key: 'genou', label: 'Genou droit' }
+};
 const DEFAULT_CHECKS_MAP = {
-    yohann: ['Iso mollets', 'PPG haut du corps', 'PPG complete', 'Iso / excentriques', 'Test phase 2', 'Retest saut'],
-    juliette: ['Renfo quadriceps', 'Etirements', 'PPG quadriceps', 'Glace genou']
+    yohann: ['Iso mollets', 'PPG haut du corps', 'PPG compl\u00e8te', 'Iso / excentriques', 'Test phase 2', 'Retest saut'],
+    juliette: ['Renfo quadriceps', '\u00c9tirements', 'PPG quadriceps', 'Glace genou']
 };
 let currentAthlete = 'yohann';
 let activeChecks = {};
@@ -507,6 +513,9 @@ function switchAthlete(athlete) {
     currentAthlete = athlete;
     document.getElementById('ath-yohann').classList.toggle('active', athlete === 'yohann');
     document.getElementById('ath-juliette').classList.toggle('active', athlete === 'juliette');
+    // Update injury label
+    var ic = INJURY_CONFIG[athlete] || INJURY_CONFIG.yohann;
+    document.getElementById('injury-label').textContent = ic.label;
     // Reload data for this athlete
     fetch('/api/data?athlete=' + athlete)
         .then(r => r.json())
@@ -564,7 +573,7 @@ function toggleCollapsible(el) {
 
 function setLtStatus(status) {
     ltStatus = status;
-    ['repos', 'en_retard', 'dans_les_temps', 'avance'].forEach(s => {
+    ['repos', 'en_forme', 'en_retard', 'dans_les_temps', 'avance'].forEach(s => {
         document.getElementById('lt-' + s).classList.toggle('active', s === status);
     });
 }
@@ -612,7 +621,8 @@ function loadEntry() {
     const entry = allData.daily.find(d => d.date === date);
 
     if (entry) {
-        solSlider.value = entry.soleaire ?? 0;
+        var injKey = (INJURY_CONFIG[currentAthlete] || INJURY_CONFIG.yohann).key;
+        solSlider.value = entry[injKey] ?? 0;
         solSlider.dispatchEvent(new Event('input'));
         rpeSlider.value = entry.rpe ?? 5;
         rpeSlider.dispatchEvent(new Event('input'));
@@ -679,9 +689,10 @@ function buildPayload() {
         checks[k] = !!activeChecks[k];
     });
 
+    var injKey = (INJURY_CONFIG[currentAthlete] || INJURY_CONFIG.yohann).key;
     const daily = {
         date: date,
-        soleaire: parseFloat(solSlider.value),
+        [injKey]: parseFloat(solSlider.value),
         rpe: noSession ? null : parseFloat(rpeSlider.value),
         diner: document.getElementById('f-diner').classList.contains('active'),
         nicotine: document.getElementById('f-nicotine').classList.contains('active-red'),
@@ -760,7 +771,7 @@ async function publish() {
         const r = await fetch('/api/publish?athlete=' + currentAthlete, { method: 'POST' });
         const result = await r.json();
         if (r.ok) {
-            toast(result.message || 'Publie !', 'success');
+            toast(result.message || 'Publi\u00e9 !', 'success');
         } else {
             toast('Erreur: ' + result.error, 'error');
         }
