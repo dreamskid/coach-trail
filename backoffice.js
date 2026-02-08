@@ -515,12 +515,22 @@ async function handleChat(athlete, message) {
     });
     writeChatHistory(history, athlete);
 
-    // Build API messages (last 20 only)
-    const apiMessages = history.messages
-        .slice(-20)
-        .map(m => ({ role: m.role, content: m.content }));
-
+    // Build API messages — estimate tokens and trim to fit budget
     const systemPrompt = buildSystemPrompt(athlete);
+    const TOKEN_BUDGET = 20000; // keep well under 30K/min rate limit
+    const systemTokensEstimate = Math.ceil(systemPrompt.length / 3.5);
+    const toolsTokensEstimate = 1500; // CHAT_TOOLS schema ~1500 tokens
+    const budgetForMessages = TOKEN_BUDGET - systemTokensEstimate - toolsTokensEstimate;
+
+    let recentMessages = history.messages.slice(-10);
+    // Trim oldest messages until we fit the budget
+    while (recentMessages.length > 2) {
+        const msgTokens = recentMessages.reduce((sum, m) => sum + Math.ceil((m.content || '').length / 3.5), 0);
+        if (msgTokens <= budgetForMessages) break;
+        recentMessages = recentMessages.slice(1);
+    }
+    const apiMessages = recentMessages.map(m => ({ role: m.role, content: m.content }));
+
     const allModifications = [];
 
     let response;
@@ -530,13 +540,28 @@ async function handleChat(athlete, message) {
 
     while (iterations < MAX_ITERATIONS) {
         iterations++;
-        response = await anthropic.messages.create({
-            model: 'claude-sonnet-4-5-20250929',
-            max_tokens: 4096,
-            system: systemPrompt,
-            tools: CHAT_TOOLS,
-            messages: currentMessages
-        });
+        let retries = 0;
+        while (true) {
+            try {
+                response = await anthropic.messages.create({
+                    model: 'claude-sonnet-4-5-20250929',
+                    max_tokens: 4096,
+                    system: systemPrompt,
+                    tools: CHAT_TOOLS,
+                    messages: currentMessages
+                });
+                break;
+            } catch (apiErr) {
+                if (apiErr.status === 429 && retries < 3) {
+                    retries++;
+                    const wait = retries * 15000; // 15s, 30s, 45s
+                    console.log(`[chat] Rate limited, retry ${retries}/3 in ${wait/1000}s...`);
+                    await new Promise(r => setTimeout(r, wait));
+                } else {
+                    throw apiErr;
+                }
+            }
+        }
 
         if (response.stop_reason === 'tool_use') {
             // Execute all tool calls
