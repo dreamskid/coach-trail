@@ -552,6 +552,14 @@
         .exercise-info { flex: 1; }
         .exercise-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
         .exercise-detail { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+        /* Past days: compact + greyed out, expandable on hover/tap */
+        .day-past { opacity: 0.5; }
+        .day-past .day-details { max-height: 0; overflow: hidden; margin: 0; padding: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
+        .day-past .day-header { margin-bottom: 0; }
+        .day-past:hover { opacity: 0.8; }
+        .day-past:hover .day-details { max-height: 200px; }
+        .day-hidden { display: none; }
     </style>
 </head>
 <body>
@@ -673,94 +681,8 @@
 <!-- ======================================================================== -->
 <div id="week" class="tab-content">
 
-    <!-- AUJOURD'HUI -->
-    <div class="card today-card week-day" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
-        <div class="today-header">
-            <h2>Aujourd'hui — Samedi 7 fevrier</h2>
-            <span class="badge badge-blue">Cross + Protocole iso</span>
-        </div>
-
-        <div class="today-exercises">
-            <!-- Exercice 1 : Iso mollets -->
-            <div class="exercise-card">
-                <div class="exercise-svg">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Stick figure on tiptoes -->
-                        <circle cx="32" cy="10" r="5" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="32" y1="15" x2="32" y2="35" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="32" y1="20" x2="24" y2="28" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="32" y1="20" x2="40" y2="28" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="32" y1="35" x2="27" y2="48" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="32" y1="35" x2="37" y2="48" stroke="var(--accent)" stroke-width="2"/>
-                        <!-- Tiptoe platform -->
-                        <line x1="24" y1="48" x2="40" y2="48" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="2 2"/>
-                        <circle cx="27" cy="48" r="2" fill="var(--accent)"/>
-                        <circle cx="37" cy="48" r="2" fill="var(--accent)"/>
-                        <!-- Up arrow on calf -->
-                        <line x1="44" y1="46" x2="44" y2="36" stroke="var(--accent)" stroke-width="2"/>
-                        <polyline points="41,39 44,36 47,39" stroke="var(--accent)" stroke-width="2" fill="none"/>
-                        <!-- Calf highlight -->
-                        <ellipse cx="35" cy="42" rx="3" ry="5" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
-                    </svg>
-                </div>
-                <div class="exercise-info">
-                    <div class="exercise-name">1. Protocole iso mollets</div>
-                    <div class="exercise-detail">
-                        Bilateral : montee sur pointes, tenir <strong>30s x 4</strong> (1 min repos)<br>
-                        Unipodal gauche : idem, <strong>30s x 4</strong> — <strong style="color: var(--yellow);">noter la gene /10</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Exercice 2 : Cardio cross-training -->
-            <div class="exercise-card">
-                <div class="exercise-svg">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Heart icon -->
-                        <path d="M32 52 C32 52 12 38 12 24 C12 18 17 13 23 13 C27 13 30 15 32 18 C34 15 37 13 41 13 C47 13 52 18 52 24 C52 38 32 52 32 52Z" stroke="var(--accent)" stroke-width="2" fill="none"/>
-                        <!-- Pulse waves -->
-                        <path d="M20 30 L26 30 L28 24 L30 36 L32 28 L34 32 L36 30 L44 30" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-                    </svg>
-                </div>
-                <div class="exercise-info">
-                    <div class="exercise-name">2. Elliptique ou Natation</div>
-                    <div class="exercise-detail">
-                        45-60 min <span class="text-blue">Z1 (112-125 bpm)</span><br>
-                        Maintien cardio, zero impact — choisir selon envie
-                    </div>
-                </div>
-            </div>
-
-            <!-- Exercice 3 : PPG haut du corps -->
-            <div class="exercise-card">
-                <div class="exercise-svg">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Stick figure in plank/push-up position -->
-                        <circle cx="50" cy="22" r="5" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="46" y1="24" x2="18" y2="30" stroke="var(--accent)" stroke-width="2"/>
-                        <!-- Arms -->
-                        <line x1="42" y1="26" x2="42" y2="40" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="34" y1="28" x2="34" y2="42" stroke="var(--accent)" stroke-width="2"/>
-                        <!-- Legs -->
-                        <line x1="18" y1="30" x2="12" y2="42" stroke="var(--accent)" stroke-width="2"/>
-                        <line x1="18" y1="30" x2="20" y2="42" stroke="var(--accent)" stroke-width="2"/>
-                        <!-- Ground line -->
-                        <line x1="8" y1="42" x2="46" y2="42" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 2"/>
-                    </svg>
-                </div>
-                <div class="exercise-info">
-                    <div class="exercise-name">3. PPG haut du corps</div>
-                    <div class="exercise-detail">
-                        20 min si temps : pompes 3x max, gainage frontal 3x30s,<br>
-                        lateral 2x20s/cote
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="day-match"></div>
-        <div class="day-checks"></div>
-    </div>
+    <!-- AUJOURD'HUI (dynamique) -->
+    <div id="today-container"></div>
 
     <!-- CE WEEK-END : LANCEMENT -->
     <div class="card" style="border-left: 3px solid var(--accent);">
@@ -2007,6 +1929,127 @@ function saveChecksToGitHub() {
     });
 }
 
+// ===== DYNAMIC TODAY CARD + PAST DAYS =====
+var EXERCISE_SVGS = {
+    iso: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="10" r="5" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="15" x2="32" y2="35" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="20" x2="24" y2="28" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="20" x2="40" y2="28" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="35" x2="27" y2="48" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="35" x2="37" y2="48" stroke="var(--accent)" stroke-width="2"/><line x1="24" y1="48" x2="40" y2="48" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="2 2"/><circle cx="27" cy="48" r="2" fill="var(--accent)"/><circle cx="37" cy="48" r="2" fill="var(--accent)"/><line x1="44" y1="46" x2="44" y2="36" stroke="var(--accent)" stroke-width="2"/><polyline points="41,39 44,36 47,39" stroke="var(--accent)" stroke-width="2" fill="none"/><ellipse cx="35" cy="42" rx="3" ry="5" stroke="var(--accent)" stroke-width="1" opacity="0.4"/></svg>',
+    cardio: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 52 C32 52 12 38 12 24 C12 18 17 13 23 13 C27 13 30 15 32 18 C34 15 37 13 41 13 C47 13 52 18 52 24 C52 38 32 52 32 52Z" stroke="var(--accent)" stroke-width="2" fill="none"/><path d="M20 30 L26 30 L28 24 L30 36 L32 28 L34 32 L36 30 L44 30" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg>',
+    ppg: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="22" r="5" stroke="var(--accent)" stroke-width="2"/><line x1="46" y1="24" x2="18" y2="30" stroke="var(--accent)" stroke-width="2"/><line x1="42" y1="26" x2="42" y2="40" stroke="var(--accent)" stroke-width="2"/><line x1="34" y1="28" x2="34" y2="42" stroke="var(--accent)" stroke-width="2"/><line x1="18" y1="30" x2="12" y2="42" stroke="var(--accent)" stroke-width="2"/><line x1="18" y1="30" x2="20" y2="42" stroke="var(--accent)" stroke-width="2"/><line x1="8" y1="42" x2="46" y2="42" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 2"/></svg>',
+    marche: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="8" r="5" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="13" x2="32" y2="33" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="20" x2="24" y2="28" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="20" x2="40" y2="26" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="33" x2="24" y2="50" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="33" x2="38" y2="46" stroke="var(--accent)" stroke-width="2"/><line x1="38" y1="46" x2="42" y2="50" stroke="var(--accent)" stroke-width="2"/><line x1="20" y1="50" x2="46" y2="50" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 2"/></svg>',
+    running: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="36" cy="8" r="5" stroke="var(--accent)" stroke-width="2"/><line x1="34" y1="13" x2="30" y2="32" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="18" x2="22" y2="24" stroke="var(--accent)" stroke-width="2"/><line x1="32" y1="18" x2="42" y2="22" stroke="var(--accent)" stroke-width="2"/><line x1="30" y1="32" x2="20" y2="48" stroke="var(--accent)" stroke-width="2"/><line x1="30" y1="32" x2="42" y2="44" stroke="var(--accent)" stroke-width="2"/><line x1="42" y1="44" x2="48" y2="42" stroke="var(--accent)" stroke-width="2"/><line x1="20" y1="48" x2="16" y2="52" stroke="var(--accent)" stroke-width="2"/></svg>',
+    repos: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36 12 C36 12 28 14 24 22 C20 30 22 40 30 46 C38 52 48 50 52 42 C48 46 38 48 32 42 C26 36 26 24 36 12Z" stroke="var(--accent)" stroke-width="2" fill="none"/><text x="44" y="20" font-size="12" fill="var(--accent)" font-weight="bold">z</text><text x="50" y="14" font-size="10" fill="var(--accent)" font-weight="bold">z</text></svg>'
+};
+
+var EXERCISE_PATTERNS = [
+    { key: 'iso', pattern: /iso|mollet/i, label: 'Iso mollets' },
+    { key: 'running', pattern: /footing|course|trail|trot/i, label: 'Course' },
+    { key: 'cardio', pattern: /elliptique|natation|nage|cardio/i, label: 'Cardio' },
+    { key: 'ppg', pattern: /ppg|gainage|pompe|musculation/i, label: 'PPG' },
+    { key: 'marche', pattern: /marche|rando/i, label: 'Marche' },
+    { key: 'repos', pattern: /repos|off|souple/i, label: 'Repos' }
+];
+
+function detectExercises(badgeText, detailsText) {
+    var combined = (badgeText || '') + ' ' + (detailsText || '');
+    var found = [];
+    var seen = {};
+    EXERCISE_PATTERNS.forEach(function(ep) {
+        if (!seen[ep.key] && ep.pattern.test(combined)) {
+            found.push({ key: ep.key, label: ep.label });
+            seen[ep.key] = true;
+        }
+    });
+    return found.slice(0, 3);
+}
+
+function buildTodayCard() {
+    var container = document.getElementById('today-container');
+    if (!container) return;
+
+    var now = new Date();
+    var todayISO = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+    var JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    var MOIS = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
+    var jourNom = JOURS[now.getDay()];
+    var moisNom = MOIS[now.getMonth()];
+    var jourNum = now.getDate();
+
+    // Find matching day-card in the planning
+    var sourceEl = document.querySelector('#week .week-day[data-date="' + todayISO + '"]:not(#today-container .week-day)');
+
+    var badgeHTML = '';
+    var detailsHTML = '';
+    var checksAttr = '';
+    var exercises = [];
+
+    if (sourceEl) {
+        var badgeEl = sourceEl.querySelector('.day-header .badge');
+        if (badgeEl) {
+            badgeHTML = badgeEl.outerHTML;
+        }
+        var detailEl = sourceEl.querySelector('.day-details');
+        if (detailEl) {
+            detailsHTML = detailEl.innerHTML;
+        }
+        checksAttr = sourceEl.dataset.checks || '';
+        exercises = detectExercises(badgeEl ? badgeEl.textContent : '', detailsHTML);
+        // Hide original in planning
+        sourceEl.classList.add('day-hidden');
+    }
+
+    // Fallback: repos if no exercises detected
+    if (exercises.length === 0) {
+        exercises = [{ key: 'repos', label: 'Repos' }];
+        if (!badgeHTML) {
+            badgeHTML = '<span class="badge" style="background: #333; color: #999;">Repos</span>';
+        }
+        if (!detailsHTML) {
+            detailsHTML = 'Pas de seance programmee';
+        }
+    }
+
+    // Build exercise cards HTML
+    var exHTML = '';
+    exercises.forEach(function(ex, i) {
+        exHTML += '<div class="exercise-card">' +
+            '<div class="exercise-svg">' + (EXERCISE_SVGS[ex.key] || '') + '</div>' +
+            '<div class="exercise-info"><div class="exercise-name">' + (i + 1) + '. ' + ex.label + '</div></div>' +
+            '</div>';
+    });
+
+    var cardHTML = '<div class="card today-card week-day" data-date="' + todayISO + '"' +
+        (checksAttr ? ' data-checks="' + checksAttr + '"' : '') + '>' +
+        '<div class="today-header">' +
+        '<h2>Aujourd\'hui — ' + jourNom + ' ' + jourNum + ' ' + moisNom + '</h2>' +
+        badgeHTML +
+        '</div>' +
+        '<div class="today-exercises">' + exHTML + '</div>' +
+        (detailsHTML ? '<div class="day-details" style="margin-top: 12px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">' + detailsHTML + '</div>' : '') +
+        '<div class="day-match"></div>' +
+        '<div class="day-checks"></div>' +
+        '</div>';
+
+    container.innerHTML = cardHTML;
+}
+
+function markPastDays() {
+    var now = new Date();
+    var todayISO = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+    document.querySelectorAll('.week-day[data-date]').forEach(function(el) {
+        // Skip elements inside today-container
+        if (el.closest('#today-container')) return;
+        var date = el.dataset.date;
+        if (date < todayISO) {
+            el.classList.add('day-past');
+        } else if (date === todayISO) {
+            el.classList.add('day-hidden');
+        }
+    });
+}
+
+buildTodayCard();
+markPastDays();
 initManualChecks();
 initDayMetrics();
 
