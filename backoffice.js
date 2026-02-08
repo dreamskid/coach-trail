@@ -827,6 +827,10 @@ const BUDGET_JOKES_MONTHLY = [
     'Meme l\'UTMB coute moins cher par mois. Reviens le mois prochain.',
 ];
 
+function todayParis() {
+    return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' }); // YYYY-MM-DD
+}
+
 function readCosts() {
     try { return JSON.parse(fs.readFileSync(COST_FILE, 'utf8')); }
     catch { return { daily: {}, monthly: {} }; }
@@ -839,7 +843,7 @@ function writeCosts(costs) {
 function trackCost(usage) {
     if (!usage) return;
     const costs = readCosts();
-    const today = new Date().toISOString().slice(0, 10);
+    const today = todayParis();
     const month = today.slice(0, 7);
     const inputCost = (usage.input_tokens || 0) / 1_000_000 * COST_PER_M_INPUT;
     const outputCost = (usage.output_tokens || 0) / 1_000_000 * COST_PER_M_OUTPUT;
@@ -851,9 +855,10 @@ function trackCost(usage) {
     costs.monthly[month] = Math.round((costs.monthly[month] + totalCost) * 10000) / 10000;
 
     // Clean old daily entries (keep 30 days)
-    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 30);
+    const cutoffDate = new Date(); cutoffDate.setDate(cutoffDate.getDate() - 30);
+    const cutoffStr = cutoffDate.toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
     for (const d of Object.keys(costs.daily)) {
-        if (d < cutoff.toISOString().slice(0, 10)) delete costs.daily[d];
+        if (d < cutoffStr) delete costs.daily[d];
     }
 
     writeCosts(costs);
@@ -863,7 +868,7 @@ function trackCost(usage) {
 
 function checkBudget() {
     const costs = readCosts();
-    const today = new Date().toISOString().slice(0, 10);
+    const today = todayParis();
     const month = today.slice(0, 7);
     const dailyCost = costs.daily[today] || 0;
     const monthlyCost = costs.monthly[month] || 0;
@@ -1195,7 +1200,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/api/costs') {
         setCorsHeaders(res);
         const costs = readCosts();
-        const today = new Date().toISOString().slice(0, 10);
+        const today = todayParis();
         const month = today.slice(0, 7);
         json(res, 200, {
             today: { cost: costs.daily[today] || 0, budget: DAILY_BUDGET_USD },
