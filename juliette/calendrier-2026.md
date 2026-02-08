@@ -31,8 +31,9 @@
 
 | Indicateur | Actuel | Requis G2G | Gap |
 |------------|--------|------------|-----|
-| Plus longue course | 106 km | 275 km (6 etapes) | Format multi-jours a travailler |
-| Endurance continue | ~14h max | 6-8h / jour x 6 jours | Back-to-back indispensable |
-| Autosuffisance | Non teste | Obligatoire G2G | A planifier |
-| Chaleur | Habituee tempere | Desert (40°C+) | Acclimatation chaleur en ete |
-| Nutrition multi-jours | Non testee | Autonome 6 jours | Plan nutrition a construire |
+| Plus longue course | 250 km MDS (multi-etapes) / 108 km Kullamannen (solo) | 275 km (6 etapes) | Format similaire au MDS — experience acquise |
+| Experience multi-etapes desert | 2x MDS (2024 + 2025), progression 50h → 36h | 6 etapes autosuffisant | Solide base, format G2G proche du MDS |
+| Endurance continue | 12h (Kullamannen 108km) | 6-8h / jour x 6 jours | OK, gestion effort multi-jours acquise |
+| Autosuffisance | Testee au MDS | Obligatoire G2G | Experience acquise, adapter au format G2G |
+| Chaleur | MDS Sahara (40°C+) | Desert Arizona (40°C+) | Acquis — rappel acclimatation en ete |
+| Nutrition multi-jours | Testee au MDS | Autonome 6 jours | Affiner plan nutrition specifique G2G |

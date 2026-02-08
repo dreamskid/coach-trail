@@ -4,23 +4,37 @@
 
 - 20K : **553**
 - 50K : **510**
-- 100K : **555**
+- 100K : **506**
+- 100M : **555**
 - Running Stones : 5
 
 ## Courses principales
 
-| Course | Date | Distance | D+ | Temps | Class. | UTMB Index |
-|--------|------|----------|-----|-------|--------|------------|
-| Maxi-Race (Annecy) | 06/2024 | 106 km | 5300 m | 18:42:00 | 245/412 | 555 |
-| UTMB TDS | 08/2023 | 145 km | 9100 m | 38:20:00 | 312/520 | 510 |
-| Trail du Mont-Blanc (Marathon) | 06/2023 | 42 km | 2750 m | 7:15:30 | 180/450 | 553 |
-| SainteLyon | 11/2022 | 78 km | 2000 m | 11:45:00 | 890/2100 | 498 |
-| Trail des Coursiers | 05/2022 | 50 km | 2800 m | 9:30:00 | 120/280 | 485 |
-| Eco-Trail Paris | 03/2022 | 80 km | 1500 m | 10:12:00 | 340/800 | 470 |
-| Trail du Ventoux | 06/2021 | 46 km | 2600 m | 8:50:00 | 200/380 | 452 |
-| CCC (UTMB Week) | 08/2021 | 101 km | 6100 m | 24:30:00 | 450/780 | 530 |
-| Ultra-Trail Cote d'Azur | 02/2021 | 110 km | 4800 m | 20:15:00 | 180/320 | 520 |
-| Templiers (Endurance Trail) | 10/2020 | 106 km | 5100 m | 19:55:00 | 290/500 | 505 |
-| UTMB OCC | 08/2020 | 55 km | 3500 m | 11:45:00 | 350/650 | 490 |
-| Trail du Haut-Koenigsbourg | 05/2020 | 33 km | 1800 m | 5:30:00 | 90/220 | 480 |
-| Maxi-Race (Marathon+) | 06/2019 | 88 km | 5300 m | 16:40:00 | 280/450 | 510 |
+| Course | Date | Distance | D+ | Temps | Class. | Class. F | UTMB Index |
+|--------|------|----------|-----|-------|--------|----------|------------|
+| Kullamannen by UTMB — Sprint Ultra 100K | 10/2025 | 108 km | 749 m | 12:08:03 | 47/345 | 10/65 | 570 |
+| Trail du Maquis du Vercors — Tour des Maquisards | 10/2025 | 33 km | 1500 m | 04:15:25 | 70/271 | 6/51 | 524 |
+| Trail du Saint-Jacques by UTMB — Grand Trail 100K | 06/2025 | 81.9 km | 3080 m | 12:45:19 | 338/1073 | 28/119 | 500 |
+| Marathon des Sables Legendary 2025 | 04/2025 | 250 km | 2710 m | 36:22:15 | 188/847 | 24/181 | 491 |
+| SainteLyon 2024 | 11/2024 | 82 km | 2273 m | 10:26:14 | 1300/6252 | 72/706 | 505 |
+| La Veni Vici — 47km | 11/2024 | 47.7 km | 1250 m | 05:21:39 | 167/1261 | 10/289 | 526 |
+| La Bel'Montaise — Mini 15 | 07/2024 | 15 km | 600 m | 01:23:05 | 44/138 | 4/34 | 510 |
+| Beaujol'Trail Morgon — Maxi Morgon 32 | 05/2024 | 32 km | 1410 m | 03:43:02 | 43/140 | 5/22 | 517 |
+| Marathon des Sables 2024 (38e edition) | 04/2024 | 252.8 km | 2788 m | 50:05:21 | 425/781 | 82/195 | 360 |
+| Raidlight Winter Trail 2024 | 01/2024 | 24 km | 1350 m | 03:06:31 | 180/342 | 24/71 | 488 |
+| SainteLyon 2023 | 12/2023 | 78 km | 2201 m | 11:16:28 | 2893/5950 | 181/659 | 455 |
+| La Veni Vici 2023 — 44km | 11/2023 | 44.9 km | 1200 m | 05:36:32 | 258/953 | 35/217 | 491 |
+| Nice Cote d'Azur by UTMB — 50K | 09/2023 | 62 km | 3300 m | 13:39:44 | 1037/1427 | 132/194 | 405 |
+| Millet XTrail Courchevel — XT 44km | 07/2023 | 44 km | 2830 m | 09:33:52 | 196/218 | 35/41 | 412 |
+| Trail du Saint-Jacques by UTMB — Maratrail 50K | 06/2023 | 46 km | 1450 m | 06:12:46 | 578/1047 | 67/185 | 449 |
+| Trail des Coursieres — 25km | 05/2023 | 25 km | 990 m | 03:28:02 | 225/343 | 38/88 | 438 |
+| La Romagnatoise — Assaut de Gergovie | 01/2023 | 25 km | 950 m | 03:06:25 | 162/238 | 19/47 | 459 |
+| SaintExpress (SainteLyon) 2022 | 12/2022 | 44 km | 1150 m | 06:09:38 | 1706/3113 | 254/693 | 437 |
+
+## Faits marquants
+
+- **2x Marathon des Sables** (2024 + 2025 Legendary) — experience multi-etapes desert cruciale pour G2G
+- **MDS 2025** : progression massive (36h vs 50h en 2024, de 425e a 188e)
+- **Pic UTMB Index** : 570 (Kullamannen 100K, oct 2025) — sa meilleure perf
+- **18 courses UTMB** depuis 2022, progression constante
+- **Top 10 femmes** sur Veni Vici 2024 (10/289) et Kullamannen (10/65)

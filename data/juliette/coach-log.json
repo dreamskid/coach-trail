@@ -1,5 +1,75 @@
 {
-  "daily": [],
+  "daily": [
+    {
+      "date": "2026-02-10",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Footing EF 1h, plat, Z1-Z2 (118-145 bpm). Reveil musculaire apres gros weekend (30km trail + 16km route). Renfo quadriceps apres : chaise 3x45s + squats 3x15.",
+      "phase": "build1",
+      "checks": {
+        "Renfo quadriceps": false
+      }
+    },
+    {
+      "date": "2026-02-11",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Footing EF 1h15, Z1-Z2 (118-145 bpm) + PPG quadriceps 30min. PPG : squats 3x15, chaise murale 3x45s, fentes avant 3x12/jambe, step-ups 3x10. Etirements ischio-jambiers apres.",
+      "phase": "build1",
+      "checks": {
+        "PPG quadriceps": false,
+        "Etirements ischio": false
+      }
+    },
+    {
+      "date": "2026-02-12",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Repos complet. Etirements doux + glace genou 15min si douleur. Journee de recuperation.",
+      "phase": "build1",
+      "checks": {
+        "Etirements": false,
+        "Glace genou": false
+      }
+    },
+    {
+      "date": "2026-02-13",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Footing vallonne 1h20, Z2 (131-145 bpm). D+ modere ~300m. Genouillere en descente si besoin. Regle absolue : stop si genou > 4/10. Renfo quadriceps apres.",
+      "phase": "build1",
+      "checks": {
+        "Renfo quadriceps": false
+      }
+    },
+    {
+      "date": "2026-02-14",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Natation 45min, Z1-Z2. Recup active. Crawl principal + educatifs. Pas d'impact articulaire = parfait pour le genou.",
+      "phase": "build1",
+      "checks": {}
+    },
+    {
+      "date": "2026-02-15",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Sortie longue trail 2h30-3h00, Z1-Z2 (118-145 bpm). D+ progressif 600-800m. Genouillere obligatoire en descente technique. Tester ravitaillement G2G (gels + barres). Glace genou systematique apres.",
+      "phase": "build1",
+      "checks": {
+        "Renfo quadriceps": false,
+        "Glace genou": false
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "genou": null,
+      "rpe": null,
+      "verdict": "Footing recup 45min, Z1 (118-131 bpm). Si genou OK apres la longue de samedi. Sinon repos complet. Ecouter le corps.",
+      "phase": "build1",
+      "checks": {}
+    }
+  ],
   "longterm": {
     "updated": "2026-02-08",
     "status": "en_forme",
@@ -11,35 +81,35 @@
     "evaluation": {
       "current": {
         "date": "2026-02-08",
-        "trigger": "Bilan initial",
+        "trigger": "Bilan initial (donnees reelles)",
         "scores": {
           "progression": 8,
           "mental": 9,
-          "gestion_effort": 6,
+          "gestion_effort": 7,
           "socle_aerobie": 7,
           "endurance_ultra": 9,
           "technique_descente": 5,
           "regularite": 8,
           "puissance_montee": 6,
-          "resistance_musculaire": 7,
-          "recuperation": 4
+          "resistance_musculaire": 8,
+          "recuperation": 6
         }
       },
       "history": [
         {
           "date": "2026-02-08",
-          "trigger": "Bilan initial",
+          "trigger": "Bilan initial (donnees reelles)",
           "scores": {
             "progression": 8,
             "mental": 9,
-            "gestion_effort": 6,
+            "gestion_effort": 7,
             "socle_aerobie": 7,
             "endurance_ultra": 9,
             "technique_descente": 5,
             "regularite": 8,
             "puissance_montee": 6,
-            "resistance_musculaire": 7,
-            "recuperation": 4
+            "resistance_musculaire": 8,
+            "recuperation": 6
           }
         }
       ]

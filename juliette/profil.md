@@ -10,31 +10,34 @@
 | FC repos | 48 bpm |
 | FC max | 187 bpm |
 | Reserve cardiaque (RFC) | 139 bpm |
-| VO2max (Garmin) | 50 ml/kg/min |
+| VO2max (Garmin) | 51.2 ml/kg/min |
 | VMA | ~14.5 km/h (estimee) |
 | Montre | Garmin Fenix 7 |
 
 ## Niveau
 
-- Trail runneuse confirmee (5+ ans de pratique)
-- 25+ courses officielles depuis 2019
-- UTMB Index : 20K = 553, 50K = 510, 100K = 555
-- Plus longue course : 106 km (Maxi-Race 2024)
+- Trail runneuse confirmee (4+ ans de pratique depuis 2022)
+- 18 courses UTMB Index depuis 2022
+- UTMB Index : 20K = 553, 50K = 510, 100K = 506, 100M = 555
+- Plus longue course solo : 108 km (Kullamannen 2025, 12:08:03)
+- Plus longue course multi-etapes : 250 km (Marathon des Sables x2)
 - Running Stones : 5
+- Pic UTMB Index : 570 (Kullamannen oct 2025)
 
 ## Points forts
 
-- Endurance ultra (capable de gerer +10h sans difficulte)
-- Mental solide
+- Endurance ultra (2x MDS, Kullamannen 108km)
+- Experience multi-etapes desert (MDS 2024 + 2025 Legendary)
+- Mental solide — progression MDS spectaculaire (50h → 36h)
 - Regularite d'entrainement
-- Resistance musculaire sur longue distance
+- Gestion chaleur extreme (Sahara)
 
 ## Points a travailler
 
-- Technique de descente (point faible identifie)
+- Technique de descente (point faible identifie, aggrave par le menisque)
 - Gestion de l'effort sur ultra (tendance a partir trop vite)
 - Puissance en montee
-- Recuperation (sommeil insuffisant)
+- Recuperation
 - Gestion du genou (menisque)
 
 ## Fragilites connues
