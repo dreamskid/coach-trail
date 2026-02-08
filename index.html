@@ -2488,9 +2488,7 @@
 
 <!-- ===== FOOTER ===== -->
 <footer id="footer-text">
-    Coach Trail — Yohann Tschudi & Juliette Sailland<br>
-    Donnees : Garmin Connect · UTMB World · BeTrail · Strava<br>
-    Suivi versionne avec Git · Derniere mise a jour : 8 fevrier 2026
+    Juliette et Yohann sont amoureux !<span id="footer-sync"></span>
 </footer>
 
 <!-- ===== JAVASCRIPT ===== -->
@@ -3948,10 +3946,14 @@ function updateSyncStatus() {
             const label = document.getElementById('sync-label');
             const headerUpdate = document.getElementById('header-update');
 
+            const syncDate = lastSync.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            const syncTime = lastSync.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
             if (headerUpdate) {
-                const syncDate = lastSync.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-                const syncTime = lastSync.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
                 headerUpdate.textContent = 'Mise a jour : ' + syncDate + ' a ' + syncTime;
+            }
+            var footerSync = document.getElementById('footer-sync');
+            if (footerSync) {
+                footerSync.textContent = ' Derniere mise a jour : ' + syncDate;
             }
 
             if (diffH > SYNC_STALE_HOURS && !btn.classList.contains('syncing')) {
@@ -4534,25 +4536,6 @@ _loadedAthletes[currentAthlete] = true;
     // Init both athletes (in case loaded via URL hash)
     ['yohann', 'juliette'].forEach(function(a) { initChat(a); });
 
-    // Handle keyboard resize on mobile — keep input above keyboard
-    if (window.visualViewport) {
-        var onViewportResize = function() {
-            var containers = document.querySelectorAll('.chat-container');
-            var vpH = window.visualViewport.height;
-            var vpTop = window.visualViewport.offsetTop;
-            containers.forEach(function(c) {
-                if (!c.offsetParent) return; // hidden
-                // Calculate available height: viewport height minus the container's offset from viewport top
-                var rect = c.getBoundingClientRect();
-                var available = vpH - (rect.top - vpTop);
-                if (available > 200) {
-                    c.style.height = available + 'px';
-                }
-            });
-        };
-        window.visualViewport.addEventListener('resize', onViewportResize);
-        window.visualViewport.addEventListener('scroll', onViewportResize);
-    }
 })();
 </script>
 
