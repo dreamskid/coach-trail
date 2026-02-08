@@ -198,6 +198,259 @@ function getISOWeek(date) {
     return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
 }
 
+// ===== WEEK PLAN PARSER =====
+const DAY_OFFSETS = {
+    'lundi': 0, 'mardi': 1, 'mercredi': 2, 'jeudi': 3, 'vendredi': 4, 'samedi': 5, 'dimanche': 6
+};
+
+function weekDayToDate(weekId, dayName) {
+    // weekId = "2026-W07", dayName = "lundi"
+    const match = weekId.match(/^(\d{4})-W(\d{2})$/);
+    if (!match) return null;
+    const year = parseInt(match[1]);
+    const week = parseInt(match[2]);
+    // ISO week: Jan 4 is always in week 1
+    const jan4 = new Date(Date.UTC(year, 0, 4));
+    const dayOfWeek = jan4.getUTCDay() || 7; // Mon=1..Sun=7
+    const monday = new Date(jan4);
+    monday.setUTCDate(jan4.getUTCDate() - dayOfWeek + 1 + (week - 1) * 7);
+    const offset = DAY_OFFSETS[dayName.toLowerCase()] || 0;
+    const result = new Date(monday);
+    result.setUTCDate(monday.getUTCDate() + offset);
+    return result.toISOString().slice(0, 10);
+}
+
+function badgeClassFromTitle(title) {
+    const t = (title || '').toLowerCase();
+    if (/natation|nage|piscine|swim/.test(t)) return 'badge-purple';
+    if (/retest|test/.test(t)) return 'badge-red';
+    if (/repos|off/.test(t)) return 'badge-grey';
+    if (/sortie longue|long run/.test(t)) return 'badge-orange';
+    if (/footing|trail|course/.test(t)) return 'badge-green';
+    return 'badge-blue';
+}
+
+function parseWeekPlan(markdown, weekId) {
+    const lines = markdown.split('\n');
+    const result = {
+        week: weekId,
+        title: '',
+        bloc: '',
+        objective: '',
+        volume: '',
+        days: []
+    };
+
+    // Extract title from first H1/H2
+    for (const line of lines) {
+        const m = line.match(/^#+\s+(.+)/);
+        if (m && !result.title) {
+            result.title = m[1].trim();
+            break;
+        }
+    }
+
+    // Extract bloc
+    for (const line of lines) {
+        const m = line.match(/\*\*?\s*(?:Bloc|BLOC)\s*[:\s]*(.+?)\*\*?/i) || line.match(/^##\s+Bloc\s*:\s*(.+)/i);
+        if (m) { result.bloc = m[1].trim(); break; }
+    }
+    // Fallback: extract bloc from title (e.g. "Bloc 0 : Reprise & Soin")
+    if (!result.bloc && result.title) {
+        const blocInTitle = result.title.match(/Bloc\s+\d+\s*[:\—\-]\s*(.+)/i);
+        if (blocInTitle) {
+            result.bloc = 'Bloc ' + result.title.match(/Bloc\s+(\d+)/i)[1] + ' — ' + blocInTitle[1].trim();
+        }
+    }
+
+    // Extract objective
+    for (const line of lines) {
+        const m = line.match(/\*\*Objectif.*?\*\*\s*:\s*(.+)/i) || line.match(/\*\*Objectif.*?\*\*\s+(.+)/i);
+        if (m) { result.objective = m[1].trim(); break; }
+    }
+
+    // Extract volume
+    for (const line of lines) {
+        const m = line.match(/\*\*Volume.*?\*\*\s*:\s*(.+)/i);
+        if (m) { result.volume = m[1].trim(); break; }
+    }
+
+    // Detect format: table or headings
+    const hasTable = lines.some(l => /^\|.*\|.*\|/.test(l) && /lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche/i.test(l));
+
+    if (hasTable) {
+        // Table format (Juliette)
+        parseTableFormat(lines, weekId, result);
+    } else {
+        // Heading format (Yohann)
+        parseHeadingFormat(lines, weekId, result);
+    }
+
+    return result;
+}
+
+function parseTableFormat(lines, weekId, result) {
+    // Find the planning table
+    const tableLines = [];
+    let inTable = false;
+    for (const line of lines) {
+        if (/^\|.*\|/.test(line)) {
+            if (/jour|seance|duree/i.test(line.toLowerCase())) { inTable = true; continue; }
+            if (inTable && /^[\|\s-]+$/.test(line)) continue; // separator
+            if (inTable) tableLines.push(line);
+        } else if (inTable && tableLines.length > 0) {
+            // Check if this is a second table (details) — stop
+            break;
+        }
+    }
+
+    tableLines.forEach(line => {
+        const cells = line.split('|').map(s => s.trim()).filter(Boolean);
+        if (cells.length < 2) return;
+
+        const dayCell = cells[0]; // "Lundi 10"
+        const dayMatch = dayCell.match(/(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s*(\d+)?/i);
+        if (!dayMatch) return;
+
+        const dayName = dayMatch[1];
+        const dayNum = dayMatch[2] ? parseInt(dayMatch[2]) : null;
+        const date = weekDayToDate(weekId, dayName);
+
+        const seance = cells[1] || '';
+        const duree = cells[2] || '';
+        const zone = cells[3] || '';
+        const dplus = cells[4] || '';
+        const notes = cells[5] || '';
+
+        const title = seance;
+        const isRepos = /repos/i.test(seance);
+
+        let detailsHtml = '';
+        if (!isRepos) {
+            detailsHtml = '<strong>' + escapeHtml(seance) + '</strong>';
+            if (duree) detailsHtml += ' ' + escapeHtml(duree);
+            if (zone && zone !== '—' && zone !== '-') detailsHtml += ' <span class="text-blue">' + escapeHtml(zone) + '</span>';
+            if (dplus && dplus !== '—' && dplus !== '-') detailsHtml += ' · D+ ' + escapeHtml(dplus);
+            if (notes && notes !== '—' && notes !== '-') detailsHtml += '<br>' + escapeHtml(notes);
+        } else {
+            detailsHtml = '<strong>Repos complet</strong>';
+            if (notes && notes !== '—' && notes !== '-') detailsHtml += '. ' + escapeHtml(notes);
+        }
+
+        const checks = isRepos ? [] : title.split(/[+,]/).map(s => s.trim()).filter(Boolean);
+
+        result.days.push({
+            date: date,
+            dayName: dayName.charAt(0).toUpperCase() + dayName.slice(1).toLowerCase(),
+            dayNum: dayNum || (date ? parseInt(date.slice(-2)) : null),
+            title: title,
+            detailsHtml: detailsHtml,
+            checks: checks,
+            badgeClass: badgeClassFromTitle(title),
+            highlight: /retest|test/i.test(title)
+        });
+    });
+}
+
+function parseHeadingFormat(lines, weekId, result) {
+    let currentDay = null;
+    let detailLines = [];
+
+    function flushDay() {
+        if (!currentDay) return;
+        // Build detailsHtml from bullet lines
+        let html = '';
+        detailLines.forEach(line => {
+            // Parse "- **Séance** : xxx" format
+            let cleaned = line.replace(/^-\s*/, '');
+            // Skip "Réalisé", "FC moy réelle", "RPE" fields (template fields)
+            if (/^\*\*R[eé]alis[eé]\*\*/i.test(cleaned)) return;
+            if (/^\*\*FC moy/i.test(cleaned)) return;
+            if (/^\*\*RPE\*\*\s*:\s*\/10/i.test(cleaned)) return;
+            if (/^\*\*Terrain\*\*/i.test(cleaned)) return;
+            // Convert markdown bold to HTML
+            cleaned = cleaned.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            // Convert zone references to colored spans
+            cleaned = cleaned.replace(/(Z[1-5](?:-Z[1-5])?\s*\([^)]+\))/g, '<span class="text-blue">$1</span>');
+            if (cleaned.trim()) {
+                html += (html ? '<br>' : '') + cleaned.trim();
+            }
+        });
+        currentDay.detailsHtml = html;
+        // Extract checks from title (split on +)
+        currentDay.checks = currentDay.title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean);
+        // Detect repos
+        if (/repos|off/i.test(currentDay.title) && currentDay.checks.length <= 1) {
+            currentDay.checks = [];
+        }
+        result.days.push(currentDay);
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // Match ### Lundi 9 fév. — Title
+        const dayMatch = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s+[^\—\-]*[\—\-]\s*(.+)/i);
+        if (dayMatch) {
+            flushDay();
+            const dayName = dayMatch[1];
+            const dayNum = parseInt(dayMatch[2]);
+            const title = dayMatch[3].trim();
+            const date = weekDayToDate(weekId, dayName);
+            currentDay = {
+                date: date,
+                dayName: dayName.charAt(0).toUpperCase() + dayName.slice(1).toLowerCase(),
+                dayNum: dayNum,
+                title: title,
+                detailsHtml: '',
+                checks: [],
+                badgeClass: badgeClassFromTitle(title),
+                highlight: /retest|test/i.test(title)
+            };
+            detailLines = [];
+            continue;
+        }
+
+        // Also match ### Lundi 9 — Title (without month)
+        const dayMatch2 = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s*[\—\-]\s*(.+)/i);
+        if (!dayMatch && dayMatch2) {
+            flushDay();
+            const dayName = dayMatch2[1];
+            const dayNum = parseInt(dayMatch2[2]);
+            const title = dayMatch2[3].trim();
+            const date = weekDayToDate(weekId, dayName);
+            currentDay = {
+                date: date,
+                dayName: dayName.charAt(0).toUpperCase() + dayName.slice(1).toLowerCase(),
+                dayNum: dayNum,
+                title: title,
+                detailsHtml: '',
+                checks: [],
+                badgeClass: badgeClassFromTitle(title),
+                highlight: /retest|test/i.test(title)
+            };
+            detailLines = [];
+            continue;
+        }
+
+        // Collect detail lines (bullets under the day heading)
+        if (currentDay && /^-\s+/.test(line)) {
+            detailLines.push(line);
+        }
+
+        // Stop collecting on next section (## or ---)
+        if (currentDay && (/^##\s/.test(line) || /^---/.test(line))) {
+            flushDay();
+            currentDay = null;
+            detailLines = [];
+        }
+    }
+    flushDay();
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 // ===== CHAT TOOLS =====
 const CHAT_TOOLS = [
     {
@@ -842,6 +1095,28 @@ const server = http.createServer(async (req, res) => {
             } else {
                 json(res, 500, { error: msg });
             }
+        }
+        return;
+    }
+
+    // GET /api/week-plan — Parse and return week plan as JSON
+    if (req.method === 'GET' && url.pathname === '/api/week-plan') {
+        setCorsHeaders(res);
+        res.setHeader('Cache-Control', 'no-cache');
+        const athlete = url.searchParams.get('athlete') || 'yohann';
+        let week = url.searchParams.get('week');
+        if (!week) {
+            const now = new Date();
+            week = now.getFullYear() + '-W' + String(getISOWeek(now)).padStart(2, '0');
+        }
+        const weekDir = WEEK_DIRS[athlete] || WEEK_DIRS.yohann;
+        const filePath = path.join(weekDir, week + '.md');
+        try {
+            const md = fs.readFileSync(filePath, 'utf8');
+            const plan = parseWeekPlan(md, week);
+            json(res, 200, plan);
+        } catch {
+            json(res, 200, { notFound: true, week: week });
         }
         return;
     }
