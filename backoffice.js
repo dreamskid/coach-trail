@@ -5,19 +5,27 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const PORT = 3000;
-const DATA_FILE = path.join(__dirname, 'data', 'coach-log.json');
+const DATA_FILES = {
+    yohann: path.join(__dirname, 'data', 'coach-log.json'),
+    juliette: path.join(__dirname, 'data', 'juliette', 'coach-log.json')
+};
 
-function readData() {
+function getDataFile(athlete) {
+    return DATA_FILES[athlete] || DATA_FILES.yohann;
+}
+
+function readData(athlete) {
     try {
-        return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+        return JSON.parse(fs.readFileSync(getDataFile(athlete), 'utf8'));
     } catch {
         return { daily: [], longterm: {} };
     }
 }
 
-function writeData(data) {
-    fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2) + '\n', 'utf8');
+function writeData(data, athlete) {
+    var file = getDataFile(athlete);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n', 'utf8');
 }
 
 function parseBody(req) {
@@ -45,7 +53,8 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/data
     if (req.method === 'GET' && url.pathname === '/api/data') {
-        json(res, 200, readData());
+        const athlete = url.searchParams.get('athlete') || 'yohann';
+        json(res, 200, readData(athlete));
         return;
     }
 
@@ -53,7 +62,8 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'POST' && url.pathname === '/api/save') {
         try {
             const payload = await parseBody(req);
-            const data = readData();
+            const athlete = url.searchParams.get('athlete') || 'yohann';
+            const data = readData(athlete);
 
             // Upsert daily entry
             if (payload.daily) {
@@ -74,7 +84,7 @@ const server = http.createServer(async (req, res) => {
                 data.settings = { ...data.settings, ...payload.settings };
             }
 
-            writeData(data);
+            writeData(data, athlete);
             json(res, 200, { ok: true });
         } catch (e) {
             json(res, 400, { error: e.message });
@@ -85,8 +95,10 @@ const server = http.createServer(async (req, res) => {
     // POST /api/publish
     if (req.method === 'POST' && url.pathname === '/api/publish') {
         try {
+            const athlete = url.searchParams.get('athlete') || 'yohann';
+            const dataFile = athlete === 'juliette' ? 'data/juliette/coach-log.json' : 'data/coach-log.json';
             const cwd = __dirname;
-            execSync('git add data/coach-log.json', { cwd });
+            execSync('git add ' + dataFile, { cwd });
             const today = new Date().toISOString().slice(0, 10);
             execSync(`git commit -m "Coach log: ${today}"`, { cwd });
             execSync('git push origin main', { cwd });
@@ -343,6 +355,14 @@ textarea { resize: vertical; min-height: 80px; }
 <div class="container">
     <h1>Back Office <span>Coach Trail</span></h1>
 
+    <!-- Athlete selector -->
+    <div class="card">
+        <div class="toggle-row" style="margin-bottom: 0;">
+            <button class="toggle-btn active" id="ath-yohann" onclick="switchAthlete('yohann')">Yohann</button>
+            <button class="toggle-btn" id="ath-juliette" onclick="switchAthlete('juliette')">Juliette</button>
+        </div>
+    </div>
+
     <!-- Date picker -->
     <div class="card">
         <div class="field">
@@ -472,11 +492,27 @@ textarea { resize: vertical; min-height: 80px; }
 <div class="toast" id="toast"></div>
 
 <script>
-const DEFAULT_CHECKS = ['Iso mollets', 'PPG haut du corps', 'PPG complete', 'Iso / excentriques', 'Test phase 2', 'Retest saut'];
+const DEFAULT_CHECKS_MAP = {
+    yohann: ['Iso mollets', 'PPG haut du corps', 'PPG complete', 'Iso / excentriques', 'Test phase 2', 'Retest saut'],
+    juliette: ['Renfo quadriceps', 'Etirements', 'PPG quadriceps', 'Glace genou']
+};
+let currentAthlete = 'yohann';
 let activeChecks = {};
 let noSession = false;
 let ltStatus = '';
 let allData = { daily: [], longterm: {} };
+
+function switchAthlete(athlete) {
+    if (athlete === currentAthlete) return;
+    currentAthlete = athlete;
+    document.getElementById('ath-yohann').classList.toggle('active', athlete === 'yohann');
+    document.getElementById('ath-juliette').classList.toggle('active', athlete === 'juliette');
+    // Reload data for this athlete
+    fetch('/api/data?athlete=' + athlete)
+        .then(r => r.json())
+        .then(data => { allData = data; loadEntry(); renderChips(); })
+        .catch(() => {});
+}
 
 // Init
 const dateInput = document.getElementById('f-date');
@@ -537,6 +573,7 @@ function setLtStatus(status) {
 function renderChips() {
     const container = document.getElementById('checks-chips');
     container.innerHTML = '';
+    const DEFAULT_CHECKS = DEFAULT_CHECKS_MAP[currentAthlete] || DEFAULT_CHECKS_MAP.yohann;
     const allItems = [...new Set([...DEFAULT_CHECKS, ...Object.keys(activeChecks).filter(k => !DEFAULT_CHECKS.includes(k))])];
     allItems.forEach(item => {
         const chip = document.createElement('span');
@@ -562,7 +599,7 @@ function addCustomChip() {
 renderChips();
 
 // Load existing data
-fetch('/api/data')
+fetch('/api/data?athlete=' + currentAthlete)
     .then(r => r.json())
     .then(data => {
         allData = data;
@@ -664,11 +701,13 @@ function buildPayload() {
     const ltTraj = document.getElementById('lt-trajectory').value.trim();
 
     if (ltStatus || ltBlock || ltNextRace || ltTraj) {
-        const weeksToOcc = Math.ceil((new Date('2026-08-27') - new Date(date)) / (7 * 24 * 60 * 60 * 1000));
+        const targetDate = currentAthlete === 'juliette' ? '2026-09-20' : '2026-08-27';
+        const weeksToTarget = Math.ceil((new Date(targetDate) - new Date(date)) / (7 * 24 * 60 * 60 * 1000));
+        const weeksKey = currentAthlete === 'juliette' ? 'g2g_weeks_remaining' : 'occ_weeks_remaining';
         payload.longterm = {
             updated: date,
             status: ltStatus || undefined,
-            occ_weeks_remaining: weeksToOcc,
+            [weeksKey]: weeksToTarget,
             current_block: ltBlock || undefined,
             next_race: ltNextRace || undefined,
             trajectory: ltTraj || undefined
@@ -694,7 +733,7 @@ function toast(msg, type) {
 async function save() {
     try {
         const payload = buildPayload();
-        const r = await fetch('/api/save', {
+        const r = await fetch('/api/save?athlete=' + currentAthlete, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -702,7 +741,7 @@ async function save() {
         const result = await r.json();
         if (r.ok) {
             // Refresh local data
-            const refreshed = await fetch('/api/data').then(r => r.json());
+            const refreshed = await fetch('/api/data?athlete=' + currentAthlete).then(r => r.json());
             allData = refreshed;
             toast('Sauvegarde OK', 'success');
         } else {
@@ -718,7 +757,7 @@ async function publish() {
     btn.disabled = true;
     btn.textContent = 'Publication...';
     try {
-        const r = await fetch('/api/publish', { method: 'POST' });
+        const r = await fetch('/api/publish?athlete=' + currentAthlete, { method: 'POST' });
         const result = await r.json();
         if (r.ok) {
             toast(result.message || 'Publie !', 'success');

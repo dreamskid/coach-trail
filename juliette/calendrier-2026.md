@@ -1,0 +1,38 @@
+# Calendrier 2026 — Juliette Sailland
+
+## Objectif A : Grand to Grand Ultra
+
+- **Date** : 20 septembre 2026
+- **Distance** : 275 km / 6 etapes
+- **Format** : Course a etapes autosuffisante
+- **Lieu** : Grand Canyon, Arizona, USA
+
+## Courses 2026
+
+| Date | Course | Distance | D+ | Objectif | Statut |
+|------|--------|----------|-----|----------|--------|
+| 25 avril | UTMB Mont Ventoux GRV 100K | 100 km | 4200 m | B | A venir |
+| 23 mai | Maxi-Race (Annecy) | 88 km | 5300 m | B | A venir |
+| 4 juillet | Trail des Pierres Dorees | 30 km | 1200 m | C | A venir |
+| 20 sept | **Grand to Grand Ultra** | **275 km** | **6 etapes** | **A** | A venir |
+
+## Periodisation macro
+
+| Bloc | Periode | Focus | Courses |
+|------|---------|-------|---------|
+| BUILD 1 | Fev-Mars | Construction base. Volume progressif. PPG. | — |
+| BUILD 2 | Avril | Volume + D+. Sortie longue 5-7h. | GRV 100K (B) |
+| BUILD 3 | Mai | Endurance ultra. Gestion effort long. Nutrition. | Maxi-Race (B) |
+| SPECIFIQUE | Juin-Juillet | Specifique multi-etapes. Back-to-back. Autosuffisance. | Pierres Dorees (C) |
+| PIC | Aout | Volume pic. Simulation conditions G2G. | — |
+| AFFUT | Sept | Tapering 10-14j. Logistique G2G. | **G2G Ultra (A)** |
+
+## Gap analysis G2G
+
+| Indicateur | Actuel | Requis G2G | Gap |
+|------------|--------|------------|-----|
+| Plus longue course | 106 km | 275 km (6 etapes) | Format multi-jours a travailler |
+| Endurance continue | ~14h max | 6-8h / jour x 6 jours | Back-to-back indispensable |
+| Autosuffisance | Non teste | Obligatoire G2G | A planifier |
+| Chaleur | Habituee tempere | Desert (40°C+) | Acclimatation chaleur en ete |
+| Nutrition multi-jours | Non testee | Autonome 6 jours | Plan nutrition a construire |

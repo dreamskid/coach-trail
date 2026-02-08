@@ -9,7 +9,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Coach Trail — Yohann Tschudi — OCC 2026</title>
+    <title>Coach Trail — Dashboard</title>
     <style>
         :root {
             --bg: #0f1117;
@@ -574,6 +574,20 @@
         .sub-tab.active { color: var(--accent-light); border-bottom-color: var(--accent-light); border-bottom-width: 3px; }
         .sub-content { display: none; }
         .sub-content.active { display: block; animation: fadeIn 0.2s; }
+
+        /* ===== ATHLETE SELECTOR ===== */
+        .athlete-selector { display: flex; gap: 12px; padding: 12px 24px; max-width: 1400px; margin: 0 auto; }
+        .athlete-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 10px;
+            border: 2px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+            cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+        .athlete-btn:hover { border-color: var(--accent); color: var(--text); }
+        .athlete-btn.active { border-color: var(--accent); background: var(--bg-card-alt); color: var(--text);
+            box-shadow: 0 0 0 1px var(--accent); }
+        .athlete-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+        .athlete-obj { font-size: 11px; color: var(--text-muted); }
+        .athlete-content { display: none; }
+        .athlete-content.active { display: block; }
     </style>
 </head>
 <body>
@@ -581,13 +595,13 @@
 <!-- ===== HEADER ===== -->
 <header>
     <div>
-        <h1>Coach Trail — <span>Yohann Tschudi</span></h1>
-        <p style="color: var(--text-muted); margin-top: 2px; font-size: 13px;">Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+</p>
+        <h1>Coach Trail — <span id="header-name">Yohann Tschudi</span></h1>
+        <p id="header-objective" style="color: var(--text-muted); margin-top: 2px; font-size: 13px;">Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+</p>
     </div>
     <div class="header-meta">
         <div class="update" id="header-update">Mise a jour : 7 fevrier 2026</div>
-        <div>J-201 avant l'OCC</div>
-        <div>Bloc 0 — Reprise & Soin</div>
+        <div id="header-countdown">J-201 avant l'OCC</div>
+        <div id="header-block">Bloc 0 — Reprise & Soin</div>
         <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
             <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)" style="margin-top: 0;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
@@ -597,6 +611,20 @@
         </div>
     </div>
 </header>
+
+<!-- ===== ATHLETE SELECTOR ===== -->
+<div class="athlete-selector">
+    <button class="athlete-btn active" data-athlete="yohann">
+        <span class="athlete-avatar">YT</span>
+        <span>Yohann</span>
+        <span class="athlete-obj">OCC 57km</span>
+    </button>
+    <button class="athlete-btn" data-athlete="juliette">
+        <span class="athlete-avatar">JS</span>
+        <span>Juliette</span>
+        <span class="athlete-obj">G2G 275km</span>
+    </button>
+</div>
 
 <!-- ===== TAB BAR ===== -->
 <nav class="tab-bar">
@@ -608,6 +636,9 @@
     <button class="tab-btn" data-tab="calendar">Calendrier</button>
     <button class="tab-btn" data-tab="progress">Progression</button>
 </nav>
+
+<!-- ===== ATHLETE: YOHANN ===== -->
+<div id="athlete-yohann" class="athlete-content active">
 
 <!-- ======================================================================== -->
 <!-- TAB 1 : VUE D'ENSEMBLE                                                  -->
@@ -1371,41 +1402,661 @@
     </div>
 </div>
 
+</div><!-- /athlete-yohann -->
+
+<!-- ===== ATHLETE: JULIETTE ===== -->
+<div id="athlete-juliette" class="athlete-content">
+
+<!-- ======================================================================== -->
+<!-- J-TAB 1 : VUE D'ENSEMBLE                                                -->
+<!-- ======================================================================== -->
+<div id="j-overview" class="tab-content active">
+
+    <!-- KPI cards -->
+    <div class="grid grid-4" style="margin-bottom: 24px;">
+        <div class="card" style="text-align: center;">
+            <div class="stat-big text-blue">555</div>
+            <div class="stat-label">UTMB Index Pic</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">20K: 553 · 50K: 510 · 100K: 555</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big text-green" id="j-kpi-vo2max">50</div>
+            <div class="stat-label">VO2max (ml/kg/min)</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-vo2max-sub">Garmin</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big text-green" id="j-kpi-week-km">--</div>
+            <div class="stat-label">Km cette semaine</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-week-km-sub">Chargement...</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big text-orange" id="j-kpi-week-elev">--</div>
+            <div class="stat-label">D+ cette semaine</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-kpi-week-elev-sub">Chargement...</div>
+        </div>
+    </div>
+
+    <!-- Profil + Evaluation -->
+    <div class="grid grid-2-1">
+        <div class="card">
+            <h2>Profil athlete</h2>
+            <div class="stat-row"><span class="label">Age</span><span class="value">41 ans</span></div>
+            <div class="stat-row"><span class="label">Taille / Poids</span><span class="value">164 cm / 58 kg</span></div>
+            <div class="stat-row"><span class="label">FC repos</span><span class="value">48 bpm</span></div>
+            <div class="stat-row"><span class="label">FC max</span><span class="value">187 bpm</span></div>
+            <div class="stat-row"><span class="label">Reserve cardiaque</span><span class="value">139 bpm</span></div>
+            <div class="stat-row"><span class="label">VO2max (Garmin)</span><span class="value">50 ml/kg/min</span></div>
+            <div class="stat-row"><span class="label">VMA estimee</span><span class="value">~14.5 km/h</span></div>
+            <div class="stat-row"><span class="label">Running Stones</span><span class="value">5</span></div>
+            <div class="stat-row"><span class="label">Courses depuis 2019</span><span class="value">25+</span></div>
+            <div class="stat-row"><span class="label">Plus longue course</span><span class="value">106 km (Maxi-Race)</span></div>
+            <div class="stat-row"><span class="label">Montre</span><span class="value">Garmin Fenix 7</span></div>
+        </div>
+
+        <div class="card">
+            <h2>Evaluation /10</h2>
+            <div id="j-eval-scores">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
+            <div id="j-eval-global" style="margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--border); text-align: center;">
+                <div class="stat-big" id="j-eval-global-value" style="color: var(--text-muted);">&mdash;<span style="font-size: 16px; color: var(--text-muted);">/10</span></div>
+                <div class="stat-label">Note globale</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zones FC -->
+    <div class="card" style="margin-top: 4px;">
+        <h2>Zones de frequence cardiaque</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Methode Karvonen · FC repos 48 · FC max 187 · RFC 139 bpm</p>
+        <div class="zone-bar">
+            <div class="zone-1" style="width:20%;">Z1 118-131</div>
+            <div class="zone-2" style="width:20%;">Z2 131-145</div>
+            <div class="zone-3" style="width:20%;">Z3 145-159</div>
+            <div class="zone-4" style="width:20%;">Z4 159-173</div>
+            <div class="zone-5" style="width:20%;">Z5 173-187</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 2 : PROGRAMME                                                      -->
+<!-- ======================================================================== -->
+<div id="j-week" class="tab-content">
+
+    <!-- Sous-onglets -->
+    <div class="sub-tabs">
+        <button class="sub-tab active" data-subtab="upcoming">A venir</button>
+        <button class="sub-tab" data-subtab="past">Pass&#233;s</button>
+    </div>
+
+    <!-- SUB-TAB : A venir -->
+    <div id="j-week-upcoming" class="sub-content active">
+
+    <!-- AUJOURD'HUI (dynamique) -->
+    <div id="j-today-container"></div>
+
+    <!-- W07 -->
+    <div class="card" style="margin-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 style="margin: 0;">Semaine W07 — 10 au 16 fevrier 2026</h2>
+            <span class="badge badge-green">BUILD 1 — CONSTRUCTION BASE</span>
+        </div>
+
+        <div class="note-box">
+            <strong>Objectif :</strong> Volume en endurance fondamentale. Renforcement quadriceps. Surveiller genou.<br>
+            <strong>Volume cible :</strong> 60-70 km / 6-7h.
+        </div>
+
+        <div class="week-day" data-date="2026-02-10" data-checks="Renfo quadriceps">
+            <div class="day-header">
+                <span class="day-name">Lundi 10</span>
+                <span class="badge badge-green">Footing EF</span>
+            </div>
+            <div class="day-details">
+                <strong>Footing</strong> 1h00 <span class="text-blue">Z1-Z2 (118-145 bpm)</span><br>
+                Plat, reveil musculaire. Renfo quadriceps apres.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-11" data-checks="PPG quadriceps,Etirements">
+            <div class="day-header">
+                <span class="day-name">Mardi 11</span>
+                <span class="badge badge-green">Footing + PPG</span>
+            </div>
+            <div class="day-details">
+                <strong>Footing</strong> 1h15 <span class="text-blue">Z1-Z2 (118-145 bpm)</span> + <strong>PPG quadriceps</strong> 30 min<br>
+                Squats, chaise, fentes. Etirements ischio apres.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-12">
+            <div class="day-header">
+                <span class="day-name">Mercredi 12</span>
+                <span class="badge" style="background: #333; color: #999;">Repos</span>
+            </div>
+            <div class="day-details">
+                <strong>Repos complet</strong>. Etirements + glace genou si besoin.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-13" data-checks="Renfo quadriceps">
+            <div class="day-header">
+                <span class="day-name">Jeudi 13</span>
+                <span class="badge badge-green">Footing vallonne</span>
+            </div>
+            <div class="day-details">
+                <strong>Footing vallonne</strong> 1h20 <span class="text-green">Z2 (131-145 bpm)</span><br>
+                Intro D+ modere. Surveiller genou en descente.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-14">
+            <div class="day-header">
+                <span class="day-name">Vendredi 14</span>
+                <span class="badge badge-purple">Natation</span>
+            </div>
+            <div class="day-details">
+                <strong>Natation</strong> 45 min <span class="text-blue">Z1-Z2</span><br>
+                Recup active. Crawl principal.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-15" data-checks="Renfo quadriceps,Glace genou">
+            <div class="day-header">
+                <span class="day-name">Samedi 15</span>
+                <span class="badge badge-orange">Sortie longue</span>
+            </div>
+            <div class="day-details">
+                <strong>Sortie longue</strong> 2h30-3h00 <span class="text-blue">Z1-Z2 (118-145 bpm)</span><br>
+                Terrain trail, D+ progressif. Genouillere si descente technique. Glace apres.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <div class="week-day" data-date="2026-02-16">
+            <div class="day-header">
+                <span class="day-name">Dimanche 16</span>
+                <span class="badge badge-green">Footing recup</span>
+            </div>
+            <div class="day-details">
+                <strong>Footing recup</strong> 45 min <span class="text-blue">Z1 (118-131 bpm)</span><br>
+                Si genou OK. Sinon <strong>repos complet</strong>.
+            </div>
+            <div class="day-match"></div>
+            <div class="day-checks"></div>
+        </div>
+
+        <!-- Volume resume -->
+        <div style="margin-top: 16px; padding: 12px; background: var(--bg-card-alt); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                <span class="text-muted">Volume total cible</span>
+                <span class="text-bold">60-70 km / 6-7h</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 4px;">
+                <span class="text-muted">Seances</span>
+                <span class="text-bold">5-6 (4-5 footing, 1 natation, 2 PPG)</span>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /j-week-upcoming -->
+
+    <!-- SUB-TAB : Passes -->
+    <div id="j-week-past" class="sub-content">
+        <h3 style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Historique recent</h3>
+        <div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas encore d'historique</div>
+    </div><!-- /j-week-past -->
+
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 3 : BLESSURE                                                       -->
+<!-- ======================================================================== -->
+<div id="j-injury" class="tab-content">
+
+    <div class="grid grid-2">
+        <div class="card">
+            <div class="injury-status injury-healing">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 16px;">Genou droit — Fissure meniscale</div>
+                        <div style="font-size: 13px; color: var(--text-muted);">IRM confirmee · Gestion chronique</div>
+                    </div>
+                    <span class="badge badge-yellow">GESTION</span>
+                </div>
+            </div>
+
+            <h3>Bilan</h3>
+            <div class="stat-row"><span class="label">Douleur moyenne</span><span class="value text-yellow">2-3/10</span></div>
+            <div class="stat-row"><span class="label">Douleur en descente</span><span class="value text-orange">3-5/10</span></div>
+            <div class="stat-row"><span class="label">Gonflement</span><span class="value text-green">Non</span></div>
+            <div class="stat-row"><span class="label">Marche</span><span class="value text-green">OK</span></div>
+            <div class="stat-row"><span class="label">Course plat</span><span class="value text-green">OK</span></div>
+            <div class="stat-row"><span class="label">Descente technique</span><span class="value text-yellow">Avec precaution</span></div>
+
+            <h3>Observation</h3>
+            <div class="note-box">
+                Fissure meniscale non operee. Gestion par renforcement musculaire, adaptation de la charge et genouillere en descente technique. Surveillance permanente. Pas de contre-indication a l'ultra si gestion adequat.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Protocole de gestion</h2>
+            <table>
+                <tr><th>Action</th><th>Frequence</th></tr>
+                <tr><td>Renforcement quadriceps (chaise, squats)</td><td>3x / semaine</td></tr>
+                <tr><td>Etirements ischio-jambiers</td><td>Quotidien</td></tr>
+                <tr><td>Genouillere en descente technique</td><td>Chaque sortie D-</td></tr>
+                <tr><td>Glace apres longue sortie</td><td>Systematique</td></tr>
+                <tr><td>Stopper si douleur > 4/10</td><td>Regle absolue</td></tr>
+            </table>
+
+            <h3>Evolution genou (14 derniers jours)</h3>
+            <div class="mini-chart" id="j-chart-genou" style="height: 80px;"></div>
+            <div class="mini-chart-labels" id="j-chart-genou-labels"></div>
+
+            <h3>Journal de suivi</h3>
+            <div id="j-injury-journal">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historique blessures -->
+    <div class="card" style="margin-top: 20px;">
+        <h2>Historique des blessures</h2>
+        <table>
+            <tr><th>#</th><th>Localisation</th><th>Gravite</th><th>Resolution</th></tr>
+            <tr><td>1</td><td>Tendon d'Achille gauche</td><td>Modere</td><td class="text-green">Resolu</td></tr>
+            <tr><td>2</td><td>Entorse cheville droite</td><td>Leger</td><td class="text-green">Resolu</td></tr>
+            <tr><td class="text-bold">3</td><td class="text-bold">Genou droit (menisque)</td><td class="text-bold">Chronique</td><td class="text-yellow text-bold">En gestion</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 4 : SANTE                                                          -->
+<!-- ======================================================================== -->
+<div id="j-health" class="tab-content">
+
+    <div class="grid grid-4" style="margin-bottom: 24px;" id="j-health-kpi">
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="j-health-last-night" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Derniere nuit</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-health-last-night-score">--</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="j-health-body-battery" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Body Battery</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-health-bb-detail">--</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big" id="j-health-sleep-avg" style="color: var(--text-muted);">--</div>
+            <div class="stat-label">Sommeil moyen /nuit</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;" id="j-health-sleep-avg-sub">Objectif : 7h30</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="stat-big text-green">58<span style="font-size:18px; color: var(--text-muted);">kg</span></div>
+            <div class="stat-label">Poids</div>
+            <div style="font-size:12px; color: var(--text-muted); margin-top:4px;">164 cm · IMC 21.6</div>
+        </div>
+    </div>
+
+    <div class="grid grid-2">
+        <div class="card">
+            <h2>Sommeil</h2>
+            <div id="j-health-sleep-detail">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas encore de donnees Garmin</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Variabilite cardiaque & Stress</h2>
+            <div id="j-health-hrv-stress">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas encore de donnees Garmin</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Tendances <span>14 jours</span></div>
+    <div class="grid grid-3">
+        <div class="card">
+            <h2>FC repos (bpm)</h2>
+            <div class="mini-chart" id="j-chart-rhr"></div>
+            <div class="mini-chart-labels" id="j-chart-rhr-labels"></div>
+        </div>
+        <div class="card">
+            <h2>VFC — Moyenne nocturne (ms)</h2>
+            <div class="mini-chart" id="j-chart-hrv"></div>
+            <div class="mini-chart-labels" id="j-chart-hrv-labels"></div>
+        </div>
+        <div class="card">
+            <h2>Pas quotidiens</h2>
+            <div class="mini-chart" id="j-chart-steps"></div>
+            <div class="mini-chart-labels" id="j-chart-steps-labels"></div>
+        </div>
+    </div>
+    <div class="grid grid-2">
+        <div class="card">
+            <h2>Body Battery — 14 jours</h2>
+            <div class="mini-chart" id="j-chart-bb"></div>
+            <div class="mini-chart-labels" id="j-chart-bb-labels"></div>
+            <div id="j-chart-bb-summary" style="margin-top: 12px;"></div>
+        </div>
+        <div class="card">
+            <h2>Sommeil — 14 jours</h2>
+            <div class="mini-chart" id="j-chart-sleep"></div>
+            <div class="mini-chart-labels" id="j-chart-sleep-labels"></div>
+            <div id="j-chart-sleep-summary" style="margin-top: 12px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 5 : CALENDRIER                                                     -->
+<!-- ======================================================================== -->
+<div id="j-calendar" class="tab-content">
+
+    <div class="grid grid-1-2">
+        <div class="card">
+            <h2>Courses 2026</h2>
+            <div class="race-timeline">
+                <div class="race-item race-b">
+                    <div class="race-date">25 avril — <span class="badge badge-orange">OBJECTIF B</span></div>
+                    <div class="race-name">UTMB Mont Ventoux GRV 100K</div>
+                    <div class="race-details">100 km · 4200 D+ · Test endurance ultra</div>
+                </div>
+                <div class="race-item race-b">
+                    <div class="race-date">23 mai — <span class="badge badge-orange">OBJECTIF B</span></div>
+                    <div class="race-name">Maxi-Race (Annecy)</div>
+                    <div class="race-details">88 km · 5300 D+ · Gestion effort + nutrition</div>
+                </div>
+                <div class="race-item race-c">
+                    <div class="race-date">4 juillet — <span class="badge badge-yellow">OBJECTIF C</span></div>
+                    <div class="race-name">Trail des Pierres Dorees</div>
+                    <div class="race-details">30 km · 1200 D+ · Entretien</div>
+                </div>
+                <div class="race-item race-a">
+                    <div class="race-date">20 septembre — <span class="badge badge-red">OBJECTIF A</span></div>
+                    <div class="race-name" style="font-size: 18px;">Grand to Grand Ultra</div>
+                    <div class="race-details">275 km · 6 etapes · Course a etapes autosuffisante</div>
+                    <div style="font-size: 12px; color: var(--accent-light); margin-top: 2px;">Grand Canyon, Arizona, USA</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Periodisation macro</h2>
+            <table>
+                <tr><th>Bloc</th><th>Periode</th><th>Focus</th><th>Courses</th></tr>
+                <tr>
+                    <td><span class="badge badge-green">BUILD 1</span></td>
+                    <td>Fev-Mars (actuel)</td>
+                    <td>Construction base. Volume progressif. PPG.</td>
+                    <td class="text-muted">—</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">BUILD 2</span></td>
+                    <td>Avril</td>
+                    <td>Volume + D+. Sortie longue 5-7h.</td>
+                    <td>GRV 100K (B)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-orange">BUILD 3</span></td>
+                    <td>Mai</td>
+                    <td>Endurance ultra. Gestion effort long. Nutrition.</td>
+                    <td>Maxi-Race (B)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-red">SPECIFIQUE</span></td>
+                    <td>Juin-Juillet</td>
+                    <td>Specifique multi-etapes. Back-to-back. Autosuffisance.</td>
+                    <td>Pierres Dorees (C)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-purple">PIC</span></td>
+                    <td>Aout</td>
+                    <td>Volume pic. Simulation conditions G2G.</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><span class="badge" style="background:#333; color:#fff;">AFFUT</span></td>
+                    <td>Sept</td>
+                    <td>Tapering 10-14j. Logistique G2G.</td>
+                    <td><strong>G2G Ultra (A)</strong></td>
+                </tr>
+            </table>
+
+            <h3>Gap G2G — Le defi cle</h3>
+            <table>
+                <tr><th>Indicateur</th><th>Actuel</th><th>Requis G2G</th><th>Gap</th></tr>
+                <tr><td>Plus longue course</td><td>106 km</td><td class="text-red text-bold">275 km (6 etapes)</td><td class="text-red">Format multi-jours</td></tr>
+                <tr><td>Endurance continue</td><td>~18h max</td><td class="text-red text-bold">6-8h / jour x 6</td><td class="text-orange">Back-to-back</td></tr>
+                <tr><td>Autosuffisance</td><td>Non teste</td><td class="text-red text-bold">Obligatoire</td><td class="text-red">A planifier</td></tr>
+                <tr><td>Chaleur</td><td>Tempere</td><td class="text-orange text-bold">Desert 40°C+</td><td class="text-orange">Acclimatation</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 6 : PROGRESSION                                                    -->
+<!-- ======================================================================== -->
+<div id="j-progress" class="tab-content">
+
+    <div class="card">
+        <h2>Progression UTMB Index</h2>
+        <div style="display: flex; gap: 40px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
+            <div style="text-align: center;">
+                <div class="stat-big text-yellow">452</div>
+                <div class="stat-label">2020</div>
+            </div>
+            <div style="font-size: 32px; color: var(--text-muted);">&rarr;</div>
+            <div style="text-align: center;">
+                <div class="stat-big text-green">555</div>
+                <div class="stat-label">2024</div>
+            </div>
+            <div style="font-size: 14px; color: var(--green); font-weight: 700;">+103 points en 4 ans</div>
+        </div>
+
+        <!-- Graphique CSS -->
+        <div style="display: flex; align-items: flex-end; gap: 4px; height: 120px; margin: 20px 0; padding: 0 4px;">
+            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 52%;" title="452 - Ventoux 2021"></div>
+            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 76%;" title="530 - CCC 2021"></div>
+            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 66%;" title="520 - UTCA 2021"></div>
+            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 45%;" title="470 - EcoTrail 2022"></div>
+            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 60%;" title="485 - Coursiers 2022"></div>
+            <div style="flex:1; background: var(--yellow); border-radius: 4px 4px 0 0; height: 56%;" title="498 - SainteLyon 2022"></div>
+            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 98%;" title="553 - TMB Mara 2023"></div>
+            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 64%;" title="510 - TDS 2023"></div>
+            <div style="flex:1; background: var(--green); border-radius: 4px 4px 0 0; height: 100%;" title="555 - MaxiRace 2024"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); padding: 0 4px;">
+            <span>Jun 21</span><span>Aou 21</span><span>Fev 21</span><span>Mar 22</span><span>Mai 22</span><span>Nov 22</span><span>Jun 23</span><span>Aou 23</span><span>Jun 24</span>
+        </div>
+
+        <table style="margin-top: 20px;">
+            <tr><th>Course</th><th>Date</th><th>Distance</th><th>D+</th><th>Temps</th><th>UTMB Index</th></tr>
+            <tr><td class="text-bold">Maxi-Race</td><td>06/2024</td><td>106 km</td><td>5300 m</td><td>18:42:00</td><td><span class="text-green text-bold">555</span></td></tr>
+            <tr><td>UTMB TDS</td><td>08/2023</td><td>145 km</td><td>9100 m</td><td>38:20:00</td><td><span class="text-green">510</span></td></tr>
+            <tr><td>Trail du Mont-Blanc Marathon</td><td>06/2023</td><td>42 km</td><td>2750 m</td><td>7:15:30</td><td><span class="text-green">553</span></td></tr>
+            <tr><td>SainteLyon</td><td>11/2022</td><td>78 km</td><td>2000 m</td><td>11:45:00</td><td><span class="text-yellow">498</span></td></tr>
+            <tr><td>Trail des Coursiers</td><td>05/2022</td><td>50 km</td><td>2800 m</td><td>9:30:00</td><td><span class="text-yellow">485</span></td></tr>
+            <tr><td>Eco-Trail Paris</td><td>03/2022</td><td>80 km</td><td>1500 m</td><td>10:12:00</td><td><span class="text-yellow">470</span></td></tr>
+            <tr><td>CCC (UTMB Week)</td><td>08/2021</td><td>101 km</td><td>6100 m</td><td>24:30:00</td><td><span class="text-green">530</span></td></tr>
+            <tr><td>Ultra-Trail Cote d'Azur</td><td>02/2021</td><td>110 km</td><td>4800 m</td><td>20:15:00</td><td><span class="text-green">520</span></td></tr>
+            <tr><td>Trail du Ventoux</td><td>06/2021</td><td>46 km</td><td>2600 m</td><td>8:50:00</td><td><span class="text-yellow">452</span></td></tr>
+        </table>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Evolution Evaluation /10</h2>
+        <div id="j-eval-history">
+            <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 7 : ACTIVITES                                                      -->
+<!-- ======================================================================== -->
+<div id="j-activities" class="tab-content">
+
+    <div id="j-activities-summary" style="display: none; margin-bottom: 20px;">
+        <div class="grid grid-4" style="gap: 12px;">
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div class="stat-big text-green" id="j-sum-runs" style="font-size: 28px;">0</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div class="stat-big text-blue" id="j-sum-distance" style="font-size: 28px;">0</div>
+                <div class="stat-label">km total</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div class="stat-big text-orange" id="j-sum-elevation" style="font-size: 28px;">0</div>
+                <div class="stat-label">D+ total</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div class="stat-big text-purple" id="j-sum-time" style="font-size: 28px;">0h</div>
+                <div class="stat-label">Temps total</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="j-activities-list">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <div style="font-size: 14px;">Pas encore de donnees Strava/Garmin</div>
+        </div>
+    </div>
+</div>
+
+</div><!-- /athlete-juliette -->
+
 <!-- ===== FOOTER ===== -->
-<footer>
-    Coach Trail — Yohann Tschudi — Preparation OCC 2026<br>
+<footer id="footer-text">
+    Coach Trail — Yohann Tschudi & Juliette Sailland<br>
     Donnees : Garmin Connect · UTMB World · BeTrail · Strava<br>
-    Suivi versionne avec Git · Derniere mise a jour : 7 fevrier 2026
+    Suivi versionne avec Git · Derniere mise a jour : 8 fevrier 2026
 </footer>
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-// ===== TAB NAVIGATION =====
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+// ===== MULTI-ATHLETE CONFIG =====
+var ATHLETES = {
+    yohann: {
+        name: 'Yohann Tschudi',
+        objective: 'Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+',
+        targetDate: '2026-08-27',
+        targetLabel: 'OCC',
+        prefix: '',
+        dataDir: 'data/',
+        block: 'Bloc 0 — Reprise & Soin',
+        weekSubId: 'week',
+        injuryKey: 'soleaire'
+    },
+    juliette: {
+        name: 'Juliette Sailland',
+        objective: 'Objectif : Grand to Grand Ultra — 20 sept 2026 — 275 km / 6 etapes',
+        targetDate: '2026-09-20',
+        targetLabel: 'G2G',
+        prefix: 'j-',
+        dataDir: 'data/juliette/',
+        block: 'Build 1 — Construction base',
+        weekSubId: 'j-week',
+        injuryKey: 'genou'
+    }
+};
+var currentAthlete = 'yohann';
+var _coachLogByAthlete = {};
+var _loadedAthletes = {};
+
+// ===== ATHLETE SWITCHING =====
+document.querySelectorAll('.athlete-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var athlete = btn.dataset.athlete;
+        if (athlete === currentAthlete) return;
+        currentAthlete = athlete;
+
+        // Toggle active buttons
+        document.querySelectorAll('.athlete-btn').forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
-        document.getElementById(btn.dataset.tab).classList.add('active');
+
+        // Toggle active wrappers
+        document.querySelectorAll('.athlete-content').forEach(function(c) { c.classList.remove('active'); });
+        document.getElementById('athlete-' + athlete).classList.add('active');
+
+        // Update header
+        var cfg = ATHLETES[athlete];
+        document.getElementById('header-name').textContent = cfg.name;
+        document.getElementById('header-objective').textContent = cfg.objective;
+        var daysLeft = Math.ceil((new Date(cfg.targetDate) - new Date()) / (1000 * 60 * 60 * 24));
+        document.getElementById('header-countdown').textContent = 'J-' + daysLeft + ' avant ' + cfg.targetLabel;
+        document.getElementById('header-block').textContent = cfg.block;
+
+        // Activate first tab in the new wrapper
+        var container = document.getElementById('athlete-' + athlete);
+        container.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+        var firstTab = container.querySelector('.tab-content');
+        if (firstTab) firstTab.classList.add('active');
+
+        // Reset tab-bar to first tab
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelector('.tab-btn').classList.add('active');
+
+        // Load data if not already done
+        if (!_loadedAthletes[athlete]) {
+            loadAthleteData(athlete);
+            _loadedAthletes[athlete] = true;
+        }
+    });
+});
+
+// ===== TAB NAVIGATION (scoped to active athlete) =====
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        var prefix = ATHLETES[currentAthlete].prefix;
+        var container = document.getElementById('athlete-' + currentAthlete);
+        container.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+        var target = container.querySelector('#' + prefix + btn.dataset.tab);
+        if (target) target.classList.add('active');
         history.replaceState(null, null, '#' + btn.dataset.tab);
     });
 });
 
 // Handle URL hash on load
-const hash = location.hash.slice(1);
+var hash = location.hash.slice(1);
 if (hash) {
-    const btn = document.querySelector('[data-tab="' + hash + '"]');
-    if (btn) btn.click();
+    var hashBtn = document.querySelector('[data-tab="' + hash + '"]');
+    if (hashBtn) hashBtn.click();
 }
 
-// ===== SUB-TAB NAVIGATION =====
+// ===== SUB-TAB NAVIGATION (scoped) =====
 document.querySelectorAll('.sub-tab').forEach(function(btn) {
     btn.addEventListener('click', function() {
         var parent = btn.closest('.tab-content');
         parent.querySelectorAll('.sub-tab').forEach(function(b) { b.classList.remove('active'); });
         parent.querySelectorAll('.sub-content').forEach(function(c) { c.classList.remove('active'); });
         btn.classList.add('active');
-        parent.querySelector('#week-' + btn.dataset.subtab).classList.add('active');
+        // Find the sub-content by id — use parent's id to determine prefix
+        var parentId = parent.id;
+        var subId = parentId + '-' + btn.dataset.subtab;
+        var subContent = parent.querySelector('#' + subId);
+        if (subContent) subContent.classList.add('active');
     });
 });
 
@@ -1513,10 +2164,13 @@ function fmtDateShort(s) {
     return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 }
 
-function loadActivities() {
+function loadActivities(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
     const _nc = '?t=' + Date.now();
-    const stravaP = fetch('data/strava-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
-    const garminP = fetch('data/garmin-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
+    const stravaP = fetch(cfg.dataDir + 'strava-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
+    const garminP = fetch(cfg.dataDir + 'garmin-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
 
     Promise.all([stravaP, garminP]).then(([stravaActs, garminActs]) => {
         // Normalize Garmin activities to match Strava format
@@ -1554,14 +2208,14 @@ function loadActivities() {
         all.sort((a, b) => new Date(b.start_date_local) - new Date(a.start_date_local));
 
         if (all.length === 0) {
-            document.getElementById('activities-list').innerHTML =
+            document.getElementById(p + 'activities-list').innerHTML =
                 '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
                 '<div style="font-size:14px;">Pas encore de donnees.</div></div>';
             return;
         }
 
-        const list = document.getElementById('activities-list');
-        const summary = document.getElementById('activities-summary');
+        const list = document.getElementById(p + 'activities-list');
+        const summary = document.getElementById(p + 'activities-summary');
         list.innerHTML = '';
 
         let totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
@@ -1615,26 +2269,30 @@ function loadActivities() {
                 '</div>';
         });
 
-        document.getElementById('sum-runs').textContent = totalRuns;
-        document.getElementById('sum-distance').textContent = Math.round(totalDist);
-        document.getElementById('sum-elevation').textContent = Math.round(totalElev);
-        document.getElementById('sum-time').textContent = Math.round(totalTime / 3600) + 'h';
+        document.getElementById(p + 'sum-runs').textContent = totalRuns;
+        document.getElementById(p + 'sum-distance').textContent = Math.round(totalDist);
+        document.getElementById(p + 'sum-elevation').textContent = Math.round(totalElev);
+        document.getElementById(p + 'sum-time').textContent = Math.round(totalTime / 3600) + 'h';
         summary.style.display = 'block';
 
-        var stravaEl = document.getElementById('strava-status');
-        if (stravaEl) { stravaEl.style.color = 'var(--green)'; stravaEl.textContent = 'Strava OK'; }
+        if (!p) {
+            var stravaEl = document.getElementById('strava-status');
+            if (stravaEl) { stravaEl.style.color = 'var(--green)'; stravaEl.textContent = 'Strava OK'; }
+        }
 
         // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
-        updateWeekKPIs(all);
+        updateWeekKPIs(all, athlete);
 
         // ===== MATCHING SEMAINE vs ACTIVITES =====
-        matchWeekActivities(all);
+        matchWeekActivities(all, athlete);
     });
 }
 
-function updateWeekKPIs(activities) {
+function updateWeekKPIs(activities, athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
     const now = new Date();
-    const day = now.getDay(); // 0=dim, 1=lun
+    const day = now.getDay();
     const diffToMonday = (day === 0 ? 6 : day - 1);
     const monday = new Date(now);
     monday.setDate(now.getDate() - diffToMonday);
@@ -1650,16 +2308,16 @@ function updateWeekKPIs(activities) {
         }
     });
 
-    const kmEl = document.getElementById('kpi-week-km');
-    const kmSub = document.getElementById('kpi-week-km-sub');
+    const kmEl = document.getElementById(p + 'kpi-week-km');
+    const kmSub = document.getElementById(p + 'kpi-week-km-sub');
     if (kmEl) {
         kmEl.textContent = weekKm >= 10 ? Math.round(weekKm) : weekKm.toFixed(1);
         kmEl.style.color = weekKm >= 40 ? 'var(--green)' : weekKm >= 20 ? 'var(--yellow)' : 'var(--text-muted)';
     }
     if (kmSub) kmSub.textContent = weekCount + ' activite' + (weekCount > 1 ? 's' : '') + ' cette semaine';
 
-    const elevEl = document.getElementById('kpi-week-elev');
-    const elevSub = document.getElementById('kpi-week-elev-sub');
+    const elevEl = document.getElementById(p + 'kpi-week-elev');
+    const elevSub = document.getElementById(p + 'kpi-week-elev-sub');
     if (elevEl) {
         elevEl.innerHTML = Math.round(weekElev) + '<span style="font-size:18px; color: var(--text-muted);"> m</span>';
         elevEl.style.color = weekElev >= 500 ? 'var(--green)' : weekElev >= 200 ? 'var(--yellow)' : 'var(--text-muted)';
@@ -1667,7 +2325,9 @@ function updateWeekKPIs(activities) {
     if (elevSub) elevSub.textContent = 'D+ semaine en cours';
 }
 
-function matchWeekActivities(activities) {
+function matchWeekActivities(activities, athlete) {
+    athlete = athlete || 'yohann';
+    var container = document.getElementById('athlete-' + athlete);
     const today = new Date();
     today.setHours(23, 59, 59, 999);
     const todayStr = today.toISOString().slice(0, 10);
@@ -1681,7 +2341,7 @@ function matchWeekActivities(activities) {
         actByDate[key].push(act);
     });
 
-    const dayEls = document.querySelectorAll('.week-day[data-date]');
+    const dayEls = container.querySelectorAll('.week-day[data-date]');
     let totalPlanned = 0, totalDone = 0;
 
     dayEls.forEach(el => {
@@ -1725,37 +2385,42 @@ function matchWeekActivities(activities) {
         }
     });
 
-    // Regularity widget
-    const regEl = document.getElementById('week-regularity');
+    // Regularity widget (Yohann only for now)
+    var p = ATHLETES[athlete].prefix;
+    var regEl = document.getElementById(p + 'week-regularity');
     if (regEl && totalPlanned > 0) {
         regEl.style.display = 'block';
-        const pct = Math.round(totalDone / totalPlanned * 100);
-        const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
-        const badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
-        document.getElementById('week-regularity-badge').className = 'badge ' + badgeCls;
-        document.getElementById('week-regularity-badge').textContent = pct + '%';
-        document.getElementById('week-regularity-bar').style.width = pct + '%';
-        document.getElementById('week-regularity-bar').style.background = color;
-        document.getElementById('week-regularity-detail').textContent = totalDone + '/' + totalPlanned + ' seances realisees';
+        var pct = Math.round(totalDone / totalPlanned * 100);
+        var color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
+        var badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
+        var regBadge = document.getElementById(p + 'week-regularity-badge');
+        if (regBadge) { regBadge.className = 'badge ' + badgeCls; regBadge.textContent = pct + '%'; }
+        var regBar = document.getElementById(p + 'week-regularity-bar');
+        if (regBar) { regBar.style.width = pct + '%'; regBar.style.background = color; }
+        var regDetail = document.getElementById(p + 'week-regularity-detail');
+        if (regDetail) regDetail.textContent = totalDone + '/' + totalPlanned + ' seances realisees';
     }
 }
 
-loadActivities();
+loadActivities('yohann');
 
 // ===== MANUAL CHECKS (renfo/iso/PPG) =====
-let _coachLogDaily = [];
-let _checksDirty = false;
+var _coachLogDaily = [];
+var _checksDirty = false;
 
-function initManualChecks() {
-    document.querySelectorAll('.week-day[data-checks]').forEach(dayEl => {
+function initManualChecks(athlete) {
+    athlete = athlete || 'yohann';
+    var containerEl = document.getElementById('athlete-' + athlete);
+    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    containerEl.querySelectorAll('.week-day[data-checks]').forEach(dayEl => {
         const date = dayEl.dataset.date;
         const items = dayEl.dataset.checks.split(',').map(s => s.trim()).filter(Boolean);
         const container = dayEl.querySelector('.day-checks');
         if (!container || items.length === 0) return;
         container.innerHTML = '';
 
-        const coachEntry = _coachLogDaily.find(d => d.date === date);
-        const coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
+        var coachEntry = daily.find(function(d) { return d.date === date; });
+        var coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
 
         items.forEach(item => {
             const key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
@@ -1786,20 +2451,25 @@ function rpeColor(val) {
     return 'var(--red)';
 }
 
-function initDayMetrics() {
-    document.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
+function initDayMetrics(athlete) {
+    athlete = athlete || 'yohann';
+    var containerEl = document.getElementById('athlete-' + athlete);
+    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var injuryKey = ATHLETES[athlete].injuryKey;
+    containerEl.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
         var date = dayEl.dataset.date;
         // Remove previous metrics if re-init
         var old = dayEl.querySelector('.day-metrics');
         if (old) old.remove();
 
-        var coachEntry = _coachLogDaily.find(function(d) { return d.date === date; });
+        var coachEntry = daily.find(function(d) { return d.date === date; });
 
         var container = document.createElement('div');
         container.className = 'day-metrics';
 
+        var injuryLabel = injuryKey === 'soleaire' ? 'Soléaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
         var metrics = [
-            { key: 'soleaire', label: 'Soléaire', colorFn: soleaireColor },
+            { key: injuryKey, label: injuryLabel, colorFn: soleaireColor },
             { key: 'rpe', label: 'RPE', colorFn: rpeColor }
         ];
 
@@ -1885,9 +2555,11 @@ function showSaveChecksBtn() {
     setTimeout(function() { btn.classList.add('visible'); }, 10);
 }
 
-function collectAllDayData() {
+function collectAllDayData(athlete) {
+    athlete = athlete || currentAthlete;
+    var containerEl = document.getElementById('athlete-' + athlete);
     var result = {};
-    document.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
+    containerEl.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
         var date = dayEl.dataset.date;
         var entry = {};
         // Checks
@@ -1916,9 +2588,9 @@ function saveChecksToGitHub() {
     btn.disabled = true;
     btn.textContent = 'Sauvegarde...';
 
-    var allData = collectAllDayData();
+    var allData = collectAllDayData(currentAthlete);
     var repo = SYNC_REPO;
-    var filePath = 'data/coach-log.json';
+    var filePath = ATHLETES[currentAthlete].dataDir + 'coach-log.json';
 
     // 1. Read current file from GitHub
     fetch('https://api.github.com/repos/' + repo + '/contents/' + filePath, {
@@ -1939,7 +2611,9 @@ function saveChecksToGitHub() {
                 content.daily.sort(function(a, b) { return a.date.localeCompare(b.date); });
             }
             if (dayData.checks) entry.checks = dayData.checks;
-            if (dayData.soleaire !== undefined) entry.soleaire = dayData.soleaire;
+            // Save injury metric with the right key for current athlete
+            var injKey = ATHLETES[currentAthlete].injuryKey;
+            if (dayData[injKey] !== undefined) entry[injKey] = dayData[injKey];
             if (dayData.rpe !== undefined) entry.rpe = dayData.rpe;
         });
 
@@ -2005,8 +2679,11 @@ function detectExercises(badgeText, detailsText) {
     return found.slice(0, 3);
 }
 
-function buildTodayCard() {
-    var container = document.getElementById('today-container');
+function buildTodayCard(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    var container = document.getElementById(p + 'today-container');
     if (!container) return;
 
     var now = new Date();
@@ -2019,7 +2696,8 @@ function buildTodayCard() {
     var jourNum = now.getDate();
 
     // Find matching day-card in the planning
-    var sourceEl = document.querySelector('#week .week-day[data-date="' + todayISO + '"]:not(#today-container .week-day)');
+    var weekTabId = cfg.weekSubId;
+    var sourceEl = document.querySelector('#' + weekTabId + ' .week-day[data-date="' + todayISO + '"]:not(#' + p + 'today-container .week-day)');
 
     var badgeHTML = '';
     var detailsHTML = '';
@@ -2037,8 +2715,8 @@ function buildTodayCard() {
         }
         checksAttr = sourceEl.dataset.checks || '';
         exercises = detectExercises(badgeEl ? badgeEl.textContent : '', detailsHTML);
-        // Hide original in planning (but not if it's in #week-past — it stays visible there)
-        if (!sourceEl.closest('#week-past')) {
+        // Hide original in planning (but not if it's in past sub-tab)
+        if (!sourceEl.closest('#' + p + 'week-past')) {
             sourceEl.classList.add('day-hidden');
         }
     }
@@ -2082,14 +2760,17 @@ function buildTodayCard() {
     container.innerHTML = cardHTML;
 }
 
-function markPastDays() {
+function markPastDays(athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var containerEl = document.getElementById('athlete-' + athlete);
     var now = new Date();
     var todayISO = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
 
-    document.querySelectorAll('.week-day[data-date]').forEach(function(el) {
+    containerEl.querySelectorAll('.week-day[data-date]').forEach(function(el) {
         // Skip elements inside today-container or week-past (already styled)
-        if (el.closest('#today-container')) return;
-        if (el.closest('#week-past')) return;
+        if (el.closest('#' + p + 'today-container')) return;
+        if (el.closest('#' + p + 'week-past')) return;
         var date = el.dataset.date;
         if (date < todayISO) {
             el.classList.add('day-past');
@@ -2099,10 +2780,10 @@ function markPastDays() {
     });
 }
 
-buildTodayCard();
-markPastDays();
-initManualChecks();
-initDayMetrics();
+buildTodayCard('yohann');
+markPastDays('yohann');
+initManualChecks('yohann');
+initDayMetrics('yohann');
 
 // ===== GARMIN WELLNESS DATA =====
 function fmtSeconds(s) {
@@ -2216,8 +2897,11 @@ function stepsColor(steps) {
     return 'var(--red)';
 }
 
-function loadGarminData() {
-    fetch('data/garmin-wellness.json?t=' + Date.now())
+function loadGarminData(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    fetch(cfg.dataDir + 'garmin-wellness.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
         .then(data => {
             const sum = data.summary;
@@ -2225,8 +2909,8 @@ function loadGarminData() {
 
             // ===== KPI SANTE =====
             // Last night sleep (duration + score)
-            const lastNightEl = document.getElementById('health-last-night');
-            const lastNightScoreEl = document.getElementById('health-last-night-score');
+            const lastNightEl = document.getElementById(p + 'health-last-night');
+            const lastNightScoreEl = document.getElementById(p + 'health-last-night-score');
             const latestSleepDay = findLatest(days, 'sleep');
             if (latestSleepDay && latestSleepDay.sleep) {
                 const dur = latestSleepDay.sleep.duration_seconds;
@@ -2239,23 +2923,23 @@ function loadGarminData() {
             }
 
             // Body Battery
-            const bbEl = document.getElementById('health-body-battery');
-            if (sum.body_battery_current) {
+            const bbEl = document.getElementById(p + 'health-body-battery');
+            if (bbEl && sum.body_battery_current) {
                 bbEl.textContent = sum.body_battery_current;
                 bbEl.style.color = bbColor(sum.body_battery_current);
             }
-            const bbDetail = document.getElementById('health-bb-detail');
-            if (sum.body_battery_current) bbDetail.textContent = 'Pic du jour';
+            const bbDetail = document.getElementById(p + 'health-bb-detail');
+            if (bbDetail && sum.body_battery_current) bbDetail.textContent = 'Pic du jour';
 
             // Sommeil moyen (Sante KPI)
             if (sum.sleep_avg_seconds) {
-                const slAvgEl = document.getElementById('health-sleep-avg');
+                const slAvgEl = document.getElementById(p + 'health-sleep-avg');
                 if (slAvgEl) {
                     slAvgEl.textContent = fmtSeconds(sum.sleep_avg_seconds);
                     const h = sum.sleep_avg_seconds / 3600;
                     slAvgEl.style.color = h >= 7.5 ? 'var(--green)' : h >= 7 ? 'var(--yellow)' : h >= 6 ? 'var(--orange)' : 'var(--red)';
                 }
-                const slAvgSub = document.getElementById('health-sleep-avg-sub');
+                const slAvgSub = document.getElementById(p + 'health-sleep-avg-sub');
                 if (slAvgSub) {
                     const h = sum.sleep_avg_seconds / 3600;
                     slAvgSub.textContent = 'Objectif : 7h30';
@@ -2265,13 +2949,13 @@ function loadGarminData() {
 
             // ===== UPDATE OVERVIEW KPIs =====
             if (sum.vo2max) {
-                const ov = document.getElementById('kpi-vo2max');
+                const ov = document.getElementById(p + 'kpi-vo2max');
                 if (ov) ov.textContent = sum.vo2max;
-                const ovSub = document.getElementById('kpi-vo2max-sub');
+                const ovSub = document.getElementById(p + 'kpi-vo2max-sub');
                 if (ovSub) ovSub.textContent = 'Garmin · ' + sum.last_sync.split(' ')[0];
             }
             // ===== SOMMEIL DETAIL =====
-            const sleepDetail = document.getElementById('health-sleep-detail');
+            const sleepDetail = document.getElementById(p + 'health-sleep-detail');
             const latestSleep = findLatest(days, 'sleep');
             if (latestSleep && latestSleep.sleep) {
                 const sl = latestSleep.sleep;
@@ -2324,7 +3008,7 @@ function loadGarminData() {
             }
 
             // ===== VFC + STRESS =====
-            const hrvStress = document.getElementById('health-hrv-stress');
+            const hrvStress = document.getElementById(p + 'health-hrv-stress');
             const latestHrv = findLatest(days, 'hrv');
             const latestStress = findLatest(days, 'stress');
             let hrvHtml = '';
@@ -2399,31 +3083,31 @@ function loadGarminData() {
 
             // ===== CHARTS 14 JOURS =====
             // FC repos
-            renderMiniChart('chart-rhr', 'chart-rhr-labels',
+            renderMiniChart(p + 'chart-rhr', p + 'chart-rhr-labels',
                 days.map(d => ({ value: d.resting_hr, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
                 rhrColor, ' bpm'
             );
 
             // VFC
-            renderMiniChart('chart-hrv', 'chart-hrv-labels',
+            renderMiniChart(p + 'chart-hrv', p + 'chart-hrv-labels',
                 days.map(d => ({ value: d.hrv ? d.hrv.last_night_avg : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
                 function(v) { return v >= 50 ? 'var(--green)' : v >= 30 ? 'var(--yellow)' : 'var(--orange)'; }, ' ms'
             );
 
             // Pas
-            renderMiniChart('chart-steps', 'chart-steps-labels',
+            renderMiniChart(p + 'chart-steps', p + 'chart-steps-labels',
                 days.map(d => ({ value: d.steps, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
                 stepsColor, '',
                 function(v) { return v >= 1000 ? (v / 1000).toFixed(1).replace('.0', '') + 'k' : v; }
             );
 
             // Body Battery
-            renderMiniChart('chart-bb', 'chart-bb-labels',
+            renderMiniChart(p + 'chart-bb', p + 'chart-bb-labels',
                 days.map(d => ({ value: d.body_battery ? d.body_battery.highest : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
                 bbColor, ''
             );
             // BB summary
-            const bbSummaryEl = document.getElementById('chart-bb-summary');
+            const bbSummaryEl = document.getElementById(p + 'chart-bb-summary');
             const bbDays = days.filter(d => d.body_battery);
             if (bbDays.length > 0 && bbSummaryEl) {
                 const avgHigh = Math.round(bbDays.reduce((a, d) => a + d.body_battery.highest, 0) / bbDays.length);
@@ -2435,13 +3119,13 @@ function loadGarminData() {
             }
 
             // Sleep 14j
-            renderMiniChart('chart-sleep', 'chart-sleep-labels',
+            renderMiniChart(p + 'chart-sleep', p + 'chart-sleep-labels',
                 days.map(d => ({ value: d.sleep ? Math.round(d.sleep.duration_seconds / 60) : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
                 function(mins) { return sleepColor(mins * 60); }, ' min',
                 function(mins) { var h = Math.floor(mins / 60); var m = mins % 60; return h + 'h' + String(m).padStart(2, '0'); }
             );
             // Sleep summary
-            const sleepSummaryEl = document.getElementById('chart-sleep-summary');
+            const sleepSummaryEl = document.getElementById(p + 'chart-sleep-summary');
             const sleepDays = days.filter(d => d.sleep && d.sleep.duration_seconds > 0);
             if (sleepDays.length > 0 && sleepSummaryEl) {
                 const avgSec = Math.round(sleepDays.reduce((a, d) => a + d.sleep.duration_seconds, 0) / sleepDays.length);
@@ -2453,15 +3137,21 @@ function loadGarminData() {
                     '</div>';
             }
 
-            // Status badge
-            document.getElementById('garmin-status').style.color = 'var(--green)';
-            document.getElementById('garmin-status').textContent = 'OK';
+            // Status badge (Yohann only)
+            if (!p) {
+                document.getElementById('garmin-status').style.color = 'var(--green)';
+                document.getElementById('garmin-status').textContent = 'OK';
+            }
         })
         .catch(() => {
-            document.getElementById('garmin-status').style.color = 'var(--yellow)';
-            document.getElementById('garmin-status').textContent = 'Pas de donnees';
-            document.getElementById('health-sleep-detail').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.<br><span style="font-size:12px;">Configure les secrets GARMIN_EMAIL / GARMIN_PASSWORD<br>et lance le workflow GitHub Actions.</span></div>';
-            document.getElementById('health-hrv-stress').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
+            if (!p) {
+                document.getElementById('garmin-status').style.color = 'var(--yellow)';
+                document.getElementById('garmin-status').textContent = 'Pas de donnees';
+            }
+            var sleepEl = document.getElementById(p + 'health-sleep-detail');
+            if (sleepEl) sleepEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
+            var hrvEl = document.getElementById(p + 'health-hrv-stress');
+            if (hrvEl) hrvEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
         });
 }
 
@@ -2472,7 +3162,7 @@ function findLatest(days, key) {
     return null;
 }
 
-loadGarminData();
+loadGarminData('yohann');
 
 // ===== SYNC BUTTON =====
 const SYNC_REPO = 'dreamskid/coach-trail';
@@ -2654,7 +3344,7 @@ function pollSyncWorkflow() {
                 clearInterval(poll);
                 const ok = run.conclusion === 'success';
                 label.textContent = ok ? 'OK !' : 'Echec';
-                if (ok) { loadActivities(); loadGarminData(); }
+                if (ok) { loadActivities(currentAthlete); loadGarminData(currentAthlete); }
                 setTimeout(() => {
                     btn.classList.remove('syncing');
                     label.textContent = 'Sync';
@@ -2703,18 +3393,24 @@ function soleaireColor(val) {
     return 'var(--red)';
 }
 
-function renderInjuryJournal() {
-    var container = document.getElementById('injury-journal');
+function renderInjuryJournal(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var injuryKey = cfg.injuryKey;
+    var container = document.getElementById(p + 'injury-journal');
     if (!container) return;
-    var entries = _coachLogDaily.filter(function(d) { return d.soleaire != null; });
+    var entries = daily.filter(function(d) { return d[injuryKey] != null; });
     if (entries.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Aucune donnee soleaire enregistree</div>';
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Aucune donnee enregistree</div>';
         return;
     }
     entries.sort(function(a, b) { return b.date.localeCompare(a.date); });
-    var html = '<table><tr><th>Date</th><th>Soleaire /10</th><th>RPE</th><th>Checks</th><th>Verdict</th></tr>';
+    var injuryLabel = injuryKey === 'soleaire' ? 'Soleaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
+    var html = '<table><tr><th>Date</th><th>' + injuryLabel + ' /10</th><th>RPE</th><th>Checks</th><th>Verdict</th></tr>';
     entries.forEach(function(d) {
-        var color = soleaireColor(d.soleaire);
+        var color = soleaireColor(d[injuryKey]);
         var dateObj = new Date(d.date + 'T00:00:00');
         var dateStr = dateObj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
         var checks = d.checks ? Object.keys(d.checks).filter(function(k) { return d.checks[k]; }).join(', ') : '—';
@@ -2722,7 +3418,7 @@ function renderInjuryJournal() {
         var verdict = d.verdict || '—';
         html += '<tr>';
         html += '<td>' + dateStr + '</td>';
-        html += '<td style="color:' + color + ';font-weight:bold;">' + d.soleaire + '/10</td>';
+        html += '<td style="color:' + color + ';font-weight:bold;">' + d[injuryKey] + '/10</td>';
         html += '<td>' + rpe + '</td>';
         html += '<td class="text-muted">' + checks + '</td>';
         html += '<td>' + verdict + '</td>';
@@ -2732,14 +3428,21 @@ function renderInjuryJournal() {
     container.innerHTML = html;
 }
 
-function renderSoleaireChart() {
-    var last14 = _coachLogDaily.slice(-14);
+function renderInjuryChart(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var injuryKey = cfg.injuryKey;
+    var chartId = injuryKey === 'soleaire' ? 'chart-soleaire' : 'chart-' + injuryKey;
+    var labelsId = chartId + '-labels';
+    var last14 = daily.slice(-14);
     var values = last14.map(function(d) {
         var dateObj = new Date(d.date + 'T00:00:00');
         var short = dateObj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-        return { value: d.soleaire, label: d.date, shortLabel: short };
+        return { value: d[injuryKey], label: d.date, shortLabel: short };
     });
-    renderMiniChart('chart-soleaire', 'chart-soleaire-labels', values, soleaireColor, '/10');
+    renderMiniChart(p + chartId, p + labelsId, values, soleaireColor, '/10');
 }
 
 // --- Evaluation /10 ---
@@ -2759,9 +3462,11 @@ function evaluationColor(val) {
     return 'var(--red)';
 }
 
-function renderEvaluation(evalData) {
-    var container = document.getElementById('eval-scores');
-    var globalEl = document.getElementById('eval-global-value');
+function renderEvaluation(evalData, athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var container = document.getElementById(p + 'eval-scores');
+    var globalEl = document.getElementById(p + 'eval-global-value');
     if (!container) return;
 
     if (!evalData || !evalData.current || !evalData.current.scores) {
@@ -2796,8 +3501,10 @@ function renderEvaluation(evalData) {
     }
 }
 
-function renderEvalHistory(evalData) {
-    var container = document.getElementById('eval-history');
+function renderEvalHistory(evalData, athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var container = document.getElementById(p + 'eval-history');
     if (!container) return;
 
     if (!evalData || !evalData.history || evalData.history.length === 0) {
@@ -2858,52 +3565,73 @@ function renderEvalHistory(evalData) {
     container.innerHTML = html;
 }
 
-function loadCoachLog() {
-    fetch('data/coach-log.json?t=' + Date.now())
+function loadCoachLog(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var prefix = cfg.prefix;
+    fetch(cfg.dataDir + 'coach-log.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
         .then(data => {
-            const daily = data.daily || [];
-            const lt = data.longterm || {};
+            var daily = data.daily || [];
+            var lt = data.longterm || {};
 
-            // Sync token cross-device (XOR obfuscated)
-            var hasTokenInJson = data.settings && data.settings.gh_sync_token_obf;
-            var hasTokenLocal = getSyncToken();
-            if (hasTokenInJson && !hasTokenLocal) {
-                try { setSyncToken(deobfuscate(data.settings.gh_sync_token_obf)); } catch(e) {}
-            } else if (hasTokenLocal && !hasTokenInJson) {
-                persistTokenToRepo(hasTokenLocal);
-            }
-
-            // Feed manual checks from coach-log and re-render
-            _coachLogDaily = daily;
-            initManualChecks();
-            initDayMetrics();
-
-            // Protocol phase badges
-            var currentPhase = lt.protocol_phase || 1;
-            for (var p = 1; p <= 5; p++) {
-                var protoEl = document.getElementById('proto-phase-' + p);
-                if (!protoEl) continue;
-                if (p < currentPhase) {
-                    protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
-                } else if (p === currentPhase) {
-                    protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
-                } else {
-                    protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
+            // Sync token cross-device (Yohann only)
+            if (!prefix) {
+                var hasTokenInJson = data.settings && data.settings.gh_sync_token_obf;
+                var hasTokenLocal = getSyncToken();
+                if (hasTokenInJson && !hasTokenLocal) {
+                    try { setSyncToken(deobfuscate(data.settings.gh_sync_token_obf)); } catch(e) {}
+                } else if (hasTokenLocal && !hasTokenInJson) {
+                    persistTokenToRepo(hasTokenLocal);
                 }
             }
 
-            renderInjuryJournal();
-            renderSoleaireChart();
+            // Store daily data per athlete
+            _coachLogByAthlete[athlete] = daily;
+            if (!prefix) _coachLogDaily = daily;
+
+            // Feed manual checks from coach-log and re-render
+            initManualChecks(athlete);
+            initDayMetrics(athlete);
+
+            // Protocol phase badges (Yohann only — has proto-phase-X IDs)
+            if (!prefix) {
+                var currentPhase = lt.protocol_phase || 1;
+                for (var pp = 1; pp <= 5; pp++) {
+                    var protoEl = document.getElementById('proto-phase-' + pp);
+                    if (!protoEl) continue;
+                    if (pp < currentPhase) {
+                        protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
+                    } else if (pp === currentPhase) {
+                        protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
+                    } else {
+                        protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
+                    }
+                }
+            }
+
+            renderInjuryJournal(athlete);
+            renderInjuryChart(athlete);
 
             var evalData = lt.evaluation || null;
-            renderEvaluation(evalData);
-            renderEvalHistory(evalData);
+            renderEvaluation(evalData, athlete);
+            renderEvalHistory(evalData, athlete);
         })
         .catch(() => {});
 }
 
-loadCoachLog();
+// ===== LOAD ATHLETE DATA (all data for one athlete) =====
+function loadAthleteData(athlete) {
+    loadCoachLog(athlete);
+    loadActivities(athlete);
+    loadGarminData(athlete);
+    buildTodayCard(athlete);
+    markPastDays(athlete);
+}
+
+// Initial load for Yohann
+loadCoachLog('yohann');
+_loadedAthletes['yohann'] = true;
 </script>
 
 </body>

@@ -1,0 +1,49 @@
+{
+  "daily": [],
+  "longterm": {
+    "updated": "2026-02-08",
+    "status": "en_forme",
+    "g2g_weeks_remaining": 32,
+    "current_block": "Build 1 — Construction base",
+    "next_race": "UTMB Mont Ventoux GRV 100K (25 avril)",
+    "trajectory": "En forme, menisque a surveiller",
+    "injury_tracking": "genou",
+    "evaluation": {
+      "current": {
+        "date": "2026-02-08",
+        "trigger": "Bilan initial",
+        "scores": {
+          "progression": 8,
+          "mental": 9,
+          "gestion_effort": 6,
+          "socle_aerobie": 7,
+          "endurance_ultra": 9,
+          "technique_descente": 5,
+          "regularite": 8,
+          "puissance_montee": 6,
+          "resistance_musculaire": 7,
+          "recuperation": 4
+        }
+      },
+      "history": [
+        {
+          "date": "2026-02-08",
+          "trigger": "Bilan initial",
+          "scores": {
+            "progression": 8,
+            "mental": 9,
+            "gestion_effort": 6,
+            "socle_aerobie": 7,
+            "endurance_ultra": 9,
+            "technique_descente": 5,
+            "regularite": 8,
+            "puissance_montee": 6,
+            "resistance_musculaire": 7,
+            "recuperation": 4
+          }
+        }
+      ]
+    }
+  },
+  "settings": {}
+}
