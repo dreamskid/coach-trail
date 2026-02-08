@@ -45,17 +45,37 @@
         /* ===== HEADER ===== */
         header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px 24px 0;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 24px 10px;
             max-width: 1400px;
             margin: 0 auto;
         }
-
-        header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-        header h1 span { color: var(--accent); }
-        .header-meta { text-align: right; color: var(--text-muted); font-size: 12px; }
-        .header-meta .update { color: var(--accent-light); font-weight: 600; }
+        .header-logo {
+            font-size: 15px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px;
+            white-space: nowrap; line-height: 1;
+        }
+        .header-athletes {
+            display: flex; gap: 8px; flex: 1;
+        }
+        .athlete-btn {
+            display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px;
+            border: 2px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+            cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; transition: all 0.2s;
+            flex: 1; max-width: 260px;
+        }
+        .athlete-btn:hover { border-color: var(--accent); color: var(--text); }
+        .athlete-btn.active { border-color: var(--accent); background: var(--bg-card-alt); color: var(--text);
+            box-shadow: 0 0 0 1px var(--accent); }
+        .athlete-avatar {
+            width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .athlete-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+        .athlete-name { font-weight: 700; font-size: 13px; white-space: nowrap; }
+        .athlete-detail { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .athlete-btn.active .athlete-detail { color: var(--accent-light); }
 
         /* ===== TABS ===== */
         .tab-bar {
@@ -532,10 +552,23 @@
         @media (max-width: 900px) {
             body { overflow-x: hidden; }
             .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
-            header { flex-direction: column; gap: 8px; }
-            .header-meta { text-align: left; }
+            header { flex-wrap: wrap; padding: 10px 16px 8px; gap: 8px; }
+            .header-logo { font-size: 13px; }
+            .header-athletes { flex: 1 1 100%; order: 2; }
+            .athlete-btn { padding: 6px 10px; font-size: 12px; max-width: none; }
+            .athlete-avatar { width: 26px; height: 26px; font-size: 10px; }
+            .header-sync { order: 1; }
             .tab-btn { padding: 10px 14px; font-size: 12px; }
             table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        }
+        @media (max-width: 480px) {
+            header { padding: 8px 12px 6px; gap: 6px; }
+            .header-logo { display: none; }
+            .header-athletes { gap: 6px; }
+            .athlete-btn { padding: 6px 8px; gap: 6px; }
+            .athlete-name { font-size: 12px; }
+            .athlete-detail { font-size: 10px; }
+            .tab-btn { padding: 8px 10px; font-size: 11px; }
         }
 
         /* ===== TODAY CARD ===== */
@@ -575,17 +608,6 @@
         .sub-content { display: none; }
         .sub-content.active { display: block; animation: fadeIn 0.2s; }
 
-        /* ===== ATHLETE SELECTOR ===== */
-        .athlete-selector { display: flex; gap: 12px; padding: 12px 24px; max-width: 1400px; margin: 0 auto; }
-        .athlete-btn { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 10px;
-            border: 2px solid var(--border); background: var(--bg-card); color: var(--text-muted);
-            cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; transition: all 0.2s; }
-        .athlete-btn:hover { border-color: var(--accent); color: var(--text); }
-        .athlete-btn.active { border-color: var(--accent); background: var(--bg-card-alt); color: var(--text);
-            box-shadow: 0 0 0 1px var(--accent); }
-        .athlete-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff;
-            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
-        .athlete-obj { font-size: 11px; color: var(--text-muted); }
         .athlete-content { display: none; }
         .athlete-content.active { display: block; }
     </style>
@@ -594,37 +616,31 @@
 
 <!-- ===== HEADER ===== -->
 <header>
-    <div>
-        <h1>Coach Trail — <span id="header-name">Yohann Tschudi</span></h1>
-        <p id="header-objective" style="color: var(--text-muted); margin-top: 2px; font-size: 13px;">Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+</p>
+    <div class="header-logo">Coach Trail</div>
+    <div class="header-athletes">
+        <button class="athlete-btn active" data-athlete="yohann">
+            <span class="athlete-avatar">YT</span>
+            <div class="athlete-info">
+                <span class="athlete-name">Yohann</span>
+                <span class="athlete-detail" id="header-detail-yohann">OCC 57km — J-200</span>
+            </div>
+        </button>
+        <button class="athlete-btn" data-athlete="juliette">
+            <span class="athlete-avatar">JS</span>
+            <div class="athlete-info">
+                <span class="athlete-name">Juliette</span>
+                <span class="athlete-detail" id="header-detail-juliette">G2G 275km — J-224</span>
+            </div>
+        </button>
     </div>
-    <div class="header-meta">
-        <div class="update" id="header-update">Mise a jour : 7 fevrier 2026</div>
-        <div id="header-countdown">J-201 avant l'OCC</div>
-        <div id="header-block">Bloc 0 — Reprise & Soin</div>
-        <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
-            <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)" style="margin-top: 0;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-                <span id="sync-label">Sync</span>
-            </button>
-            <span id="garmin-status" style="font-size: 10px; color: var(--text-muted);"></span>
-        </div>
+    <div class="header-sync" style="display: flex; align-items: center; gap: 8px;">
+        <button class="sync-btn" id="sync-btn" onclick="handleSync(event)" title="Sync Strava + Garmin (Shift+click = reconfigurer le token)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+            <span id="sync-label">Sync</span>
+        </button>
+        <span id="garmin-status" style="font-size: 10px; color: var(--text-muted);"></span>
     </div>
 </header>
-
-<!-- ===== ATHLETE SELECTOR ===== -->
-<div class="athlete-selector">
-    <button class="athlete-btn active" data-athlete="yohann">
-        <span class="athlete-avatar">YT</span>
-        <span>Yohann</span>
-        <span class="athlete-obj">OCC 57km</span>
-    </button>
-    <button class="athlete-btn" data-athlete="juliette">
-        <span class="athlete-avatar">JS</span>
-        <span>Juliette</span>
-        <span class="athlete-obj">G2G 275km</span>
-    </button>
-</div>
 
 <!-- ===== TAB BAR ===== -->
 <nav class="tab-bar">
@@ -1960,6 +1976,7 @@ var ATHLETES = {
         objective: 'Objectif : OCC (UTMB Week) — 27 aout 2026 — 57 km / 3500 D+',
         targetDate: '2026-08-27',
         targetLabel: 'OCC',
+        shortLabel: 'OCC 57km',
         prefix: '',
         dataDir: 'data/',
         block: 'Bloc 0 — Reprise & Soin',
@@ -1971,6 +1988,7 @@ var ATHLETES = {
         objective: 'Objectif : Grand to Grand Ultra — 20 sept 2026 — 275 km / 6 etapes',
         targetDate: '2026-09-20',
         targetLabel: 'G2G',
+        shortLabel: 'G2G 275km',
         prefix: 'j-',
         dataDir: 'data/juliette/',
         block: 'Build 1 — Construction base',
@@ -1979,6 +1997,16 @@ var ATHLETES = {
     }
 };
 var currentAthlete = 'yohann';
+
+function updateHeaderDetails() {
+    Object.keys(ATHLETES).forEach(function(key) {
+        var c = ATHLETES[key];
+        var el = document.getElementById('header-detail-' + key);
+        if (!el) return;
+        var daysLeft = Math.ceil((new Date(c.targetDate) - new Date()) / (1000 * 60 * 60 * 24));
+        el.textContent = c.shortLabel + ' \u2014 J-' + daysLeft;
+    });
+}
 var _coachLogByAthlete = {};
 var _loadedAthletes = {};
 
@@ -1997,13 +2025,9 @@ document.querySelectorAll('.athlete-btn').forEach(function(btn) {
         document.querySelectorAll('.athlete-content').forEach(function(c) { c.classList.remove('active'); });
         document.getElementById('athlete-' + athlete).classList.add('active');
 
-        // Update header
+        // Update header detail for this athlete
         var cfg = ATHLETES[athlete];
-        document.getElementById('header-name').textContent = cfg.name;
-        document.getElementById('header-objective').textContent = cfg.objective;
-        var daysLeft = Math.ceil((new Date(cfg.targetDate) - new Date()) / (1000 * 60 * 60 * 24));
-        document.getElementById('header-countdown').textContent = 'J-' + daysLeft + ' avant ' + cfg.targetLabel;
-        document.getElementById('header-block').textContent = cfg.block;
+        updateHeaderDetails();
 
         // Activate first tab in the new wrapper
         var container = document.getElementById('athlete-' + athlete);
@@ -3629,7 +3653,8 @@ function loadAthleteData(athlete) {
     markPastDays(athlete);
 }
 
-// Initial load for Yohann
+// Initial load
+updateHeaderDetails();
 loadCoachLog('yohann');
 _loadedAthletes['yohann'] = true;
 </script>
