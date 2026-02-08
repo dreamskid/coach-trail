@@ -108,21 +108,21 @@
           "recuperation": 4
         },
         "reasons": {
-          "progression": "UTMB 305 a 451 en 18 mois",
-          "mental": "Bon mental, frustration liee aux blessures recurrentes",
-          "gestion_effort": "Bonne allure en EF, tendance a partir vite en course",
-          "socle_aerobie": "Volume 60-100km/sem mais base cassee par blessures",
+          "progression": "UTMB 305 à 451 en 18 mois",
+          "mental": "Bon mental, frustration liée aux blessures récurrentes",
+          "gestion_effort": "Bonne allure en EF, tendance à partir vite en course",
+          "socle_aerobie": "Volume 60-100km/sem mais base cassée par blessures",
           "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
-          "technique_descente": "Point faible, ratio D+/km OCC exige du travail specifique",
-          "regularite": "Blessures a repetition cassent la continuite",
+          "technique_descente": "Point faible, ratio D+/km OCC exige du travail spécifique",
+          "regularite": "Blessures à répétition cassent la continuité",
           "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
-          "resistance_musculaire": "Soleaire fragile bilateral, 4 episodes en 2 ans",
-          "recuperation": "Reprises trop rapides, recup insuffisante entre charges"
+          "resistance_musculaire": "Soléaire fragile bilatéral, 4 épisodes en 2 ans",
+          "recuperation": "Reprises trop rapides, récup insuffisante entre charges"
         },
         "global_comment": {
-          "forces": "Courbe de progression exceptionnelle (UTMB 305 a 451, +48% en 18 mois — top 5% de progression sur la plateforme UTMB). Capacite aerobique et mental solides pour le niveau vise.",
-          "axes": "Le trio puissance montee / resistance musculaire / recuperation (4/10) est le frein principal. La fragilite soleaire chronique (4 episodes) empeche la continuite d'entrainement necessaire a la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
-          "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploite a cause des blessures : la marge vers 500+ est realiste a 12-18 mois si le soleaire tient."
+          "forces": "Courbe de progression exceptionnelle (UTMB 305 à 451, +48% en 18 mois — top 5% de progression sur la plateforme UTMB). Capacité aérobique et mental solides pour le niveau visé.",
+          "axes": "Le trio puissance montée / résistance musculaire / récupération (4/10) est le frein principal. La fragilité soléaire chronique (4 épisodes) empêche la continuité d'entraînement nécessaire à la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
+          "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploité à cause des blessures : la marge vers 500+ est réaliste à 12-18 mois si le soléaire tient."
         }
       },
       "history": [
@@ -142,16 +142,16 @@
             "recuperation": 4
           },
           "reasons": {
-            "progression": "UTMB 305 a 451 en 18 mois",
-            "mental": "Bon mental, frustration liee aux blessures recurrentes",
-            "gestion_effort": "Bonne allure en EF, tendance a partir vite en course",
-            "socle_aerobie": "Volume 60-100km/sem mais base cassee par blessures",
+            "progression": "UTMB 305 à 451 en 18 mois",
+            "mental": "Bon mental, frustration liée aux blessures récurrentes",
+            "gestion_effort": "Bonne allure en EF, tendance à partir vite en course",
+            "socle_aerobie": "Volume 60-100km/sem mais base cassée par blessures",
             "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
-            "technique_descente": "Point faible, ratio D+/km OCC exige du travail specifique",
-            "regularite": "Blessures a repetition cassent la continuite",
+            "technique_descente": "Point faible, ratio D+/km OCC exige du travail spécifique",
+            "regularite": "Blessures à répétition cassent la continuité",
             "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
-            "resistance_musculaire": "Soleaire fragile bilateral, 4 episodes en 2 ans",
-            "recuperation": "Reprises trop rapides, recup insuffisante entre charges"
+            "resistance_musculaire": "Soléaire fragile bilatéral, 4 épisodes en 2 ans",
+            "recuperation": "Reprises trop rapides, récup insuffisante entre charges"
           }
         }
       ]
