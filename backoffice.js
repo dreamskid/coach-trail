@@ -36,6 +36,24 @@ const WEEK_DIRS = {
     juliette: path.join(__dirname, 'juliette', 'semaines')
 };
 
+const ACTIVITY_FILES = {
+    yohann: {
+        strava: path.join(__dirname, 'data', 'strava-activities.json'),
+        garmin: path.join(__dirname, 'data', 'garmin-activities.json'),
+        wellness: path.join(__dirname, 'data', 'garmin-wellness.json')
+    },
+    juliette: {
+        strava: path.join(__dirname, 'data', 'juliette', 'strava-activities.json'),
+        garmin: path.join(__dirname, 'data', 'juliette', 'garmin-activities.json'),
+        wellness: path.join(__dirname, 'data', 'juliette', 'garmin-wellness.json')
+    }
+};
+
+const RACE_HISTORY_FILES = {
+    yohann: path.join(__dirname, 'courses', 'historique-courses.md'),
+    juliette: path.join(__dirname, 'juliette', 'courses', 'historique-courses.md')
+};
+
 // ===== ANTHROPIC CLIENT =====
 const anthropic = process.env.ANTHROPIC_API_KEY
     ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -151,14 +169,27 @@ ${zones}
 ${calendrier}
 
 === UTILISATION DES OUTILS ===
-Tu disposes d'outils pour lire et modifier les donnees d'entrainement.
-- Utilise read_coach_log pour consulter les donnees recentes (charge, fatigue, blessure).
-- Utilise update_daily pour enregistrer ou modifier les metriques d'une journee apres un debrief.
-- Utilise update_longterm pour changer le statut global (bloc, trajectoire).
-- Utilise read_week_plan pour consulter le plan d'une semaine.
-- Utilise write_week_plan pour creer ou modifier le plan d'entrainement d'une semaine.
-Quand l'athlete te donne des infos sur sa journee (douleur, RPE, sensations...), utilise update_daily pour les enregistrer.
-Quand on te demande de construire un plan de semaine, lis d'abord le coach-log et le plan de la semaine precedente.`;
+Tu disposes d'outils pour lire et modifier TOUTES les donnees d'entrainement :
+
+LECTURE :
+- read_coach_log : coach-log complet (daily metrics + longterm + evaluation)
+- read_activities : activites Strava + Garmin recentes (courses, natation, elliptique, velo)
+- read_wellness : donnees sante Garmin (sommeil, stress, FC repos, body battery, VO2max)
+- read_week_plan : plan d'une semaine (fichier markdown)
+- read_race_history : historique des courses (resultats, temps, classements, UTMB Index)
+
+ECRITURE :
+- update_daily : enregistrer/modifier les metriques d'une journee (blessure, RPE, verdict, checks...)
+- update_longterm : modifier trajectoire (statut, bloc, next_race)
+- update_evaluation : modifier les scores d'evaluation (10 dimensions) et le commentaire global
+- write_week_plan : creer ou modifier le plan d'entrainement d'une semaine
+
+REGLES D'UTILISATION :
+- Quand l'athlete donne des infos sur sa journee → update_daily
+- Quand on demande un plan de semaine → lire coach-log + activites + semaine precedente d'abord
+- Quand on demande un bilan/evaluation → lire tout (coach-log, activites, wellness, courses) puis update_evaluation
+- Quand on parle de sante/sommeil → read_wellness pour avoir les vraies donnees Garmin
+- Quand on analyse une seance → read_activities pour les donnees reelles (FC, allure, D+)`;
 }
 
 function getISOWeek(date) {
@@ -250,6 +281,75 @@ const CHAT_TOOLS = [
             },
             required: ['week', 'content']
         }
+    },
+    {
+        name: 'read_activities',
+        description: 'Lire les activites recentes Strava + Garmin (courses, natation, elliptique, velo). Contient FC, allure, distance, D+, duree.',
+        input_schema: {
+            type: 'object',
+            properties: {
+                limit: { type: 'integer', description: 'Nombre d\'activites a retourner (defaut: 20, max: 50)' }
+            },
+            required: []
+        }
+    },
+    {
+        name: 'read_wellness',
+        description: 'Lire les donnees sante Garmin : sommeil (duree, deep, REM, score), stress, FC repos, VO2max, body battery, pas. Contient un resume + donnees jour par jour.',
+        input_schema: {
+            type: 'object',
+            properties: {},
+            required: []
+        }
+    },
+    {
+        name: 'read_race_history',
+        description: 'Lire l\'historique complet des courses : dates, distances, D+, temps, classements, UTMB Index, notes.',
+        input_schema: {
+            type: 'object',
+            properties: {},
+            required: []
+        }
+    },
+    {
+        name: 'update_evaluation',
+        description: 'Modifier l\'evaluation de l\'athlete (10 dimensions notees sur 10 + commentaire global). Les 10 dimensions : progression, mental, gestion_effort, socle_aerobie, endurance_ultra, technique_descente, regularite, puissance_montee, resistance_musculaire, recuperation.',
+        input_schema: {
+            type: 'object',
+            properties: {
+                trigger: { type: 'string', description: 'Declencheur de l\'evaluation (ex: "Bilan mensuel", "Post-course", "Debrief blessure")' },
+                scores: {
+                    type: 'object',
+                    description: 'Scores par dimension (1-10)',
+                    properties: {
+                        progression: { type: 'integer', minimum: 1, maximum: 10 },
+                        mental: { type: 'integer', minimum: 1, maximum: 10 },
+                        gestion_effort: { type: 'integer', minimum: 1, maximum: 10 },
+                        socle_aerobie: { type: 'integer', minimum: 1, maximum: 10 },
+                        endurance_ultra: { type: 'integer', minimum: 1, maximum: 10 },
+                        technique_descente: { type: 'integer', minimum: 1, maximum: 10 },
+                        regularite: { type: 'integer', minimum: 1, maximum: 10 },
+                        puissance_montee: { type: 'integer', minimum: 1, maximum: 10 },
+                        resistance_musculaire: { type: 'integer', minimum: 1, maximum: 10 },
+                        recuperation: { type: 'integer', minimum: 1, maximum: 10 }
+                    }
+                },
+                reasons: {
+                    type: 'object',
+                    description: 'Justification courte pour chaque score modifie'
+                },
+                global_comment: {
+                    type: 'object',
+                    description: 'Commentaire global',
+                    properties: {
+                        forces: { type: 'string' },
+                        axes: { type: 'string' },
+                        positionnement: { type: 'string' }
+                    }
+                }
+            },
+            required: ['trigger', 'scores']
+        }
     }
 ];
 
@@ -313,6 +413,71 @@ function executeTool(toolName, toolInput, athlete) {
             fs.writeFileSync(filePath, content, 'utf8');
             modifications.push({ type: 'week_plan', week });
             result = 'Plan semaine ' + week + ' ecrit.';
+            break;
+        }
+        case 'read_activities': {
+            const files = ACTIVITY_FILES[athlete] || ACTIVITY_FILES.yohann;
+            const limit = Math.min(toolInput.limit || 20, 50);
+            let strava = [], garmin = [];
+            try { strava = JSON.parse(fs.readFileSync(files.strava, 'utf8')); } catch {}
+            try { garmin = JSON.parse(fs.readFileSync(files.garmin, 'utf8')); } catch {}
+            // Merge and sort by date desc, take most recent
+            const all = [...strava.map(a => ({...a, source: a.source || 'strava'})), ...garmin.map(a => ({...a, source: a.source || 'garmin'}))];
+            all.sort((a, b) => (b.start_date_local || '').localeCompare(a.start_date_local || ''));
+            // Deduplicate by date+type (keep strava version as it has more data)
+            const seen = new Set();
+            const unique = all.filter(a => {
+                const key = (a.start_date_local || '').slice(0, 16) + '|' + (a.type || a.sport_type || '');
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            result = JSON.stringify(unique.slice(0, limit), null, 2);
+            break;
+        }
+        case 'read_wellness': {
+            const files = ACTIVITY_FILES[athlete] || ACTIVITY_FILES.yohann;
+            try {
+                result = fs.readFileSync(files.wellness, 'utf8');
+            } catch {
+                result = 'Pas de donnees wellness disponibles.';
+            }
+            break;
+        }
+        case 'read_race_history': {
+            const raceFile = RACE_HISTORY_FILES[athlete] || RACE_HISTORY_FILES.yohann;
+            try {
+                result = fs.readFileSync(raceFile, 'utf8');
+            } catch {
+                result = 'Pas d\'historique de courses disponible.';
+            }
+            break;
+        }
+        case 'update_evaluation': {
+            const data = readData(athlete);
+            if (!data.longterm) data.longterm = {};
+            const prevEval = data.longterm.evaluation || {};
+            const prevCurrent = prevEval.current || null;
+            const history = prevEval.history || [];
+
+            // Archive previous evaluation in history
+            if (prevCurrent) {
+                history.push(prevCurrent);
+            }
+
+            // Build new evaluation
+            const newEval = {
+                date: new Date().toISOString().slice(0, 10),
+                trigger: toolInput.trigger,
+                scores: { ...(prevCurrent ? prevCurrent.scores : {}), ...toolInput.scores },
+                reasons: { ...(prevCurrent ? prevCurrent.reasons : {}), ...(toolInput.reasons || {}) },
+                global_comment: toolInput.global_comment || (prevCurrent ? prevCurrent.global_comment : { forces: '', axes: '', positionnement: '' })
+            };
+
+            data.longterm.evaluation = { current: newEval, history };
+            writeData(data, athlete);
+            modifications.push({ type: 'evaluation' });
+            result = 'Evaluation mise a jour (' + toolInput.trigger + ').';
             break;
         }
         default:

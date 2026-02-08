@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0f1117">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -568,92 +568,30 @@
         .save-checks-btn:hover { opacity: 0.9; }
         .save-checks-btn:disabled { opacity: 0.5; cursor: wait; }
 
-        /* ===== CHAT WIDGET ===== */
-        .chat-fab {
-            position: fixed;
-            bottom: 90px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 4px 24px rgba(34, 197, 94, 0.4);
-            z-index: 900;
+        /* ===== CHAT (TAB INTEGRATED) ===== */
+        .chat-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .chat-fab:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 32px rgba(34, 197, 94, 0.55);
-        }
-        .chat-fab svg { width: 34px; height: 34px; }
-        .chat-fab-dot {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #3b82f6;
-            border: 2.5px solid #1a1d27;
-            animation: chat-pulse 2s infinite;
-        }
-        .chat-fab.hidden { display: none; }
-
-        @keyframes chat-pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.85); }
-        }
-
-        .chat-panel {
-            position: fixed;
-            bottom: 0;
-            right: 24px;
-            width: 420px;
-            height: 75vh;
-            max-height: 700px;
+            flex-direction: column;
+            height: calc(100vh - 160px);
+            min-height: 400px;
             background: var(--bg);
             border: 1px solid var(--border);
-            border-bottom: none;
-            border-radius: 16px 16px 0 0;
-            box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
+            border-radius: var(--radius);
             overflow: hidden;
         }
-        .chat-panel.open {
-            display: flex;
-            animation: chat-slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
 
-        @keyframes chat-slide-up {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .chat-header {
+        .chat-header-bar {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
+            gap: 12px;
+            padding: 14px 18px;
             background: linear-gradient(135deg, #0a1a0f 0%, #122218 100%);
             border-bottom: 1px solid rgba(34, 197, 94, 0.2);
             flex-shrink: 0;
         }
-        .chat-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
         .chat-header-icon {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
             display: flex;
@@ -667,6 +605,7 @@
             display: flex;
             flex-direction: column;
             gap: 1px;
+            flex: 1;
         }
         .chat-header-title {
             font-size: 14px;
@@ -681,58 +620,33 @@
             align-items: center;
             gap: 5px;
         }
-        .chat-header-dot {
+        .chat-status-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: #22c55e;
             display: inline-block;
             flex-shrink: 0;
+            animation: chat-pulse 2s infinite;
         }
-        .chat-header-right {
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        @keyframes chat-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-        .chat-header-right button {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 6px 8px;
-            border-radius: 6px;
-            font-size: 16px;
-            line-height: 1;
-            transition: all 0.15s;
-        }
-        .chat-header-right button:hover {
+        .chat-new-btn {
+            padding: 7px 14px;
             background: var(--bg-card-alt);
-            color: var(--text);
-        }
-
-        .chat-back-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #141720 0%, #1a1d27 100%);
-            border: none;
-            border-top: 1px solid var(--border);
-            color: var(--accent-light);
-            font-size: 13px;
-            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.15s;
             flex-shrink: 0;
         }
-        .chat-back-btn:hover {
-            background: var(--bg-card-alt);
-            color: var(--text);
-        }
-        .chat-back-btn svg { width: 16px; height: 16px; }
+        .chat-new-btn:hover { border-color: var(--accent); color: var(--text); }
 
         .chat-messages {
             flex: 1;
@@ -876,7 +790,7 @@
         }
         .chat-input-row textarea:focus { border-color: var(--accent); }
         .chat-input-row textarea::placeholder { color: var(--text-muted); }
-        #chat-send {
+        .chat-send-btn {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -890,43 +804,19 @@
             flex-shrink: 0;
             transition: all 0.2s;
         }
-        #chat-send:hover { transform: scale(1.05); }
-        #chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-        #chat-send svg { width: 18px; height: 18px; }
-
-        /* Body lock when chat is open on mobile */
-        body.chat-open-mobile { overflow: hidden; position: fixed; width: 100%; }
+        .chat-send-btn:hover { transform: scale(1.05); }
+        .chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .chat-send-btn svg { width: 18px; height: 18px; }
 
         /* ===== CHAT RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .chat-fab { width: 52px; height: 52px; bottom: 80px; right: 16px; }
-            .chat-fab svg { width: 28px; height: 28px; }
-            .chat-panel {
-                width: 100%;
-                height: 100dvh;
-                height: 100vh; /* fallback */
-                max-height: none;
-                right: 0;
-                top: 0;
-                bottom: auto;
+            .chat-container {
+                height: calc(100vh - 130px);
+                height: calc(100dvh - 130px);
                 border-radius: 0;
                 border: none;
-                box-shadow: none;
-            }
-            .chat-panel.open {
-                animation: none;
-            }
-            .chat-header {
-                padding: 10px 16px;
-                padding-top: max(10px, env(safe-area-inset-top));
-            }
-            .chat-back-btn {
-                padding: 14px;
-                padding-bottom: max(14px, env(safe-area-inset-bottom));
-                font-size: 14px;
             }
             .chat-input-row {
-                padding: 10px 12px;
                 padding-bottom: max(10px, env(safe-area-inset-bottom));
             }
         }
@@ -1046,6 +936,7 @@
     <button class="tab-btn" data-tab="injury">Blessure</button>
     <button class="tab-btn" data-tab="calendar">Calendrier</button>
     <button class="tab-btn" data-tab="progress">Progression</button>
+    <button class="tab-btn" data-tab="coach">Coach IA</button>
 </nav>
 
 <!-- ===== ATHLETE: YOHANN ===== -->
@@ -1901,6 +1792,36 @@
     </div>
 </div>
 
+<!-- ======================================================================== -->
+<!-- TAB 8 : COACH IA                                                       -->
+<!-- ======================================================================== -->
+<div id="coach" class="tab-content">
+    <div class="chat-container">
+        <div class="chat-header-bar">
+            <div class="chat-header-icon">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M8 48 L24 20 L32 32 L40 22 L56 48 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2.5" stroke-linejoin="round"/><circle cx="38" cy="14" r="3.5" fill="white"/><path d="M35 19 L38 25 L42 22 M38 25 L36 32 L32 36 M38 25 L40 32 L44 35" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="chat-header-info">
+                <span class="chat-header-title">Coach Trail IA</span>
+                <span class="chat-header-subtitle"><span class="chat-status-dot"></span> En ligne — <span class="chat-athlete-label">Yohann</span></span>
+            </div>
+            <button class="chat-new-btn" id="chat-new" title="Nouvelle conversation">&#8635; Nouveau</button>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-typing" id="chat-typing">
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+        </div>
+        <div class="chat-input-row">
+            <textarea id="chat-input" placeholder="Parle a ton coach..." rows="1"></textarea>
+            <button class="chat-send-btn" id="chat-send">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
 </div><!-- /athlete-yohann -->
 
 <!-- ===== ATHLETE: JULIETTE ===== -->
@@ -2522,6 +2443,36 @@
     <div id="j-activities-list">
         <div style="text-align: center; padding: 40px; color: var(--text-muted);">
             <div style="font-size: 14px;">Pas encore de donnees Strava/Garmin</div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================== -->
+<!-- J-TAB 8 : COACH IA                                                     -->
+<!-- ======================================================================== -->
+<div id="j-coach" class="tab-content">
+    <div class="chat-container">
+        <div class="chat-header-bar">
+            <div class="chat-header-icon">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M8 48 L24 20 L32 32 L40 22 L56 48 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2.5" stroke-linejoin="round"/><circle cx="38" cy="14" r="3.5" fill="white"/><path d="M35 19 L38 25 L42 22 M38 25 L36 32 L32 36 M38 25 L40 32 L44 35" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="chat-header-info">
+                <span class="chat-header-title">Coach Trail IA</span>
+                <span class="chat-header-subtitle"><span class="chat-status-dot"></span> En ligne — <span class="chat-athlete-label">Juliette</span></span>
+            </div>
+            <button class="chat-new-btn" id="j-chat-new" title="Nouvelle conversation">&#8635; Nouveau</button>
+        </div>
+        <div class="chat-messages" id="j-chat-messages"></div>
+        <div class="chat-typing" id="j-chat-typing">
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+        </div>
+        <div class="chat-input-row">
+            <textarea id="j-chat-input" placeholder="Parle a ton coach..." rows="1"></textarea>
+            <button class="chat-send-btn" id="j-chat-send">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
         </div>
     </div>
 </div>
@@ -4283,366 +4234,221 @@ _loadedAthletes[currentAthlete] = true;
 
 </script>
 
-<!-- Chat FAB -->
-<button class="chat-fab" id="chat-fab">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Mountain -->
-        <path d="M8 48 L24 20 L32 32 L40 22 L56 48 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M24 20 L28 26 L20 26 Z" fill="rgba(255,255,255,0.3)"/>
-        <!-- Runner -->
-        <circle cx="38" cy="14" r="3.5" fill="white"/>
-        <path d="M35 19 L38 25 L42 22 M38 25 L36 32 L32 36 M38 25 L40 32 L44 35" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="chat-fab-dot"></span>
-</button>
-
-<!-- Chat Panel -->
-<div class="chat-panel" id="chat-panel">
-    <div class="chat-header">
-        <div class="chat-header-left">
-            <div class="chat-header-icon">
-                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 48 L24 20 L32 32 L40 22 L56 48 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
-                    <circle cx="38" cy="14" r="3.5" fill="white"/>
-                    <path d="M35 19 L38 25 L42 22 M38 25 L36 32 L32 36 M38 25 L40 32 L44 35" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <div class="chat-header-info">
-                <span class="chat-header-title">Coach Trail IA</span>
-                <span class="chat-header-subtitle"><span class="chat-header-dot"></span> En ligne — <span id="chat-athlete-name">Yohann</span></span>
-            </div>
-        </div>
-        <div class="chat-header-right">
-            <button id="chat-new" title="Nouvelle conversation">&#8635;</button>
-        </div>
-    </div>
-    <div class="chat-messages" id="chat-messages"></div>
-    <div class="chat-typing" id="chat-typing">
-        <span class="chat-typing-dot"></span>
-        <span class="chat-typing-dot"></span>
-        <span class="chat-typing-dot"></span>
-    </div>
-    <div class="chat-input-row">
-        <textarea id="chat-input" placeholder="Ton message..." rows="1"></textarea>
-        <button id="chat-send">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
-    </div>
-    <button class="chat-back-btn" id="chat-close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Retour au dashboard
-    </button>
-</div>
-
 <script>
-// ===== CHAT COACH IA =====
+// ===== CHAT COACH IA (tab-integrated, scoped per athlete) =====
 (function() {
     var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     var CHAT_API = isLocal ? 'http://localhost:3000' : 'https://unguillotined-norris-historically.ngrok-free.dev';
-    var chatOpen = false;
-    var chatLoadedFor = null; // tracks which athlete is currently displayed
-    var chatSending = false;
-    var isMobile = window.matchMedia('(max-width: 768px)').matches;
-    var bodyScrollY = 0;
+    var chatLoadedFor = {};
+    var chatSending = {};
+    var ngrokH = { 'ngrok-skip-browser-warning': '1' };
 
-    var fab = document.getElementById('chat-fab');
-    var panel = document.getElementById('chat-panel');
-    var messagesEl = document.getElementById('chat-messages');
-    var typingEl = document.getElementById('chat-typing');
-    var inputEl = document.getElementById('chat-input');
-    var sendBtn = document.getElementById('chat-send');
-    var closeBtn = document.getElementById('chat-close');
-    var newBtn = document.getElementById('chat-new');
-    var athleteNameEl = document.getElementById('chat-athlete-name');
-
-    function getChatAthlete() { return currentAthlete; }
-
-    function lockBody() {
-        if (!isMobile) return;
-        bodyScrollY = window.scrollY;
-        document.body.classList.add('chat-open-mobile');
-        document.body.style.top = '-' + bodyScrollY + 'px';
+    function getEls(athlete) {
+        var p = ATHLETES[athlete].prefix;
+        return {
+            messages: document.getElementById(p + 'chat-messages'),
+            typing: document.getElementById(p + 'chat-typing'),
+            input: document.getElementById(p + 'chat-input'),
+            send: document.getElementById(p + 'chat-send'),
+            newBtn: document.getElementById(p + 'chat-new')
+        };
     }
 
-    function unlockBody() {
-        if (!isMobile) return;
-        document.body.classList.remove('chat-open-mobile');
-        document.body.style.top = '';
-        window.scrollTo(0, bodyScrollY);
-    }
+    function initChat(athlete) {
+        var el = getEls(athlete);
+        if (!el.send || el.send._chatInit) return;
+        el.send._chatInit = true;
 
-    // Handle mobile keyboard resize
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', function() {
-            if (!chatOpen) return;
-            var vh = window.visualViewport.height;
-            panel.style.height = vh + 'px';
-            scrollToBottom();
+        el.send.addEventListener('click', function() { sendMessage(athlete); });
+        el.input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(athlete); }
+        });
+        el.input.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 72) + 'px';
+        });
+        el.newBtn.addEventListener('click', function() {
+            if (!confirm('Nouvelle conversation ? L\'historique sera effac\u00e9.')) return;
+            fetch(CHAT_API + '/api/chat-clear?athlete=' + athlete, { method: 'POST', headers: ngrokH })
+                .then(function() {
+                    el.messages.innerHTML = '';
+                    chatLoadedFor[athlete] = false;
+                    addWelcome(athlete);
+                }).catch(function() {});
         });
     }
 
-    // Open / close
-    fab.addEventListener('click', function() {
-        chatOpen = true;
-        panel.classList.add('open');
-        fab.classList.add('hidden');
-        lockBody();
-        var athlete = getChatAthlete();
-        athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
-        if (chatLoadedFor !== athlete) {
-            messagesEl.innerHTML = '';
-            loadChatHistory();
-        }
-        setTimeout(function() { inputEl.focus(); }, 100);
-    });
-
-    closeBtn.addEventListener('click', function() {
-        chatOpen = false;
-        panel.classList.remove('open');
-        panel.style.height = '';
-        fab.classList.remove('hidden');
-        unlockBody();
-        // Refresh dashboard data to show any changes made via chat
-        loadAthleteData(getChatAthlete());
-    });
-
-    // New conversation
-    newBtn.addEventListener('click', function() {
-        if (!confirm('Nouvelle conversation ? L\'historique sera effac\u00e9.')) return;
-        fetch(CHAT_API + '/api/chat-clear?athlete=' + getChatAthlete(), { method: 'POST', headers: { 'ngrok-skip-browser-warning': '1' } })
-            .then(function() {
-                messagesEl.innerHTML = '';
-                chatLoadedFor = null;
-                addWelcomeMessage();
-            })
-            .catch(function() {});
-    });
-
-    // Switch athlete — listen to existing athlete buttons
-    document.querySelectorAll('.athlete-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var athlete = btn.dataset.athlete;
-            athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
-            if (chatOpen) {
-                messagesEl.innerHTML = '';
-                chatLoadedFor = null;
-                loadChatHistory();
-            } else {
-                // Force reload on next open
-                chatLoadedFor = null;
-            }
-        });
-    });
-
-    // Load chat history
-    function loadChatHistory() {
-        var athlete = getChatAthlete();
-        fetch(CHAT_API + '/api/chat-history?athlete=' + athlete, { headers: { 'ngrok-skip-browser-warning': '1' } })
+    // Load history for an athlete (called when tab becomes visible)
+    function loadChatHistory(athlete) {
+        var el = getEls(athlete);
+        fetch(CHAT_API + '/api/chat-history?athlete=' + athlete, { headers: ngrokH })
             .then(function(r) { return r.json(); })
             .then(function(data) {
-                messagesEl.innerHTML = '';
+                el.messages.innerHTML = '';
                 if (!data.messages || data.messages.length === 0) {
-                    addWelcomeMessage();
+                    addWelcome(athlete);
                 } else {
                     var lastDate = '';
                     data.messages.forEach(function(m) {
                         var d = m.timestamp ? m.timestamp.slice(0, 10) : '';
-                        if (d && d !== lastDate) {
-                            addDateSeparator(d);
-                            lastDate = d;
-                        }
-                        appendMessage(m.role, m.content, m.timestamp, false);
+                        if (d && d !== lastDate) { addDateSep(el.messages, d); lastDate = d; }
+                        appendMsg(el.messages, m.role, m.content, m.timestamp, false);
                     });
                 }
-                scrollToBottom();
-                chatLoadedFor = athlete;
+                scrollBot(el.messages);
+                chatLoadedFor[athlete] = true;
             })
             .catch(function() {
-                addWelcomeMessage();
-                chatLoadedFor = athlete;
+                addWelcome(athlete);
+                chatLoadedFor[athlete] = true;
             });
     }
 
-    function addWelcomeMessage() {
-        var name = getChatAthlete() === 'juliette' ? 'Juliette' : 'Yohann';
+    function addWelcome(athlete) {
+        var el = getEls(athlete);
+        var name = athlete === 'juliette' ? 'Juliette' : 'Yohann';
         var div = document.createElement('div');
         div.className = 'chat-msg assistant';
         div.innerHTML = 'Salut ' + name + ' ! Je suis ton coach trail. Parle-moi de ta s\u00e9ance, tes sensations, ou demande-moi de construire ton plan de semaine.';
-        messagesEl.appendChild(div);
+        el.messages.appendChild(div);
     }
 
-    // Send message
-    function sendMessage() {
-        var text = inputEl.value.trim();
-        if (!text || chatSending) return;
+    function sendMessage(athlete) {
+        var el = getEls(athlete);
+        var text = el.input.value.trim();
+        if (!text || chatSending[athlete]) return;
 
-        chatSending = true;
-        sendBtn.disabled = true;
-        inputEl.value = '';
-        inputEl.style.height = 'auto';
+        chatSending[athlete] = true;
+        el.send.disabled = true;
+        el.input.value = '';
+        el.input.style.height = 'auto';
 
-        // Add date separator if needed
         var todayStr = new Date().toISOString().slice(0, 10);
-        var lastSep = messagesEl.querySelector('.chat-date-sep:last-of-type');
-        var lastSepDate = lastSep ? lastSep.dataset.date : '';
-        if (todayStr !== lastSepDate) {
-            addDateSeparator(todayStr);
-        }
+        var lastSep = el.messages.querySelector('.chat-date-sep:last-of-type');
+        if (!lastSep || lastSep.dataset.date !== todayStr) addDateSep(el.messages, todayStr);
 
-        appendMessage('user', text, new Date().toISOString(), true);
-        showTyping(true);
-        scrollToBottom();
+        appendMsg(el.messages, 'user', text, new Date().toISOString(), true);
+        el.typing.classList.add('visible');
+        scrollBot(el.messages);
 
         fetch(CHAT_API + '/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': '1' },
-            body: JSON.stringify({ athlete: getChatAthlete(), message: text })
+            body: JSON.stringify({ athlete: athlete, message: text })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            showTyping(false);
+            el.typing.classList.remove('visible');
             if (data.error) {
-                appendMessage('assistant', 'Erreur : ' + data.error, new Date().toISOString(), true);
+                appendMsg(el.messages, 'assistant', 'Erreur : ' + data.error, new Date().toISOString(), true);
             } else {
-                appendMessage('assistant', data.response, new Date().toISOString(), true);
+                appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
                 if (data.modifications && data.modifications.length > 0) {
-                    addModificationNotice(data.modifications);
-                    // Refresh dashboard data
-                    loadCoachLog(getChatAthlete());
+                    addModNotice(el.messages, data.modifications);
+                    loadCoachLog(athlete);
                 }
             }
-            scrollToBottom();
-            chatSending = false;
-            sendBtn.disabled = false;
-            inputEl.focus();
+            scrollBot(el.messages);
+            chatSending[athlete] = false;
+            el.send.disabled = false;
+            el.input.focus();
         })
-        .catch(function(err) {
-            showTyping(false);
-            appendMessage('assistant', 'Erreur de connexion. V\u00e9rifie que le serveur tourne (node backoffice.js).', new Date().toISOString(), true);
-            scrollToBottom();
-            chatSending = false;
-            sendBtn.disabled = false;
+        .catch(function() {
+            el.typing.classList.remove('visible');
+            appendMsg(el.messages, 'assistant', 'Erreur de connexion. V\u00e9rifie que le serveur tourne sur ton Mac.', new Date().toISOString(), true);
+            scrollBot(el.messages);
+            chatSending[athlete] = false;
+            el.send.disabled = false;
         });
     }
 
-    sendBtn.addEventListener('click', sendMessage);
-    inputEl.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-
-    // Auto-resize textarea
-    inputEl.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 72) + 'px';
-    });
-
-    // Append a message bubble
-    function appendMessage(role, content, timestamp, animate) {
+    function appendMsg(container, role, content, ts, animate) {
         var div = document.createElement('div');
         div.className = 'chat-msg ' + role;
         if (!animate) div.style.animation = 'none';
-
-        if (role === 'assistant') {
-            div.innerHTML = formatMarkdown(content);
-        } else {
-            div.textContent = content;
+        div.innerHTML = role === 'assistant' ? fmtMd(content) : escHtml(content);
+        if (ts) {
+            var t = document.createElement('div');
+            t.className = 'chat-msg-time';
+            try { t.textContent = new Date(ts).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); } catch(e) {}
+            div.appendChild(t);
         }
-
-        // Timestamp
-        if (timestamp) {
-            var timeDiv = document.createElement('div');
-            timeDiv.className = 'chat-msg-time';
-            timeDiv.textContent = formatTime(timestamp);
-            div.appendChild(timeDiv);
-        }
-
-        messagesEl.appendChild(div);
+        container.appendChild(div);
     }
 
-    // Date separator
-    function addDateSeparator(dateStr) {
+    function addDateSep(container, dateStr) {
         var div = document.createElement('div');
         div.className = 'chat-date-sep';
         div.dataset.date = dateStr;
-        var label = formatDateLabel(dateStr);
+        var today = new Date().toISOString().slice(0, 10);
+        var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        var label = dateStr === today ? 'Aujourd\'hui' : dateStr === yesterday ? 'Hier' : '';
+        if (!label) try { label = new Date(dateStr + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }); } catch(e) { label = dateStr; }
         div.innerHTML = '<span>' + label + '</span>';
-        messagesEl.appendChild(div);
+        container.appendChild(div);
     }
 
-    // Modification notification
-    function addModificationNotice(mods) {
+    function addModNotice(container, mods) {
         var labels = mods.map(function(m) {
             if (m.type === 'daily') return 'Donn\u00e9es du ' + m.date;
             if (m.type === 'longterm') return 'Trajectoire';
             if (m.type === 'week_plan') return 'Plan ' + m.week;
+            if (m.type === 'evaluation') return '\u00c9valuation';
             return m.type;
         });
         var div = document.createElement('div');
         div.className = 'chat-notification';
-        div.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' +
-            'Mis \u00e0 jour : ' + labels.join(', ');
-        messagesEl.appendChild(div);
+        div.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Mis \u00e0 jour : ' + labels.join(', ');
+        container.appendChild(div);
     }
 
-    // Typing indicator
-    function showTyping(show) {
-        typingEl.classList.toggle('visible', show);
-        if (show) scrollToBottom();
-    }
+    function scrollBot(el) { setTimeout(function() { el.scrollTop = el.scrollHeight; }, 50); }
 
-    function scrollToBottom() {
-        setTimeout(function() {
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-        }, 50);
-    }
+    function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    // Format timestamp
-    function formatTime(ts) {
-        try {
-            var d = new Date(ts);
-            return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        } catch (e) { return ''; }
-    }
-
-    // Format date label
-    function formatDateLabel(dateStr) {
-        var today = new Date().toISOString().slice(0, 10);
-        var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-        if (dateStr === today) return 'Aujourd\'hui';
-        if (dateStr === yesterday) return 'Hier';
-        try {
-            var d = new Date(dateStr + 'T12:00:00');
-            return d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
-        } catch (e) { return dateStr; }
-    }
-
-    // Basic markdown formatting
-    function formatMarkdown(text) {
+    function fmtMd(text) {
         if (!text) return '';
-        // Escape HTML
-        var s = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        // Bold
+        var s = escHtml(text);
         s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-        // Italic
         s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
-        // Inline code
         s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-        // Unordered lists
         s = s.replace(/^[-\u2022] (.+)$/gm, '<li>$1</li>');
         s = s.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-        // Ordered lists
         s = s.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-        // Paragraphs (double newline)
         s = s.replace(/\n\n/g, '</p><p>');
-        // Single newlines within paragraphs
         s = s.replace(/\n/g, '<br>');
         s = '<p>' + s + '</p>';
-        // Clean empty paragraphs
         s = s.replace(/<p>\s*<\/p>/g, '');
         return s;
+    }
+
+    // Hook into tab navigation: load chat when Coach tab is shown
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            if (btn.dataset.tab === 'coach') {
+                var athlete = currentAthlete;
+                initChat(athlete);
+                if (!chatLoadedFor[athlete]) {
+                    loadChatHistory(athlete);
+                }
+                setTimeout(function() { var el = getEls(athlete); if (el.input) el.input.focus(); }, 200);
+            }
+        });
+    });
+
+    // Init both athletes (in case loaded via URL hash)
+    ['yohann', 'juliette'].forEach(function(a) { initChat(a); });
+
+    // Handle keyboard resize on mobile
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function() {
+            var containers = document.querySelectorAll('.chat-container');
+            containers.forEach(function(c) {
+                if (c.offsetParent) { // visible
+                    c.style.height = window.visualViewport.height - 130 + 'px';
+                }
+            });
+        });
     }
 })();
 </script>
