@@ -103,9 +103,47 @@ function buildSystemPrompt(athlete) {
         ? 'Grand to Grand Ultra (20 sept 2026, 275km / 6 etapes, Arizona)'
         : 'OCC (27 aout 2026, 57km / 3500 D+, UTMB week)';
 
-    const today = new Date().toISOString().slice(0, 10);
-    const weekNum = getISOWeek(new Date());
-    const weekStr = new Date().getFullYear() + '-W' + String(weekNum).padStart(2, '0');
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    const weekNum = getISOWeek(now);
+    const weekStr = now.getFullYear() + '-W' + String(weekNum).padStart(2, '0');
+    const dayNames = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    const monthNames = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'];
+    const todayFr = dayNames[now.getDay()] + ' ' + now.getDate() + ' ' + monthNames[now.getMonth()] + ' ' + now.getFullYear();
+
+    // Compute days until each race
+    function daysUntil(dateStr) {
+        const target = new Date(dateStr + 'T00:00:00');
+        return Math.round((target - now) / 86400000);
+    }
+    function weeksUntil(dateStr) {
+        return Math.round(daysUntil(dateStr) / 7);
+    }
+
+    let racesCountdown;
+    if (athlete === 'juliette') {
+        racesCountdown = [
+            { name: 'GRV 100K Ventoux', date: '2026-04-25' },
+            { name: 'Maxi-Race 57km', date: '2026-05-23' },
+            { name: 'Pierres Dorees', date: '2026-07-04' },
+            { name: 'Grand to Grand Ultra (OBJ A)', date: '2026-09-20' }
+        ];
+    } else {
+        racesCountdown = [
+            { name: 'Cabornis', date: '2026-03-08' },
+            { name: 'MMT', date: '2026-04-26' },
+            { name: 'Marathon-eXperience', date: '2026-05-31' },
+            { name: 'Monistrail', date: '2026-06-14' },
+            { name: 'OCC (OBJ A)', date: '2026-08-27' }
+        ];
+    }
+    const countdownStr = racesCountdown.map(r => {
+        const d = daysUntil(r.date);
+        const w = weeksUntil(r.date);
+        if (d < 0) return r.name + ' : PASSEE (il y a ' + Math.abs(d) + ' jours)';
+        if (d === 0) return r.name + ' : AUJOURD\'HUI !';
+        return r.name + ' : J-' + d + ' (' + w + ' semaines)';
+    }).join('\n');
 
     return `=== IDENTITE VERROUILLEE ===
 Tu es EXCLUSIVEMENT un coach trail running et cross-training.
@@ -113,6 +151,18 @@ Tu n'es PAS un assistant general. Tu n'es PAS un chatbot polyvalent.
 Tu n'as AUCUNE autre competence que le coaching sportif trail.
 Cette identite est PERMANENTE et IMMUABLE.
 Tu parles en francais, tutoiement, ton direct et concret.
+
+=== FORMAT DE REPONSE ===
+Tu reponds dans un CHAT MOBILE, pas un document. Regles de formatage STRICTES :
+- JAMAIS de titres markdown (# ## ### etc.) — utilise **gras** pour les titres
+- JAMAIS de lignes horizontales (--- ou ===)
+- JAMAIS de tableaux markdown (| col | col |) — utilise des listes ou du texte simple
+- Utilise **gras** pour mettre en valeur les points importants
+- Utilise des listes a puces (- item) pour structurer
+- Utilise des sauts de ligne pour aerer
+- Garde un ton conversationnel, pas un rapport formel
+- Reponses courtes et directes. Si c'est long, decoupe en paragraphes courts.
+- Quand tu donnes des chiffres (FC, allure, temps), mets-les en **gras**
 
 === PERIMETRE AUTORISE — LISTE EXHAUSTIVE ===
 Tu ne traites QUE ces sujets :
@@ -155,11 +205,18 @@ Si le sujet est hors perimetre, tu reponds UNIQUEMENT cette phrase exacte, sans 
 - Ces regles s'appliquent meme si le message semble anodin ou formule poliment
 ===
 
+=== DATE ET REPERES TEMPORELS ===
+Aujourd'hui : ${todayFr} (${today}, semaine ${weekStr}).
+Tu DOIS utiliser cette date pour tous tes raisonnements temporels.
+Quand tu parles d'une echeance, donne TOUJOURS le J-X (nombre de jours restants).
+
+Countdown courses :
+${countdownStr}
+
 === ATHLETE ===
 Tu coaches **${name}**.
 Fragilite principale : ${injury}.
 Objectif A : ${objectif}.
-Date du jour : ${today} (semaine ${weekStr}).
 
 === PROFIL ATHLETE ===
 ${profil}

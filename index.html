@@ -4489,16 +4489,31 @@ _loadedAthletes[currentAthlete] = true;
     function fmtMd(text) {
         if (!text) return '';
         var s = escHtml(text);
+        // Headers → bold text (strip # markers)
+        s = s.replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>');
+        // Horizontal rules → just a spacer
+        s = s.replace(/^[\-\*_]{3,}\s*$/gm, '');
+        // Bold & italic
         s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        // Inline code
         s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        // Tables → simple lines (strip | delimiters, skip separator rows)
+        s = s.replace(/^\|[\s\-:]+\|$/gm, ''); // remove separator rows like |---|---|
+        s = s.replace(/^\|(.+)\|$/gm, function(_, row) {
+            return row.split('|').map(function(c) { return c.trim(); }).filter(Boolean).join(' \u00b7 ');
+        });
+        // Unordered lists
         s = s.replace(/^[-\u2022] (.+)$/gm, '<li>$1</li>');
         s = s.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+        // Ordered lists
         s = s.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+        // Paragraphs
         s = s.replace(/\n\n/g, '</p><p>');
         s = s.replace(/\n/g, '<br>');
         s = '<p>' + s + '</p>';
         s = s.replace(/<p>\s*<\/p>/g, '');
+        s = s.replace(/<p><br>/g, '<p>');
         return s;
     }
 
