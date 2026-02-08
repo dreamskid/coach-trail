@@ -3368,7 +3368,11 @@ function pollSyncWorkflow() {
                 clearInterval(poll);
                 const ok = run.conclusion === 'success';
                 label.textContent = ok ? 'OK !' : 'Echec';
-                if (ok) { loadActivities(currentAthlete); loadGarminData(currentAthlete); }
+                if (ok) {
+                    Object.keys(ATHLETES).forEach(function(a) {
+                        if (_loadedAthletes[a]) { loadActivities(a); loadGarminData(a); }
+                    });
+                }
                 setTimeout(() => {
                     btn.classList.remove('syncing');
                     label.textContent = 'Sync';
