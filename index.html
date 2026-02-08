@@ -658,18 +658,11 @@
 
         <div class="card">
             <h2>Evaluation /10</h2>
-            <div class="stat-row"><span class="label">Progression</span><span class="value text-green">9/10</span></div>
-            <div class="stat-row"><span class="label">Mental</span><span class="value text-green">7/10</span></div>
-            <div class="stat-row"><span class="label">Gestion d'effort</span><span class="value text-green">7/10</span></div>
-            <div class="stat-row"><span class="label">Socle aerobie</span><span class="value text-yellow">6/10</span></div>
-            <div class="stat-row"><span class="label">Endurance ultra</span><span class="value text-yellow">6/10</span></div>
-            <div class="stat-row"><span class="label">Technique descente</span><span class="value text-yellow">5/10</span></div>
-            <div class="stat-row"><span class="label">Regularite entrainement</span><span class="value text-orange">5/10</span></div>
-            <div class="stat-row"><span class="label">Puissance montee</span><span class="value text-red">4/10</span></div>
-            <div class="stat-row"><span class="label">Resistance musculaire</span><span class="value text-red">4/10</span></div>
-            <div class="stat-row"><span class="label">Recuperation</span><span class="value text-red">4/10</span></div>
-            <div style="margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--border); text-align: center;">
-                <div class="stat-big" style="color: var(--yellow);">5.7<span style="font-size: 16px; color: var(--text-muted);">/10</span></div>
+            <div id="eval-scores">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
+            <div id="eval-global" style="margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--border); text-align: center;">
+                <div class="stat-big" id="eval-global-value" style="color: var(--text-muted);">&mdash;<span style="font-size: 16px; color: var(--text-muted);">/10</span></div>
                 <div class="stat-label">Note globale</div>
             </div>
         </div>
@@ -738,12 +731,11 @@
         <div class="week-day" data-date="2026-02-10" data-checks="Iso mollets">
             <div class="day-header">
                 <span class="day-name">Lundi 10</span>
-                <span class="badge badge-green">Marche active</span>
+                <span class="badge badge-blue">Elliptique</span>
             </div>
             <div class="day-details">
-                <strong>Marche active</strong> — Parcours Champagne court (7-8 km, 150-200 D+)<br>
-                <span class="text-blue">Z1 (112-125 bpm)</span> · 1h00 · Creneau midi<br>
-                Protocole iso mollets en fin de seance. Pas de trot.
+                <strong>Elliptique</strong> 50-60 min <span class="text-blue">Z1 (112-125 bpm)</span><br>
+                Resistance moderee, cadence reguliere. Protocole iso mollets apres.
             </div>
             <div class="day-match"></div>
             <div class="day-checks"></div>
@@ -794,12 +786,11 @@
         <div class="week-day" data-date="2026-02-14" data-checks="Iso / excentriques">
             <div class="day-header">
                 <span class="day-name">Vendredi 14</span>
-                <span class="badge badge-green">Marche active</span>
+                <span class="badge badge-blue">Elliptique</span>
             </div>
             <div class="day-details">
-                <strong>Marche active</strong> — Parcours Champagne 45-60 min<br>
-                <span class="text-blue">Z1 (112-125 bpm)</span> · Creneau midi<br>
-                Tester sensations mollet en montee marchee. Protocole iso ou excentriques selon jeudi.
+                <strong>Elliptique</strong> 45-60 min <span class="text-blue">Z1 (112-125 bpm)</span><br>
+                Resistance moderee. Protocole iso ou excentriques selon jeudi.
             </div>
             <div class="day-match"></div>
             <div class="day-checks"></div>
@@ -1332,6 +1323,13 @@
             <tr><td>Coursieres 25</td><td>05/2023</td><td>25 km</td><td>990 m</td><td>4:28:57</td><td>331/343</td><td><span class="text-red">339</span></td></tr>
             <tr><td>SainteLyon SaintExpress</td><td>11/2021</td><td>45.9 km</td><td>1000 m</td><td>7:29:00</td><td>2131/2405</td><td><span class="text-red">358</span></td></tr>
         </table>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Evolution Evaluation /10</h2>
+        <div id="eval-history">
+            <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+        </div>
     </div>
 </div>
 
@@ -2744,6 +2742,122 @@ function renderSoleaireChart() {
     renderMiniChart('chart-soleaire', 'chart-soleaire-labels', values, soleaireColor, '/10');
 }
 
+// --- Evaluation /10 ---
+var EVAL_LABELS = {
+    progression: 'Progression', mental: 'Mental', gestion_effort: "Gestion d'effort",
+    socle_aerobie: 'Socle aerobie', endurance_ultra: 'Endurance ultra',
+    technique_descente: 'Technique descente', regularite: 'Regularite entrainement',
+    puissance_montee: 'Puissance montee', resistance_musculaire: 'Resistance musculaire',
+    recuperation: 'Recuperation'
+};
+
+function evaluationColor(val) {
+    if (val == null) return 'var(--text-muted)';
+    if (val >= 8) return 'var(--green)';
+    if (val >= 6) return 'var(--yellow)';
+    if (val >= 4) return 'var(--orange)';
+    return 'var(--red)';
+}
+
+function renderEvaluation(evalData) {
+    var container = document.getElementById('eval-scores');
+    var globalEl = document.getElementById('eval-global-value');
+    if (!container) return;
+
+    if (!evalData || !evalData.current || !evalData.current.scores) {
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas d\'evaluation disponible</div>';
+        return;
+    }
+
+    var scores = evalData.current.scores;
+    var keys = Object.keys(EVAL_LABELS);
+    var html = '';
+    var sum = 0;
+    var count = 0;
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var val = scores[key];
+        var label = EVAL_LABELS[key];
+        if (val == null) continue;
+        var color = evaluationColor(val);
+        html += '<div class="stat-row"><span class="label">' + label + '</span><span class="value" style="color:' + color + ';">' + val + '/10</span></div>';
+        sum += val;
+        count++;
+    }
+
+    container.innerHTML = html;
+
+    if (globalEl && count > 0) {
+        var avg = (sum / count).toFixed(1);
+        var avgColor = evaluationColor(parseFloat(avg));
+        globalEl.innerHTML = avg + '<span style="font-size: 16px; color: var(--text-muted);">/10</span>';
+        globalEl.style.color = avgColor;
+    }
+}
+
+function renderEvalHistory(evalData) {
+    var container = document.getElementById('eval-history');
+    if (!container) return;
+
+    if (!evalData || !evalData.history || evalData.history.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas encore d\'historique</div>';
+        return;
+    }
+
+    var history = evalData.history;
+    var keys = Object.keys(EVAL_LABELS);
+    var html = '<table><tr><th>Dimension</th>';
+
+    for (var h = 0; h < history.length; h++) {
+        var d = new Date(history[h].date + 'T00:00:00');
+        var dateStr = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        html += '<th style="text-align:center;">' + history[h].trigger + '<br><span style="font-size:11px;color:var(--text-muted);">' + dateStr + '</span></th>';
+    }
+    html += '</tr>';
+
+    var sums = [];
+    for (var s = 0; s < history.length; s++) sums.push({ sum: 0, count: 0 });
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        html += '<tr><td>' + EVAL_LABELS[key] + '</td>';
+        for (var j = 0; j < history.length; j++) {
+            var val = history[j].scores[key];
+            var color = evaluationColor(val);
+            var trend = '';
+            if (j > 0 && val != null && history[j-1].scores[key] != null) {
+                var prev = history[j-1].scores[key];
+                if (val > prev) trend = ' <span style="color:var(--green);">&#8593;</span>';
+                else if (val < prev) trend = ' <span style="color:var(--red);">&#8595;</span>';
+                else trend = ' <span style="color:var(--text-muted);">=</span>';
+            }
+            html += '<td style="text-align:center;color:' + color + ';">' + (val != null ? val : '—') + trend + '</td>';
+            if (val != null) { sums[j].sum += val; sums[j].count++; }
+        }
+        html += '</tr>';
+    }
+
+    // Moyenne row
+    html += '<tr style="font-weight:700;border-top:2px solid var(--border);"><td>Moyenne</td>';
+    for (var m = 0; m < sums.length; m++) {
+        var avg = sums[m].count > 0 ? (sums[m].sum / sums[m].count).toFixed(1) : '—';
+        var avgColor = sums[m].count > 0 ? evaluationColor(parseFloat(avg)) : 'var(--text-muted)';
+        var mTrend = '';
+        if (m > 0 && sums[m].count > 0 && sums[m-1].count > 0) {
+            var prevAvg = sums[m-1].sum / sums[m-1].count;
+            var curAvg = sums[m].sum / sums[m].count;
+            if (curAvg > prevAvg + 0.05) mTrend = ' <span style="color:var(--green);">&#8593;</span>';
+            else if (curAvg < prevAvg - 0.05) mTrend = ' <span style="color:var(--red);">&#8595;</span>';
+            else mTrend = ' <span style="color:var(--text-muted);">=</span>';
+        }
+        html += '<td style="text-align:center;color:' + avgColor + ';">' + avg + mTrend + '</td>';
+    }
+    html += '</tr></table>';
+
+    container.innerHTML = html;
+}
+
 function loadCoachLog() {
     fetch('data/coach-log.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
@@ -2781,6 +2895,10 @@ function loadCoachLog() {
 
             renderInjuryJournal();
             renderSoleaireChart();
+
+            var evalData = lt.evaluation || null;
+            renderEvaluation(evalData);
+            renderEvalHistory(evalData);
         })
         .catch(() => {});
 }

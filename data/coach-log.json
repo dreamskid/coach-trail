@@ -90,7 +90,43 @@
     "current_block": "Bloc 0 â Reprise & Soin",
     "next_race": "Cabornis (8 mars) â decision le 15 fev",
     "trajectory": "Phase de soin, pas encore en retard",
-    "protocol_phase": 1
+    "protocol_phase": 1,
+    "evaluation": {
+      "current": {
+        "date": "2026-02-07",
+        "trigger": "Bilan initial",
+        "scores": {
+          "progression": 9,
+          "mental": 7,
+          "gestion_effort": 7,
+          "socle_aerobie": 6,
+          "endurance_ultra": 6,
+          "technique_descente": 5,
+          "regularite": 5,
+          "puissance_montee": 4,
+          "resistance_musculaire": 4,
+          "recuperation": 4
+        }
+      },
+      "history": [
+        {
+          "date": "2026-02-07",
+          "trigger": "Bilan initial",
+          "scores": {
+            "progression": 9,
+            "mental": 7,
+            "gestion_effort": 7,
+            "socle_aerobie": 6,
+            "endurance_ultra": 6,
+            "technique_descente": 5,
+            "regularite": 5,
+            "puissance_montee": 4,
+            "resistance_musculaire": 4,
+            "recuperation": 4
+          }
+        }
+      ]
+    }
   },
   "settings": {
     "gh_sync_token_obf": "BAcRPAFCRgpbIFxTZUEwIhVTIxEcDCYKa1pVYhI6OFs7BUNSCgFjag=="
