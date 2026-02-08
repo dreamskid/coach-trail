@@ -984,12 +984,14 @@
                 <tr><td>Auto-test : 10 sauts unipodaux</td><td>Chaque lundi matin</td></tr>
             </table>
 
+            <h3>Evolution soleaire (14 derniers jours)</h3>
+            <div class="mini-chart" id="chart-soleaire" style="height: 80px;"></div>
+            <div class="mini-chart-labels" id="chart-soleaire-labels"></div>
+
             <h3>Journal de suivi</h3>
-            <table>
-                <tr><th>Date</th><th>Saut /10</th><th>Unipodal</th><th>Action</th><th>Notes</th></tr>
-                <tr><td>7 fev.</td><td class="text-red text-bold">4-5/10</td><td>Gene legere</td><td>Bilan initial, repos course</td><td>Palpation 0, marche OK</td></tr>
-                <tr><td class="text-muted">15 fev.</td><td class="text-muted">—</td><td class="text-muted">—</td><td class="text-muted">RETEST prevu</td><td class="text-muted">Point de decision Cabornis</td></tr>
-            </table>
+            <div id="injury-journal">
+                <div style="text-align: center; padding: 20px; color: var(--text-muted);">Chargement...</div>
+            </div>
         </div>
     </div>
 
@@ -2703,6 +2705,45 @@ function soleaireColor(val) {
     return 'var(--red)';
 }
 
+function renderInjuryJournal() {
+    var container = document.getElementById('injury-journal');
+    if (!container) return;
+    var entries = _coachLogDaily.filter(function(d) { return d.soleaire != null; });
+    if (entries.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Aucune donnee soleaire enregistree</div>';
+        return;
+    }
+    entries.sort(function(a, b) { return b.date.localeCompare(a.date); });
+    var html = '<table><tr><th>Date</th><th>Soleaire /10</th><th>RPE</th><th>Checks</th><th>Verdict</th></tr>';
+    entries.forEach(function(d) {
+        var color = soleaireColor(d.soleaire);
+        var dateObj = new Date(d.date + 'T00:00:00');
+        var dateStr = dateObj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        var checks = d.checks ? Object.keys(d.checks).filter(function(k) { return d.checks[k]; }).join(', ') : '—';
+        var rpe = d.rpe != null ? d.rpe + '/10' : '—';
+        var verdict = d.verdict || '—';
+        html += '<tr>';
+        html += '<td>' + dateStr + '</td>';
+        html += '<td style="color:' + color + ';font-weight:bold;">' + d.soleaire + '/10</td>';
+        html += '<td>' + rpe + '</td>';
+        html += '<td class="text-muted">' + checks + '</td>';
+        html += '<td>' + verdict + '</td>';
+        html += '</tr>';
+    });
+    html += '</table>';
+    container.innerHTML = html;
+}
+
+function renderSoleaireChart() {
+    var last14 = _coachLogDaily.slice(-14);
+    var values = last14.map(function(d) {
+        var dateObj = new Date(d.date + 'T00:00:00');
+        var short = dateObj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        return { value: d.soleaire, label: d.date, shortLabel: short };
+    });
+    renderMiniChart('chart-soleaire', 'chart-soleaire-labels', values, soleaireColor, '/10');
+}
+
 function loadCoachLog() {
     fetch('data/coach-log.json?t=' + Date.now())
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
@@ -2737,6 +2778,9 @@ function loadCoachLog() {
                     protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
                 }
             }
+
+            renderInjuryJournal();
+            renderSoleaireChart();
         })
         .catch(() => {});
 }
