@@ -1996,7 +1996,7 @@ var ATHLETES = {
         injuryKey: 'genou'
     }
 };
-var currentAthlete = 'yohann';
+var currentAthlete = localStorage.getItem('currentAthlete') || 'yohann';
 
 function updateHeaderDetails() {
     Object.keys(ATHLETES).forEach(function(key) {
@@ -2016,6 +2016,7 @@ document.querySelectorAll('.athlete-btn').forEach(function(btn) {
         var athlete = btn.dataset.athlete;
         if (athlete === currentAthlete) return;
         currentAthlete = athlete;
+        localStorage.setItem('currentAthlete', athlete);
 
         // Toggle active buttons
         document.querySelectorAll('.athlete-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -3659,8 +3660,16 @@ function loadAthleteData(athlete) {
 
 // Initial load
 updateHeaderDetails();
-loadCoachLog('yohann');
-_loadedAthletes['yohann'] = true;
+if (currentAthlete !== 'yohann') {
+    // Restore saved athlete: activate correct button, wrapper, and load data
+    document.querySelectorAll('.athlete-btn').forEach(function(b) { b.classList.remove('active'); });
+    var savedBtn = document.querySelector('.athlete-btn[data-athlete="' + currentAthlete + '"]');
+    if (savedBtn) savedBtn.classList.add('active');
+    document.querySelectorAll('.athlete-content').forEach(function(c) { c.classList.remove('active'); });
+    document.getElementById('athlete-' + currentAthlete).classList.add('active');
+}
+loadCoachLog(currentAthlete);
+_loadedAthletes[currentAthlete] = true;
 </script>
 
 </body>
