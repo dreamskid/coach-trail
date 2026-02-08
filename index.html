@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0f1117">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -866,7 +866,7 @@
             border-radius: 12px;
             color: var(--text);
             font-family: inherit;
-            font-size: 13.5px;
+            font-size: 16px;
             padding: 10px 14px;
             resize: none;
             outline: none;
@@ -894,19 +894,41 @@
         #chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
         #chat-send svg { width: 18px; height: 18px; }
 
+        /* Body lock when chat is open on mobile */
+        body.chat-open-mobile { overflow: hidden; position: fixed; width: 100%; }
+
         /* ===== CHAT RESPONSIVE ===== */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .chat-fab { width: 52px; height: 52px; bottom: 80px; right: 16px; }
             .chat-fab svg { width: 28px; height: 28px; }
             .chat-panel {
                 width: 100%;
-                height: 100vh;
-                max-height: 100vh;
+                height: 100dvh;
+                height: 100vh; /* fallback */
+                max-height: none;
                 right: 0;
+                top: 0;
+                bottom: auto;
                 border-radius: 0;
                 border: none;
+                box-shadow: none;
             }
-            .chat-back-btn { padding: 14px; font-size: 14px; }
+            .chat-panel.open {
+                animation: none;
+            }
+            .chat-header {
+                padding: 10px 16px;
+                padding-top: max(10px, env(safe-area-inset-top));
+            }
+            .chat-back-btn {
+                padding: 14px;
+                padding-bottom: max(14px, env(safe-area-inset-bottom));
+                font-size: 14px;
+            }
+            .chat-input-row {
+                padding: 10px 12px;
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+            }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -4320,6 +4342,8 @@ _loadedAthletes[currentAthlete] = true;
     var chatOpen = false;
     var chatLoadedFor = null; // tracks which athlete is currently displayed
     var chatSending = false;
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    var bodyScrollY = 0;
 
     var fab = document.getElementById('chat-fab');
     var panel = document.getElementById('chat-panel');
@@ -4333,11 +4357,36 @@ _loadedAthletes[currentAthlete] = true;
 
     function getChatAthlete() { return currentAthlete; }
 
+    function lockBody() {
+        if (!isMobile) return;
+        bodyScrollY = window.scrollY;
+        document.body.classList.add('chat-open-mobile');
+        document.body.style.top = '-' + bodyScrollY + 'px';
+    }
+
+    function unlockBody() {
+        if (!isMobile) return;
+        document.body.classList.remove('chat-open-mobile');
+        document.body.style.top = '';
+        window.scrollTo(0, bodyScrollY);
+    }
+
+    // Handle mobile keyboard resize
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function() {
+            if (!chatOpen) return;
+            var vh = window.visualViewport.height;
+            panel.style.height = vh + 'px';
+            scrollToBottom();
+        });
+    }
+
     // Open / close
     fab.addEventListener('click', function() {
         chatOpen = true;
         panel.classList.add('open');
         fab.classList.add('hidden');
+        lockBody();
         var athlete = getChatAthlete();
         athleteNameEl.textContent = athlete === 'juliette' ? 'Juliette' : 'Yohann';
         if (chatLoadedFor !== athlete) {
@@ -4350,7 +4399,9 @@ _loadedAthletes[currentAthlete] = true;
     closeBtn.addEventListener('click', function() {
         chatOpen = false;
         panel.classList.remove('open');
+        panel.style.height = '';
         fab.classList.remove('hidden');
+        unlockBody();
         // Refresh dashboard data to show any changes made via chat
         loadAthleteData(getChatAthlete());
     });
