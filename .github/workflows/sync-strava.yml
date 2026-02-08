@@ -22,22 +22,37 @@ jobs:
       - name: Install dependencies
         run: pip install garminconnect
 
-      - name: Sync Strava activities
+      # ── Yohann ──
+      - name: Sync Strava — Yohann
         env:
           STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
           STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
           STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
         run: python scripts/sync_strava.py
 
-      - name: Sync Garmin wellness data
+      - name: Sync Garmin — Yohann
         env:
           GARMINTOKENS: ${{ secrets.GARMINTOKENS }}
         run: python scripts/sync_garmin.py
+
+      # ── Juliette ──
+      - name: Sync Strava — Juliette
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.JULIETTE_STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.JULIETTE_STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.JULIETTE_STRAVA_REFRESH_TOKEN }}
+        run: python scripts/sync_strava.py --data-dir data/juliette/
+
+      - name: Sync Garmin — Juliette
+        env:
+          GARMINTOKENS: ${{ secrets.JULIETTE_GARMINTOKENS }}
+        run: python scripts/sync_garmin.py --data-dir data/juliette/
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/strava-activities.json data/garmin-wellness.json data/garmin-activities.json
+          git add data/juliette/strava-activities.json data/juliette/garmin-wellness.json data/juliette/garmin-activities.json
           git diff --cached --quiet || git commit -m "Auto-sync Strava + Garmin data $(date -u +%Y-%m-%d)"
           git push

@@ -2,12 +2,15 @@
 Sync Strava activities to data/strava-activities.json.
 Run by GitHub Actions daily, or manually: python scripts/sync_strava.py
 
+Multi-athlete: python scripts/sync_strava.py --data-dir data/juliette/
+
 Required env vars (stored in GitHub Secrets):
   STRAVA_CLIENT_ID
   STRAVA_CLIENT_SECRET
   STRAVA_REFRESH_TOKEN
 """
 
+import argparse
 import json
 import os
 import sys
@@ -18,8 +21,6 @@ from urllib.parse import urlencode
 
 STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token"
 STRAVA_ACTIVITIES_URL = "https://www.strava.com/api/v3/athlete/activities"
-DATA_DIR = Path(__file__).parent.parent / "data"
-OUTPUT_FILE = DATA_DIR / "strava-activities.json"
 
 
 def get_access_token(client_id, client_secret, refresh_token):
@@ -75,6 +76,14 @@ def simplify_activity(act):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Sync Strava activities")
+    parser.add_argument("--data-dir", default=None,
+                        help="Output directory (default: data/)")
+    args = parser.parse_args()
+
+    data_dir = Path(args.data_dir) if args.data_dir else Path(__file__).parent.parent / "data"
+    output_file = data_dir / "strava-activities.json"
+
     client_id = os.environ.get("STRAVA_CLIENT_ID")
     client_secret = os.environ.get("STRAVA_CLIENT_SECRET")
     refresh_token = os.environ.get("STRAVA_REFRESH_TOKEN")
@@ -84,6 +93,7 @@ def main():
         print("Required: STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN")
         sys.exit(1)
 
+    print(f"[INFO] Output dir: {data_dir}")
     print("[INFO] Fetching Strava access token...")
     access_token = get_access_token(client_id, client_secret, refresh_token)
 
@@ -93,11 +103,11 @@ def main():
 
     simplified = [simplify_activity(a) for a in activities]
 
-    DATA_DIR.mkdir(exist_ok=True)
-    with open(OUTPUT_FILE, "w") as f:
+    data_dir.mkdir(parents=True, exist_ok=True)
+    with open(output_file, "w") as f:
         json.dump(simplified, f, indent=2, ensure_ascii=False)
 
-    print(f"[OK] Saved {len(simplified)} activities to {OUTPUT_FILE}")
+    print(f"[OK] Saved {len(simplified)} activities to {output_file}")
 
 
 if __name__ == "__main__":

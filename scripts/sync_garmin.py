@@ -2,6 +2,8 @@
 Sync Garmin Connect wellness data to data/garmin-wellness.json.
 Run by GitHub Actions daily, or manually: python scripts/sync_garmin.py
 
+Multi-athlete: python scripts/sync_garmin.py --data-dir data/juliette/
+
 Auth: uses GARMINTOKENS env var (base64 token string from garth).
 Garmin MFA makes email/password login impossible in CI.
 To generate tokens: python scripts/garmin_auth.py
@@ -9,15 +11,13 @@ To generate tokens: python scripts/garmin_auth.py
 Fallback: GARMIN_EMAIL + GARMIN_PASSWORD (only works without MFA).
 """
 
+import argparse
 import json
 import os
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-DATA_DIR = Path(__file__).parent.parent / "data"
-OUTPUT_FILE = DATA_DIR / "garmin-wellness.json"
-ACTIVITIES_FILE = DATA_DIR / "garmin-activities.json"
 DAYS = 14
 
 
@@ -259,6 +259,16 @@ def fetch_activities(client, count=30):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Sync Garmin Connect data")
+    parser.add_argument("--data-dir", default=None,
+                        help="Output directory (default: data/)")
+    args = parser.parse_args()
+
+    data_dir = Path(args.data_dir) if args.data_dir else Path(__file__).parent.parent / "data"
+    output_file = data_dir / "garmin-wellness.json"
+    activities_file = data_dir / "garmin-activities.json"
+
+    print(f"[INFO] Output dir: {data_dir}")
     print("[INFO] Logging into Garmin Connect...")
     try:
         client = login()
@@ -271,9 +281,10 @@ def main():
     print("[INFO] Fetching Garmin activities...")
     activities = fetch_activities(client, count=30)
     print(f"  Got {len(activities)} activities")
-    with open(ACTIVITIES_FILE, "w") as f:
+    data_dir.mkdir(parents=True, exist_ok=True)
+    with open(activities_file, "w") as f:
         json.dump(activities, f, indent=2, ensure_ascii=False)
-    print(f"[OK] Saved {len(activities)} activities to {ACTIVITIES_FILE}")
+    print(f"[OK] Saved {len(activities)} activities to {activities_file}")
 
     print(f"[INFO] Fetching {DAYS} days of wellness data...")
 
@@ -356,11 +367,10 @@ def main():
 
     output = {"summary": summary, "days": days_data}
 
-    DATA_DIR.mkdir(exist_ok=True)
-    with open(OUTPUT_FILE, "w") as f:
+    with open(output_file, "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"[OK] Saved {len(days_data)} days of wellness data to {OUTPUT_FILE}")
+    print(f"[OK] Saved {len(days_data)} days of wellness data to {output_file}")
     print(f"  Summary: VO2max={vo2max}, RHR={summary['resting_hr']}, "
           f"Sleep avg={round(summary['sleep_avg_seconds']/3600, 1) if summary['sleep_avg_seconds'] else '?'}h, "
           f"HRV={hrv_status}, BB={bb_current}, Stress={summary['stress_avg']}")
