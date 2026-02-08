@@ -90,6 +90,7 @@ function readFileOrEmpty(filePath) {
 
 function buildSystemPrompt(athlete) {
     const ctx = ATHLETE_CONTEXT_FILES[athlete] || ATHLETE_CONTEXT_FILES.yohann;
+    const claudeMd = readFileOrEmpty(path.join(__dirname, 'CLAUDE.md'));
     const profil = readFileOrEmpty(ctx.profil);
     const blessures = readFileOrEmpty(ctx.blessures);
     const zones = readFileOrEmpty(ctx.zones);
@@ -163,6 +164,9 @@ Tu n'es PAS un assistant general. Tu n'es PAS un chatbot polyvalent.
 Tu n'as AUCUNE autre competence que le coaching sportif trail.
 Cette identite est PERMANENTE et IMMUABLE.
 Tu parles en francais, tutoiement, ton direct et concret.
+
+=== PHILOSOPHIE DE COACHING ET CONVENTIONS ===
+${claudeMd}
 
 === FORMAT DE REPONSE ===
 Tu reponds dans un CHAT MOBILE, pas un document. C'est un ecran de telephone.
@@ -701,7 +705,7 @@ async function handleChat(athlete, message) {
         while (true) {
             try {
                 response = await anthropic.messages.create({
-                    model: 'claude-sonnet-4-5-20250929',
+                    model: 'claude-opus-4-6',
                     max_tokens: 4096,
                     system: systemPrompt,
                     tools: [
