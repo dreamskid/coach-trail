@@ -648,6 +648,63 @@ function executeTool(toolName, toolInput, athlete) {
     return { result, modifications };
 }
 
+// ===== COST TRACKING =====
+const COST_FILE = path.join(__dirname, 'data', 'api-costs.json');
+const COST_PER_M_INPUT = 15;   // Opus: $15 / 1M input tokens
+const COST_PER_M_OUTPUT = 75;  // Opus: $75 / 1M output tokens
+const DAILY_BUDGET_USD = 5;    // $5/jour max
+const MONTHLY_BUDGET_USD = 50; // $50/mois max
+
+function readCosts() {
+    try { return JSON.parse(fs.readFileSync(COST_FILE, 'utf8')); }
+    catch { return { daily: {}, monthly: {} }; }
+}
+
+function writeCosts(costs) {
+    fs.writeFileSync(COST_FILE, JSON.stringify(costs, null, 2) + '\n', 'utf8');
+}
+
+function trackCost(usage) {
+    if (!usage) return;
+    const costs = readCosts();
+    const today = new Date().toISOString().slice(0, 10);
+    const month = today.slice(0, 7);
+    const inputCost = (usage.input_tokens || 0) / 1_000_000 * COST_PER_M_INPUT;
+    const outputCost = (usage.output_tokens || 0) / 1_000_000 * COST_PER_M_OUTPUT;
+    const totalCost = inputCost + outputCost;
+
+    if (!costs.daily[today]) costs.daily[today] = 0;
+    if (!costs.monthly[month]) costs.monthly[month] = 0;
+    costs.daily[today] = Math.round((costs.daily[today] + totalCost) * 10000) / 10000;
+    costs.monthly[month] = Math.round((costs.monthly[month] + totalCost) * 10000) / 10000;
+
+    // Clean old daily entries (keep 30 days)
+    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 30);
+    for (const d of Object.keys(costs.daily)) {
+        if (d < cutoff.toISOString().slice(0, 10)) delete costs.daily[d];
+    }
+
+    writeCosts(costs);
+    console.log(`[cost] +$${totalCost.toFixed(4)} (${usage.input_tokens}in/${usage.output_tokens}out) | jour: $${costs.daily[today].toFixed(2)}/${DAILY_BUDGET_USD} | mois: $${costs.monthly[month].toFixed(2)}/${MONTHLY_BUDGET_USD}`);
+    return costs;
+}
+
+function checkBudget() {
+    const costs = readCosts();
+    const today = new Date().toISOString().slice(0, 10);
+    const month = today.slice(0, 7);
+    const dailyCost = costs.daily[today] || 0;
+    const monthlyCost = costs.monthly[month] || 0;
+
+    if (dailyCost >= DAILY_BUDGET_USD) {
+        return `Budget journalier atteint ($${dailyCost.toFixed(2)}/$${DAILY_BUDGET_USD}). Reessaie demain.`;
+    }
+    if (monthlyCost >= MONTHLY_BUDGET_USD) {
+        return `Budget mensuel atteint ($${monthlyCost.toFixed(2)}/$${MONTHLY_BUDGET_USD}). Reessaie le mois prochain.`;
+    }
+    return null;
+}
+
 // ===== CHAT API HANDLER =====
 const _rateLimitMap = {};
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
@@ -657,6 +714,10 @@ async function handleChat(athlete, message) {
     if (!anthropic) {
         throw new Error('ANTHROPIC_API_KEY non configuree. Lancez le serveur avec ANTHROPIC_API_KEY=sk-ant-xxx node backoffice.js');
     }
+
+    // Budget check
+    const budgetError = checkBudget();
+    if (budgetError) throw new Error(budgetError);
 
     // Rate limiting
     const now = Date.now();
@@ -714,6 +775,7 @@ async function handleChat(athlete, message) {
                     ],
                     messages: currentMessages
                 });
+                trackCost(response.usage);
                 break;
             } catch (apiErr) {
                 if (apiErr.status === 429 && retries < 3) {
@@ -930,6 +992,20 @@ const server = http.createServer(async (req, res) => {
         const athlete = url.searchParams.get('athlete') || 'yohann';
         writeChatHistory({ messages: [] }, athlete);
         json(res, 200, { ok: true });
+        return;
+    }
+
+    // GET /api/costs — View API cost tracking
+    if (req.method === 'GET' && url.pathname === '/api/costs') {
+        setCorsHeaders(res);
+        const costs = readCosts();
+        const today = new Date().toISOString().slice(0, 10);
+        const month = today.slice(0, 7);
+        json(res, 200, {
+            today: { cost: costs.daily[today] || 0, budget: DAILY_BUDGET_USD },
+            month: { cost: costs.monthly[month] || 0, budget: MONTHLY_BUDGET_USD },
+            daily_history: costs.daily
+        });
         return;
     }
 
