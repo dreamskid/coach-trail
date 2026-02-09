@@ -3358,7 +3358,8 @@ function loadCoachLog(athlete) {
 var _athleteDataByAthlete = {};
 
 function loadAthleteProfile(athlete) {
-    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete)
+    var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
+    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete, { headers: headers })
         .then(function(r) { return r.json(); })
         .then(function(data) {
             _athleteDataByAthlete[athlete] = data;
