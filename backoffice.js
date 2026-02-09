@@ -1203,6 +1203,8 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/data
     if (req.method === 'GET' && url.pathname === '/api/data') {
+        setCorsHeaders(res);
+        res.setHeader('Cache-Control', 'no-cache');
         const athlete = url.searchParams.get('athlete') || 'yohann';
         json(res, 200, readData(athlete));
         return;
@@ -1210,17 +1212,21 @@ const server = http.createServer(async (req, res) => {
 
     // POST /api/save
     if (req.method === 'POST' && url.pathname === '/api/save') {
+        setCorsHeaders(res);
         try {
             const payload = await parseBody(req);
             const athlete = url.searchParams.get('athlete') || 'yohann';
             const data = readData(athlete);
 
-            // Upsert daily entry
+            // Upsert daily entry (merge into existing)
             if (payload.daily) {
                 const entry = payload.daily;
                 const idx = data.daily.findIndex(d => d.date === entry.date);
-                if (idx >= 0) data.daily[idx] = entry;
-                else data.daily.push(entry);
+                if (idx >= 0) {
+                    Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
+                } else {
+                    data.daily.push(entry);
+                }
                 data.daily.sort((a, b) => a.date.localeCompare(b.date));
             }
 
