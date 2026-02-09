@@ -851,6 +851,21 @@ function executeTool(toolName, toolInput, athlete) {
                     p.rfc = p.fc_max - p.fc_repos;
                 }
             }
+            // Auto-recalculate zones when profile FC changes or zones format is wrong
+            if ((section === 'profile' || section === 'zones') && ad.profile && ad.profile.fc_max && ad.profile.fc_repos) {
+                const rfc = ad.profile.fc_max - ad.profile.fc_repos;
+                const fcR = ad.profile.fc_repos;
+                const needsRecalc = section === 'profile'
+                    || !Array.isArray(ad.zones)
+                    || ad.zones.length === 0
+                    || !ad.zones[0].min;
+                if (needsRecalc) {
+                    const pcts = [[50,60],[60,70],[70,80],[80,90],[90,100]];
+                    ad.zones = pcts.map(function(p, i) {
+                        return { label: 'Z' + (i+1), min: Math.round(fcR + rfc * p[0] / 100), max: Math.round(fcR + rfc * p[1] / 100) };
+                    });
+                }
+            }
             writeAthleteData(ad, athlete);
             modifications.push({ type: 'athlete_data', section });
             result = 'Donnees ' + section + ' mises a jour dans le dashboard.';

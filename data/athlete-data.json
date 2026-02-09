@@ -5,8 +5,8 @@
     "weight_kg": 84.9,
     "imc": 25.1,
     "fc_repos": 46,
-    "fc_max": 178,
-    "rfc": 132,
+    "fc_max": 181,
+    "rfc": 135,
     "vo2max": 45,
     "vma": 15,
     "vma_tested": false,
@@ -23,28 +23,28 @@
   "zones": [
     {
       "label": "Z1",
-      "min": 112,
-      "max": 125
+      "min": 114,
+      "max": 127
     },
     {
       "label": "Z2",
-      "min": 125,
-      "max": 138
+      "min": 127,
+      "max": 140
     },
     {
       "label": "Z3",
-      "min": 138,
-      "max": 152
+      "min": 140,
+      "max": 154
     },
     {
       "label": "Z4",
-      "min": 152,
-      "max": 165
+      "min": 154,
+      "max": 168
     },
     {
       "label": "Z5",
-      "min": 165,
-      "max": 178
+      "min": 168,
+      "max": 181
     }
   ],
   "injury": {
