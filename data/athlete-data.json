@@ -2,8 +2,8 @@
   "profile": {
     "age": 44,
     "height_cm": 184,
-    "weight_kg": 83,
-    "imc": 24.5,
+    "weight_kg": 84.9,
+    "imc": 25.1,
     "fc_repos": 46,
     "fc_max": 178,
     "rfc": 132,
@@ -17,7 +17,8 @@
     "utmb_20k": 446,
     "utmb_50k": 437,
     "utmb_100k": null,
-    "utmb_100m": null
+    "utmb_100m": null,
+    "poids": 84.9
   },
   "zones": [
     {

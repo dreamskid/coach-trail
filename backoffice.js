@@ -841,6 +841,16 @@ function executeTool(toolName, toolInput, athlete) {
             } else {
                 ad[section] = toolInput.data;
             }
+            // Auto-calculate derived fields for profile
+            if (section === 'profile' && ad.profile) {
+                const p = ad.profile;
+                if (p.weight_kg && p.height_cm) {
+                    p.imc = Math.round(p.weight_kg / ((p.height_cm / 100) ** 2) * 10) / 10;
+                }
+                if (p.fc_max && p.fc_repos) {
+                    p.rfc = p.fc_max - p.fc_repos;
+                }
+            }
             writeAthleteData(ad, athlete);
             modifications.push({ type: 'athlete_data', section });
             result = 'Donnees ' + section + ' mises a jour dans le dashboard.';
