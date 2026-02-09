@@ -2144,15 +2144,11 @@ function saveChecksToGitHub() {
     })
     .then(function(r) { if (!r.ok) throw new Error('Save failed'); return r.json(); })
     .then(function() {
-            btn.textContent = 'OK !';
-            btn.style.background = 'var(--green-dark)';
-            _checksDirty = false;
-            // Reload coach-log to reflect saved data
-            loadCoachLog(currentAthlete);
-            setTimeout(function() { btn.classList.remove('visible'); }, 1500);
-        } else {
-            throw new Error('Save failed');
-        }
+        btn.textContent = 'OK !';
+        btn.style.background = 'var(--green-dark)';
+        _checksDirty = false;
+        loadCoachLog(currentAthlete);
+        setTimeout(function() { btn.classList.remove('visible'); }, 1500);
     })
     .catch(function(err) {
         btn.textContent = 'Erreur';
