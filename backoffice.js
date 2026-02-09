@@ -89,6 +89,103 @@ function deepMerge(target, source) {
     return result;
 }
 
+// ===== FILE LOCKING =====
+const _fileLocks = {};
+function withFileLock(filePath, fn) {
+    if (!_fileLocks[filePath]) _fileLocks[filePath] = Promise.resolve();
+    _fileLocks[filePath] = _fileLocks[filePath].then(fn).catch(e => { throw e; });
+    return _fileLocks[filePath];
+}
+
+// ===== TOOL INPUT VALIDATION =====
+function validateToolInput(toolName, input) {
+    const errors = [];
+
+    switch (toolName) {
+        case 'update_daily': {
+            if (!input.date || !/^\d{4}-\d{2}-\d{2}$/.test(input.date)) {
+                errors.push('date doit etre au format YYYY-MM-DD');
+            }
+            const f = input.fields || {};
+            if (f.soleaire != null && (typeof f.soleaire !== 'number' || f.soleaire < 0 || f.soleaire > 10)) {
+                errors.push('soleaire doit etre un nombre entre 0 et 10');
+            }
+            if (f.genou != null && (typeof f.genou !== 'number' || f.genou < 0 || f.genou > 10)) {
+                errors.push('genou doit etre un nombre entre 0 et 10');
+            }
+            if (f.rpe != null && f.rpe !== null && (typeof f.rpe !== 'number' || f.rpe < 0 || f.rpe > 10)) {
+                errors.push('rpe doit etre un nombre entre 0 et 10');
+            }
+            if (f.body_battery != null && f.body_battery !== null && (typeof f.body_battery !== 'number' || f.body_battery < 0 || f.body_battery > 100)) {
+                errors.push('body_battery doit etre un nombre entre 0 et 100');
+            }
+            break;
+        }
+        case 'update_athlete_data': {
+            const allowedSections = ['profile', 'zones', 'injury', 'calendar', 'predictions', 'projection', 'work_axes', 'race_history', 'index_progression', 'health_factors', 'health_note', 'health_perf_impact', 'health_intro'];
+            if (!input.section || !allowedSections.includes(input.section)) {
+                errors.push('section doit etre une des valeurs: ' + allowedSections.join(', '));
+            }
+            if (input.data == null) {
+                errors.push('data ne peut pas etre null/undefined');
+            }
+            break;
+        }
+        case 'write_week_plan': {
+            if (!input.week || !/^\d{4}-W\d{2}$/.test(input.week)) {
+                errors.push('week doit etre au format YYYY-Wxx');
+            }
+            if (typeof input.content !== 'string') {
+                errors.push('content doit etre une string');
+            } else if (input.content.length > 50000) {
+                errors.push('content depasse 50Ko');
+            }
+            break;
+        }
+        case 'write_reference_file': {
+            const allowedFiles = ['profil', 'blessures', 'zones', 'calendrier', 'previsions', 'race_history'];
+            if (!input.file || !allowedFiles.includes(input.file)) {
+                errors.push('file doit etre une des valeurs: ' + allowedFiles.join(', '));
+            }
+            if (typeof input.content !== 'string') {
+                errors.push('content doit etre une string');
+            } else if (input.content.length > 100000) {
+                errors.push('content depasse 100Ko');
+            }
+            break;
+        }
+        case 'update_longterm': {
+            const f2 = input.fields || {};
+            const allowedStatuses = ['repos', 'en_forme', 'en_retard', 'dans_les_temps', 'avance'];
+            if (f2.status && !allowedStatuses.includes(f2.status)) {
+                errors.push('status doit etre une des valeurs: ' + allowedStatuses.join(', '));
+            }
+            break;
+        }
+    }
+
+    if (errors.length > 0) {
+        return { valid: false, error: 'Validation error: ' + errors.join('; ') };
+    }
+    return { valid: true };
+}
+
+// ===== ARRAY TRUNCATION WARNING =====
+function checkArrayTruncation(toolName, input, athlete) {
+    if (toolName !== 'update_athlete_data') return;
+    const arraySections = ['predictions', 'work_axes', 'race_history', 'health_factors'];
+    if (!arraySections.includes(input.section)) return;
+    if (!Array.isArray(input.data)) return;
+
+    const existing = readAthleteData(athlete);
+    const existingArr = existing[input.section];
+    if (!Array.isArray(existingArr) || existingArr.length === 0) return;
+
+    if (input.data.length < existingArr.length * 0.5) {
+        console.warn(`[WARNING] AI sent ${input.data.length} items for ${input.section} (existing: ${existingArr.length}). Possible accidental truncation.`);
+    }
+}
+
 // ===== ANTHROPIC CLIENT =====
 const anthropic = process.env.ANTHROPIC_API_KEY
     ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -110,6 +207,10 @@ function readChatHistory(athlete) {
 function writeChatHistory(history, athlete) {
     const file = getChatHistoryFile(athlete);
     fs.mkdirSync(path.dirname(file), { recursive: true });
+    // Prune: keep max 200 messages
+    if (history.messages && history.messages.length > 200) {
+        history.messages = history.messages.slice(-200);
+    }
     fs.writeFileSync(file, JSON.stringify(history, null, 2) + '\n', 'utf8');
 }
 
@@ -1108,6 +1209,19 @@ async function handleChat(athlete, message) {
             const toolResults = [];
             for (const block of response.content) {
                 if (block.type === 'tool_use') {
+                    // Validate input before execution
+                    const validation = validateToolInput(block.name, block.input);
+                    if (!validation.valid) {
+                        console.warn('[validation]', block.name, validation.error);
+                        toolResults.push({
+                            type: 'tool_result',
+                            tool_use_id: block.id,
+                            content: 'ERREUR: ' + validation.error
+                        });
+                        continue;
+                    }
+                    // Check for accidental array truncation
+                    checkArrayTruncation(block.name, block.input, athlete);
                     const { result, modifications } = executeTool(block.name, block.input, athlete);
                     allModifications.push(...modifications);
                     toolResults.push({
@@ -1178,6 +1292,24 @@ function writeData(data, athlete) {
     fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n', 'utf8');
 }
 
+function readDataLocked(athlete) {
+    return withFileLock(getDataFile(athlete), () => readData(athlete));
+}
+
+function writeDataLocked(data, athlete) {
+    return withFileLock(getDataFile(athlete), () => writeData(data, athlete));
+}
+
+function readAthleteDataLocked(athlete) {
+    const file = ATHLETE_DATA_FILES[athlete] || ATHLETE_DATA_FILES.yohann;
+    return withFileLock(file, () => readAthleteData(athlete));
+}
+
+function writeAthleteDataLocked(data, athlete) {
+    const file = ATHLETE_DATA_FILES[athlete] || ATHLETE_DATA_FILES.yohann;
+    return withFileLock(file, () => writeAthleteData(data, athlete));
+}
+
 function parseBody(req) {
     return new Promise((resolve, reject) => {
         let body = '';
@@ -1220,44 +1352,47 @@ const server = http.createServer(async (req, res) => {
             const payload = await parseBody(req);
             const athlete = url.searchParams.get('athlete') || 'yohann';
             console.log('[SAVE]', athlete, JSON.stringify(payload).slice(0, 500));
-            const data = readData(athlete);
 
-            // Upsert daily entry (merge into existing)
-            if (payload.daily) {
-                const entry = payload.daily;
-                const idx = data.daily.findIndex(d => d.date === entry.date);
-                if (idx >= 0) {
-                    Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
-                } else {
-                    data.daily.push(entry);
-                }
-                data.daily.sort((a, b) => a.date.localeCompare(b.date));
-            }
+            await withFileLock(getDataFile(athlete), () => {
+                const data = readData(athlete);
 
-            // Batch upsert daily entries (merge each into existing)
-            if (payload.dailyBatch && Array.isArray(payload.dailyBatch)) {
-                payload.dailyBatch.forEach(entry => {
+                // Upsert daily entry (merge into existing)
+                if (payload.daily) {
+                    const entry = payload.daily;
                     const idx = data.daily.findIndex(d => d.date === entry.date);
                     if (idx >= 0) {
                         Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
                     } else {
                         data.daily.push(entry);
                     }
-                });
-                data.daily.sort((a, b) => a.date.localeCompare(b.date));
-            }
+                    data.daily.sort((a, b) => a.date.localeCompare(b.date));
+                }
 
-            // Merge longterm
-            if (payload.longterm) {
-                data.longterm = { ...data.longterm, ...payload.longterm };
-            }
+                // Batch upsert daily entries (merge each into existing)
+                if (payload.dailyBatch && Array.isArray(payload.dailyBatch)) {
+                    payload.dailyBatch.forEach(entry => {
+                        const idx = data.daily.findIndex(d => d.date === entry.date);
+                        if (idx >= 0) {
+                            Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
+                        } else {
+                            data.daily.push(entry);
+                        }
+                    });
+                    data.daily.sort((a, b) => a.date.localeCompare(b.date));
+                }
 
-            // Merge settings
-            if (payload.settings) {
-                data.settings = { ...data.settings, ...payload.settings };
-            }
+                // Merge longterm
+                if (payload.longterm) {
+                    data.longterm = { ...data.longterm, ...payload.longterm };
+                }
 
-            writeData(data, athlete);
+                // Merge settings
+                if (payload.settings) {
+                    data.settings = { ...data.settings, ...payload.settings };
+                }
+
+                writeData(data, athlete);
+            });
             json(res, 200, { ok: true });
         } catch (e) {
             json(res, 400, { error: e.message });

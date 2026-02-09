@@ -1487,6 +1487,8 @@ var _coachLogByAthlete = {};
 var _loadedAthletes = {};
 var _activitiesByAthlete = {};
 var _weekPlanByAthlete = {};
+var _athleteDataByAthlete = {};
+var _fcZonesByAthlete = {};
 
 var isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 var API_BASE = isLocalhost ? 'http://localhost:3000' : 'https://unguillotined-norris-historically.ngrok-free.dev';
@@ -1643,7 +1645,7 @@ function fmtSwimPace(distance, movingTime) {
 }
 
 // FC zones for coloring
-const FC_ZONES = [
+var FC_ZONES_DEFAULT = [
     { max: 112, label: 'Repos',  bg: '#1e3a5f', color: '#60a5fa' },
     { max: 125, label: 'Z1',     bg: '#1e3a5f', color: '#3b82f6' },
     { max: 138, label: 'Z2',     bg: '#0a2e1a', color: '#22c55e' },
@@ -1651,10 +1653,14 @@ const FC_ZONES = [
     { max: 165, label: 'Z4',     bg: '#3d1c08', color: '#f97316' },
     { max: 999, label: 'Z5',     bg: '#3d0a0a', color: '#ef4444' },
 ];
+// Initialize default zones for both athletes
+_fcZonesByAthlete.yohann = FC_ZONES_DEFAULT.map(function(z) { return Object.assign({}, z); });
+_fcZonesByAthlete.juliette = FC_ZONES_DEFAULT.map(function(z) { return Object.assign({}, z); });
 
-function getZone(hr) {
+function getZone(hr, athlete) {
     if (!hr) return null;
-    return FC_ZONES.find(z => hr <= z.max);
+    var zones = _fcZonesByAthlete[athlete || currentAthlete] || FC_ZONES_DEFAULT;
+    return zones.find(function(z) { return hr <= z.max; });
 }
 
 function fmt(seconds) {
@@ -1679,18 +1685,19 @@ function fmtDateShort(s) {
     return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 }
 
-function loadActivities(athlete) {
+function fetchActivities(athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
-    var p = cfg.prefix;
-    const _nc = '?t=' + Date.now();
-    const stravaP = fetch(cfg.dataDir + 'strava-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
-    const garminP = fetch(cfg.dataDir + 'garmin-activities.json' + _nc).then(r => r.ok ? r.json() : []).catch(() => []);
+    var _nc = '?t=' + Date.now();
+    var stravaP = fetch(cfg.dataDir + 'strava-activities.json' + _nc).then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; });
+    var garminP = fetch(cfg.dataDir + 'garmin-activities.json' + _nc).then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; });
 
-    Promise.all([stravaP, garminP]).then(([stravaActs, garminActs]) => {
+    return Promise.all([stravaP, garminP]).then(function(results) {
+        var stravaActs = results[0];
+        var garminActs = results[1];
         // Normalize Garmin activities to match Strava format
-        const garminNorm = (garminActs || []).map(ga => {
-            const unified = GARMIN_TYPE_MAP[ga.type] || 'Workout';
+        var garminNorm = (garminActs || []).map(function(ga) {
+            var unified = GARMIN_TYPE_MAP[ga.type] || 'Workout';
             return {
                 name: ga.name,
                 type: unified,
@@ -1709,21 +1716,19 @@ function loadActivities(athlete) {
         });
 
         // Merge Strava + Garmin: when both have the same activity (within 5min), combine best data
-        const parseLocal = s => new Date(s.replace('Z', '').replace(' ', 'T'));
-        const merged = [];
-        const usedGarmin = new Set();
+        var parseLocal = function(s) { return new Date(s.replace('Z', '').replace(' ', 'T')); };
+        var merged = [];
+        var usedGarmin = new Set();
 
-        (stravaActs || []).forEach(sa => {
-            const sTime = parseLocal(sa.start_date_local).getTime();
-            const match = garminNorm.find((ga, i) => {
+        (stravaActs || []).forEach(function(sa) {
+            var sTime = parseLocal(sa.start_date_local).getTime();
+            var match = garminNorm.find(function(ga, i) {
                 if (usedGarmin.has(i)) return false;
                 return Math.abs(parseLocal(ga.start_date_local).getTime() - sTime) < 300000;
             });
             if (match) {
                 usedGarmin.add(garminNorm.indexOf(match));
-                // Strava wins: name, sport_type, kudos. Garmin fills gaps: HR, elevation
-                merged.push({
-                    ...sa,
+                merged.push(Object.assign({}, sa, {
                     source: 'strava+garmin',
                     average_heartrate: sa.average_heartrate || match.average_heartrate,
                     max_heartrate: sa.max_heartrate || match.max_heartrate,
@@ -1731,101 +1736,104 @@ function loadActivities(athlete) {
                     distance: sa.distance > 0 ? sa.distance : match.distance,
                     moving_time: sa.moving_time > 0 ? sa.moving_time : match.moving_time,
                     calories: sa.calories || match.calories,
-                });
+                }));
             } else {
-                merged.push({...sa, source: 'strava'});
+                merged.push(Object.assign({}, sa, { source: 'strava' }));
             }
         });
 
         // Add Garmin-only activities
-        garminNorm.forEach((ga, i) => {
+        garminNorm.forEach(function(ga, i) {
             if (!usedGarmin.has(i)) merged.push(ga);
         });
 
-        const all = merged;
-        all.sort((a, b) => new Date(b.start_date_local) - new Date(a.start_date_local));
-        _activitiesByAthlete[athlete] = all;
-
-        if (all.length === 0) {
-            document.getElementById(p + 'activities-list').innerHTML =
-                '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
-                '<div style="font-size:14px;">Pas encore de donnees.</div></div>';
-            return;
-        }
-
-        const list = document.getElementById(p + 'activities-list');
-        const summary = document.getElementById(p + 'activities-summary');
-        list.innerHTML = '';
-
-        let totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
-        let currentDate = '';
-
-        all.forEach(act => {
-            const st = detectType(act);
-            const t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
-            const dist = (act.distance / 1000).toFixed(1);
-            const elev = Math.round(act.total_elevation_gain || 0);
-            const isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
-            const isSwim = st === 'Swim';
-            const zone = getZone(act.average_heartrate);
-            const dateKey = fmtDate(act.start_date_local);
-
-            if (isRun) totalRuns++;
-            totalDist += act.distance / 1000;
-            totalElev += act.total_elevation_gain || 0;
-            totalTime += act.moving_time || 0;
-
-            // Date separator
-            if (dateKey !== currentDate) {
-                currentDate = dateKey;
-                list.innerHTML += '<div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:16px 0 6px; border-bottom:1px solid var(--border); margin-bottom:8px;">' + dateKey + '</div>';
-            }
-
-            // Source badge
-            const srcBadge = act.source === 'garmin' ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:400;">GARMIN</span>'
-                : act.source === 'strava+garmin' ? ' <span style="font-size:9px;color:var(--green);font-weight:400;">S+G</span>' : '';
-
-            let stats = '';
-            if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
-            if (elev > 0) stats += '<div class="act-stat"><div class="act-stat-value text-orange">' + elev + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> m</span></div><div class="act-stat-label">D+</div></div>';
-            stats += '<div class="act-stat"><div class="act-stat-value">' + fmt(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>';
-            if (act.average_heartrate) {
-                const zHtml = zone ? '<span class="act-zone" style="background:' + zone.bg + ';color:' + zone.color + ';">' + zone.label + '</span>' : '';
-                stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
-            }
-            if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
-            if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
-
-            list.innerHTML +=
-                '<div class="activity-card">' +
-                    '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
-                    '<div class="act-body">' +
-                        '<div class="act-header">' +
-                            '<div><span class="act-name">' + act.name + '</span></div>' +
-                            '<div class="act-meta"><span class="act-type-label" style="color:' + t.color + ';">' + t.label + '</span>' + srcBadge + '</div>' +
-                        '</div>' +
-                        '<div class="act-stats">' + stats + '</div>' +
-                    '</div>' +
-                '</div>';
-        });
-
-        document.getElementById(p + 'sum-runs').textContent = totalRuns;
-        document.getElementById(p + 'sum-distance').textContent = Math.round(totalDist);
-        document.getElementById(p + 'sum-elevation').textContent = Math.round(totalElev);
-        document.getElementById(p + 'sum-time').textContent = Math.round(totalTime / 3600) + 'h';
-        summary.style.display = 'block';
-
-        if (!p) {
-            var stravaEl = document.getElementById('strava-status');
-            if (stravaEl) { stravaEl.style.color = 'var(--green)'; stravaEl.textContent = 'Strava OK'; }
-        }
-
-        // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
-        updateWeekKPIs(all, athlete);
-
-        // ===== MATCHING SEMAINE vs ACTIVITES =====
-        matchWeekActivities(all, athlete);
+        merged.sort(function(a, b) { return new Date(b.start_date_local) - new Date(a.start_date_local); });
+        return merged;
     });
+}
+
+function renderActivitiesList(activities, athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    var all = activities;
+
+    if (all.length === 0) {
+        document.getElementById(p + 'activities-list').innerHTML =
+            '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
+            '<div style="font-size:14px;">Pas encore de donnees.</div></div>';
+        return;
+    }
+
+    var list = document.getElementById(p + 'activities-list');
+    var summary = document.getElementById(p + 'activities-summary');
+    list.innerHTML = '';
+
+    var totalRuns = 0, totalDist = 0, totalElev = 0, totalTime = 0;
+    var currentDate = '';
+
+    all.forEach(function(act) {
+        var st = detectType(act);
+        var t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
+        var dist = (act.distance / 1000).toFixed(1);
+        var elev = Math.round(act.total_elevation_gain || 0);
+        var isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
+        var isSwim = st === 'Swim';
+        var zone = getZone(act.average_heartrate, athlete);
+        var dateKey = fmtDate(act.start_date_local);
+
+        if (isRun) totalRuns++;
+        totalDist += act.distance / 1000;
+        totalElev += act.total_elevation_gain || 0;
+        totalTime += act.moving_time || 0;
+
+        // Date separator
+        if (dateKey !== currentDate) {
+            currentDate = dateKey;
+            list.innerHTML += '<div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:16px 0 6px; border-bottom:1px solid var(--border); margin-bottom:8px;">' + dateKey + '</div>';
+        }
+
+        // Source badge
+        var srcBadge = act.source === 'garmin' ? ' <span style="font-size:9px;color:var(--text-muted);font-weight:400;">GARMIN</span>'
+            : act.source === 'strava+garmin' ? ' <span style="font-size:9px;color:var(--green);font-weight:400;">S+G</span>' : '';
+
+        var stats = '';
+        if (act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value">' + dist + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> km</span></div><div class="act-stat-label">Distance</div></div>';
+        if (elev > 0) stats += '<div class="act-stat"><div class="act-stat-value text-orange">' + elev + '<span style="font-size:11px;font-weight:400;color:var(--text-muted);"> m</span></div><div class="act-stat-label">D+</div></div>';
+        stats += '<div class="act-stat"><div class="act-stat-value">' + fmt(act.moving_time) + '</div><div class="act-stat-label">Duree</div></div>';
+        if (act.average_heartrate) {
+            var zHtml = zone ? '<span class="act-zone" style="background:' + zone.bg + ';color:' + zone.color + ';">' + zone.label + '</span>' : '';
+            stats += '<div class="act-stat"><div class="act-stat-value" style="color:' + (zone ? zone.color : 'var(--text)') + ';">' + Math.round(act.average_heartrate) + '<span style="font-size:11px;font-weight:400;"> bpm</span>' + zHtml + '</div><div class="act-stat-label">FC moy</div></div>';
+        }
+        if (isRun && act.average_speed) stats += '<div class="act-stat"><div class="act-stat-value">' + fmtPace(act.average_speed) + '</div><div class="act-stat-label">Allure</div></div>';
+        if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
+
+        list.innerHTML +=
+            '<div class="activity-card">' +
+                '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
+                '<div class="act-body">' +
+                    '<div class="act-header">' +
+                        '<div><span class="act-name">' + act.name + '</span></div>' +
+                        '<div class="act-meta"><span class="act-type-label" style="color:' + t.color + ';">' + t.label + '</span>' + srcBadge + '</div>' +
+                    '</div>' +
+                    '<div class="act-stats">' + stats + '</div>' +
+                '</div>' +
+            '</div>';
+    });
+
+    document.getElementById(p + 'sum-runs').textContent = totalRuns;
+    document.getElementById(p + 'sum-distance').textContent = Math.round(totalDist);
+    document.getElementById(p + 'sum-elevation').textContent = Math.round(totalElev);
+    document.getElementById(p + 'sum-time').textContent = Math.round(totalTime / 3600) + 'h';
+    summary.style.display = 'block';
+
+    if (!p) {
+        var stravaEl = document.getElementById('strava-status');
+        if (stravaEl) { stravaEl.style.color = 'var(--green)'; stravaEl.textContent = 'Strava OK'; }
+    }
+
+    // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
+    updateWeekKPIs(all, athlete);
 }
 
 function updateWeekKPIs(activities, athlete) {
@@ -1942,50 +1950,37 @@ function matchWeekActivities(activities, athlete) {
     }
 }
 
-// loadActivities('yohann') is now called via loadAthleteData()
+// fetchActivities() + renderActivitiesList() are called via loadAthleteData()
 
 // ===== MANUAL CHECKS (renfo/iso/PPG) =====
-var _coachLogDaily = [];
 var _checksDirty = false;
 
 function initManualChecks(athlete) {
     athlete = athlete || 'yohann';
     var containerEl = document.getElementById('athlete-' + athlete);
-    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
-    containerEl.querySelectorAll('.week-day[data-checks]').forEach(dayEl => {
-        const date = dayEl.dataset.date;
-        const items = dayEl.dataset.checks.split(',').map(s => s.trim()).filter(Boolean);
-        const container = dayEl.querySelector('.day-checks');
+    var daily = _coachLogByAthlete[athlete] || [];
+    containerEl.querySelectorAll('.week-day[data-checks]').forEach(function(dayEl) {
+        var date = dayEl.dataset.date;
+        var items = dayEl.dataset.checks.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+        var container = dayEl.querySelector('.day-checks');
         if (!container || items.length === 0) return;
         container.innerHTML = '';
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
         var coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
 
-        items.forEach(item => {
-            const key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
-            const isChecked = coachChecks ? !!coachChecks[item] : localStorage.getItem(key) === '1';
+        items.forEach(function(item) {
+            var key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
+            var isChecked = coachChecks ? !!coachChecks[item] : localStorage.getItem(key) === '1';
 
-            const chip = document.createElement('span');
+            var chip = document.createElement('span');
             chip.className = 'day-check' + (isChecked ? ' checked' : '');
             chip.innerHTML = '<span class="check-icon">' + (isChecked ? '\u2713' : '\u25CB') + '</span>' + item;
             chip.addEventListener('click', function() {
-                const nowChecked = !this.classList.contains('checked');
+                var nowChecked = !this.classList.contains('checked');
                 this.classList.toggle('checked', nowChecked);
                 this.querySelector('.check-icon').textContent = nowChecked ? '\u2713' : '\u25CB';
                 localStorage.setItem(key, nowChecked ? '1' : '0');
-                // Sync to duplicate elements with same date (today card + week plan day)
-                containerEl.querySelectorAll('.week-day[data-date="' + date + '"]').forEach(function(otherDay) {
-                    if (otherDay === dayEl) return;
-                    otherDay.querySelectorAll('.day-check').forEach(function(otherChip) {
-                        var otherName = otherChip.textContent.replace(/^[\u2713\u25CB]\s*/, '');
-                        if (otherName === item) {
-                            otherChip.classList.toggle('checked', nowChecked);
-                            var icon = otherChip.querySelector('.check-icon');
-                            if (icon) icon.textContent = nowChecked ? '\u2713' : '\u25CB';
-                        }
-                    });
-                });
                 _checksDirty = true;
                 showSaveChecksBtn();
             });
@@ -2006,7 +2001,7 @@ function rpeColor(val) {
 function initDayMetrics(athlete) {
     athlete = athlete || 'yohann';
     var containerEl = document.getElementById('athlete-' + athlete);
-    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var daily = _coachLogByAthlete[athlete] || [];
     var injuryKey = ATHLETES[athlete].injuryKey;
     containerEl.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
         var date = dayEl.dataset.date;
@@ -2054,30 +2049,19 @@ function initDayMetrics(athlete) {
                     dot.addEventListener('click', function() {
                         var current = row.dataset.value !== '' ? parseInt(row.dataset.value) : null;
                         var newVal = (current === idx) ? null : idx;
-                        // Helper to update a metric row's dots and value display
-                        function updateMetricRow(r) {
-                            r.dataset.value = newVal != null ? newVal : '';
-                            r.querySelectorAll('.metric-dot').forEach(function(d) {
-                                var di = parseInt(d.dataset.idx);
-                                if (newVal != null && di <= newVal) {
-                                    d.classList.add('filled');
-                                    d.style.background = m.colorFn(newVal);
-                                } else {
-                                    d.classList.remove('filled');
-                                    d.style.background = '';
-                                }
-                            });
-                            var vs = r.querySelector('.metric-value');
-                            if (vs) { vs.textContent = newVal != null ? newVal : ''; vs.style.color = m.colorFn(newVal); }
-                        }
-                        // Update this row
-                        updateMetricRow(row);
-                        // Sync to any duplicate elements with same date (today card + week plan day)
-                        containerEl.querySelectorAll('.week-day[data-date="' + date + '"]').forEach(function(otherDay) {
-                            if (otherDay === dayEl) return;
-                            var otherRow = otherDay.querySelector('.metric-row[data-metric="' + m.key + '"]');
-                            if (otherRow) updateMetricRow(otherRow);
+                        row.dataset.value = newVal != null ? newVal : '';
+                        row.querySelectorAll('.metric-dot').forEach(function(d) {
+                            var di = parseInt(d.dataset.idx);
+                            if (newVal != null && di <= newVal) {
+                                d.classList.add('filled');
+                                d.style.background = m.colorFn(newVal);
+                            } else {
+                                d.classList.remove('filled');
+                                d.style.background = '';
+                            }
                         });
+                        var vs = row.querySelector('.metric-value');
+                        if (vs) { vs.textContent = newVal != null ? newVal : ''; vs.style.color = m.colorFn(newVal); }
                         _checksDirty = true;
                         showSaveChecksBtn();
                     });
@@ -2308,14 +2292,12 @@ function escapeHtmlFront(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function loadWeekPlan(athlete) {
+function fetchWeekPlan(athlete) {
     athlete = athlete || 'yohann';
-    var cfg = ATHLETES[athlete];
-    var p = cfg.prefix;
     var now = new Date();
     var weekNum = getISOWeek(now);
     var currentWeek = now.getFullYear() + '-W' + String(weekNum).padStart(2, '0');
-    var dayOfWeek = now.getDay() || 7; // Mon=1..Sun=7
+    var dayOfWeek = now.getDay() || 7;
 
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
     var fetches = [
@@ -2324,7 +2306,6 @@ function loadWeekPlan(athlete) {
             .catch(function() { return { notFound: true, week: currentWeek }; })
     ];
 
-    // If Thursday or later, also fetch next week
     if (dayOfWeek >= 4) {
         var nextWeekDate = new Date(now);
         nextWeekDate.setDate(nextWeekDate.getDate() + (8 - dayOfWeek));
@@ -2337,77 +2318,67 @@ function loadWeekPlan(athlete) {
         );
     }
 
-    Promise.all(fetches).then(function(plans) {
-        var container = document.getElementById(p + 'week-plan-container');
-        if (!container) return;
-        container.innerHTML = '';
+    return Promise.all(fetches);
+}
 
-        // Clean up previous next-week container if exists
-        var oldNext = document.getElementById(p + 'week-plan-next');
-        if (oldNext) oldNext.remove();
+function applyWeekPlan(plans, athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    var p = cfg.prefix;
+    if (!Array.isArray(plans)) plans = [plans];
 
-        // Clear today container (will be rebuilt by buildTodayCard)
-        var todayC = document.getElementById(p + 'today-container');
-        if (todayC) todayC.innerHTML = '';
+    var container = document.getElementById(p + 'week-plan-container');
+    if (!container) return;
+    container.innerHTML = '';
 
-        // Render current week
-        renderWeekPlan(plans[0], athlete);
-        _weekPlanByAthlete[athlete] = plans[0];
+    var oldNext = document.getElementById(p + 'week-plan-next');
+    if (oldNext) oldNext.remove();
 
-        // Render next week if available
-        if (plans[1] && !plans[1].notFound) {
-            var nextContainer = document.createElement('div');
-            nextContainer.id = p + 'week-plan-next';
-            container.parentNode.insertBefore(nextContainer, container.nextSibling);
-            // Use a temporary container trick: render into the new div
-            var origContainer = document.getElementById(p + 'week-plan-container');
-            // Append next week card directly
-            var nextHtml = '';
-            var plan = plans[1];
-            nextHtml += '<div class="card" style="margin-top: 20px;">';
-            nextHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">';
-            nextHtml += '<h2 style="margin: 0;">' + escapeHtmlFront(plan.title || ('Semaine ' + plan.week)) + '</h2>';
-            if (plan.bloc) nextHtml += '<span class="badge badge-blue">' + escapeHtmlFront(plan.bloc).toUpperCase() + '</span>';
+    var todayC = document.getElementById(p + 'today-container');
+    if (todayC) todayC.innerHTML = '';
+
+    renderWeekPlan(plans[0], athlete);
+
+    if (plans[1] && !plans[1].notFound) {
+        var nextContainer = document.createElement('div');
+        nextContainer.id = p + 'week-plan-next';
+        container.parentNode.insertBefore(nextContainer, container.nextSibling);
+        var nextHtml = '';
+        var plan = plans[1];
+        nextHtml += '<div class="card" style="margin-top: 20px;">';
+        nextHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">';
+        nextHtml += '<h2 style="margin: 0;">' + escapeHtmlFront(plan.title || ('Semaine ' + plan.week)) + '</h2>';
+        if (plan.bloc) nextHtml += '<span class="badge badge-blue">' + escapeHtmlFront(plan.bloc).toUpperCase() + '</span>';
+        nextHtml += '</div>';
+        if (plan.objective || plan.volume) {
+            nextHtml += '<div class="note-box">';
+            if (plan.objective) nextHtml += '<strong>Objectif :</strong> ' + escapeHtmlFront(plan.objective) + '<br>';
+            if (plan.volume) nextHtml += '<strong>Volume cible :</strong> ' + escapeHtmlFront(plan.volume);
             nextHtml += '</div>';
-            if (plan.objective || plan.volume) {
-                nextHtml += '<div class="note-box">';
-                if (plan.objective) nextHtml += '<strong>Objectif :</strong> ' + escapeHtmlFront(plan.objective) + '<br>';
-                if (plan.volume) nextHtml += '<strong>Volume cible :</strong> ' + escapeHtmlFront(plan.volume);
-                nextHtml += '</div>';
-            }
-            plan.days.forEach(function(day) {
-                var hl = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
-                var ca = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
-                nextHtml += '<div class="week-day"' + hl + ' data-date="' + day.date + '"' + ca + '>';
-                nextHtml += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
-                var bc = day.badgeClass || 'badge-blue';
-                if (bc === 'badge-grey') nextHtml += '<span class="badge" style="background: #333; color: #999;">' + escapeHtmlFront(day.title) + '</span>';
-                else nextHtml += '<span class="badge ' + bc + '">' + escapeHtmlFront(day.title) + '</span>';
-                nextHtml += '</div>';
-                nextHtml += '<div class="day-details">' + day.detailsHtml + '</div>';
-                nextHtml += '<div class="day-match"></div><div class="day-checks"></div></div>';
-            });
+        }
+        plan.days.forEach(function(day) {
+            var hl = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
+            var ca = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
+            nextHtml += '<div class="week-day"' + hl + ' data-date="' + day.date + '"' + ca + '>';
+            nextHtml += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
+            var bc = day.badgeClass || 'badge-blue';
+            if (bc === 'badge-grey') nextHtml += '<span class="badge" style="background: #333; color: #999;">' + escapeHtmlFront(day.title) + '</span>';
+            else nextHtml += '<span class="badge ' + bc + '">' + escapeHtmlFront(day.title) + '</span>';
             nextHtml += '</div>';
-            nextContainer.innerHTML = nextHtml;
-        }
-
-        // After DOM is ready, run post-render hooks
-        buildTodayCard(athlete);
-        markPastDays(athlete);
-        initManualChecks(athlete);
-        initDayMetrics(athlete);
-        if (_activitiesByAthlete[athlete]) {
-            matchWeekActivities(_activitiesByAthlete[athlete], athlete);
-        }
-    });
+            nextHtml += '<div class="day-details">' + day.detailsHtml + '</div>';
+            nextHtml += '<div class="day-match"></div><div class="day-checks"></div></div>';
+        });
+        nextHtml += '</div>';
+        nextContainer.innerHTML = nextHtml;
+    }
 }
 
 function buildTodayCard(athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var p = cfg.prefix;
-    var container = document.getElementById(p + 'today-container');
-    if (!container) return;
+    var todayContainer = document.getElementById(p + 'today-container');
+    if (!todayContainer) return;
 
     var now = new Date();
     var todayISO = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
@@ -2418,46 +2389,38 @@ function buildTodayCard(athlete) {
     var moisNom = MOIS[now.getMonth()];
     var jourNum = now.getDate();
 
-    // Find matching day-card in the planning
-    var weekTabId = cfg.weekSubId;
-    var sourceEl = document.querySelector('#' + weekTabId + ' .week-day[data-date="' + todayISO + '"]:not(#' + p + 'today-container .week-day)');
+    // Find matching day-card in the week plan
+    var athleteContainer = document.getElementById('athlete-' + athlete);
+    var sourceEl = athleteContainer.querySelector('#' + p + 'week-plan-container .week-day[data-date="' + todayISO + '"]');
+    // Also check next-week container
+    if (!sourceEl) {
+        var nextC = document.getElementById(p + 'week-plan-next');
+        if (nextC) sourceEl = nextC.querySelector('.week-day[data-date="' + todayISO + '"]');
+    }
 
     var badgeHTML = '';
     var detailsHTML = '';
-    var checksAttr = '';
     var exercises = [];
 
     if (sourceEl) {
         var badgeEl = sourceEl.querySelector('.day-header .badge');
-        if (badgeEl) {
-            badgeHTML = badgeEl.outerHTML;
-        }
+        if (badgeEl) badgeHTML = badgeEl.outerHTML;
         var detailEl = sourceEl.querySelector('.day-details');
-        if (detailEl) {
-            detailsHTML = detailEl.innerHTML;
-        }
-        checksAttr = sourceEl.dataset.checks || '';
+        if (detailEl) detailsHTML = detailEl.innerHTML;
         exercises = detectExercises(badgeEl ? badgeEl.textContent : '', detailsHTML);
-        // Hide original in planning (but not if it's in past sub-tab)
-        if (!sourceEl.closest('#' + p + 'week-past')) {
-            sourceEl.classList.add('day-hidden');
-        }
-    }
 
-    // Fallback: repos if no exercises detected
-    if (exercises.length === 0) {
-        exercises = [{ key: 'repos', label: 'Repos' }];
-        if (!badgeHTML) {
-            badgeHTML = '<span class="badge" style="background: #333; color: #999;">Repos</span>';
-        }
-        if (!detailsHTML) {
-            detailsHTML = 'Pas de seance programmee';
-        }
-    }
+        // Insert a placeholder where the source element was
+        var placeholder = document.createElement('div');
+        placeholder.className = 'week-day-placeholder';
+        placeholder.dataset.date = todayISO;
+        placeholder.innerHTML = '<span style="opacity:0.4">\u25B2 Voir ci-dessus</span>';
+        sourceEl.parentNode.insertBefore(placeholder, sourceEl);
 
-    // Build exercise icon strip (compact row of detected SVGs)
-    var iconsHTML = '';
-    if (exercises.length > 0) {
+        // MOVE (not clone) the source element into the today-card wrapper
+        sourceEl.classList.add('today-card');
+
+        var iconsHTML = '';
+        if (exercises.length === 0) exercises = [{ key: 'repos', label: 'Repos' }];
         iconsHTML = '<div class="today-icons">';
         exercises.forEach(function(ex) {
             iconsHTML += '<div class="today-icon-item">' +
@@ -2466,21 +2429,43 @@ function buildTodayCard(athlete) {
                 '</div>';
         });
         iconsHTML += '</div>';
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'card today-card-wrapper';
+        wrapper.innerHTML = '<div class="today-header">' +
+            '<h2>Aujourd\'hui \u2014 ' + jourNom + ' ' + jourNum + ' ' + moisNom + '</h2>' +
+            badgeHTML +
+            '</div>' + iconsHTML;
+
+        wrapper.appendChild(sourceEl);
+        todayContainer.innerHTML = '';
+        todayContainer.appendChild(wrapper);
+    } else {
+        // No plan for today — show repos card
+        exercises = [{ key: 'repos', label: 'Repos' }];
+        badgeHTML = '<span class="badge" style="background: #333; color: #999;">Repos</span>';
+        detailsHTML = 'Pas de seance programmee';
+
+        var iconsHTML2 = '<div class="today-icons">';
+        exercises.forEach(function(ex) {
+            iconsHTML2 += '<div class="today-icon-item">' +
+                '<div class="exercise-svg">' + (EXERCISE_SVGS[ex.key] || '') + '</div>' +
+                '<span class="today-icon-label">' + ex.label + '</span>' +
+                '</div>';
+        });
+        iconsHTML2 += '</div>';
+
+        todayContainer.innerHTML = '<div class="card today-card week-day" data-date="' + todayISO + '">' +
+            '<div class="today-header">' +
+            '<h2>Aujourd\'hui \u2014 ' + jourNom + ' ' + jourNum + ' ' + moisNom + '</h2>' +
+            badgeHTML +
+            '</div>' +
+            iconsHTML2 +
+            '<div class="day-details" style="margin-top: 12px; line-height: 1.7;">' + detailsHTML + '</div>' +
+            '<div class="day-match"></div>' +
+            '<div class="day-checks"></div>' +
+            '</div>';
     }
-
-    var cardHTML = '<div class="card today-card week-day" data-date="' + todayISO + '"' +
-        (checksAttr ? ' data-checks="' + checksAttr + '"' : '') + '>' +
-        '<div class="today-header">' +
-        '<h2>Aujourd\'hui — ' + jourNom + ' ' + jourNum + ' ' + moisNom + '</h2>' +
-        badgeHTML +
-        '</div>' +
-        iconsHTML +
-        '<div class="day-details" style="margin-top: 12px; line-height: 1.7;">' + detailsHTML + '</div>' +
-        '<div class="day-match"></div>' +
-        '<div class="day-checks"></div>' +
-        '</div>';
-
-    container.innerHTML = cardHTML;
 }
 
 function markPastDays(athlete) {
@@ -2497,14 +2482,14 @@ function markPastDays(athlete) {
         var date = el.dataset.date;
         if (date < todayISO) {
             el.classList.add('day-past');
-        } else if (date === todayISO) {
-            el.classList.add('day-hidden');
         }
+        // Today's element has been MOVED to today-container by buildTodayCard,
+        // so no need to hide it here.
     });
 }
 
 // buildTodayCard, markPastDays, initManualChecks, initDayMetrics
-// are now called by loadWeekPlan() after dynamic rendering
+// are now called ONCE by loadAthleteData() after all data is fetched
 
 // ===== GARMIN WELLNESS DATA =====
 function fmtSeconds(s) {
@@ -2618,13 +2603,32 @@ function stepsColor(steps) {
     return 'var(--red)';
 }
 
-function loadGarminData(athlete) {
+function fetchGarminData(athlete) {
+    athlete = athlete || 'yohann';
+    var cfg = ATHLETES[athlete];
+    return fetch(cfg.dataDir + 'garmin-wellness.json?t=' + Date.now())
+        .then(function(r) { if (!r.ok) throw new Error('No data'); return r.json(); })
+        .catch(function() { return null; });
+}
+
+function renderGarminWellness(data, athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var p = cfg.prefix;
-    fetch(cfg.dataDir + 'garmin-wellness.json?t=' + Date.now())
-        .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
-        .then(data => {
+
+    if (!data) {
+        if (!p) {
+            var gs = document.getElementById('garmin-status');
+            if (gs) { gs.style.color = 'var(--yellow)'; gs.textContent = 'Pas de donnees'; }
+        }
+        var sleepEl = document.getElementById(p + 'health-sleep-detail');
+        if (sleepEl) sleepEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
+        var hrvEl = document.getElementById(p + 'health-hrv-stress');
+        if (hrvEl) hrvEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
+        return;
+    }
+
+    (function() {
             const sum = data.summary;
             const days = data.days || [];
 
@@ -2863,27 +2867,15 @@ function loadGarminData(athlete) {
                 document.getElementById('garmin-status').style.color = 'var(--green)';
                 document.getElementById('garmin-status').textContent = 'OK';
             }
-        })
-        .catch(() => {
-            if (!p) {
-                document.getElementById('garmin-status').style.color = 'var(--yellow)';
-                document.getElementById('garmin-status').textContent = 'Pas de donnees';
-            }
-            var sleepEl = document.getElementById(p + 'health-sleep-detail');
-            if (sleepEl) sleepEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
-            var hrvEl = document.getElementById(p + 'health-hrv-stress');
-            if (hrvEl) hrvEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Pas encore de donnees Garmin.</div>';
-        });
+    })();
 }
 
 function findLatest(days, key) {
-    for (let i = days.length - 1; i >= 0; i--) {
+    for (var i = days.length - 1; i >= 0; i--) {
         if (days[i][key]) return days[i];
     }
     return null;
 }
-
-loadGarminData('yohann');
 
 // ===== SYNC BUTTON =====
 const SYNC_REPO = 'dreamskid/coach-trail';
@@ -3067,7 +3059,14 @@ function pollSyncWorkflow() {
                 label.textContent = ok ? 'OK !' : 'Echec';
                 if (ok) {
                     Object.keys(ATHLETES).forEach(function(a) {
-                        if (_loadedAthletes[a]) { loadActivities(a); loadGarminData(a); }
+                        if (_loadedAthletes[a]) {
+                            Promise.all([fetchActivities(a), fetchGarminData(a)]).then(function(res) {
+                                _activitiesByAthlete[a] = res[0];
+                                renderActivitiesList(res[0], a);
+                                matchWeekActivities(res[0], a);
+                                renderGarminWellness(res[1], a);
+                            });
+                        }
                     });
                 }
                 setTimeout(() => {
@@ -3126,7 +3125,7 @@ function renderInjuryJournal(athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var p = cfg.prefix;
-    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var daily = _coachLogByAthlete[athlete] || [];
     var injuryKey = cfg.injuryKey;
     var container = document.getElementById(p + 'injury-journal');
     if (!container) return;
@@ -3161,7 +3160,7 @@ function renderInjuryChart(athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var p = cfg.prefix;
-    var daily = _coachLogByAthlete[athlete] || _coachLogDaily;
+    var daily = _coachLogByAthlete[athlete] || [];
     var injuryKey = cfg.injuryKey;
     var chartId = injuryKey === 'soleaire' ? 'chart-soleaire' : 'chart-' + injuryKey;
     var labelsId = chartId + '-labels';
@@ -3310,89 +3309,60 @@ function renderEvalHistory(evalData, athlete) {
     container.innerHTML = html;
 }
 
-function loadCoachLog(athlete) {
+function fetchCoachLog(athlete) {
+    athlete = athlete || 'yohann';
+    var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
+    return fetch(API_BASE + '/api/data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
+        .then(function(r) { if (!r.ok) throw new Error('No data'); return r.json(); })
+        .catch(function() { return { daily: [], longterm: {} }; });
+}
+
+function applyCoachLog(data, athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var prefix = cfg.prefix;
-    var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
-    fetch(API_BASE + '/api/data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
-        .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
-        .then(data => {
-            var daily = data.daily || [];
-            var lt = data.longterm || {};
+    var lt = data.longterm || {};
 
-            // Sync token cross-device (Yohann only)
-            if (!prefix) {
-                var hasTokenInJson = data.settings && data.settings.gh_sync_token_obf;
-                var hasTokenLocal = getSyncToken();
-                if (hasTokenInJson && !hasTokenLocal) {
-                    try { setSyncToken(deobfuscate(data.settings.gh_sync_token_obf)); } catch(e) {}
-                } else if (hasTokenLocal && !hasTokenInJson) {
-                    persistTokenToRepo(hasTokenLocal);
-                }
+    // Sync token cross-device (Yohann only)
+    if (!prefix) {
+        var hasTokenInJson = data.settings && data.settings.gh_sync_token_obf;
+        var hasTokenLocal = getSyncToken();
+        if (hasTokenInJson && !hasTokenLocal) {
+            try { setSyncToken(deobfuscate(data.settings.gh_sync_token_obf)); } catch(e) {}
+        } else if (hasTokenLocal && !hasTokenInJson) {
+            persistTokenToRepo(hasTokenLocal);
+        }
+    }
+
+    // Protocol phase badges (Yohann only — has proto-phase-X IDs)
+    if (!prefix) {
+        var currentPhase = lt.protocol_phase || 1;
+        for (var pp = 1; pp <= 5; pp++) {
+            var protoEl = document.getElementById('proto-phase-' + pp);
+            if (!protoEl) continue;
+            if (pp < currentPhase) {
+                protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
+            } else if (pp === currentPhase) {
+                protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
+            } else {
+                protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
             }
+        }
+    }
 
-            // Store daily data per athlete
-            _coachLogByAthlete[athlete] = daily;
-            if (!prefix) _coachLogDaily = daily;
+    renderInjuryJournal(athlete);
+    renderInjuryChart(athlete);
 
-            // Feed manual checks from coach-log and re-render
-            initManualChecks(athlete);
-            initDayMetrics(athlete);
-
-            // Protocol phase badges (Yohann only — has proto-phase-X IDs)
-            if (!prefix) {
-                var currentPhase = lt.protocol_phase || 1;
-                for (var pp = 1; pp <= 5; pp++) {
-                    var protoEl = document.getElementById('proto-phase-' + pp);
-                    if (!protoEl) continue;
-                    if (pp < currentPhase) {
-                        protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
-                    } else if (pp === currentPhase) {
-                        protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
-                    } else {
-                        protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
-                    }
-                }
-            }
-
-            renderInjuryJournal(athlete);
-            renderInjuryChart(athlete);
-
-            var evalData = lt.evaluation || null;
-            renderEvaluation(evalData, athlete);
-            renderEvalHistory(evalData, athlete);
-        })
-        .catch(() => {});
+    var evalData = lt.evaluation || null;
+    renderEvaluation(evalData, athlete);
+    renderEvalHistory(evalData, athlete);
 }
 
-// ===== ATHLETE DATA (dynamic dashboard) =====
-var _athleteDataByAthlete = {};
-
-function loadAthleteProfile(athlete) {
+function fetchAthleteProfile(athlete) {
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
-    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
+    return fetch(API_BASE + '/api/athlete-data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
         .then(function(r) { return r.json(); })
-        .then(function(data) {
-            _athleteDataByAthlete[athlete] = data;
-            renderProfile(data, athlete);
-            renderZones(data, athlete);
-            renderInjury(data, athlete);
-            renderCalendar(data, athlete);
-            renderPredictions(data, athlete);
-            renderProgression(data, athlete);
-            renderHealthFactors(data, athlete);
-            // Re-render injury chart/journal if coach-log already loaded
-            if (_coachLogByAthlete[athlete]) {
-                renderInjuryJournal(athlete);
-                renderInjuryChart(athlete);
-            }
-            // Re-render week activity matching (needs zone data)
-            if (_activitiesByAthlete[athlete]) {
-                matchWeekActivities(_activitiesByAthlete[athlete], athlete);
-            }
-        })
-        .catch(function(e) { console.warn('loadAthleteProfile error:', e); });
+        .catch(function(e) { console.warn('fetchAthleteProfile error:', e); return {}; });
 }
 
 function esc(s) { return (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -3457,14 +3427,17 @@ function renderZones(data, athlete) {
         '<h2>Zones de fréquence cardiaque</h2>' +
         '<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Méthode Karvonen · FC repos ' + prof.fc_repos + ' · FC max ' + prof.fc_max + ' · RFC ' + prof.rfc + ' bpm</p>' +
         barHtml;
-    // Update FC_ZONES for activity matching
+    // Update per-athlete zones for activity matching
     if (zones.length >= 5) {
-        FC_ZONES[0].max = zones[0].min - 1;
-        FC_ZONES[1].max = zones[0].max;
-        FC_ZONES[2].max = zones[1].max;
-        FC_ZONES[3].max = zones[2].max;
-        FC_ZONES[4].max = zones[3].max;
-        FC_ZONES[5].max = 999;
+        var az = _fcZonesByAthlete[athlete];
+        if (az && az.length >= 6) {
+            az[0].max = zones[0].min - 1;
+            az[1].max = zones[0].max;
+            az[2].max = zones[1].max;
+            az[3].max = zones[2].max;
+            az[4].max = zones[3].max;
+            az[5].max = 999;
+        }
     }
 }
 
@@ -3716,11 +3689,99 @@ function renderHealthFactors(data, athlete) {
 
 // ===== LOAD ATHLETE DATA (all data for one athlete) =====
 function loadAthleteData(athlete) {
-    loadCoachLog(athlete);
-    loadActivities(athlete);
-    loadGarminData(athlete);
-    loadWeekPlan(athlete);
-    loadAthleteProfile(athlete);
+    Promise.all([
+        fetchCoachLog(athlete),
+        fetchWeekPlan(athlete),
+        fetchActivities(athlete),
+        fetchGarminData(athlete),
+        fetchAthleteProfile(athlete)
+    ]).then(function(results) {
+        var coachLog = results[0];
+        var weekPlans = results[1];
+        var activities = results[2];
+        var garmin = results[3];
+        var profile = results[4];
+
+        // Store data
+        _coachLogByAthlete[athlete] = coachLog.daily || [];
+        _weekPlanByAthlete[athlete] = weekPlans[0];
+        _activitiesByAthlete[athlete] = activities;
+        _athleteDataByAthlete[athlete] = profile;
+
+        // Render profile + zones FIRST (zones needed for activity matching)
+        renderProfile(profile, athlete);
+        renderZones(profile, athlete);
+        renderInjury(profile, athlete);
+        renderCalendar(profile, athlete);
+        renderPredictions(profile, athlete);
+        renderProgression(profile, athlete);
+        renderHealthFactors(profile, athlete);
+
+        // Render week plan (creates DOM elements for days)
+        applyWeekPlan(weekPlans, athlete);
+
+        // Build today card (MOVES element, must be before initManualChecks/initDayMetrics)
+        buildTodayCard(athlete);
+        markPastDays(athlete);
+
+        // Init checks and metrics ONCE (after all DOM elements are in place)
+        initManualChecks(athlete);
+        initDayMetrics(athlete);
+
+        // Match activities to week plan
+        matchWeekActivities(activities, athlete);
+
+        // Apply coach-log data (protocol badges, eval, injury journal/chart)
+        applyCoachLog(coachLog, athlete);
+
+        // Render garmin wellness data
+        renderGarminWellness(garmin, athlete);
+
+        // Render activities list
+        renderActivitiesList(activities, athlete);
+    });
+}
+
+// ===== REFRESH AFTER AI MODIFICATIONS =====
+function refreshAfterModification(athlete, modifications) {
+    var needCoachLog = modifications.some(function(m) { return ['daily','longterm','evaluation'].indexOf(m.type) >= 0; });
+    var needWeekPlan = modifications.some(function(m) { return m.type === 'week_plan'; });
+    var needProfile = modifications.some(function(m) { return m.type === 'athlete_data'; });
+
+    var fetches = [
+        needCoachLog ? fetchCoachLog(athlete) : Promise.resolve(null),
+        needWeekPlan ? fetchWeekPlan(athlete) : Promise.resolve(null),
+        needProfile ? fetchAthleteProfile(athlete) : Promise.resolve(null)
+    ];
+
+    Promise.all(fetches).then(function(results) {
+        if (results[0]) {
+            _coachLogByAthlete[athlete] = results[0].daily || [];
+            applyCoachLog(results[0], athlete);
+        }
+        if (results[1]) {
+            _weekPlanByAthlete[athlete] = results[1][0];
+            applyWeekPlan(results[1], athlete);
+            buildTodayCard(athlete);
+            markPastDays(athlete);
+        }
+        // Re-init metrics if coach-log OR week-plan changed
+        if (results[0] || results[1]) {
+            initManualChecks(athlete);
+            initDayMetrics(athlete);
+            if (_activitiesByAthlete[athlete]) matchWeekActivities(_activitiesByAthlete[athlete], athlete);
+        }
+        if (results[2]) {
+            _athleteDataByAthlete[athlete] = results[2];
+            renderProfile(results[2], athlete);
+            renderZones(results[2], athlete);
+            renderInjury(results[2], athlete);
+            renderCalendar(results[2], athlete);
+            renderPredictions(results[2], athlete);
+            renderProgression(results[2], athlete);
+            renderHealthFactors(results[2], athlete);
+        }
+    });
 }
 
 // Initial load
@@ -3742,8 +3803,6 @@ _loadedAthletes[currentAthlete] = true;
 <script>
 // ===== CHAT COACH IA (tab-integrated, scoped per athlete) =====
 (function() {
-    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-    var CHAT_API = isLocal ? 'http://localhost:3000' : 'https://unguillotined-norris-historically.ngrok-free.dev';
     var chatLoadedFor = {};
     var chatSending = {};
     var ngrokH = { 'ngrok-skip-browser-warning': '1' };
@@ -3859,7 +3918,7 @@ _loadedAthletes[currentAthlete] = true;
         });
         el.newBtn.addEventListener('click', function() {
             if (!confirm('Nouvelle conversation ? L\'historique sera effac\u00e9.')) return;
-            fetch(CHAT_API + '/api/chat-clear?athlete=' + athlete, { method: 'POST', headers: ngrokH })
+            fetch(API_BASE + '/api/chat-clear?athlete=' + athlete, { method: 'POST', headers: ngrokH })
                 .then(function() {
                     el.messages.innerHTML = '';
                     chatLoadedFor[athlete] = false;
@@ -3871,7 +3930,7 @@ _loadedAthletes[currentAthlete] = true;
     // Load history for an athlete (called when tab becomes visible)
     function loadChatHistory(athlete) {
         var el = getEls(athlete);
-        fetch(CHAT_API + '/api/chat-history?athlete=' + athlete, { headers: ngrokH })
+        fetch(API_BASE + '/api/chat-history?athlete=' + athlete, { headers: ngrokH })
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 el.messages.innerHTML = '';
@@ -3921,7 +3980,7 @@ _loadedAthletes[currentAthlete] = true;
         showTyping(el, athlete);
         scrollBot(el.messages);
 
-        fetch(CHAT_API + '/api/chat', {
+        fetch(API_BASE + '/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': '1' },
             body: JSON.stringify({ athlete: athlete, message: text })
@@ -3935,12 +3994,8 @@ _loadedAthletes[currentAthlete] = true;
                 appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
                 if (data.modifications && data.modifications.length > 0) {
                     addModNotice(el.messages, data.modifications);
-                    // Refresh all dashboard data after any AI modification
-                    loadCoachLog(athlete);
-                    loadWeekPlan(athlete);
-                    if (data.modifications.some(function(m) { return m.type === 'athlete_data'; })) {
-                        loadAthleteProfile(athlete);
-                    }
+                    // Refresh only affected dashboard sections
+                    refreshAfterModification(athlete, data.modifications);
                 }
             }
             scrollBot(el.messages);
