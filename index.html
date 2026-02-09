@@ -1974,6 +1974,18 @@ function initManualChecks(athlete) {
                 this.classList.toggle('checked', nowChecked);
                 this.querySelector('.check-icon').textContent = nowChecked ? '\u2713' : '\u25CB';
                 localStorage.setItem(key, nowChecked ? '1' : '0');
+                // Sync to duplicate elements with same date (today card + week plan day)
+                containerEl.querySelectorAll('.week-day[data-date="' + date + '"]').forEach(function(otherDay) {
+                    if (otherDay === dayEl) return;
+                    otherDay.querySelectorAll('.day-check').forEach(function(otherChip) {
+                        var otherName = otherChip.textContent.replace(/^[\u2713\u25CB]\s*/, '');
+                        if (otherName === item) {
+                            otherChip.classList.toggle('checked', nowChecked);
+                            var icon = otherChip.querySelector('.check-icon');
+                            if (icon) icon.textContent = nowChecked ? '\u2713' : '\u25CB';
+                        }
+                    });
+                });
                 _checksDirty = true;
                 showSaveChecksBtn();
             });
@@ -2042,22 +2054,30 @@ function initDayMetrics(athlete) {
                     dot.addEventListener('click', function() {
                         var current = row.dataset.value !== '' ? parseInt(row.dataset.value) : null;
                         var newVal = (current === idx) ? null : idx;
-                        row.dataset.value = newVal != null ? newVal : '';
-                        // Update all dots
-                        row.querySelectorAll('.metric-dot').forEach(function(d) {
-                            var di = parseInt(d.dataset.idx);
-                            if (newVal != null && di <= newVal) {
-                                d.classList.add('filled');
-                                d.style.background = m.colorFn(newVal);
-                            } else {
-                                d.classList.remove('filled');
-                                d.style.background = '';
-                            }
+                        // Helper to update a metric row's dots and value display
+                        function updateMetricRow(r) {
+                            r.dataset.value = newVal != null ? newVal : '';
+                            r.querySelectorAll('.metric-dot').forEach(function(d) {
+                                var di = parseInt(d.dataset.idx);
+                                if (newVal != null && di <= newVal) {
+                                    d.classList.add('filled');
+                                    d.style.background = m.colorFn(newVal);
+                                } else {
+                                    d.classList.remove('filled');
+                                    d.style.background = '';
+                                }
+                            });
+                            var vs = r.querySelector('.metric-value');
+                            if (vs) { vs.textContent = newVal != null ? newVal : ''; vs.style.color = m.colorFn(newVal); }
+                        }
+                        // Update this row
+                        updateMetricRow(row);
+                        // Sync to any duplicate elements with same date (today card + week plan day)
+                        containerEl.querySelectorAll('.week-day[data-date="' + date + '"]').forEach(function(otherDay) {
+                            if (otherDay === dayEl) return;
+                            var otherRow = otherDay.querySelector('.metric-row[data-metric="' + m.key + '"]');
+                            if (otherRow) updateMetricRow(otherRow);
                         });
-                        // Update value display
-                        var valSpan = row.querySelector('.metric-value');
-                        valSpan.textContent = newVal != null ? newVal : '';
-                        valSpan.style.color = m.colorFn(newVal);
                         _checksDirty = true;
                         showSaveChecksBtn();
                     });
