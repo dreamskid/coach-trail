@@ -2147,7 +2147,17 @@ function saveChecksToGitHub() {
         btn.textContent = 'OK !';
         btn.style.background = 'var(--green-dark)';
         _checksDirty = false;
-        loadCoachLog(currentAthlete);
+        // Update local coach-log data directly (avoid re-fetch which can return cached data)
+        var daily = _coachLogByAthlete[currentAthlete] || [];
+        entries.forEach(function(entry) {
+            var idx = daily.findIndex(function(d) { return d.date === entry.date; });
+            if (idx >= 0) {
+                Object.keys(entry).forEach(function(k) { daily[idx][k] = entry[k]; });
+            } else {
+                daily.push(entry);
+            }
+        });
+        _coachLogByAthlete[currentAthlete] = daily;
         setTimeout(function() { btn.classList.remove('visible'); }, 1500);
     })
     .catch(function(err) {
@@ -2286,7 +2296,7 @@ function loadWeekPlan(athlete) {
 
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
     var fetches = [
-        fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + currentWeek, { headers: headers })
+        fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + currentWeek, { headers: headers, cache: 'no-store' })
             .then(function(r) { return r.json(); })
             .catch(function() { return { notFound: true, week: currentWeek }; })
     ];
@@ -2298,7 +2308,7 @@ function loadWeekPlan(athlete) {
         var nextWeekNum = getISOWeek(nextWeekDate);
         var nextWeek = nextWeekDate.getFullYear() + '-W' + String(nextWeekNum).padStart(2, '0');
         fetches.push(
-            fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + nextWeek, { headers: headers })
+            fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + nextWeek, { headers: headers, cache: 'no-store' })
                 .then(function(r) { return r.json(); })
                 .catch(function() { return { notFound: true, week: nextWeek }; })
         );
@@ -3282,7 +3292,7 @@ function loadCoachLog(athlete) {
     var cfg = ATHLETES[athlete];
     var prefix = cfg.prefix;
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
-    fetch(API_BASE + '/api/data?athlete=' + athlete, { headers: headers })
+    fetch(API_BASE + '/api/data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
         .then(r => { if (!r.ok) throw new Error('No data'); return r.json(); })
         .then(data => {
             var daily = data.daily || [];
@@ -3338,7 +3348,7 @@ var _athleteDataByAthlete = {};
 
 function loadAthleteProfile(athlete) {
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
-    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete, { headers: headers })
+    fetch(API_BASE + '/api/athlete-data?athlete=' + athlete, { headers: headers, cache: 'no-store' })
         .then(function(r) { return r.json(); })
         .then(function(data) {
             _athleteDataByAthlete[athlete] = data;

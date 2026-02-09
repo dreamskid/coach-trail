@@ -2,19 +2,12 @@
   "daily": [
     {
       "date": "2026-02-07",
-      "soleaire": 3,
-      "rpe": 3,
-      "diner": false,
-      "nicotine": true,
-      "hydratation": false,
-      "sommeil_h": 6,
-      "body_battery": 80,
-      "verdict": "Jour 1 du protocole. Lancement isos + cross-training. Arret nicotine ce jour.",
-      "phase": "bloc0",
       "checks": {
-        "Iso mollets": true,
+        "Iso mollets": false,
         "PPG haut du corps": false
-      }
+      },
+      "soleaire": null,
+      "rpe": null
     },
     {
       "date": "2026-02-08",
@@ -26,22 +19,23 @@
     },
     {
       "date": "2026-02-09",
-      "rpe": 3,
-      "soleaire": 2
+      "checks": {
+        "Elliptique Z1": false,
+        "Protocole": true
+      },
+      "soleaire": 3,
+      "rpe": 7
     },
     {
       "date": "2026-02-10",
-      "checks": {
-        "Iso mollets": false
-      },
       "soleaire": null,
       "rpe": null
     },
     {
       "date": "2026-02-11",
       "checks": {
-        "PPG haut du corps": false,
-        "Iso mollets": false
+        "Elliptique Z1-Z2": false,
+        "PPG haut du corps": false
       },
       "soleaire": null,
       "rpe": null
@@ -49,7 +43,8 @@
     {
       "date": "2026-02-12",
       "checks": {
-        "Iso mollets": false
+        "Elliptique Z2": false,
+        "Transition phase 2 ?": false
       },
       "soleaire": null,
       "rpe": null
@@ -57,25 +52,19 @@
     {
       "date": "2026-02-13",
       "checks": {
-        "Test phase 2": false
+        "Natation Z1-Z2": false,
+        "RETEST SAUT": false
       },
       "soleaire": null,
       "rpe": null
     },
     {
       "date": "2026-02-14",
-      "checks": {
-        "Iso / excentriques": false
-      },
       "soleaire": null,
       "rpe": null
     },
     {
       "date": "2026-02-15",
-      "checks": {
-        "PPG complete": false,
-        "Retest saut unipodal": false
-      },
       "soleaire": null,
       "rpe": null
     },
