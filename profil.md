@@ -3,17 +3,17 @@
 ## Identité
 
 - **Âge** : 44 ans
-- **Poids** : 83 kg
+- **Poids** : 84.9 kg
 - **Taille** : 184 cm
-- **IMC** : 24.5
+- **IMC** : 25.1
 
 ## Données physiologiques
 
 | Paramètre | Valeur | Date de mesure | Méthode |
 |---|---|---|---|
 | FC repos | **46 bpm** | 07/02/2026 | Garmin Connect (moy. 7 jours) |
-| FC max | **178 bpm** | 07/02/2026 | Garmin Connect (confirmé) |
-| Réserve cardiaque (RFC) | **132 bpm** | - | Karvonen (178 - 46) |
+| FC max | **181 bpm** | 09/02/2026 | Garmin Connect (analyse approfondie) |
+| Réserve cardiaque (RFC) | **135 bpm** | - | Karvonen (181 - 46) |
 | VO2max | **45 ml/kg/min** | 07/02/2026 | Garmin Connect |
 | VMA estimée | **~15.0 km/h** | - | Estimation (VO2max/3), **à confirmer par test** |
 | Sommeil moyen | **6h03 /nuit** | 07/02/2026 | Apple Health (moy. 7 jours) |
@@ -69,7 +69,7 @@
 
 ### Quotidien
 - **Pattern habituel** : saute souvent le dîner et parfois le petit-déjeuner — 1 à 2 vrais repas/jour
-- **Déficit chronique probable** : un 83 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
+- **Déficit chronique probable** : un 84.9 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
 - **Objectif** : dîner systématique (30-40g protéines minimum) + petit-déjeuner les jours d'entraînement
 
 ### En course
