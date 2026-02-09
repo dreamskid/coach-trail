@@ -1204,9 +1204,12 @@ const server = http.createServer(async (req, res) => {
     // GET /api/data
     if (req.method === 'GET' && url.pathname === '/api/data') {
         setCorsHeaders(res);
-        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         const athlete = url.searchParams.get('athlete') || 'yohann';
-        json(res, 200, readData(athlete));
+        const d = readData(athlete);
+        const today = d.daily && d.daily.find(e => e.date === todayParis());
+        console.log('[DATA]', athlete, 'today:', today ? JSON.stringify(today) : 'none');
+        json(res, 200, d);
         return;
     }
 
@@ -1216,6 +1219,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const payload = await parseBody(req);
             const athlete = url.searchParams.get('athlete') || 'yohann';
+            console.log('[SAVE]', athlete, JSON.stringify(payload).slice(0, 500));
             const data = readData(athlete);
 
             // Upsert daily entry (merge into existing)
@@ -1264,7 +1268,7 @@ const server = http.createServer(async (req, res) => {
     // GET /api/athlete-data — All dashboard data for an athlete
     if (req.method === 'GET' && url.pathname === '/api/athlete-data') {
         setCorsHeaders(res);
-        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         const athlete = url.searchParams.get('athlete') || 'yohann';
         json(res, 200, readAthleteData(athlete));
         return;
@@ -1296,7 +1300,7 @@ const server = http.createServer(async (req, res) => {
     // GET /api/week-plan — Parse and return week plan as JSON
     if (req.method === 'GET' && url.pathname === '/api/week-plan') {
         setCorsHeaders(res);
-        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         const athlete = url.searchParams.get('athlete') || 'yohann';
         let week = url.searchParams.get('week');
         if (!week) {
