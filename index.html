@@ -2136,17 +2136,14 @@ function saveChecksToGitHub() {
         return entry;
     });
 
-    // Save each entry via backoffice API
-    Promise.all(entries.map(function(entry) {
-        return fetch(API_BASE + '/api/save?athlete=' + currentAthlete, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({ daily: entry })
-        });
-    }))
-    .then(function(responses) {
-        var allOk = responses.every(function(r) { return r.ok; });
-        if (allOk) {
+    // Save all entries in a single request via backoffice API
+    fetch(API_BASE + '/api/save?athlete=' + currentAthlete, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({ dailyBatch: entries })
+    })
+    .then(function(r) { if (!r.ok) throw new Error('Save failed'); return r.json(); })
+    .then(function() {
             btn.textContent = 'OK !';
             btn.style.background = 'var(--green-dark)';
             _checksDirty = false;

@@ -1230,6 +1230,19 @@ const server = http.createServer(async (req, res) => {
                 data.daily.sort((a, b) => a.date.localeCompare(b.date));
             }
 
+            // Batch upsert daily entries (merge each into existing)
+            if (payload.dailyBatch && Array.isArray(payload.dailyBatch)) {
+                payload.dailyBatch.forEach(entry => {
+                    const idx = data.daily.findIndex(d => d.date === entry.date);
+                    if (idx >= 0) {
+                        Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
+                    } else {
+                        data.daily.push(entry);
+                    }
+                });
+                data.daily.sort((a, b) => a.date.localeCompare(b.date));
+            }
+
             // Merge longterm
             if (payload.longterm) {
                 data.longterm = { ...data.longterm, ...payload.longterm };
