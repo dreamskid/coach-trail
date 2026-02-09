@@ -3761,9 +3761,8 @@ _loadedAthletes[currentAthlete] = true;
             'Ton sol\u00e9aire va bien au moins ?',
             'Encore une question sur l\'OCC ?',
             'Attends je demande \u00e0 Juliette...',
-            'Juliette m\'a dit de te dire de dormir plus.',
             '57 bornes, 3500 D+... t\'es s\u00fbr de toi ?',
-            'Je v\u00e9rifie que t\'as bien mang\u00e9 ce soir...',
+            'Je v\u00e9rifie que t\'as bien mang\u00e9...',
             'UTMB Index 451... on peut faire mieux.',
             'Chamonix nous attend !',
             'Tu fumes plus au moins ?',
@@ -3772,9 +3771,16 @@ _loadedAthletes[currentAthlete] = true;
             'Juliette court plus vite que toi, tu sais...',
             'Allez, un jour tu battras ta femme.',
             'Je regarde si Juliette a des conseils...',
-            'H\u00e9, pose ton t\u00e9l\u00e9phone et va dormir.',
             'Promis je dis rien \u00e0 ton sol\u00e9aire.',
-            'Encore debout \u00e0 cette heure ?'
+            'Faut que je te parle de ton sommeil...',
+            'Le D+ \u00e7a se travaille, patience.'
+        ],
+        yohann_night: [
+            'Encore debout \u00e0 cette heure ?',
+            'H\u00e9, pose ton t\u00e9l\u00e9phone et va dormir.',
+            'Juliette m\'a dit de te dire de dormir plus.',
+            'Je v\u00e9rifie que t\'as bien mang\u00e9 ce soir...',
+            'Ton sol\u00e9aire r\u00e9cup\u00e8re pendant que tu dors...'
         ],
         juliette: [
             'Attends j\'appelle Yohann...',
@@ -3787,18 +3793,25 @@ _loadedAthletes[currentAthlete] = true;
             'UTMB Index 570... tu plaisantes ?',
             'Yohann est jaloux de ton index.',
             'Le d\u00e9sert d\'Arizona \u00e0 40\u00b0C, classique.',
-            'Ton mari veut savoir si tu rentres pour le d\u00eener.',
             'Je check si y\'a des serpents en Arizona...',
             'Running Stones 5... bient\u00f4t 6 !',
             'Yohann dit que c\'est lui le plus fort du couple.',
             'Le Marathon des Sables c\'\u00e9tait pas assez ?',
             'J\'appelle Jim Walmsley pour comparer...',
-            'H\u00e9, repose ce t\u00e9l\u00e9phone et va dormir.'
+            'Le Grand Canyon \u00e0 pied, quand m\u00eame...'
+        ],
+        juliette_night: [
+            'H\u00e9, repose ce t\u00e9l\u00e9phone et va dormir.',
+            'Ton mari veut savoir si tu rentres pour le d\u00eener.',
+            'Ton g\u00e9nou te remerciera si tu dors plus...'
         ]
     };
 
     function randomTypingMsg(athlete) {
+        var h = new Date().getHours();
+        var isNight = h >= 22 || h < 6;
         var pool = TYPING_MSGS.common.concat(TYPING_MSGS[athlete] || []);
+        if (isNight) pool = pool.concat(TYPING_MSGS[athlete + '_night'] || []);
         return pool[Math.floor(Math.random() * pool.length)];
     }
 
