@@ -654,17 +654,49 @@ const CHAT_TOOLS = [
     },
     {
         name: 'update_athlete_data',
-        description: 'Modifier les donnees affichees dans le dashboard (profil, zones FC, blessure, calendrier, previsions, projection, axes de travail, historique courses, progression index, facteurs sante). Utilise cet outil quand l\'athlete donne une info qui change un chiffre du dashboard : poids, FC, bilan medical, resultat de course, etc. L\'outil fait un deep-merge pour les objets ou un remplacement pour les tableaux.',
+        description: 'Modifier les donnees du dashboard. Deep-merge pour objets, remplacement pour tableaux. IMPORTANT : respecte EXACTEMENT les schemas ci-dessous.\n\n'
+            + 'SECTION "profile" (objet, deep-merge) :\n'
+            + '  { weight_kg: number, height_cm: number, age: number, fc_repos: number, fc_max: number, vo2max: number, vma: number|null, vma_tested: bool, running_stones: number, races_count: number, longest_race: string, utmb_pic: number, utmb_20k: number, utmb_50k: number, utmb_100k: number|null, utmb_100m: number|null }\n'
+            + '  Note : imc et rfc sont auto-calcules, ne les envoie pas.\n'
+            + '  Note : quand fc_max ou fc_repos change, les zones FC sont auto-recalculees (Karvonen). Ne modifie PAS la section "zones" separement.\n\n'
+            + 'SECTION "injury" (objet, deep-merge) :\n'
+            + '  { location: string, episode: number, detail: string, status: "active"|"healing"|"managing", assessment_date: "YYYY-MM-DD"|null,\n'
+            + '    tests: [{ name: string, value: string, color: "green"|"yellow"|"orange"|"red" }],\n'
+            + '    context: [{ label: string, value: string }],\n'
+            + '    observation: string,\n'
+            + '    protocol: [{ phase: string, entry: string, content: string, status: "en_cours"|"a_venir"|"termine" }],\n'
+            + '    decision_point: string|null,\n'
+            + '    prevention: [{ action: string, frequency: string }],\n'
+            + '    history: [{ num: number, location: string, side: string, severity: string, resolution: string }] }\n\n'
+            + 'SECTION "calendar" (objet, deep-merge) :\n'
+            + '  { races: [{ date: "YYYY-MM-DD", name: string, distance: string, dplus: string, objective: "A"|"B"|"C"|"done", result: string|null, note: string|null }],\n'
+            + '    periodisation: [{ bloc: string, badge_class: string, period: string, focus: string, races: string }],\n'
+            + '    gap_analysis: [{ indicator: string, current: string, target: string, gap: string, color: "green"|"yellow"|"orange"|"red" }] }\n\n'
+            + 'SECTION "predictions" (tableau, remplacement) :\n'
+            + '  [{ name: string, date: string, distance: string, edition_info: string, border_color: "yellow"|"orange"|"red",\n'
+            + '     rows: [{ label: string, value: string, bold: bool, green: bool }],\n'
+            + '     notes: string }]\n\n'
+            + 'SECTION "projection" (objet|null) :\n'
+            + '  { title: string, scenarios: [{ label: string, value: string, detail: string, color: "green"|"blue"|"orange"|"red" }] }\n\n'
+            + 'SECTION "work_axes" (tableau) :\n'
+            + '  [{ rank: number, name: string, impact: string, impact_color: "red"|"orange"|"yellow", tool: string, success: string }]\n\n'
+            + 'SECTION "race_history" (tableau) :\n'
+            + '  [{ name: string, date: string, distance: string, dplus: string, time: string, ranking: string, utmb_index: number, highlight: bool }]\n\n'
+            + 'SECTION "index_progression" (objet) :\n'
+            + '  { start_index: number, start_date: string, current_index: number, current_date: string, gain_text: string }\n\n'
+            + 'SECTION "health_factors" (tableau) :\n'
+            + '  [{ name: string, current: string, color: "green"|"yellow"|"orange"|"red", impact: string, target: string }]\n\n'
+            + 'SECTIONS "health_note", "health_perf_impact", "health_intro" : string simple.',
         input_schema: {
             type: 'object',
             properties: {
                 section: {
                     type: 'string',
                     enum: ['profile', 'zones', 'injury', 'calendar', 'predictions', 'projection', 'work_axes', 'race_history', 'index_progression', 'health_factors', 'health_note', 'health_perf_impact', 'health_intro'],
-                    description: 'Section du dashboard a modifier'
+                    description: 'Section du dashboard a modifier. NE PAS utiliser "zones" directement — les zones sont auto-calculees quand on modifie fc_max ou fc_repos dans "profile".'
                 },
                 data: {
-                    description: 'Donnees partielles a merger (deep merge pour objets, remplacement pour tableaux)'
+                    description: 'Donnees partielles a merger. RESPECTER le schema exact de la section (voir description de l\'outil). Pour les objets : envoyer SEULEMENT les champs qui changent. Pour les tableaux : envoyer le tableau COMPLET.'
                 }
             },
             required: ['section', 'data']
