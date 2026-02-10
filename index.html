@@ -881,6 +881,7 @@
         .day-past .day-header { margin-bottom: 0; }
         .day-past:hover { opacity: 0.8; }
         .day-past:hover .day-details { max-height: 200px; }
+        .week-day-placeholder { padding: 8px 12px; font-size: 12px; color: var(--text-muted); border-left: 2px solid var(--border); margin: 4px 0; }
         .day-hidden { display: none; }
 
         /* Sub-tabs (Programme: A venir / Passés) */
@@ -1009,24 +1010,8 @@
 
     </div><!-- /week-upcoming -->
 
-    <!-- SUB-TAB : Passés -->
+    <!-- SUB-TAB : Passés (populated dynamically by populatePastDays + movePastDaysToHistory) -->
     <div id="week-past" class="sub-content">
-        <h3 style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Historique recent</h3>
-
-        <!-- Samedi 7 fév (jour isolé, pas de semaine complète) -->
-        <div class="week-day day-past" data-date="2026-02-07" data-checks="Iso mollets,PPG haut du corps">
-            <div class="day-header">
-                <span class="day-name">Samedi 7 fevrier</span>
-                <span class="badge badge-blue">Cross + Protocole iso</span>
-            </div>
-            <div class="day-details">
-                <strong>Protocole iso mollets</strong> : bilateral montee sur pointes 30s x 4, unipodal gauche 30s x 4<br>
-                <strong>Elliptique ou Natation</strong> 45-60 min Z1 (112-125 bpm)<br>
-                <strong>PPG haut du corps</strong> : pompes 3x max, gainage frontal 3x30s, lateral 2x20s/cote
-            </div>
-            <div class="day-match"></div>
-            <div class="day-checks"></div>
-        </div>
     </div><!-- /week-past -->
 
 </div>
@@ -1260,10 +1245,8 @@
 
     </div><!-- /j-week-upcoming -->
 
-    <!-- SUB-TAB : Passes -->
+    <!-- SUB-TAB : Passes (populated dynamically) -->
     <div id="j-week-past" class="sub-content">
-        <h3 style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Historique recent</h3>
-        <div style="text-align: center; padding: 20px; color: var(--text-muted);">Pas encore d'historique</div>
     </div><!-- /j-week-past -->
 
 </div>
@@ -2300,32 +2283,58 @@ function fetchWeekPlan(athlete) {
     var dayOfWeek = now.getDay() || 7;
 
     var headers = isLocalhost ? {} : { 'ngrok-skip-browser-warning': '1' };
-    var fetches = [
-        fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + currentWeek, { headers: headers, cache: 'no-store' })
-            .then(function(r) { return r.json(); })
-            .catch(function() { return { notFound: true, week: currentWeek }; })
-    ];
 
+    // Always fetch current week
+    var currentFetch = fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + currentWeek, { headers: headers, cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .catch(function() { return { notFound: true, week: currentWeek }; });
+
+    // Fetch next week if Thu+
+    var nextFetch = Promise.resolve(null);
     if (dayOfWeek >= 4) {
         var nextWeekDate = new Date(now);
         nextWeekDate.setDate(nextWeekDate.getDate() + (8 - dayOfWeek));
         var nextWeekNum = getISOWeek(nextWeekDate);
         var nextWeek = nextWeekDate.getFullYear() + '-W' + String(nextWeekNum).padStart(2, '0');
-        fetches.push(
-            fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + nextWeek, { headers: headers, cache: 'no-store' })
-                .then(function(r) { return r.json(); })
-                .catch(function() { return { notFound: true, week: nextWeek }; })
-        );
+        nextFetch = fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + nextWeek, { headers: headers, cache: 'no-store' })
+            .then(function(r) { return r.json(); })
+            .catch(function() { return { notFound: true, week: nextWeek }; });
     }
 
-    return Promise.all(fetches);
+    // Always fetch previous week
+    var prevWeekDate = new Date(now);
+    prevWeekDate.setDate(prevWeekDate.getDate() - 7);
+    var prevWeekNum = getISOWeek(prevWeekDate);
+    var prevWeek = prevWeekDate.getFullYear() + '-W' + String(prevWeekNum).padStart(2, '0');
+    var prevFetch = fetch(API_BASE + '/api/week-plan?athlete=' + athlete + '&week=' + prevWeek, { headers: headers, cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .catch(function() { return { notFound: true, week: prevWeek }; });
+
+    return Promise.all([currentFetch, nextFetch, prevFetch]).then(function(results) {
+        return { current: results[0], next: results[1], previous: results[2] };
+    });
 }
 
-function applyWeekPlan(plans, athlete) {
+function applyWeekPlan(weekData, athlete) {
     athlete = athlete || 'yohann';
     var cfg = ATHLETES[athlete];
     var p = cfg.prefix;
-    if (!Array.isArray(plans)) plans = [plans];
+
+    // Handle both old array format and new object format
+    var current, next, previous;
+    if (weekData && weekData.current) {
+        current = weekData.current;
+        next = weekData.next;
+        previous = weekData.previous;
+    } else if (Array.isArray(weekData)) {
+        current = weekData[0];
+        next = weekData[1] || null;
+        previous = null;
+    } else {
+        current = weekData;
+        next = null;
+        previous = null;
+    }
 
     var container = document.getElementById(p + 'week-plan-container');
     if (!container) return;
@@ -2337,14 +2346,14 @@ function applyWeekPlan(plans, athlete) {
     var todayC = document.getElementById(p + 'today-container');
     if (todayC) todayC.innerHTML = '';
 
-    renderWeekPlan(plans[0], athlete);
+    renderWeekPlan(current, athlete);
 
-    if (plans[1] && !plans[1].notFound) {
+    if (next && !next.notFound) {
         var nextContainer = document.createElement('div');
         nextContainer.id = p + 'week-plan-next';
         container.parentNode.insertBefore(nextContainer, container.nextSibling);
         var nextHtml = '';
-        var plan = plans[1];
+        var plan = next;
         nextHtml += '<div class="card" style="margin-top: 20px;">';
         nextHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">';
         nextHtml += '<h2 style="margin: 0;">' + escapeHtmlFront(plan.title || ('Semaine ' + plan.week)) + '</h2>';
@@ -2371,6 +2380,104 @@ function applyWeekPlan(plans, athlete) {
         nextHtml += '</div>';
         nextContainer.innerHTML = nextHtml;
     }
+
+    // Populate past days tab with previous week
+    populatePastDays(previous, athlete);
+}
+
+function populatePastDays(previousPlan, athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var pastContainer = document.getElementById(p + 'week-past');
+    if (!pastContainer) return;
+
+    // Clear existing content
+    pastContainer.innerHTML = '';
+
+    // Header
+    var headerEl = document.createElement('h3');
+    headerEl.style.cssText = 'font-size: 15px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;';
+    headerEl.textContent = 'Historique recent';
+    pastContainer.appendChild(headerEl);
+
+    // Placeholder for current week past days (will be populated by movePastDaysToHistory)
+    var currentWeekSlot = document.createElement('div');
+    currentWeekSlot.id = p + 'past-current-week';
+    pastContainer.appendChild(currentWeekSlot);
+
+    // Previous week section
+    if (!previousPlan || previousPlan.notFound || !previousPlan.days || previousPlan.days.length === 0) {
+        // Show summary if plan exists but has no structured days
+        if (previousPlan && !previousPlan.notFound && previousPlan.title) {
+            var summaryHtml = '<div class="card" style="margin-top: 8px; padding: 14px; opacity: 0.7;">';
+            summaryHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">';
+            summaryHtml += '<span style="font-size: 14px; font-weight: 600;">' + escapeHtmlFront(previousPlan.title) + '</span>';
+            if (previousPlan.bloc) summaryHtml += '<span class="badge badge-blue" style="font-size: 11px;">' + escapeHtmlFront(previousPlan.bloc).toUpperCase() + '</span>';
+            summaryHtml += '</div>';
+            if (previousPlan.objective) summaryHtml += '<div style="font-size: 12px; color: var(--text-muted);">' + escapeHtmlFront(previousPlan.objective) + '</div>';
+            summaryHtml += '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-style: italic;">Programme non detaille jour par jour</div>';
+            summaryHtml += '</div>';
+            pastContainer.insertAdjacentHTML('beforeend', summaryHtml);
+        }
+        return;
+    }
+
+    // Previous week title
+    var prevTitle = document.createElement('div');
+    prevTitle.style.cssText = 'font-size: 13px; color: var(--text-muted); margin: 16px 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;';
+    prevTitle.textContent = previousPlan.title || ('Semaine ' + previousPlan.week);
+    if (previousPlan.bloc) {
+        prevTitle.innerHTML += ' <span class="badge badge-blue" style="font-size: 10px; vertical-align: middle;">' + escapeHtmlFront(previousPlan.bloc).toUpperCase() + '</span>';
+    }
+    pastContainer.appendChild(prevTitle);
+
+    // Render previous week days (reverse chronological — most recent first)
+    var days = previousPlan.days.slice().reverse();
+    days.forEach(function(day) {
+        var checksAttr = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
+        var html = '<div class="week-day day-past" data-date="' + day.date + '"' + checksAttr + '>';
+        html += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
+        var bc = day.badgeClass || 'badge-blue';
+        if (bc === 'badge-grey') html += '<span class="badge" style="background: #333; color: #999;">' + escapeHtmlFront(day.title) + '</span>';
+        else html += '<span class="badge ' + bc + '">' + escapeHtmlFront(day.title) + '</span>';
+        html += '</div>';
+        html += '<div class="day-details">' + day.detailsHtml + '</div>';
+        html += '<div class="day-match"></div>';
+        html += '<div class="day-checks"></div>';
+        html += '</div>';
+        pastContainer.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+function movePastDaysToHistory(athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var planContainer = document.getElementById(p + 'week-plan-container');
+    var currentWeekSlot = document.getElementById(p + 'past-current-week');
+    if (!planContainer || !currentWeekSlot) return;
+
+    var pastDays = planContainer.querySelectorAll('.week-day.day-past');
+    if (pastDays.length === 0) return;
+
+    // Add "Cette semaine" label
+    var label = document.createElement('div');
+    label.style.cssText = 'font-size: 13px; color: var(--text-muted); margin: 0 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;';
+    label.textContent = 'Cette semaine';
+    currentWeekSlot.appendChild(label);
+
+    // Move past days from plan to past container (keep chronological order reversed — most recent first)
+    var daysArray = Array.prototype.slice.call(pastDays);
+    daysArray.reverse().forEach(function(el) {
+        // Insert placeholder in the plan
+        var placeholder = document.createElement('div');
+        placeholder.className = 'week-day-placeholder';
+        placeholder.dataset.date = el.dataset.date;
+        placeholder.innerHTML = '<span style="opacity:0.4">\u2192 Voir dans Passes</span>';
+        el.parentNode.insertBefore(placeholder, el);
+
+        // Move element to past container
+        currentWeekSlot.appendChild(el);
+    });
 }
 
 function buildTodayCard(athlete) {
@@ -3697,14 +3804,14 @@ function loadAthleteData(athlete) {
         fetchAthleteProfile(athlete)
     ]).then(function(results) {
         var coachLog = results[0];
-        var weekPlans = results[1];
+        var weekData = results[1];
         var activities = results[2];
         var garmin = results[3];
         var profile = results[4];
 
         // Store data
         _coachLogByAthlete[athlete] = coachLog.daily || [];
-        _weekPlanByAthlete[athlete] = weekPlans[0];
+        _weekPlanByAthlete[athlete] = weekData.current || weekData;
         _activitiesByAthlete[athlete] = activities;
         _athleteDataByAthlete[athlete] = profile;
 
@@ -3717,12 +3824,15 @@ function loadAthleteData(athlete) {
         renderProgression(profile, athlete);
         renderHealthFactors(profile, athlete);
 
-        // Render week plan (creates DOM elements for days)
-        applyWeekPlan(weekPlans, athlete);
+        // Render week plan (creates DOM elements for days + populates past tab)
+        applyWeekPlan(weekData, athlete);
 
         // Build today card (MOVES element, must be before initManualChecks/initDayMetrics)
         buildTodayCard(athlete);
         markPastDays(athlete);
+
+        // Move past days from current week to "Passés" tab
+        movePastDaysToHistory(athlete);
 
         // Init checks and metrics ONCE (after all DOM elements are in place)
         initManualChecks(athlete);
@@ -3760,10 +3870,11 @@ function refreshAfterModification(athlete, modifications) {
             applyCoachLog(results[0], athlete);
         }
         if (results[1]) {
-            _weekPlanByAthlete[athlete] = results[1][0];
+            _weekPlanByAthlete[athlete] = results[1].current || results[1];
             applyWeekPlan(results[1], athlete);
             buildTodayCard(athlete);
             markPastDays(athlete);
+            movePastDaysToHistory(athlete);
         }
         // Re-init metrics if coach-log OR week-plan changed
         if (results[0] || results[1]) {

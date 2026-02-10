@@ -587,6 +587,42 @@ function parseHeadingFormat(lines, weekId, result) {
         }
     }
     flushDay();
+
+    // Fallback: if no structured days found, try bold-format entries
+    // e.g. "**Samedi 7 fév** : title" or "**Dimanche 8 fév** : title"
+    if (result.days.length === 0) {
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const boldMatch = line.match(/\*\*(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)[^*]*\*\*\s*[:：]\s*(.+)/i);
+            if (boldMatch) {
+                const dayName = boldMatch[1];
+                const dayNum = parseInt(boldMatch[2]);
+                const title = boldMatch[3].trim();
+                const date = weekDayToDate(weekId, dayName);
+                // Collect subsequent bullet lines as details
+                let detailHtml = '';
+                for (let j = i + 1; j < lines.length; j++) {
+                    if (/^-\s+/.test(lines[j])) {
+                        let cleaned = lines[j].replace(/^-\s*/, '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                        detailHtml += (detailHtml ? '<br>' : '') + cleaned.trim();
+                    } else if (/^\*\*/.test(lines[j]) || /^##/.test(lines[j]) || /^---/.test(lines[j])) {
+                        break;
+                    }
+                }
+                if (!detailHtml) detailHtml = escapeHtml(title);
+                result.days.push({
+                    date: date,
+                    dayName: dayName.charAt(0).toUpperCase() + dayName.slice(1).toLowerCase(),
+                    dayNum: dayNum,
+                    title: title,
+                    detailsHtml: detailHtml,
+                    checks: /repos|off/i.test(title) ? [] : title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean),
+                    badgeClass: badgeClassFromTitle(title),
+                    highlight: /retest|test/i.test(title)
+                });
+            }
+        }
+    }
 }
 
 function escapeHtml(str) {
