@@ -81,8 +81,8 @@
     "updated": "2026-02-07",
     "status": "repos",
     "occ_weeks_remaining": 29,
-    "current_block": "Bloc 0 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Reprise & Soin",
-    "next_race": "Cabornis (8 mars) ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ decision le 15 fev",
+    "current_block": "Bloc 0 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Reprise & Soin",
+    "next_race": "Cabornis (8 mars) ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ decision le 15 fev",
     "trajectory": "Phase de soin, pas encore en retard",
     "protocol_phase": 1,
     "evaluation": {
@@ -102,21 +102,21 @@
           "recuperation": 4
         },
         "reasons": {
-          "progression": "UTMB 305 ÃÂÃÂÃÂÃÂ  451 en 18 mois",
-          "mental": "Bon mental, frustration liÃÂÃÂÃÂÃÂ©e aux blessures rÃÂÃÂÃÂÃÂ©currentes",
-          "gestion_effort": "Bonne allure en EF, tendance ÃÂÃÂÃÂÃÂ  partir vite en course",
-          "socle_aerobie": "Volume 60-100km/sem mais base cassÃÂÃÂÃÂÃÂ©e par blessures",
+          "progression": "UTMB 305 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  451 en 18 mois",
+          "mental": "Bon mental, frustration liÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e aux blessures rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©currentes",
+          "gestion_effort": "Bonne allure en EF, tendance ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  partir vite en course",
+          "socle_aerobie": "Volume 60-100km/sem mais base cassÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e par blessures",
           "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
-          "technique_descente": "Point faible, ratio D+/km OCC exige du travail spÃÂÃÂÃÂÃÂ©cifique",
-          "regularite": "Blessures ÃÂÃÂÃÂÃÂ  rÃÂÃÂÃÂÃÂ©pÃÂÃÂÃÂÃÂ©tition cassent la continuitÃÂÃÂÃÂÃÂ©",
+          "technique_descente": "Point faible, ratio D+/km OCC exige du travail spÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cifique",
+          "regularite": "Blessures ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©pÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©tition cassent la continuitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©",
           "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
-          "resistance_musculaire": "SolÃÂÃÂÃÂÃÂ©aire fragile bilatÃÂÃÂÃÂÃÂ©ral, 4 ÃÂÃÂÃÂÃÂ©pisodes en 2 ans",
-          "recuperation": "Reprises trop rapides, rÃÂÃÂÃÂÃÂ©cup insuffisante entre charges"
+          "resistance_musculaire": "SolÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©aire fragile bilatÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©ral, 4 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©pisodes en 2 ans",
+          "recuperation": "Reprises trop rapides, rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cup insuffisante entre charges"
         },
         "global_comment": {
-          "forces": "Courbe de progression exceptionnelle (UTMB 305 ÃÂÃÂÃÂÃÂ  451, +48% en 18 mois ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ top 5% de progression sur la plateforme UTMB). CapacitÃÂÃÂÃÂÃÂ© aÃÂÃÂÃÂÃÂ©robique et mental solides pour le niveau visÃÂÃÂÃÂÃÂ©.",
-          "axes": "Le trio puissance montÃÂÃÂÃÂÃÂ©e / rÃÂÃÂÃÂÃÂ©sistance musculaire / rÃÂÃÂÃÂÃÂ©cupÃÂÃÂÃÂÃÂ©ration (4/10) est le frein principal. La fragilitÃÂÃÂÃÂÃÂ© solÃÂÃÂÃÂÃÂ©aire chronique (4 ÃÂÃÂÃÂÃÂ©pisodes) empÃÂÃÂÃÂÃÂªche la continuitÃÂÃÂÃÂÃÂ© d'entraÃÂÃÂÃÂÃÂ®nement nÃÂÃÂÃÂÃÂ©cessaire ÃÂÃÂÃÂÃÂ  la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
-          "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploitÃÂÃÂÃÂÃÂ© ÃÂÃÂÃÂÃÂ  cause des blessures : la marge vers 500+ est rÃÂÃÂÃÂÃÂ©aliste ÃÂÃÂÃÂÃÂ  12-18 mois si le solÃÂÃÂÃÂÃÂ©aire tient."
+          "forces": "Courbe de progression exceptionnelle (UTMB 305 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  451, +48% en 18 mois ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ top 5% de progression sur la plateforme UTMB). CapacitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© aÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©robique et mental solides pour le niveau visÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©.",
+          "axes": "Le trio puissance montÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e / rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©sistance musculaire / rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cupÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©ration (4/10) est le frein principal. La fragilitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© solÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©aire chronique (4 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©pisodes) empÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªche la continuitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© d'entraÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®nement nÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cessaire ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
+          "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  cause des blessures : la marge vers 500+ est rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©aliste ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  12-18 mois si le solÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©aire tient."
         }
       },
       "history": [
@@ -136,16 +136,16 @@
             "recuperation": 4
           },
           "reasons": {
-            "progression": "UTMB 305 ÃÂÃÂÃÂÃÂ  451 en 18 mois",
-            "mental": "Bon mental, frustration liÃÂÃÂÃÂÃÂ©e aux blessures rÃÂÃÂÃÂÃÂ©currentes",
-            "gestion_effort": "Bonne allure en EF, tendance ÃÂÃÂÃÂÃÂ  partir vite en course",
-            "socle_aerobie": "Volume 60-100km/sem mais base cassÃÂÃÂÃÂÃÂ©e par blessures",
+            "progression": "UTMB 305 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  451 en 18 mois",
+            "mental": "Bon mental, frustration liÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e aux blessures rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©currentes",
+            "gestion_effort": "Bonne allure en EF, tendance ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  partir vite en course",
+            "socle_aerobie": "Volume 60-100km/sem mais base cassÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e par blessures",
             "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
-            "technique_descente": "Point faible, ratio D+/km OCC exige du travail spÃÂÃÂÃÂÃÂ©cifique",
-            "regularite": "Blessures ÃÂÃÂÃÂÃÂ  rÃÂÃÂÃÂÃÂ©pÃÂÃÂÃÂÃÂ©tition cassent la continuitÃÂÃÂÃÂÃÂ©",
+            "technique_descente": "Point faible, ratio D+/km OCC exige du travail spÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cifique",
+            "regularite": "Blessures ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©pÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©tition cassent la continuitÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©",
             "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
-            "resistance_musculaire": "SolÃÂÃÂÃÂÃÂ©aire fragile bilatÃÂÃÂÃÂÃÂ©ral, 4 ÃÂÃÂÃÂÃÂ©pisodes en 2 ans",
-            "recuperation": "Reprises trop rapides, rÃÂÃÂÃÂÃÂ©cup insuffisante entre charges"
+            "resistance_musculaire": "SolÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©aire fragile bilatÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©ral, 4 ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©pisodes en 2 ans",
+            "recuperation": "Reprises trop rapides, rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cup insuffisante entre charges"
           }
         }
       ]
