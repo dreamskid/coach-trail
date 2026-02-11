@@ -1897,7 +1897,6 @@ function matchWeekActivities(activities, athlete) {
         }
 
         // Check coach-log checks for this day
-        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
         var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
         var checks = dailyEntry && dailyEntry.checks ? dailyEntry.checks : {};
         var checkKeys = Object.keys(checks);
@@ -1979,7 +1978,6 @@ function matchWeekActivities(activities, athlete) {
 var _checksDirty = false;
 
 function updateDayValidation(dayEl, athlete) {
-    var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
     var chips = dayEl.querySelectorAll('.day-check');
     if (chips.length === 0) return;
     var allDone = true;
@@ -2013,13 +2011,7 @@ function initManualChecks(athlete) {
         var coachEntry = daily.find(function(d) { return d.date === date; });
         var coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
 
-        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
         items.forEach(function(item) {
-            // Skip Garmin-tracked activities — they are validated automatically by activity matching
-            var lower = item.toLowerCase();
-            var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
-            if (isGarmin) return;
-
             var key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
             var isChecked = coachChecks ? !!coachChecks[item] : localStorage.getItem(key) === '1';
 
@@ -2322,6 +2314,16 @@ function detectExercises(badgeText, detailsText) {
     return found.slice(0, 3);
 }
 
+// Filter out Garmin-tracked activities from checks — they are validated automatically by activity matching
+var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
+function filterManualChecks(checks) {
+    if (!checks || checks.length === 0) return [];
+    return checks.filter(function(c) {
+        var lower = c.toLowerCase();
+        return !GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+    });
+}
+
 // ===== DYNAMIC WEEK PLAN =====
 function renderWeekPlan(plan, athlete) {
     athlete = athlete || 'yohann';
@@ -2358,7 +2360,8 @@ function renderWeekPlan(plan, athlete) {
     // Days
     plan.days.forEach(function(day) {
         var highlightStyle = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
-        var checksAttr = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
+        var manualChecks = filterManualChecks(day.checks);
+        var checksAttr = manualChecks.length > 0 ? ' data-checks="' + manualChecks.join(',') + '"' : '';
         html += '<div class="week-day"' + highlightStyle + ' data-date="' + day.date + '"' + checksAttr + '>';
         html += '<div class="day-header">';
         html += '<span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
@@ -2495,7 +2498,8 @@ function applyWeekPlan(weekData, athlete) {
         }
         plan.days.forEach(function(day) {
             var hl = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
-            var ca = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
+            var mc = filterManualChecks(day.checks);
+            var ca = mc.length > 0 ? ' data-checks="' + mc.join(',') + '"' : '';
             nextHtml += '<div class="week-day"' + hl + ' data-date="' + day.date + '"' + ca + '>';
             nextHtml += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
             var bc = day.badgeClass || 'badge-blue';
@@ -2562,7 +2566,8 @@ function populatePastDays(previousPlan, athlete) {
     // Render previous week days (reverse chronological — most recent first)
     var days = previousPlan.days.slice().reverse();
     days.forEach(function(day) {
-        var checksAttr = day.checks && day.checks.length > 0 ? ' data-checks="' + day.checks.join(',') + '"' : '';
+        var mc = filterManualChecks(day.checks);
+        var checksAttr = mc.length > 0 ? ' data-checks="' + mc.join(',') + '"' : '';
         var html = '<div class="week-day day-past" data-date="' + day.date + '"' + checksAttr + '>';
         html += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
         var bc = day.badgeClass || 'badge-blue';
