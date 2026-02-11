@@ -482,7 +482,8 @@ function parseTableFormat(lines, weekId, result) {
             if (notes && notes !== '—' && notes !== '-') detailsHtml += '. ' + escapeHtml(notes);
         }
 
-        const checks = isRepos ? [] : title.split(/[+,]/).map(s => s.trim()).filter(Boolean);
+        const checks = title.split(/[+,]/).map(s => s.trim()).filter(Boolean)
+            .filter(c => !/^(repos|off)\b/i.test(c));
 
         result.days.push({
             date: date,
@@ -522,12 +523,9 @@ function parseHeadingFormat(lines, weekId, result) {
             }
         });
         currentDay.detailsHtml = html;
-        // Extract checks from title (split on +)
-        currentDay.checks = currentDay.title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean);
-        // Detect repos
-        if (/repos|off/i.test(currentDay.title) && currentDay.checks.length <= 1) {
-            currentDay.checks = [];
-        }
+        // Extract checks from title (split on +), filter out repos/off entries but keep others (e.g. Protocole)
+        currentDay.checks = currentDay.title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean)
+            .filter(c => !/^(repos|off)\b/i.test(c));
         result.days.push(currentDay);
     }
 
@@ -619,7 +617,7 @@ function parseHeadingFormat(lines, weekId, result) {
                     dayNum: dayNum,
                     title: title,
                     detailsHtml: detailHtml,
-                    checks: /repos|off/i.test(title) ? [] : title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean),
+                    checks: title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean).filter(c => !/^(repos|off)\b/i.test(c)),
                     badgeClass: badgeClassFromTitle(title),
                     highlight: /retest|test/i.test(title)
                 });
