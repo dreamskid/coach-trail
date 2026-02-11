@@ -881,6 +881,9 @@
         .day-past .day-header { margin-bottom: 0; flex-wrap: wrap; }
         .day-past:hover { opacity: 0.8; }
         .day-past:hover .day-details { max-height: 200px; }
+        /* Validated day card */
+        .day-validated { border-left-color: var(--green) !important; background: rgba(76, 175, 80, 0.08) !important; }
+        .day-past.day-validated { opacity: 0.6; }
         .day-metrics-summary { display: flex; gap: 6px; margin-left: auto; }
         .metric-badge { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid; background: rgba(0,0,0,0.3); white-space: nowrap; }
         .week-day-placeholder { padding: 8px 12px; font-size: 12px; color: var(--text-muted); border-left: 2px solid var(--border); margin: 4px 0; }
@@ -1875,7 +1878,7 @@ function matchWeekActivities(activities, athlete) {
     });
 
     const dayEls = container.querySelectorAll('.week-day[data-date]');
-    let totalPlanned = 0, totalDone = 0;
+    let totalExpected = 0, totalDone = 0;
 
     dayEls.forEach(el => {
         const date = el.dataset.date;
@@ -1892,23 +1895,38 @@ function matchWeekActivities(activities, athlete) {
             return;
         }
 
-        totalPlanned++;
-
         // Check coach-log checks for this day
+        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
         var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
-        var checkKeys = dailyEntry && dailyEntry.checks ? Object.keys(dailyEntry.checks) : [];
-        var checkValues = dailyEntry && dailyEntry.checks ? Object.values(dailyEntry.checks) : [];
-        var checksCompleted = checkValues.length > 0 && checkValues.every(function(v) { return v === true; });
+        var checks = dailyEntry && dailyEntry.checks ? dailyEntry.checks : {};
+        var checkKeys = Object.keys(checks);
 
-        // Determine if this day expects a Garmin-tracked activity
-        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running', 'marche'];
-        var expectsGarminActivity = checkKeys.some(function(k) {
+        // Count actions granularly: each check = 1 action
+        var dayExpected = 0, dayDone = 0;
+        var hasGarminCheck = false;
+        checkKeys.forEach(function(k) {
             var lower = k.toLowerCase();
-            return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            if (isGarmin) {
+                hasGarminCheck = true;
+                dayExpected++;
+                if (dayActs.length > 0) dayDone++; // Garmin validates this action
+            } else {
+                dayExpected++;
+                if (checks[k] === true) dayDone++;
+            }
         });
+        // Rest day counts as 1 expected, 1 done
+        if (isRestDay && dayExpected === 0) { dayExpected = 1; dayDone = 1; }
 
+        totalExpected += dayExpected;
+        totalDone += dayDone;
+
+        // Day fully validated?
+        var dayFullyDone = dayExpected > 0 && dayDone === dayExpected;
+
+        // Display: activity match
         if (dayActs.length > 0) {
-            totalDone++;
             let html = '';
             dayActs.forEach(act => {
                 const st = detectType(act);
@@ -1924,27 +1942,25 @@ function matchWeekActivities(activities, athlete) {
             });
             matchEl.innerHTML = html;
         } else if (isRestDay) {
-            totalDone++;
             matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Repos respecte</span></div>';
-        } else if (!expectsGarminActivity && checksCompleted) {
-            // No Garmin activity expected (PPG, protocole, etc.) → validate via checks only
-            totalDone++;
-            matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Valide (checks)</span></div>';
-        } else if (!expectsGarminActivity && checkValues.length > 0) {
-            // No Garmin activity expected but checks not all done yet → no error, just pending
-            matchEl.innerHTML = '<div class="day-match-miss" style="opacity:0.5;">&#9744; Checks en attente</div>';
-        } else {
+        } else if (hasGarminCheck) {
             // Expects a Garmin activity but none found
             matchEl.innerHTML = '<div class="day-match-miss">&#10007; Pas d\'activite enregistree</div>';
+        } else {
+            // No Garmin activity expected — nothing to display
+            matchEl.innerHTML = '';
         }
+
+        // Green card if day is fully validated
+        el.classList.toggle('day-validated', dayFullyDone);
     });
 
-    // Regularity widget (Yohann only for now)
+    // Regularity widget
     var p = ATHLETES[athlete].prefix;
     var regEl = document.getElementById(p + 'week-regularity');
-    if (regEl && totalPlanned > 0) {
+    if (regEl && totalExpected > 0) {
         regEl.style.display = 'block';
-        var pct = Math.round(totalDone / totalPlanned * 100);
+        var pct = Math.round(totalDone / totalExpected * 100);
         var color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
         var badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
         var regBadge = document.getElementById(p + 'week-regularity-badge');
@@ -1952,7 +1968,7 @@ function matchWeekActivities(activities, athlete) {
         var regBar = document.getElementById(p + 'week-regularity-bar');
         if (regBar) { regBar.style.width = pct + '%'; regBar.style.background = color; }
         var regDetail = document.getElementById(p + 'week-regularity-detail');
-        if (regDetail) regDetail.textContent = totalDone + '/' + totalPlanned + ' seances realisees';
+        if (regDetail) regDetail.textContent = totalDone + '/' + totalExpected + ' actions realisees';
     }
 }
 
@@ -1960,6 +1976,27 @@ function matchWeekActivities(activities, athlete) {
 
 // ===== MANUAL CHECKS (renfo/iso/PPG) =====
 var _checksDirty = false;
+
+function updateDayValidation(dayEl, athlete) {
+    var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
+    var chips = dayEl.querySelectorAll('.day-check');
+    if (chips.length === 0) return;
+    var allDone = true;
+    chips.forEach(function(chip) {
+        var label = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '').trim();
+        var lower = label.toLowerCase();
+        var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+        if (isGarmin) {
+            // Garmin checks are validated by activity match, not by checkbox
+            var matchEl = dayEl.querySelector('.day-match');
+            var hasActivity = matchEl && matchEl.querySelector('.day-match-done');
+            if (!hasActivity) allDone = false;
+        } else {
+            if (!chip.classList.contains('checked')) allDone = false;
+        }
+    });
+    dayEl.classList.toggle('day-validated', allDone);
+}
 
 function initManualChecks(athlete) {
     athlete = athlete || 'yohann';
@@ -1989,6 +2026,8 @@ function initManualChecks(athlete) {
                 localStorage.setItem(key, nowChecked ? '1' : '0');
                 _checksDirty = true;
                 showSaveChecksBtn();
+                // Update card validation state
+                updateDayValidation(dayEl, athlete);
             });
 
             container.appendChild(chip);

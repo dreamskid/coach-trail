@@ -1,11 +1,6 @@
 {
   "daily": [
     {
-      "date": "2026-02-02",
-      "soleaire": null,
-      "rpe": null
-    },
-    {
       "date": "2026-02-07",
       "checks": {
         "bilan soléaire": true,
@@ -43,11 +38,11 @@
     {
       "date": "2026-02-11",
       "checks": {
-        "PPG haut du corps": false,
-        "Protocole": false
+        "PPG haut du corps": true,
+        "Protocole": true
       },
-      "soleaire": null,
-      "rpe": null
+      "soleaire": 3,
+      "rpe": 2
     },
     {
       "date": "2026-02-12",
