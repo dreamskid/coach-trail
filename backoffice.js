@@ -172,18 +172,21 @@ function validateToolInput(toolName, input) {
 
 // ===== ARRAY TRUNCATION WARNING =====
 function checkArrayTruncation(toolName, input, athlete) {
-    if (toolName !== 'update_athlete_data') return;
+    if (toolName !== 'update_athlete_data') return null;
     const arraySections = ['predictions', 'work_axes', 'race_history', 'health_factors'];
-    if (!arraySections.includes(input.section)) return;
-    if (!Array.isArray(input.data)) return;
+    if (!arraySections.includes(input.section)) return null;
+    if (!Array.isArray(input.data)) return null;
 
     const existing = readAthleteData(athlete);
     const existingArr = existing[input.section];
-    if (!Array.isArray(existingArr) || existingArr.length === 0) return;
+    if (!Array.isArray(existingArr) || existingArr.length === 0) return null;
 
     if (input.data.length < existingArr.length * 0.5) {
-        console.warn(`[WARNING] AI sent ${input.data.length} items for ${input.section} (existing: ${existingArr.length}). Possible accidental truncation.`);
+        const msg = `Troncature detectee: ${input.data.length} items envoyes pour ${input.section} (existant: ${existingArr.length}). Envoie le tableau COMPLET.`;
+        console.warn('[BLOCKED]', msg);
+        return msg;
     }
+    return null;
 }
 
 // ===== ANTHROPIC CLIENT =====
@@ -1216,16 +1219,19 @@ async function handleChat(athlete, message) {
         let retries = 0;
         while (true) {
             try {
-                response = await anthropic.messages.create({
-                    model: 'claude-opus-4-6',
-                    max_tokens: 4096,
-                    system: systemPrompt,
-                    tools: [
-                        { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
-                        ...CHAT_TOOLS
-                    ],
-                    messages: currentMessages
-                });
+                response = await Promise.race([
+                    anthropic.messages.create({
+                        model: 'claude-opus-4-6',
+                        max_tokens: 4096,
+                        system: systemPrompt,
+                        tools: [
+                            { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
+                            ...CHAT_TOOLS
+                        ],
+                        messages: currentMessages
+                    }),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout: API did not respond within 60s')), 60000))
+                ]);
                 trackCost(response.usage);
                 break;
             } catch (apiErr) {
@@ -1257,14 +1263,19 @@ async function handleChat(athlete, message) {
                         continue;
                     }
                     // Check for accidental array truncation
-                    checkArrayTruncation(block.name, block.input, athlete);
-                    const { result, modifications } = executeTool(block.name, block.input, athlete);
-                    allModifications.push(...modifications);
-                    toolResults.push({
-                        type: 'tool_result',
-                        tool_use_id: block.id,
-                        content: result
-                    });
+                    const truncErr = checkArrayTruncation(block.name, block.input, athlete);
+                    if (truncErr) {
+                        toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: 'ERREUR: ' + truncErr });
+                        continue;
+                    }
+                    try {
+                        const { result, modifications } = executeTool(block.name, block.input, athlete);
+                        allModifications.push(...modifications);
+                        toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: result });
+                    } catch (toolErr) {
+                        console.error('[tool-error]', block.name, toolErr.message);
+                        toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: 'ERREUR: ' + toolErr.message });
+                    }
                 }
             }
 
@@ -1304,10 +1315,26 @@ async function handleChat(athlete, message) {
 }
 
 // ===== CORS HELPER =====
-function setCorsHeaders(res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+const ALLOWED_ORIGINS = [
+    'https://dreamskid.github.io',
+    'http://localhost',
+    'http://127.0.0.1',
+    'null' // file:// protocol sends "null" as origin
+];
+function setCorsHeaders(res, req) {
+    var origin = req && req.headers && req.headers.origin || '';
+    var allowed = ALLOWED_ORIGINS.some(function(o) { return origin === o || origin.startsWith(o); })
+        || origin.includes('.ngrok') || origin.includes('.ngrok-free');
+    res.setHeader('Access-Control-Allow-Origin', allowed ? origin : ALLOWED_ORIGINS[0]);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, ngrok-skip-browser-warning');
+}
+
+// ===== ATHLETE VALIDATION =====
+const VALID_ATHLETES = ['yohann', 'juliette'];
+function validateAthlete(raw) {
+    var a = (raw || 'yohann').toLowerCase();
+    return VALID_ATHLETES.includes(a) ? a : 'yohann';
 }
 
 function getDataFile(athlete) {
@@ -1371,9 +1398,9 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/data
     if (req.method === 'GET' && url.pathname === '/api/data') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-        const athlete = url.searchParams.get('athlete') || 'yohann';
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
         const d = readData(athlete);
         const today = d.daily && d.daily.find(e => e.date === todayParis());
         console.log('[DATA]', athlete, 'today:', today ? JSON.stringify(today) : 'none');
@@ -1383,10 +1410,10 @@ const server = http.createServer(async (req, res) => {
 
     // POST /api/save
     if (req.method === 'POST' && url.pathname === '/api/save') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         try {
             const payload = await parseBody(req);
-            const athlete = url.searchParams.get('athlete') || 'yohann';
+            const athlete = validateAthlete(url.searchParams.get('athlete'));
             console.log('[SAVE]', athlete, JSON.stringify(payload).slice(0, 500));
 
             await withFileLock(getDataFile(athlete), () => {
@@ -1445,9 +1472,9 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/athlete-data — All dashboard data for an athlete
     if (req.method === 'GET' && url.pathname === '/api/athlete-data') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-        const athlete = url.searchParams.get('athlete') || 'yohann';
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
         json(res, 200, readAthleteData(athlete));
         return;
     }
@@ -1455,13 +1482,14 @@ const server = http.createServer(async (req, res) => {
     // POST /api/publish
     if (req.method === 'POST' && url.pathname === '/api/publish') {
         try {
-            const athlete = url.searchParams.get('athlete') || 'yohann';
+            const athlete = validateAthlete(url.searchParams.get('athlete'));
             const dataFile = athlete === 'juliette' ? 'data/juliette/coach-log.json' : 'data/coach-log.json';
             const cwd = __dirname;
-            execSync('git add ' + dataFile, { cwd });
+            execSync('git add -- ' + JSON.stringify(dataFile), { cwd });
             const today = new Date().toISOString().slice(0, 10);
             const name = athlete === 'juliette' ? 'Juliette' : 'Yohann';
-            execSync(`git commit -m "Coach log ${name}: ${today}"`, { cwd });
+            const commitMsg = 'Coach log ' + name + ': ' + today;
+            execSync('git commit -m ' + JSON.stringify(commitMsg), { cwd });
             execSync('git push origin main', { cwd });
             json(res, 200, { ok: true, message: 'Pushed to main' });
         } catch (e) {
@@ -1477,9 +1505,9 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/week-plan — Parse and return week plan as JSON
     if (req.method === 'GET' && url.pathname === '/api/week-plan') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-        const athlete = url.searchParams.get('athlete') || 'yohann';
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
         let week = url.searchParams.get('week');
         if (!week) {
             const now = new Date();
@@ -1499,7 +1527,7 @@ const server = http.createServer(async (req, res) => {
 
     // ===== CORS Preflight =====
     if (req.method === 'OPTIONS') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         res.writeHead(204);
         res.end();
         return;
@@ -1507,7 +1535,7 @@ const server = http.createServer(async (req, res) => {
 
     // POST /api/chat — Send a message to the coach AI
     if (req.method === 'POST' && url.pathname === '/api/chat') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         try {
             const payload = await parseBody(req);
             const athlete = payload.athlete || 'yohann';
@@ -1526,16 +1554,16 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/chat-history — Load chat history
     if (req.method === 'GET' && url.pathname === '/api/chat-history') {
-        setCorsHeaders(res);
-        const athlete = url.searchParams.get('athlete') || 'yohann';
+        setCorsHeaders(res, req);
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
         json(res, 200, readChatHistory(athlete));
         return;
     }
 
     // POST /api/chat-clear — Clear chat history (new conversation)
     if (req.method === 'POST' && url.pathname === '/api/chat-clear') {
-        setCorsHeaders(res);
-        const athlete = url.searchParams.get('athlete') || 'yohann';
+        setCorsHeaders(res, req);
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
         writeChatHistory({ messages: [] }, athlete);
         json(res, 200, { ok: true });
         return;
@@ -1543,7 +1571,7 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/costs — View API cost tracking
     if (req.method === 'GET' && url.pathname === '/api/costs') {
-        setCorsHeaders(res);
+        setCorsHeaders(res, req);
         const costs = readCosts();
         const today = todayParis();
         const month = today.slice(0, 7);

@@ -155,7 +155,5 @@
       ]
     }
   },
-  "settings": {
-    "gh_sync_token_obf": "BAcRPAFCRgpbIFxTZUEwIhVTIxEcDCYKa1pVYhI6OFs7BUNSCgFjag=="
-  }
+  "settings": {}
 }
