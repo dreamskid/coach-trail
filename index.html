@@ -1894,13 +1894,18 @@ function matchWeekActivities(activities, athlete) {
 
         totalPlanned++;
 
-        // Check if manual checks are completed for this day
-        var checksCompleted = false;
+        // Check coach-log checks for this day
         var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
-        if (dailyEntry && dailyEntry.checks) {
-            var checkValues = Object.values(dailyEntry.checks);
-            checksCompleted = checkValues.length > 0 && checkValues.every(function(v) { return v === true; });
-        }
+        var checkKeys = dailyEntry && dailyEntry.checks ? Object.keys(dailyEntry.checks) : [];
+        var checkValues = dailyEntry && dailyEntry.checks ? Object.values(dailyEntry.checks) : [];
+        var checksCompleted = checkValues.length > 0 && checkValues.every(function(v) { return v === true; });
+
+        // Determine if this day expects a Garmin-tracked activity
+        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running', 'marche'];
+        var expectsGarminActivity = checkKeys.some(function(k) {
+            var lower = k.toLowerCase();
+            return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+        });
 
         if (dayActs.length > 0) {
             totalDone++;
@@ -1921,10 +1926,15 @@ function matchWeekActivities(activities, athlete) {
         } else if (isRestDay) {
             totalDone++;
             matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Repos respecte</span></div>';
-        } else if (checksCompleted) {
+        } else if (!expectsGarminActivity && checksCompleted) {
+            // No Garmin activity expected (PPG, protocole, etc.) → validate via checks only
             totalDone++;
             matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Valide (checks)</span></div>';
+        } else if (!expectsGarminActivity && checkValues.length > 0) {
+            // No Garmin activity expected but checks not all done yet → no error, just pending
+            matchEl.innerHTML = '<div class="day-match-miss" style="opacity:0.5;">&#9744; Checks en attente</div>';
         } else {
+            // Expects a Garmin activity but none found
             matchEl.innerHTML = '<div class="day-match-miss">&#10007; Pas d\'activite enregistree</div>';
         }
     });
