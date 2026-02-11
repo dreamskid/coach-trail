@@ -356,7 +356,7 @@
         .sleep-rem { background: #8b5cf6; }
         .sleep-awake { background: #f97316; }
 
-        .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 100px; padding: 18px 2px 0; }
+        .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 100px; padding: 18px 2px 0; overflow: hidden; }
         .mini-chart .bar {
             flex: 1;
             border-radius: 3px 3px 0 0;
@@ -3952,6 +3952,22 @@ if (currentAthlete !== 'yohann') {
 loadAthleteData(currentAthlete);
 _loadedAthletes[currentAthlete] = true;
 
+// Auto-refresh at midnight: detect date change and reload
+(function() {
+    var _lastDate = new Date().toISOString().slice(0, 10);
+    setInterval(function() {
+        var now = new Date();
+        var today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+        if (today !== _lastDate) {
+            _lastDate = today;
+            console.log('[midnight] Date changed to', today, '— reloading dashboard');
+            _loadedAthletes = {};
+            loadAthleteData(currentAthlete);
+            _loadedAthletes[currentAthlete] = true;
+            updateHeaderDetails();
+        }
+    }, 60000); // Check every minute
+})();
 
 </script>
 

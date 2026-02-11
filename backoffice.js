@@ -534,7 +534,7 @@ function parseHeadingFormat(lines, weekId, result) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         // Match ### Lundi 9 fév. — Title
-        const dayMatch = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s+[^\—\-]*[\—\-]\s*(.+)/i);
+        const dayMatch = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s+[^—–\-]*[—–\-]\s*(.+)/i);
         if (dayMatch) {
             flushDay();
             const dayName = dayMatch[1];
@@ -556,7 +556,7 @@ function parseHeadingFormat(lines, weekId, result) {
         }
 
         // Also match ### Lundi 9 — Title (without month)
-        const dayMatch2 = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s*[\—\-]\s*(.+)/i);
+        const dayMatch2 = line.match(/^###\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s*[—–\-]\s*(.+)/i);
         if (!dayMatch && dayMatch2) {
             flushDay();
             const dayName = dayMatch2[1];
@@ -1376,6 +1376,7 @@ function writeAthleteDataLocked(data, athlete) {
 function parseBody(req) {
     return new Promise((resolve, reject) => {
         let body = '';
+        req.on('error', err => reject(err));
         req.on('data', chunk => { body += chunk; if (body.length > 1e6) reject(new Error('Too large')); });
         req.on('end', () => { try { resolve(JSON.parse(body)); } catch { reject(new Error('Invalid JSON')); } });
     });
