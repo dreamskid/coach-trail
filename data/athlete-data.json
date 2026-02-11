@@ -2,8 +2,8 @@
   "profile": {
     "age": 44,
     "height_cm": 184,
-    "weight_kg": 84.9,
-    "imc": 25.1,
+    "weight_kg": 82,
+    "imc": 24.2,
     "fc_repos": 46,
     "fc_max": 181,
     "rfc": 135,
@@ -28,11 +28,11 @@
     {
       "label": "Z2",
       "min": 127,
-      "max": 140
+      "max": 141
     },
     {
       "label": "Z3",
-      "min": 140,
+      "min": 141,
       "max": 154
     },
     {

@@ -1473,6 +1473,7 @@ function updateHeaderDetails() {
 }
 var _coachLogByAthlete = {};
 var _loadedAthletes = {};
+var _loadId = {};
 var _activitiesByAthlete = {};
 var _weekPlanByAthlete = {};
 var _athleteDataByAthlete = {};
@@ -2043,6 +2044,13 @@ function rpeColor(val) {
     if (val <= 8) return 'var(--orange)';
     return 'var(--red)';
 }
+function genouColor(val) {
+    if (val == null) return 'var(--text-muted)';
+    if (val <= 2) return 'var(--green)';
+    if (val <= 4) return 'var(--yellow)';
+    if (val <= 6) return 'var(--orange)';
+    return 'var(--red)';
+}
 
 function initDayMetrics(athlete) {
     athlete = athlete || 'yohann';
@@ -2051,9 +2059,17 @@ function initDayMetrics(athlete) {
     var injuryKey = ATHLETES[athlete].injuryKey;
     containerEl.querySelectorAll('.week-day[data-date]').forEach(function(dayEl) {
         var date = dayEl.dataset.date;
-        // Remove previous metrics if re-init
+        // Remove previous metrics if re-init (preserve dirty flags)
         var old = dayEl.querySelector('.day-metrics');
-        if (old) old.remove();
+        var savedDirty = {};
+        if (old) {
+            old.querySelectorAll('.metric-row').forEach(function(r) {
+                if (r.dataset.dirty === '1') {
+                    savedDirty[r.dataset.metric] = r.dataset.value;
+                }
+            });
+            old.remove();
+        }
         // Remove previous metric summary if re-init
         var oldSummary = dayEl.querySelector('.day-metrics-summary');
         if (oldSummary) oldSummary.remove();
@@ -2065,7 +2081,7 @@ function initDayMetrics(athlete) {
         var injuryLabel = injuryKey === 'soleaire' ? 'Sol' : injuryKey === 'genou' ? 'Gen' : injuryKey;
         var injuryLabelFull = injuryKey === 'soleaire' ? 'Soléaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
         var metrics = [
-            { key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: soleaireColor },
+            { key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: injuryKey === 'genou' ? genouColor : soleaireColor },
             { key: 'rpe', label: 'RPE', shortLabel: 'RPE', colorFn: rpeColor }
         ];
 
@@ -2103,6 +2119,12 @@ function initDayMetrics(athlete) {
 
             var savedVal = coachEntry && coachEntry[m.key] != null ? Math.round(coachEntry[m.key]) : null;
             row.dataset.value = savedVal != null ? savedVal : '';
+            // Restore dirty flag from previous DOM if user had unsaved changes
+            if (savedDirty[m.key] !== undefined) {
+                row.dataset.dirty = '1';
+                row.dataset.value = savedDirty[m.key];
+                savedVal = savedDirty[m.key] !== '' ? parseInt(savedDirty[m.key], 10) : null;
+            }
 
             var lbl = document.createElement('span');
             lbl.className = 'metric-label';
@@ -2123,12 +2145,12 @@ function initDayMetrics(athlete) {
                         dot.style.background = m.colorFn(savedVal);
                     }
                     dot.addEventListener('click', function() {
-                        var current = row.dataset.value !== '' ? parseInt(row.dataset.value) : null;
+                        var current = row.dataset.value !== '' ? parseInt(row.dataset.value, 10) : null;
                         var newVal = (current === idx) ? null : idx;
                         row.dataset.value = newVal != null ? newVal : '';
                         row.dataset.dirty = '1';
                         row.querySelectorAll('.metric-dot').forEach(function(d) {
-                            var di = parseInt(d.dataset.idx);
+                            var di = parseInt(d.dataset.idx, 10);
                             if (newVal != null && di <= newVal) {
                                 d.classList.add('filled');
                                 d.style.background = m.colorFn(newVal);
@@ -2195,7 +2217,11 @@ function collectAllDayData(athlete) {
             var key = row.dataset.metric;
             var val = row.dataset.value;
             if (row.dataset.dirty === '1' || val !== '') {
-                entry[key] = val !== '' ? parseInt(val) : null;
+                entry[key] = val !== '' ? (parseInt(val, 10) || null) : null;
+                if (row.dataset.dirty === '1') {
+                    entry._dirtyKeys = entry._dirtyKeys || [];
+                    entry._dirtyKeys.push(key);
+                }
             }
             // Skip sending null for non-dirty metrics → prevents overwriting saved values
         });
@@ -3840,6 +3866,9 @@ function renderHealthFactors(data, athlete) {
 
 // ===== LOAD ATHLETE DATA (all data for one athlete) =====
 function loadAthleteData(athlete) {
+    var thisLoadId = (_loadId[athlete] || 0) + 1;
+    _loadId[athlete] = thisLoadId;
+
     Promise.all([
         fetchCoachLog(athlete),
         fetchWeekPlan(athlete),
@@ -3847,6 +3876,9 @@ function loadAthleteData(athlete) {
         fetchGarminData(athlete),
         fetchAthleteProfile(athlete)
     ]).then(function(results) {
+        // Abort if a newer load was triggered while we were fetching
+        if (_loadId[athlete] !== thisLoadId) return;
+
         var coachLog = results[0];
         var weekData = results[1];
         var activities = results[2];
@@ -3962,6 +3994,10 @@ _loadedAthletes[currentAthlete] = true;
             _lastDate = today;
             console.log('[midnight] Date changed to', today, '— reloading dashboard');
             _loadedAthletes = {};
+            _coachLogByAthlete = {};
+            _weekPlanByAthlete = {};
+            _activitiesByAthlete = {};
+            _athleteDataByAthlete = {};
             loadAthleteData(currentAthlete);
             _loadedAthletes[currentAthlete] = true;
             updateHeaderDetails();
@@ -4241,6 +4277,8 @@ _loadedAthletes[currentAthlete] = true;
         s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
         // Inline code
         s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        // Links [text](url)
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
         // Tables → simple lines (strip | delimiters, skip separator rows)
         s = s.replace(/^\|[\s\-:]+\|$/gm, ''); // remove separator rows like |---|---|
         s = s.replace(/^\|(.+)\|$/gm, function(_, row) {
@@ -4248,9 +4286,13 @@ _loadedAthletes[currentAthlete] = true;
         });
         // Unordered lists
         s = s.replace(/^[-\u2022] (.+)$/gm, '<li>$1</li>');
-        s = s.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+        s = s.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$&</ul>');
         // Ordered lists
         s = s.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+        s = s.replace(/((?:<li>.*<\/li>\n?)+)/g, function(block) {
+            if (block.indexOf('<ul>') >= 0) return block; // Already wrapped as UL
+            return '<ol>' + block + '</ol>';
+        });
         // Paragraphs
         s = s.replace(/\n\n/g, '</p><p>');
         s = s.replace(/\n/g, '<br>');

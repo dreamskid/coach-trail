@@ -1323,8 +1323,14 @@ const ALLOWED_ORIGINS = [
 ];
 function setCorsHeaders(res, req) {
     var origin = req && req.headers && req.headers.origin || '';
-    var allowed = ALLOWED_ORIGINS.some(function(o) { return origin === o || origin.startsWith(o); })
-        || origin.includes('.ngrok') || origin.includes('.ngrok-free');
+    var allowed = ALLOWED_ORIGINS.some(function(o) {
+        if (origin === o) return true;
+        // Pour localhost/127.0.0.1 : accepter avec port (ex: http://localhost:3000)
+        if (o.startsWith('http://localhost') || o.startsWith('http://127.0.0.1')) {
+            return origin.match(new RegExp('^' + o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(:\\d+)?$'));
+        }
+        return false;
+    }) || /^https:\/\/[a-z0-9\-]+\.ngrok(-free)?\.app$/.test(origin);
     res.setHeader('Access-Control-Allow-Origin', allowed ? origin : ALLOWED_ORIGINS[0]);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, ngrok-skip-browser-warning');
@@ -1441,7 +1447,10 @@ const server = http.createServer(async (req, res) => {
                         if (idx >= 0) {
                             Object.keys(entry).forEach(k => {
                                 if (METRIC_KEYS.includes(k) && entry[k] == null && data.daily[idx][k] != null) {
-                                    return; // Don't overwrite existing metric with null
+                                    // Allow intentional deletion if client marked it dirty
+                                    if (!entry._dirtyKeys || !entry._dirtyKeys.includes(k)) {
+                                        return; // Don't overwrite existing metric with null (safety)
+                                    }
                                 }
                                 data.daily[idx][k] = entry[k];
                             });
@@ -1451,6 +1460,9 @@ const server = http.createServer(async (req, res) => {
                     });
                     data.daily.sort((a, b) => a.date.localeCompare(b.date));
                 }
+
+                // Clean up _dirtyKeys before writing
+                data.daily.forEach(d => { delete d._dirtyKeys; });
 
                 // Merge longterm
                 if (payload.longterm) {
