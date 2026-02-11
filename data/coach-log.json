@@ -43,8 +43,8 @@
     {
       "date": "2026-02-11",
       "checks": {
-        "Elliptique Z1-Z2": false,
-        "PPG haut du corps": false
+        "PPG haut du corps": false,
+        "Protocole": false
       },
       "soleaire": null,
       "rpe": null
@@ -52,7 +52,7 @@
     {
       "date": "2026-02-12",
       "checks": {
-        "Elliptique Z2": false,
+        "Elliptique Z1-Z2": false,
         "Transition phase 2 ?": false
       },
       "soleaire": null,
