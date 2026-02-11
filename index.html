@@ -2013,7 +2013,13 @@ function initManualChecks(athlete) {
         var coachEntry = daily.find(function(d) { return d.date === date; });
         var coachChecks = coachEntry && coachEntry.checks ? coachEntry.checks : null;
 
+        var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
         items.forEach(function(item) {
+            // Skip Garmin-tracked activities — they are validated automatically by activity matching
+            var lower = item.toLowerCase();
+            var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            if (isGarmin) return;
+
             var key = 'check_' + date + '_' + item.replace(/[^a-zA-Z0-9]/g, '_');
             var isChecked = coachChecks ? !!coachChecks[item] : localStorage.getItem(key) === '1';
 
