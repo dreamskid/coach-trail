@@ -878,9 +878,11 @@
         /* Past days: compact + greyed out, expandable on hover/tap */
         .day-past { opacity: 0.5; }
         .day-past .day-details { max-height: 0; overflow: hidden; margin: 0; padding: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
-        .day-past .day-header { margin-bottom: 0; }
+        .day-past .day-header { margin-bottom: 0; flex-wrap: wrap; }
         .day-past:hover { opacity: 0.8; }
         .day-past:hover .day-details { max-height: 200px; }
+        .day-metrics-summary { display: flex; gap: 6px; margin-left: auto; }
+        .metric-badge { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid; background: rgba(0,0,0,0.3); white-space: nowrap; }
         .week-day-placeholder { padding: 8px 12px; font-size: 12px; color: var(--text-muted); border-left: 2px solid var(--border); margin: 4px 0; }
         .day-hidden { display: none; }
 
@@ -1892,6 +1894,14 @@ function matchWeekActivities(activities, athlete) {
 
         totalPlanned++;
 
+        // Check if manual checks are completed for this day
+        var checksCompleted = false;
+        var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
+        if (dailyEntry && dailyEntry.checks) {
+            var checkValues = Object.values(dailyEntry.checks);
+            checksCompleted = checkValues.length > 0 && checkValues.some(function(v) { return v === true; });
+        }
+
         if (dayActs.length > 0) {
             totalDone++;
             let html = '';
@@ -1911,6 +1921,9 @@ function matchWeekActivities(activities, athlete) {
         } else if (isRestDay) {
             totalDone++;
             matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Repos respecte</span></div>';
+        } else if (checksCompleted) {
+            totalDone++;
+            matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Valide (checks)</span></div>';
         } else {
             matchEl.innerHTML = '<div class="day-match-miss">&#10007; Pas d\'activite enregistree</div>';
         }
@@ -1991,17 +2004,47 @@ function initDayMetrics(athlete) {
         // Remove previous metrics if re-init
         var old = dayEl.querySelector('.day-metrics');
         if (old) old.remove();
+        // Remove previous metric summary if re-init
+        var oldSummary = dayEl.querySelector('.day-metrics-summary');
+        if (oldSummary) oldSummary.remove();
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
+        var isPast = dayEl.classList.contains('day-past');
+
+        var injuryLabel = injuryKey === 'soleaire' ? 'Sol' : injuryKey === 'genou' ? 'Gen' : injuryKey;
+        var injuryLabelFull = injuryKey === 'soleaire' ? 'Soléaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
+        var metrics = [
+            { key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: soleaireColor },
+            { key: 'rpe', label: 'RPE', shortLabel: 'RPE', colorFn: rpeColor }
+        ];
+
+        // For past days: add compact summary badges in header
+        if (isPast) {
+            var summaryEl = document.createElement('div');
+            summaryEl.className = 'day-metrics-summary';
+            var hasSummary = false;
+            metrics.forEach(function(m) {
+                var val = coachEntry && coachEntry[m.key] != null ? Math.round(coachEntry[m.key]) : null;
+                if (val != null) {
+                    var badge = document.createElement('span');
+                    badge.className = 'metric-badge';
+                    badge.style.color = m.colorFn(val);
+                    badge.style.borderColor = m.colorFn(val);
+                    badge.textContent = m.shortLabel + ' ' + val;
+                    summaryEl.appendChild(badge);
+                    hasSummary = true;
+                }
+            });
+            if (hasSummary) {
+                var header = dayEl.querySelector('.day-header');
+                if (header) header.appendChild(summaryEl);
+            }
+        }
+
+        // Full metric dots (interactive)
         var container = document.createElement('div');
         container.className = 'day-metrics';
-
-        var injuryLabel = injuryKey === 'soleaire' ? 'Soléaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
-        var metrics = [
-            { key: injuryKey, label: injuryLabel, colorFn: soleaireColor },
-            { key: 'rpe', label: 'RPE', colorFn: rpeColor }
-        ];
 
         metrics.forEach(function(m) {
             var row = document.createElement('div');
@@ -2033,6 +2076,7 @@ function initDayMetrics(athlete) {
                         var current = row.dataset.value !== '' ? parseInt(row.dataset.value) : null;
                         var newVal = (current === idx) ? null : idx;
                         row.dataset.value = newVal != null ? newVal : '';
+                        row.dataset.dirty = '1';
                         row.querySelectorAll('.metric-dot').forEach(function(d) {
                             var di = parseInt(d.dataset.idx);
                             if (newVal != null && di <= newVal) {
@@ -2096,11 +2140,14 @@ function collectAllDayData(athlete) {
             checks[name] = chip.classList.contains('checked');
         });
         if (Object.keys(checks).length > 0) entry.checks = checks;
-        // Metrics (soléaire, RPE)
+        // Metrics (soléaire, RPE) — only send if user interacted (dirty) or has a value
         dayEl.querySelectorAll('.metric-row').forEach(function(row) {
             var key = row.dataset.metric;
             var val = row.dataset.value;
-            entry[key] = val !== '' ? parseInt(val) : null;
+            if (row.dataset.dirty === '1' || val !== '') {
+                entry[key] = val !== '' ? parseInt(val) : null;
+            }
+            // Skip sending null for non-dirty metrics → prevents overwriting saved values
         });
         result[date] = entry;
     });

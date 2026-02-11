@@ -1405,11 +1405,18 @@ const server = http.createServer(async (req, res) => {
                 }
 
                 // Batch upsert daily entries (merge each into existing)
+                // Safety: never overwrite non-null soleaire/rpe/genou with null
+                const METRIC_KEYS = ['soleaire', 'rpe', 'genou'];
                 if (payload.dailyBatch && Array.isArray(payload.dailyBatch)) {
                     payload.dailyBatch.forEach(entry => {
                         const idx = data.daily.findIndex(d => d.date === entry.date);
                         if (idx >= 0) {
-                            Object.keys(entry).forEach(k => { data.daily[idx][k] = entry[k]; });
+                            Object.keys(entry).forEach(k => {
+                                if (METRIC_KEYS.includes(k) && entry[k] == null && data.daily[idx][k] != null) {
+                                    return; // Don't overwrite existing metric with null
+                                }
+                                data.daily[idx][k] = entry[k];
+                            });
                         } else {
                             data.daily.push(entry);
                         }
