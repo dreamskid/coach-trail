@@ -1899,7 +1899,7 @@ function matchWeekActivities(activities, athlete) {
         var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
         if (dailyEntry && dailyEntry.checks) {
             var checkValues = Object.values(dailyEntry.checks);
-            checksCompleted = checkValues.length > 0 && checkValues.some(function(v) { return v === true; });
+            checksCompleted = checkValues.length > 0 && checkValues.every(function(v) { return v === true; });
         }
 
         if (dayActs.length > 0) {
