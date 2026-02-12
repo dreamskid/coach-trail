@@ -1,5 +1,22 @@
 [
   {
+    "id": 17372831032,
+    "name": "Vélo elliptique le midi",
+    "type": "Elliptical",
+    "sport_type": "Elliptical",
+    "start_date_local": "2026-02-12T12:38:56Z",
+    "distance": 0.0,
+    "moving_time": 2751,
+    "elapsed_time": 2751,
+    "total_elevation_gain": 0,
+    "average_speed": 0.0,
+    "max_speed": 0.0,
+    "average_heartrate": 143.4,
+    "max_heartrate": 171.0,
+    "suffer_score": 72.0,
+    "kudos_count": 0
+  },
+  {
     "id": 17320522706,
     "name": "Vélo elliptique en soirée",
     "type": "Elliptical",
@@ -491,22 +508,5 @@
     "max_heartrate": 174.0,
     "suffer_score": 78.0,
     "kudos_count": 12
-  },
-  {
-    "id": 16604908888,
-    "name": "SaintéSprint 1/2",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2025-11-29T23:00:33Z",
-    "distance": 19629.1,
-    "moving_time": 7005,
-    "elapsed_time": 7056,
-    "total_elevation_gain": 381.8,
-    "average_speed": 2.782,
-    "max_speed": 5.06,
-    "average_heartrate": 163.7,
-    "max_heartrate": 173.0,
-    "suffer_score": 415.0,
-    "kudos_count": 15
   }
 ]

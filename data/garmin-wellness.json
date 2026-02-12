@@ -1,8 +1,8 @@
 {
   "summary": {
-    "last_sync": "2026-02-12 07:13",
+    "last_sync": "2026-02-12 12:37",
     "vo2max": 45.4,
-    "resting_hr": 48,
+    "resting_hr": 46,
     "resting_hr_avg": 47,
     "sleep_avg_seconds": 23555,
     "sleep_score": 93,
@@ -10,7 +10,7 @@
     "hrv_status": "NONE",
     "hrv_weekly_avg": 50,
     "stress_avg": 21,
-    "steps_today": 55
+    "steps_today": 1365
   },
   "days": [
     {
@@ -410,10 +410,10 @@
     },
     {
       "date": "2026-02-12",
-      "steps": 55,
-      "calories": 727.0,
-      "active_minutes": 0,
-      "resting_hr": 48,
+      "steps": 1365,
+      "calories": 1130.0,
+      "active_minutes": 6,
+      "resting_hr": 46,
       "vo2max": 45.4,
       "sleep": {
         "duration_seconds": 29385,
@@ -426,8 +426,8 @@
       "body_battery": {
         "highest": 99,
         "lowest": 37,
-        "charged": 62,
-        "drained": 0
+        "charged": 64,
+        "drained": 14
       },
       "hrv": {
         "weekly_avg": 50,
