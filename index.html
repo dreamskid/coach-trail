@@ -1878,8 +1878,11 @@ function matchWeekActivities(activities, athlete) {
         }
     });
 
+    var currentWeekNum = getISOWeek(now);
+
     const dayEls = container.querySelectorAll('.week-day[data-date]');
-    let totalExpected = 0, totalDone = 0;
+    let weekExpected = 0, weekDone = 0;
+    let globalExpected = 0, globalDone = 0;
 
     dayEls.forEach(el => {
         const date = el.dataset.date;
@@ -1896,31 +1899,45 @@ function matchWeekActivities(activities, athlete) {
             return;
         }
 
-        // Check coach-log checks for this day
-        var dailyEntry = (_coachLogByAthlete[athlete] || []).find(function(d) { return d.date === date; });
-        var checks = dailyEntry && dailyEntry.checks ? dailyEntry.checks : {};
-        var checkKeys = Object.keys(checks);
+        // Count planned items from badge text (title) — source of truth for what's expected
+        var badge = el.querySelector('.day-header .badge');
+        var badgeText = badge ? badge.textContent : '';
+        var titleParts = badgeText.split(/\s*\+\s*/).map(function(s) { return s.trim(); }).filter(Boolean);
 
-        // Count actions granularly: each check = 1 action
         var dayExpected = 0, dayDone = 0;
-        var hasGarminCheck = false;
-        checkKeys.forEach(function(k) {
-            var lower = k.toLowerCase();
+        var hasGarminExpected = false;
+
+        titleParts.forEach(function(part) {
+            var lower = part.toLowerCase();
             var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            var isRest = /^(repos|off)\b/i.test(part);
+            if (isRest) return; // OFF/repos entries don't count as expected actions
             if (isGarmin) {
-                hasGarminCheck = true;
+                hasGarminExpected = true;
                 dayExpected++;
-                if (dayActs.length > 0) dayDone++; // Garmin validates this action
+                if (dayActs.length > 0) dayDone++;
             } else {
                 dayExpected++;
-                if (checks[k] === true) dayDone++;
+                // Check if corresponding chip is checked in DOM
+                var chips = el.querySelectorAll('.day-check');
+                var found = false;
+                chips.forEach(function(chip) {
+                    var label = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '').trim();
+                    if (label === part && chip.classList.contains('checked')) found = true;
+                });
+                if (found) dayDone++;
             }
         });
-        // Rest day counts as 1 expected, 1 done
+
+        // Rest day with nothing planned counts as 1/1
         if (isRestDay && dayExpected === 0) { dayExpected = 1; dayDone = 1; }
 
-        totalExpected += dayExpected;
-        totalDone += dayDone;
+        // Accumulate: weekly (current week only) + global (all weeks)
+        var dayDate = new Date(date + 'T00:00:00');
+        var isCurrentWeek = getISOWeek(dayDate) === currentWeekNum;
+        if (isCurrentWeek) { weekExpected += dayExpected; weekDone += dayDone; }
+        globalExpected += dayExpected;
+        globalDone += dayDone;
 
         // Day fully validated?
         var dayFullyDone = dayExpected > 0 && dayDone === dayExpected;
@@ -1943,11 +1960,9 @@ function matchWeekActivities(activities, athlete) {
             matchEl.innerHTML = html;
         } else if (isRestDay) {
             matchEl.innerHTML = '<div class="day-match-done"><span style="color:var(--green);font-weight:700;">&#10003;</span> <span style="color:var(--text-muted);">Repos respecte</span></div>';
-        } else if (hasGarminCheck) {
-            // Expects a Garmin activity but none found
+        } else if (hasGarminExpected) {
             matchEl.innerHTML = '<div class="day-match-miss">&#10007; Pas d\'activite enregistree</div>';
         } else {
-            // No Garmin activity expected — nothing to display
             matchEl.innerHTML = '';
         }
 
@@ -1958,9 +1973,9 @@ function matchWeekActivities(activities, athlete) {
     // Regularity widget
     var p = ATHLETES[athlete].prefix;
     var regEl = document.getElementById(p + 'week-regularity');
-    if (regEl && totalExpected > 0) {
+    if (regEl && weekExpected > 0) {
         regEl.style.display = 'block';
-        var pct = Math.round(totalDone / totalExpected * 100);
+        var pct = Math.round(weekDone / weekExpected * 100);
         var color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
         var badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
         var regBadge = document.getElementById(p + 'week-regularity-badge');
@@ -1968,7 +1983,14 @@ function matchWeekActivities(activities, athlete) {
         var regBar = document.getElementById(p + 'week-regularity-bar');
         if (regBar) { regBar.style.width = pct + '%'; regBar.style.background = color; }
         var regDetail = document.getElementById(p + 'week-regularity-detail');
-        if (regDetail) regDetail.textContent = totalDone + '/' + totalExpected + ' actions realisees';
+        if (regDetail) regDetail.textContent = 'Semaine : ' + weekDone + '/' + weekExpected + ' actions';
+        // Global regularity (across all available weeks)
+        var regGlobal = document.getElementById(p + 'week-regularity-global');
+        if (regGlobal && globalExpected > 0) {
+            var gPct = Math.round(globalDone / globalExpected * 100);
+            var gColor = gPct >= 80 ? 'var(--green)' : gPct >= 60 ? 'var(--yellow)' : 'var(--orange)';
+            regGlobal.innerHTML = 'Global : <strong style="color:' + gColor + ';">' + globalDone + '/' + globalExpected + '</strong> actions (' + gPct + '%)';
+        }
     }
 }
 
@@ -1978,22 +2000,27 @@ function matchWeekActivities(activities, athlete) {
 var _checksDirty = false;
 
 function updateDayValidation(dayEl, athlete) {
-    var chips = dayEl.querySelectorAll('.day-check');
-    if (chips.length === 0) return;
     var allDone = true;
+    var hasExpected = false;
+    // Check manual chips
+    var chips = dayEl.querySelectorAll('.day-check');
     chips.forEach(function(chip) {
-        var label = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '').trim();
-        var lower = label.toLowerCase();
-        var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
-        if (isGarmin) {
-            // Garmin checks are validated by activity match, not by checkbox
-            var matchEl = dayEl.querySelector('.day-match');
-            var hasActivity = matchEl && matchEl.querySelector('.day-match-done');
-            if (!hasActivity) allDone = false;
-        } else {
-            if (!chip.classList.contains('checked')) allDone = false;
-        }
+        hasExpected = true;
+        if (!chip.classList.contains('checked')) allDone = false;
     });
+    // Check Garmin activities expected (from badge title)
+    var badge = dayEl.querySelector('.day-header .badge');
+    if (badge) {
+        badge.textContent.split(/\s*\+\s*/).forEach(function(part) {
+            var lower = part.trim().toLowerCase();
+            if (GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; })) {
+                hasExpected = true;
+                var matchEl = dayEl.querySelector('.day-match');
+                if (!matchEl || !matchEl.querySelector('.day-match-done')) allDone = false;
+            }
+        });
+    }
+    if (!hasExpected) return;
     dayEl.classList.toggle('day-validated', allDone);
 }
 
@@ -2386,6 +2413,7 @@ function renderWeekPlan(plan, athlete) {
     html += '</div>';
     html += '<div class="progress-bar" style="height: 10px;"><div class="fill" id="' + p + 'week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>';
     html += '<div id="' + p + 'week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>';
+    html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"></div>';
     html += '</div>';
 
     // Volume summary

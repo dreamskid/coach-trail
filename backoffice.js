@@ -594,7 +594,7 @@ function parseHeadingFormat(lines, weekId, result) {
     if (result.days.length === 0) {
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
-            const boldMatch = line.match(/\*\*(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)[^*]*\*\*\s*[:：]\s*(.+)/i);
+            const boldMatch = line.match(/\*\*(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)[^*→]*\*\*\s*[:：]\s*(.+)/i);
             if (boldMatch) {
                 const dayName = boldMatch[1];
                 const dayNum = parseInt(boldMatch[2]);
