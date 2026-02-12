@@ -34,6 +34,7 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | Date | Douleur saut (0-10) | Mollet unipodal | Action | Notes |
 |---|---|---|---|---|
 | 7 fév. | 4-5/10 | Gêne légère | Bilan initial, repos course | Palpation 0, marche OK |
+| 11 fév. | — | **0 gêne** (15 reps) | **→ PHASE 2 validée** | Test unipodal 15 reps OK sans échauffement complet. Raideur mollet 2/10, pas de douleur. 1er Stanish 3×10 enchaîné : série 2 plus facile que série 1, série 3 plus facile que série 2. Tissu sain qui chauffe. |
 
 #### Protocole de retour à la course
 

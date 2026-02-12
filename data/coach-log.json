@@ -1,6 +1,12 @@
 {
   "daily": [
     {
+      "date": "2026-02-02",
+      "checks": {
+        "aucune séance structurée. Phase de repos post-épisode 4.": false
+      }
+    },
+    {
       "date": "2026-02-07",
       "checks": {
         "bilan soléaire": true,
@@ -12,7 +18,7 @@
     {
       "date": "2026-02-08",
       "checks": {
-        "Iso mollets": false
+        "protocole iso": false
       },
       "soleaire": 2,
       "rpe": null
@@ -20,7 +26,6 @@
     {
       "date": "2026-02-09",
       "checks": {
-        "Elliptique Z1": false,
         "Protocole": true
       },
       "soleaire": 3,
@@ -41,22 +46,22 @@
         "PPG haut du corps": true,
         "Protocole": true
       },
-      "soleaire": 3,
+      "soleaire": 2,
       "rpe": 2
     },
     {
       "date": "2026-02-12",
       "checks": {
-        "Elliptique Z1-Z2": false,
-        "Transition phase 2 ?": false
+        "Protocole": true,
+        "Transition phase 2 ?": true
       },
-      "soleaire": null,
-      "rpe": null
+      "soleaire": 2,
+      "rpe": 1
     },
     {
       "date": "2026-02-13",
       "checks": {
-        "Natation Z1-Z2": false,
+        "Protocole": false,
         "RETEST SAUT": false
       },
       "soleaire": null,
@@ -65,12 +70,18 @@
     {
       "date": "2026-02-14",
       "soleaire": null,
-      "rpe": null
+      "rpe": null,
+      "checks": {
+        "Protocole": false
+      }
     },
     {
       "date": "2026-02-15",
       "soleaire": null,
-      "rpe": null
+      "rpe": null,
+      "checks": {
+        "Protocole": false
+      }
     },
     {
       "date": "2026-02-16",
@@ -88,7 +99,7 @@
     "current_block": "Bloc 0 — Reprise & Soin",
     "next_race": "Cabornis (8 mars) — decision le 15 fev",
     "trajectory": "Phase de soin, pas encore en retard",
-    "protocol_phase": 1,
+    "protocol_phase": 2,
     "evaluation": {
       "current": {
         "date": "2026-02-07",
