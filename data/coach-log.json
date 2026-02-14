@@ -61,11 +61,11 @@
     {
       "date": "2026-02-13",
       "checks": {
-        "Protocole": false,
-        "RETEST SAUT": false
+        "Protocole": true,
+        "RETEST SAUT": true
       },
-      "soleaire": null,
-      "rpe": null
+      "soleaire": 0,
+      "rpe": 3
     },
     {
       "date": "2026-02-14",
