@@ -1,5 +1,21 @@
 [
   {
+    "id": 21872757494,
+    "name": "Modane Course à pied",
+    "type": "running",
+    "start_date_local": "2026-02-15 10:06:15",
+    "distance": 1812.2,
+    "moving_time": 911,
+    "elapsed_time": 942,
+    "total_elevation_gain": 40.8,
+    "average_speed": 1.924,
+    "average_heartrate": 125.0,
+    "max_heartrate": 148.0,
+    "calories": 150.0,
+    "steps": 2240,
+    "source": "garmin"
+  },
+  {
     "id": 21872121250,
     "name": "Vélo elliptique",
     "type": "elliptical",
