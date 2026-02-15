@@ -1,6 +1,6 @@
 {
   "summary": {
-    "last_sync": "2026-02-15 09:25",
+    "last_sync": "2026-02-15 17:40",
     "vo2max": 45.2,
     "resting_hr": 48,
     "resting_hr_avg": 47,
@@ -9,8 +9,8 @@
     "body_battery_current": 7,
     "hrv_status": "NONE",
     "hrv_weekly_avg": 48,
-    "stress_avg": 23,
-    "steps_today": 159
+    "stress_avg": 24,
+    "steps_today": 11745
   },
   "days": [
     {
@@ -446,9 +446,9 @@
     },
     {
       "date": "2026-02-15",
-      "steps": 159,
-      "calories": 877.0,
-      "active_minutes": 2,
+      "steps": 11745,
+      "calories": 2055.0,
+      "active_minutes": 125,
       "resting_hr": 48,
       "vo2max": 45.2,
       "sleep": {
@@ -462,8 +462,8 @@
       "body_battery": {
         "highest": 7,
         "lowest": 5,
-        "charged": 0,
-        "drained": 2
+        "charged": 1,
+        "drained": 3
       },
       "hrv": {
         "weekly_avg": 48,
@@ -475,7 +475,7 @@
         "status": "NONE"
       },
       "stress": {
-        "avg": 39,
+        "avg": 40,
         "rest_stress_duration": 0,
         "low_stress_duration": 0,
         "medium_stress_duration": 0,
