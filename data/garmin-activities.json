@@ -1,5 +1,21 @@
 [
   {
+    "id": 21872121250,
+    "name": "Vélo elliptique",
+    "type": "elliptical",
+    "start_date_local": "2026-02-13 17:22:57",
+    "distance": 0,
+    "moving_time": 1802,
+    "elapsed_time": 1802,
+    "total_elevation_gain": 0,
+    "average_speed": 0,
+    "average_heartrate": 97.0,
+    "max_heartrate": 126.0,
+    "calories": 152.0,
+    "steps": 3060,
+    "source": "garmin"
+  },
+  {
     "id": 21844738238,
     "name": "Vélo elliptique",
     "type": "elliptical",
