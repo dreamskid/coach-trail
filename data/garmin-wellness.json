@@ -1,41 +1,18 @@
 {
   "summary": {
-    "last_sync": "2026-02-15 17:40",
+    "last_sync": "2026-02-16 07:16",
     "vo2max": 45.2,
-    "resting_hr": 48,
+    "resting_hr": 51,
     "resting_hr_avg": 47,
     "sleep_avg_seconds": 24726,
     "sleep_score": 79,
-    "body_battery_current": 7,
+    "body_battery_current": 16,
     "hrv_status": "NONE",
     "hrv_weekly_avg": 48,
-    "stress_avg": 24,
-    "steps_today": 11745
+    "stress_avg": 23,
+    "steps_today": 75
   },
   "days": [
-    {
-      "date": "2026-02-02",
-      "steps": null,
-      "calories": null,
-      "active_minutes": 0,
-      "resting_hr": null,
-      "vo2max": 45.2,
-      "sleep": {
-        "duration_seconds": null,
-        "deep_seconds": null,
-        "light_seconds": null,
-        "rem_seconds": null,
-        "awake_seconds": null,
-        "score": 0
-      },
-      "stress": {
-        "avg": 0,
-        "rest_stress_duration": 0,
-        "low_stress_duration": 0,
-        "medium_stress_duration": 0,
-        "high_stress_duration": 0
-      }
-    },
     {
       "date": "2026-02-03",
       "steps": null,
@@ -446,9 +423,9 @@
     },
     {
       "date": "2026-02-15",
-      "steps": 11745,
-      "calories": 2055.0,
-      "active_minutes": 125,
+      "steps": 12252,
+      "calories": 2593.0,
+      "active_minutes": 132,
       "resting_hr": 48,
       "vo2max": 45.2,
       "sleep": {
@@ -475,7 +452,36 @@
         "status": "NONE"
       },
       "stress": {
-        "avg": 40,
+        "avg": 39,
+        "rest_stress_duration": 0,
+        "low_stress_duration": 0,
+        "medium_stress_duration": 0,
+        "high_stress_duration": 0
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "steps": 75,
+      "calories": 316.0,
+      "active_minutes": 0,
+      "resting_hr": 51,
+      "vo2max": 45.2,
+      "sleep": {
+        "duration_seconds": null,
+        "deep_seconds": null,
+        "light_seconds": null,
+        "rem_seconds": null,
+        "awake_seconds": null,
+        "score": 0
+      },
+      "body_battery": {
+        "highest": 16,
+        "lowest": 5,
+        "charged": 12,
+        "drained": 0
+      },
+      "stress": {
+        "avg": 22,
         "rest_stress_duration": 0,
         "low_stress_duration": 0,
         "medium_stress_duration": 0,
