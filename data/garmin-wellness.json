@@ -1,41 +1,18 @@
 {
   "summary": {
-    "last_sync": "2026-02-16 07:42",
+    "last_sync": "2026-02-17 07:09",
     "vo2max": 45.2,
-    "resting_hr": 49,
+    "resting_hr": 52,
     "resting_hr_avg": 47,
     "sleep_avg_seconds": 24869,
     "sleep_score": 66,
-    "body_battery_current": 57,
+    "body_battery_current": 19,
     "hrv_status": "NONE",
     "hrv_weekly_avg": 45,
-    "stress_avg": 23,
-    "steps_today": 115
+    "stress_avg": 24,
+    "steps_today": null
   },
   "days": [
-    {
-      "date": "2026-02-03",
-      "steps": null,
-      "calories": null,
-      "active_minutes": 0,
-      "resting_hr": null,
-      "vo2max": 45.2,
-      "sleep": {
-        "duration_seconds": null,
-        "deep_seconds": null,
-        "light_seconds": null,
-        "rem_seconds": null,
-        "awake_seconds": null,
-        "score": 0
-      },
-      "stress": {
-        "avg": 0,
-        "rest_stress_duration": 0,
-        "low_stress_duration": 0,
-        "medium_stress_duration": 0,
-        "high_stress_duration": 0
-      }
-    },
     {
       "date": "2026-02-04",
       "steps": null,
@@ -461,9 +438,9 @@
     },
     {
       "date": "2026-02-16",
-      "steps": 115,
-      "calories": 741.0,
-      "active_minutes": 0,
+      "steps": 9413,
+      "calories": 2611.0,
+      "active_minutes": 134,
       "resting_hr": 49,
       "vo2max": 45.2,
       "sleep": {
@@ -475,10 +452,10 @@
         "score": 66
       },
       "body_battery": {
-        "highest": 57,
+        "highest": 58,
         "lowest": 5,
-        "charged": 52,
-        "drained": 0
+        "charged": 60,
+        "drained": 50
       },
       "hrv": {
         "weekly_avg": 45,
@@ -490,7 +467,36 @@
         "status": "NONE"
       },
       "stress": {
-        "avg": 19,
+        "avg": 31,
+        "rest_stress_duration": 0,
+        "low_stress_duration": 0,
+        "medium_stress_duration": 0,
+        "high_stress_duration": 0
+      }
+    },
+    {
+      "date": "2026-02-17",
+      "steps": null,
+      "calories": 49.0,
+      "active_minutes": 0,
+      "resting_hr": 52,
+      "vo2max": 45.2,
+      "sleep": {
+        "duration_seconds": null,
+        "deep_seconds": null,
+        "light_seconds": null,
+        "rem_seconds": null,
+        "awake_seconds": null,
+        "score": 0
+      },
+      "body_battery": {
+        "highest": 19,
+        "lowest": 15,
+        "charged": 5,
+        "drained": 0
+      },
+      "stress": {
+        "avg": 24,
         "rest_stress_duration": 0,
         "low_stress_duration": 0,
         "medium_stress_duration": 0,
