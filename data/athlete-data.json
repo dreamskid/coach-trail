@@ -674,9 +674,9 @@
   "health_factors": [
     {
       "name": "Sommeil",
-      "current": "6h03 / nuit",
-      "color": "red",
-      "impact": "Le + critique : récup tendineuse ralentie, risque blessure x1.7",
+      "current": "7h08 / nuit (14j)",
+      "color": "yellow",
+      "impact": "En progrès (+1h vs bilan initial). Nuits courtes (<6h30) encore fréquentes hors montagne.",
       "target": "7h30 min"
     },
     {
