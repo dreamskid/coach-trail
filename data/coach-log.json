@@ -140,26 +140,26 @@
     {
       "date": "2026-02-23",
       "checks": {
+        "Auto-test saut": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-24",
       "checks": {
-        "Auto-test saut": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-25",
       "checks": {
+        "PPG": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-26",
       "checks": {
-        "PPG": false,
         "Protocole": false
       }
     },
@@ -180,12 +180,6 @@
       "checks": {
         "Protocole": false
       }
-    },
-    {
-      "date": "2026-03-02",
-      "checks": {
-        "Protocole": false
-      }
     }
   ],
   "longterm": {
@@ -193,7 +187,7 @@
     "status": "reprise",
     "occ_weeks_remaining": 27,
     "current_block": "Bloc 0 → Bloc 1 transition",
-    "next_race": "Cabornis (8 mars) — decision 23 fev, footing OK si W08 validée",
+    "next_race": "Cabornis (8 mars) — decision 22 fev, footing OK si W08 validée",
     "trajectory": "Protocole en avance (Phase 3 en 6j). Reprise footing amorcée. Transition Bloc 1 en W09 si footings W08 passent.",
     "protocol_phase": 3,
     "evaluation": {
