@@ -2241,7 +2241,8 @@ function collectAllDayData(athlete) {
             var key = row.dataset.metric;
             var val = row.dataset.value;
             if (row.dataset.dirty === '1' || val !== '') {
-                entry[key] = val !== '' ? (parseInt(val, 10) || null) : null;
+                var parsed = parseInt(val, 10);
+                entry[key] = val !== '' ? (isNaN(parsed) ? null : parsed) : null;
                 if (row.dataset.dirty === '1') {
                     entry._dirtyKeys = entry._dirtyKeys || [];
                     entry._dirtyKeys.push(key);

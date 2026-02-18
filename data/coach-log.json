@@ -72,24 +72,70 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
+        "Marche active": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-15",
       "soleaire": null,
-      "rpe": null,
+      "rpe": 4,
       "checks": {
-        "Protocole": false
+        "Trot plat 15 min": true,
+        "Protocole": true
       }
     },
     {
       "date": "2026-02-16",
       "checks": {
-        "Iso / excentriques": false
+        "PPG": true,
+        "Protocole": true
+      },
+      "soleaire": 1,
+      "rpe": 2
+    },
+    {
+      "date": "2026-02-17",
+      "checks": {
+        "Trot plat 20 min": false,
+        "Protocole": false
       },
       "soleaire": null,
       "rpe": null
+    },
+    {
+      "date": "2026-02-18",
+      "checks": {
+        "Marche": true,
+        "Protocole": true
+      },
+      "soleaire": null,
+      "rpe": 3
+    },
+    {
+      "date": "2026-02-19",
+      "checks": {
+        "Protocole": false
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "checks": {
+        "PPG": false,
+        "Protocole": false
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "checks": {
+        "Protocole": false
+      }
+    },
+    {
+      "date": "2026-02-22",
+      "checks": {
+        "Protocole": false
+      }
     }
   ],
   "longterm": {
