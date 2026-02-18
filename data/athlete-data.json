@@ -93,26 +93,26 @@
     "protocol": [
       {
         "phase": "1 — Isométrique",
-        "entry": "Maintenant",
+        "entry": "7 fév.",
         "content": "Iso mollet 30sx4, bilatéral puis unipodal",
-        "status": "en_cours"
+        "status": "validee"
       },
       {
         "phase": "2 — Excentrique",
-        "entry": "Unipodal 15 reps 0 gêne",
-        "content": "Stanish lent + marche pente tapis",
-        "status": "a_venir"
+        "entry": "11 fév. (unipodal 15 reps 0 gêne)",
+        "content": "Stanish lent 3×10 → 3×15",
+        "status": "validee"
       },
       {
         "phase": "3 — Footing",
-        "entry": "Saut unipodal ≤ 1/10",
-        "content": "Tapis plat, 7-8 km/h, 15-20 min",
-        "status": "a_venir"
+        "entry": "13 fév. (saut 0/10)",
+        "content": "Trot 15min (15/02), footings tapis 25-30min en cours",
+        "status": "en_cours"
       },
       {
         "phase": "4 — Progression",
         "entry": "30 min tapis indolore",
-        "content": "Durée augmentée, intro inclinaison",
+        "content": "Durée 35-45min, intro inclinaison 2-5%, 1ère sortie extérieure",
         "status": "a_venir"
       },
       {
