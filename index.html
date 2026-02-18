@@ -1476,6 +1476,7 @@ var _loadId = {};
 var _activitiesByAthlete = {};
 var _weekPlanByAthlete = {};
 var _athleteDataByAthlete = {};
+var _garminByAthlete = {};
 var _fcZonesByAthlete = {};
 
 var isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -3535,19 +3536,17 @@ function applyCoachLog(data, athlete) {
 
     // Token is now stored in localStorage only (not in public JSON)
 
-    // Protocol phase badges (Yohann only — has proto-phase-X IDs)
-    if (!prefix) {
-        var currentPhase = lt.protocol_phase || 1;
-        for (var pp = 1; pp <= 5; pp++) {
-            var protoEl = document.getElementById('proto-phase-' + pp);
-            if (!protoEl) continue;
-            if (pp < currentPhase) {
-                protoEl.innerHTML = '<span class="badge badge-green">VALIDE</span>';
-            } else if (pp === currentPhase) {
-                protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
-            } else {
-                protoEl.innerHTML = '<span class="badge badge-yellow">A VENIR</span>';
-            }
+    // Protocol phase badges (dynamic from coach-log protocol_phase)
+    var currentPhase = lt.protocol_phase || 1;
+    for (var pp = 1; pp <= 5; pp++) {
+        var protoEl = document.getElementById(prefix + 'proto-phase-' + pp);
+        if (!protoEl) continue;
+        if (pp < currentPhase) {
+            protoEl.innerHTML = '<span class="badge badge-green">VALIDÉ</span>';
+        } else if (pp === currentPhase) {
+            protoEl.innerHTML = '<span class="badge badge-blue">EN COURS</span>';
+        } else {
+            protoEl.innerHTML = '<span class="badge badge-yellow">À VENIR</span>';
         }
     }
 
@@ -3879,13 +3878,45 @@ function renderHealthFactors(data, athlete) {
     if (data.health_intro) h += '<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">' + esc(data.health_intro) + '</p>';
     h += '<table><tr><th>Facteur</th><th>État actuel</th><th>Impact</th><th>Objectif</th></tr>';
     factors.forEach(function(f) {
-        h += '<tr><td class="text-bold">' + esc(f.name) + '</td><td class="text-' + f.color + ' text-bold">' + esc(f.current) + '</td>';
+        var fid = f.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
+        h += '<tr><td class="text-bold">' + esc(f.name) + '</td><td id="' + p + 'hf-' + fid + '" class="text-' + f.color + ' text-bold">' + esc(f.current) + '</td>';
         h += '<td class="text-muted">' + esc(f.impact) + '</td><td class="text-green">' + esc(f.target) + '</td></tr>';
     });
     h += '</table>';
     if (data.health_note) h += '<div class="note-box" style="margin-top: 12px;"><strong>Pour le ' + esc(ATHLETES[athlete].injuryKey) + ' :</strong> ' + esc(data.health_note).replace(/^Pour le .+? : /, '') + '</div>';
     h += '</div>';
     el.innerHTML = h;
+}
+
+function updateDynamicHealthFactors(garmin, athlete) {
+    var p = ATHLETES[athlete].prefix;
+    var days = (garmin && garmin.days) || [];
+
+    // --- Sommeil : computed from Garmin 14-day data ---
+    var sleepEl = document.getElementById(p + 'hf-sommeil');
+    if (sleepEl && days.length > 0) {
+        var sleepDurs = days.filter(function(d) { return d.sleep && d.sleep.duration_seconds > 0; }).map(function(d) { return d.sleep.duration_seconds; });
+        if (sleepDurs.length > 0) {
+            var avg = Math.round(sleepDurs.reduce(function(a, b) { return a + b; }, 0) / sleepDurs.length);
+            var h = avg / 3600;
+            sleepEl.textContent = fmtSeconds(avg) + ' / nuit (' + sleepDurs.length + 'j)';
+            sleepEl.className = 'text-bold text-' + (h >= 7.5 ? 'green' : h >= 7 ? 'yellow' : h >= 6 ? 'orange' : 'red');
+        }
+    }
+
+    // --- Nicotine : auto-compute days since Feb 7 2026 (Yohann only) ---
+    if (athlete === 'yohann') {
+        var nicoEl = document.getElementById(p + 'hf-nicotine');
+        if (nicoEl) {
+            var stopDate = new Date(2026, 1, 7); // Feb 7 2026
+            var today = new Date(); today.setHours(0, 0, 0, 0);
+            var daysSince = Math.floor((today - stopDate) / 86400000);
+            if (daysSince >= 0) {
+                nicoEl.textContent = '0 mg — Jour ' + daysSince;
+                nicoEl.className = 'text-bold text-' + (daysSince >= 30 ? 'green' : daysSince >= 14 ? 'yellow' : 'orange');
+            }
+        }
+    }
 }
 
 // ===== LOAD ATHLETE DATA (all data for one athlete) =====
@@ -3945,7 +3976,11 @@ function loadAthleteData(athlete) {
         applyCoachLog(coachLog, athlete);
 
         // Render garmin wellness data
+        _garminByAthlete[athlete] = garmin;
         renderGarminWellness(garmin, athlete);
+
+        // Update dynamic health factors (sleep from Garmin, nicotine days)
+        updateDynamicHealthFactors(garmin, athlete);
 
         // Render activities list
         renderActivitiesList(activities, athlete);
@@ -3991,6 +4026,8 @@ function refreshAfterModification(athlete, modifications) {
             renderPredictions(results[2], athlete);
             renderProgression(results[2], athlete);
             renderHealthFactors(results[2], athlete);
+            // Re-apply dynamic health factors from cached Garmin data
+            if (_garminByAthlete[athlete]) updateDynamicHealthFactors(_garminByAthlete[athlete], athlete);
         }
     });
 }
@@ -4022,6 +4059,7 @@ _loadedAthletes[currentAthlete] = true;
             _weekPlanByAthlete = {};
             _activitiesByAthlete = {};
             _athleteDataByAthlete = {};
+            _garminByAthlete = {};
             loadAthleteData(currentAthlete);
             _loadedAthletes[currentAthlete] = true;
             updateHeaderDetails();
