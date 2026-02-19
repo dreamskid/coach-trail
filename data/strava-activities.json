@@ -1,22 +1,5 @@
 [
   {
-    "id": 17455681745,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-02-19T23:47:23Z",
-    "distance": 3223.3,
-    "moving_time": 1525,
-    "elapsed_time": 1525,
-    "total_elevation_gain": 0,
-    "average_speed": 2.114,
-    "max_speed": 2.24,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 0
-  },
-  {
     "id": 17455661271,
     "name": "Course à pied de nuit",
     "type": "Run",
@@ -508,5 +491,22 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 12
+  },
+  {
+    "id": 16678070866,
+    "name": "L’astragale - L’hivernale des templiers",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2025-12-07T06:30:13Z",
+    "distance": 52343.7,
+    "moving_time": 27970,
+    "elapsed_time": 44399,
+    "total_elevation_gain": 2037.9,
+    "average_speed": 1.871,
+    "max_speed": 4.98,
+    "average_heartrate": 146.3,
+    "max_heartrate": 170.0,
+    "suffer_score": 879.0,
+    "kudos_count": 0
   }
 ]
