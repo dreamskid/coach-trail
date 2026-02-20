@@ -57,6 +57,8 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | **Côtés** | Bilatéral (gauche plus touché) |
 | **Pattern** | Raideur systématique en début de séance, cède à l'échauffement |
 | **Facteurs aggravants** | Fatigue accumulée, entraînement sans échauffement suffisant, charge plyométrique |
+| **Terrain vasculaire** | **Opéré de varices aux deux mollets** — retour veineux altéré, facteur aggravant probable de la fragilité bilatérale |
+| **Crampes orteils** | Crampes aux doigts de pied (y compris nocturnes) — signe de déficit magnésium / déshydratation |
 
 ### Protocole de prévention permanent
 

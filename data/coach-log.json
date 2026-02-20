@@ -115,15 +115,19 @@
     {
       "date": "2026-02-19",
       "checks": {
-        "Protocole": false
-      }
+        "Protocole": true
+      },
+      "soleaire": 2,
+      "rpe": 1
     },
     {
       "date": "2026-02-20",
       "checks": {
-        "PPG": false,
-        "Protocole": false
-      }
+        "PPG": true,
+        "Protocole": true
+      },
+      "soleaire": 1,
+      "rpe": 1
     },
     {
       "date": "2026-02-21",
@@ -140,26 +144,28 @@
     {
       "date": "2026-02-23",
       "checks": {
-        "Auto-test saut": false,
+        "Auto-test": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-24",
       "checks": {
+        "intro pente": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-25",
       "checks": {
-        "PPG": false,
+        "PPG complète": false,
         "Protocole": false
       }
     },
     {
       "date": "2026-02-26",
       "checks": {
+        "Première sortie extérieure 35 min": false,
         "Protocole": false
       }
     },
@@ -172,6 +178,7 @@
     {
       "date": "2026-02-28",
       "checks": {
+        "power hiking pente": false,
         "Protocole": false
       }
     },

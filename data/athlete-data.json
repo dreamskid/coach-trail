@@ -87,9 +87,13 @@
       {
         "label": "Historique",
         "value": "4 épisodes (3x G, 1x D) — fragilité bilatérale chronique"
+      },
+      {
+        "label": "Terrain vasculaire",
+        "value": "Varices opérées aux 2 mollets — retour veineux altéré, crampes orteils nocturnes"
       }
     ],
-    "observation": "Raideur bilatérale systématique à la jonction mollet/soléaire en début de chaque séance. Pattern chronique = fragilité structurelle permanente. Protocole de prévention à vie, pas uniquement en phase de blessure.",
+    "observation": "Raideur bilatérale systématique à la jonction mollet/soléaire en début de chaque séance. Pattern chronique = fragilité structurelle permanente aggravée par un terrain vasculaire (varices opérées bilatérales). Protocole de prévention à vie + hydratation et magnésium prioritaires.",
     "protocol": [
       {
         "phase": "1 — Isométrique",
@@ -696,12 +700,19 @@
     {
       "name": "Hydratation",
       "current": "Non suivi",
-      "color": "yellow",
-      "impact": "Tendons = 70% eau. Déshydratation chronique = élasticité réduite",
+      "color": "red",
+      "impact": "PRIORITAIRE — crampes orteils nocturnes + varices opérées = retour veineux altéré. Déshydratation aggrave la fragilité soléaire.",
       "target": "2L+ / jour"
+    },
+    {
+      "name": "Magnésium",
+      "current": "Non supplémenté",
+      "color": "red",
+      "impact": "Crampes orteils (y compris nocturnes) = signe de déficit. Aide récupération musculaire et qualité du sommeil.",
+      "target": "300-400 mg/j (bisglycinate)"
     }
   ],
-  "health_note": "Pour le soléaire : sommeil + protéines + hydratation = les 3 piliers de la cicatrisation tendineuse. Sans ces 3, le protocole iso fait la moitié du boulot.",
+  "health_note": "Pour le soléaire : sommeil + protéines + hydratation + magnésium = les piliers de la cicatrisation tendineuse. L'historique de varices opérées aux deux mollets altère le retour veineux et aggrave la fragilité bilatérale.",
   "health_perf_impact": "-12 à -20% perf estimée",
   "health_intro": "À 44 ans, ces facteurs combinés freinent la performance ET la guérison du soléaire. Marge de progression énorme sans changer une seule séance."
 }
