@@ -1912,7 +1912,7 @@ function matchWeekActivities(activities, athlete) {
             var lower = part.toLowerCase();
             var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
             var isRest = /^(repos|off)\b/i.test(part);
-            if (isRest) return; // OFF/repos entries don't count as expected actions
+            if (isRest) return; // OFF/repos entries don't count as expected items
             if (isGarmin) {
                 hasGarminExpected = true;
                 dayExpected++;
@@ -1984,13 +1984,13 @@ function matchWeekActivities(activities, athlete) {
         var regBar = document.getElementById(p + 'week-regularity-bar');
         if (regBar) { regBar.style.width = pct + '%'; regBar.style.background = color; }
         var regDetail = document.getElementById(p + 'week-regularity-detail');
-        if (regDetail) regDetail.textContent = 'Semaine : ' + weekDone + '/' + weekExpected + ' actions';
+        if (regDetail) regDetail.textContent = 'Semaine : ' + weekDone + '/' + weekExpected + ' exercices';
         // Global regularity (across all available weeks)
         var regGlobal = document.getElementById(p + 'week-regularity-global');
         if (regGlobal && globalExpected > 0) {
             var gPct = Math.round(globalDone / globalExpected * 100);
             var gColor = gPct >= 80 ? 'var(--green)' : gPct >= 60 ? 'var(--yellow)' : 'var(--orange)';
-            regGlobal.innerHTML = 'Global : <strong style="color:' + gColor + ';">' + globalDone + '/' + globalExpected + '</strong> actions (' + gPct + '%)';
+            regGlobal.innerHTML = 'Global : <strong style="color:' + gColor + ';">' + globalDone + '/' + globalExpected + '</strong> exercices (' + gPct + '%)';
         }
     }
 }
