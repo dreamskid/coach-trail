@@ -3689,7 +3689,7 @@ function renderInjury(data, athlete) {
     }
     // Prevention
     if (inj.prevention && inj.prevention.length > 0) {
-        h += '<h3>Prévention permanente</h3><table><tr><th>Action</th><th>Fréquence</th></tr>';
+        h += '<h3>Prévention permanente</h3><table><tr><th>Exercice</th><th>Fréquence</th></tr>';
         inj.prevention.forEach(function(prev) {
             h += '<tr><td>' + esc(prev.action) + '</td><td>' + esc(prev.frequency) + '</td></tr>';
         });
