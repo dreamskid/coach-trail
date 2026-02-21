@@ -1,56 +1,18 @@
 {
   "summary": {
-    "last_sync": "2026-02-20 07:06",
+    "last_sync": "2026-02-21 06:55",
     "vo2max": 45.2,
     "resting_hr": 45,
     "resting_hr_avg": 47,
-    "sleep_avg_seconds": 26136,
+    "sleep_avg_seconds": 26182,
     "sleep_score": 81,
     "body_battery_current": 75,
     "hrv_status": "NONE",
     "hrv_weekly_avg": 48,
-    "stress_avg": 27,
+    "stress_avg": 28,
     "steps_today": null
   },
   "days": [
-    {
-      "date": "2026-02-07",
-      "steps": 10221,
-      "calories": 2375.0,
-      "active_minutes": 97,
-      "resting_hr": 46,
-      "vo2max": 45.2,
-      "sleep": {
-        "duration_seconds": 25620,
-        "deep_seconds": 2760,
-        "light_seconds": 18240,
-        "rem_seconds": 4620,
-        "awake_seconds": 1200,
-        "score": 77
-      },
-      "body_battery": {
-        "highest": 90,
-        "lowest": 24,
-        "charged": 69,
-        "drained": 54
-      },
-      "hrv": {
-        "weekly_avg": null,
-        "last_night_avg": 57,
-        "last_night_5_min_high": 117,
-        "baseline_low": 0,
-        "baseline_balanced_low": 0,
-        "baseline_balanced_upper": 0,
-        "status": "NONE"
-      },
-      "stress": {
-        "avg": 20,
-        "rest_stress_duration": 0,
-        "low_stress_duration": 0,
-        "medium_stress_duration": 0,
-        "high_stress_duration": 0
-      }
-    },
     {
       "date": "2026-02-08",
       "steps": 3905,
@@ -502,6 +464,29 @@
       "date": "2026-02-20",
       "steps": null,
       "calories": 51.0,
+      "active_minutes": 0,
+      "resting_hr": null,
+      "vo2max": 45.2,
+      "sleep": {
+        "duration_seconds": null,
+        "deep_seconds": null,
+        "light_seconds": null,
+        "rem_seconds": null,
+        "awake_seconds": null,
+        "score": 0
+      },
+      "stress": {
+        "avg": 0,
+        "rest_stress_duration": 0,
+        "low_stress_duration": 0,
+        "medium_stress_duration": 0,
+        "high_stress_duration": 0
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "steps": null,
+      "calories": null,
       "active_minutes": 0,
       "resting_hr": null,
       "vo2max": 45.2,

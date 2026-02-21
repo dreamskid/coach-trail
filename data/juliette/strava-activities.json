@@ -1,5 +1,22 @@
 [
   {
+    "id": 17464057107,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-02-20T17:50:58Z",
+    "distance": 22909.2,
+    "moving_time": 7327,
+    "elapsed_time": 7327,
+    "total_elevation_gain": 0,
+    "average_speed": 3.127,
+    "max_speed": 5.0,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 1
+  },
+  {
     "id": 17324840572,
     "name": "Famous Road Long Run: Moiben",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 7
-  },
-  {
-    "id": 16759693781,
-    "name": "Anaga Long Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2025-12-16T17:02:54Z",
-    "distance": 10939.2,
-    "moving_time": 4542,
-    "elapsed_time": 4542,
-    "total_elevation_gain": 0,
-    "average_speed": 2.408,
-    "max_speed": 3.04,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 8
   }
 ]
