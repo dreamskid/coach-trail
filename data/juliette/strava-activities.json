@@ -1,5 +1,22 @@
 [
   {
+    "id": 17471994827,
+    "name": "Morning Trail Run",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-02-21T10:10:45Z",
+    "distance": 32497.3,
+    "moving_time": 14931,
+    "elapsed_time": 15033,
+    "total_elevation_gain": 1009.0,
+    "average_speed": 2.176,
+    "max_speed": 3.64,
+    "average_heartrate": 146.4,
+    "max_heartrate": 169.0,
+    "suffer_score": 389.0,
+    "kudos_count": 7
+  },
+  {
     "id": 17464057107,
     "name": "Manual Workout",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 2
+    "kudos_count": 3
   },
   {
     "id": 17324840572,
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 5
-  },
-  {
-    "id": 16774289191,
-    "name": "Volcan de Teide Pillar Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2025-12-18T08:41:22Z",
-    "distance": 10103.4,
-    "moving_time": 3790,
-    "elapsed_time": 3790,
-    "total_elevation_gain": 0,
-    "average_speed": 2.666,
-    "max_speed": 3.5,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 7
   }
 ]
