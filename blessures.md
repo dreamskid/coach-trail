@@ -63,7 +63,37 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | **Pattern** | Raideur systématique en début de séance, cède à l'échauffement |
 | **Facteurs aggravants** | Fatigue accumulée, entraînement sans échauffement suffisant, charge plyométrique |
 | **Crampes orteils** | Crampes chroniques aux doigts de pied (y compris nocturnes) — **antérieures** aux varices, motif initial de l'opération. Persistent post-op → déficit magnésium probable |
-| **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Retour veineux amélioré mais fragilité bilatérale persistante. **21 fév** : mollet se déforme, flux sanguin palpable, battements → possible insuffisance veineuse résiduelle/récidive |
+| **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Symptômes veineux persistants **depuis ~15 ans** : déformation visible du mollet, flux sanguin palpable, battements. Insuffisance veineuse résiduelle probable. Écho-Doppler à faire. |
+| **Plancher pelvien** | Hypertonie diagnostiquée. Fréquence urinaire excessive (y compris nocturne), rétention d'eau insuffisante. Rééducation périnéale tentée puis arrêtée (trop douloureuse). Prostate OK (bilan sanguin). Tension chaîne postérieure (bassin → ischio → mollets) possible facteur aggravant. |
+| **Déficit électrolytes** | Crampes orteils 15+ ans + rétention d'eau insuffisante = déficit chronique Mg/Na/K. L'eau traverse sans être retenue → déshydratation tissulaire (tendons 70% eau) malgré les apports. |
+
+### Tableau des facteurs aggravants interconnectés
+
+```
+Plancher pelvien hypertonique
+    → tension chaîne postérieure → raideur mollets chronique
+    → rétention d'eau insuffisante → déshydratation tissulaire
+
+Insuffisance veineuse (varices opérées, symptômes 15 ans)
+    → drainage mollets insuffisant → micro-inflammation chronique
+    → cicatrisation ralentie entre épisodes
+
+Déficit magnésium/électrolytes chronique
+    → muscle ne se relâche pas → jonction sous contrainte 24h/24
+    → crampes orteils nocturnes (15+ ans)
+
+    === CONVERGENT SUR === → jonction myo-tendineuse soléaire
+                            → 4 épisodes + rechute en 2 ans
+```
+
+### Actions médicales à mener
+
+1. **Médecin du sport** — bilan global : écho-Doppler veineux + écho soléaire + PRP/ondes de choc ?
+2. **Phlébologue** — si écho-Doppler anormal : traitement veines (sclérothérapie/laser)
+3. **Magnésium bisglycinate** 300-400 mg/j — démarré, à maintenir à vie
+4. **Électrolytes dans l'eau** — Hydratis ou pincée de sel + potassium pour retenir l'eau
+5. **Contention** — bas/manchons compression classe 2 au quotidien + pendant/après effort
+6. **Chaîne postérieure** — stretching bassin/ischio (pigeon, happy baby, squat profond 2 min) + respiration diaphragmatique 5 min/jour
 
 ### Protocole de prévention permanent
 
@@ -72,6 +102,10 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 3. **Excentrique 3x/semaine** : protocole Stanish (3 x 15 reps, lent, amplitude complète)
 4. **Règle absolue** : ne JAMAIS courir en fatigue accumulée sans réduire l'intensité/volume
 5. **Auto-test hebdomadaire** : 10 sauts unipodaux chaque lundi matin → noter dans le log de semaine
+6. **Paliers +5 min STRICTS** à la reprise — ne jamais sauter un palier
+7. **Magnésium + électrolytes + hydratation 2L+/j** — quotidien, non-négociable
+8. **Compression mollets** — manchons pendant l'effort, chaussettes après
+9. **Jambes surélevées** 15-20 min chaque soir
 
 ---
 

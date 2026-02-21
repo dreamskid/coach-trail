@@ -115,8 +115,7 @@
     {
       "date": "2026-02-19",
       "checks": {
-        "Footing tapis 25min (7-8 km/h, 0%, Z1)": true,
-        "Stanish 3×15 avant + après": true
+        "Protocole": false
       },
       "soleaire": 2,
       "rpe": 1
@@ -124,9 +123,8 @@
     {
       "date": "2026-02-20",
       "checks": {
-        "Elliptique 50-60min Z2": true,
-        "PPG complète": true,
-        "Stanish 3×15": true
+        "PPG": false,
+        "Protocole": false
       },
       "soleaire": 1,
       "rpe": 1
@@ -134,69 +132,59 @@
     {
       "date": "2026-02-21",
       "checks": {
-        "Footing tapis 30min → ⚠️ ARRÊT 25min (douleur tendon/mollet à 10-15min)": true,
-        "Saut unipodal = douleur aiguë → RECHUTE": true,
-        "GLACE 15min + surélever jambe ce soir": false
+        "Protocole": false
       },
-      "soleaire": 7,
-      "rpe": 5
+      "soleaire": 9,
+      "rpe": 1
     },
     {
       "date": "2026-02-22",
       "checks": {
-        "Repos complet (pas de Stanish — laisser calmer)": false,
-        "Glace 15min ×2 (matin + soir)": false,
-        "Cabornis = DNS confirmé": false
+        "Protocole": false
       }
     },
     {
       "date": "2026-02-23",
       "checks": {
-        "RDV kiné (bilan rechute soléaire)": false,
-        "Suivre consignes kiné": false,
-        "Glace 15min si prescrit": false
+        "KINÉ": false
       }
     },
     {
       "date": "2026-02-24",
       "checks": {
-        "Isométrique mollet bilatéral 4×30s (si 0 douleur palp.)": false,
-        "Elliptique douce 30min Z1 (si toléré)": false
+        "Isométrique bilatéral": false
       }
     },
     {
       "date": "2026-02-25",
       "checks": {
-        "Isométrique bilatéral 4×30s": false,
-        "PPG haut du corps uniquement (0 jambes)": false
+        "Isométrique": false,
+        "PPG haut du corps": false
       }
     },
     {
       "date": "2026-02-26",
       "checks": {
-        "Isométrique → test unipodal G 5 reps (noter gêne)": false,
-        "Elliptique 40min Z1 si mollet OK": false
+        "Test unipodal": false
       }
     },
     {
       "date": "2026-02-27",
       "checks": {
-        "Isométrique unipodal 4×30s": false,
-        "Marche active 20-30min": false
+        "Isométrique": false,
+        "Marche active": false
       }
     },
     {
       "date": "2026-02-28",
       "checks": {
-        "RETEST : mollet unipodal G 15 reps → noter gêne /10": false,
-        "Si 0 gêne → relancer Stanish 3×10 doux": false
+        "RETEST : mollet unipodal 15 reps": false
       }
     },
     {
       "date": "2026-03-01",
       "checks": {
-        "Stanish 3×10 si retest OK": false,
-        "Bilan semaine : évaluer gravité rechute": false
+        "Glace": false
       }
     }
   ],

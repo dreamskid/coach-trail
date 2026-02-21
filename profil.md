@@ -53,17 +53,38 @@
 
 ## Sommeil & récupération
 
-- **Sommeil** : **6h03/nuit** en moyenne (Apple Health, semaine du 31 jan — 7 fév) — **facteur limitant le plus critique**
+- **Sommeil** : ~7h08/nuit en moyenne (Garmin, fév. 2026) — en amélioration vs 6h03 début fév.
 - Impact direct sur récupération tendineuse (soléaire), synthèse protéique, risque blessure x1.7
 - Objectif : 7h30 minimum, suivi via Garmin Fenix 7 Pro
 
+## Terrain médical
+
+### Vasculaire
+- **Varices opérées aux deux mollets** — opération motivée par des crampes orteils chroniques (15+ ans)
+- **Symptômes veineux persistants** : déformation visible du mollet, sensation de flux sanguin et battements palpables — **depuis ~15 ans**, avant et après l'opération
+- **Insuffisance veineuse probable** : le retour veineux reste altéré → drainage insuffisant → facteur aggravant direct de la fragilité soléaire bilatérale
+- **À faire** : écho-Doppler veineux des deux mollets (via médecin du sport)
+
+### Plancher pelvien
+- **Fréquence urinaire excessive** : mictions fréquentes y compris nocturnes, urines rapides après ingestion d'eau — symptôme chronique ancien
+- **Diagnostic posé** : hypertonie du plancher pelvien
+- **Rééducation périnéale** : tentée puis arrêtée (trop douloureuse)
+- **Prostate** : bilan sanguin normal, éliminée
+- **Lien possible** : plancher pelvien hypertonique = tension chronique chaîne postérieure (bassin → ischio → mollets → soléaire)
+- **Lien hydratation** : l'eau ne se retient pas → déshydratation tissulaire malgré les apports → tendons fragiles
+
+### Électrolytes
+- **Déficit magnésium chronique** : crampes orteils depuis 15+ ans (avant opération varices), persistent post-op
+- **Rétention d'eau insuffisante** : lien avec fréquence urinaire — manque d'électrolytes (Na, Mg, K) = l'eau traverse sans être retenue
+- **Supplémentation** : magnésium bisglycinate 300-400 mg/j (démarré fév. 2026) + électrolytes dans l'eau recommandés
+
 ## Points de vigilance
 
-- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Épisode actif fév. 2026 — voir `blessures.md`
-- **Cigarette électronique** : avec nicotine actuellement. Passage en 0 mg recommandé (gain cardio estimé +3-5%)
+- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes + rechute : 3x gauche, 1x droit). Épisode actif + rechute fév. 2026 — voir `blessures.md`
+- **Cigarette électronique** : sevrage acquis depuis le 7 fév. 2026 (0 mg)
 - **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
 - **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)
-- À 44 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + nicotine ont un effet cumulé estimé à -12 à -20% sur la performance
+- À 44 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + terrain vasculaire + électrolytes ont un effet cumulé estimé à -12 à -20% sur la performance
 
 ## Nutrition
 
