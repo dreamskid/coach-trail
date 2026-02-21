@@ -509,7 +509,8 @@ function parseHeadingFormat(lines, weekId, result) {
         detailLines.forEach(line => {
             // Parse "- **Séance** : xxx" format
             let cleaned = line.replace(/^-\s*/, '');
-            // Skip "Réalisé", "FC moy réelle", "RPE" fields (template fields)
+            // Skip fields already in badge or template-only
+            if (/^\*\*S[eé]ance\*\*/i.test(cleaned)) return;
             if (/^\*\*R[eé]alis[eé]\*\*/i.test(cleaned)) return;
             if (/^\*\*FC moy/i.test(cleaned)) return;
             if (/^\*\*RPE\*\*\s*:\s*\/10/i.test(cleaned)) return;

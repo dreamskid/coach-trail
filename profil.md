@@ -3,7 +3,7 @@
 ## Identité
 
 - **Âge** : 44 ans
-- **Poids** : 84.9 kg
+- **Poids** : 85 kg (21 fév. 2026) — objectif 80 kg (MMT), 77-78 kg (OCC)
 - **Taille** : 184 cm
 - **IMC** : 25.1
 
@@ -69,7 +69,7 @@
 
 ### Quotidien
 - **Pattern habituel** : saute souvent le dîner et parfois le petit-déjeuner — 1 à 2 vrais repas/jour
-- **Déficit chronique probable** : un 84.9 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
+- **Déficit chronique probable** : un 85 kg à 6-7 séances/sem a besoin de 2800-3500 kcal/jour
 - **Objectif** : dîner systématique (30-40g protéines minimum) + petit-déjeuner les jours d'entraînement
 
 ### En course

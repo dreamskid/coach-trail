@@ -48,35 +48,30 @@
   ],
   "injury": {
     "location": "Soléaire gauche",
-    "episode": 4,
-    "detail": "Jonction myo-tendineuse · Grade léger",
+    "episode": "4 — RECHUTE 21 fév",
+    "detail": "Jonction myo-tendineuse · Rechute sous charge (footing tapis 25min). Douleur tendon + mollet. Marche douloureuse.",
     "status": "active",
-    "assessment_date": "2026-02-07",
+    "assessment_date": "2026-02-21",
     "tests": [
       {
-        "name": "Palpation",
-        "value": "0/10",
-        "color": "green"
-      },
-      {
-        "name": "Mollets bilatéral",
-        "value": "0/10",
-        "color": "green"
-      },
-      {
-        "name": "Mollet unipodal G",
-        "value": "~1/10 (gêne en haut)",
-        "color": "yellow"
-      },
-      {
-        "name": "Saut unipodal G",
-        "value": "4-5/10",
+        "name": "Marche",
+        "value": "DOULEUR AIGUË",
         "color": "red"
       },
       {
-        "name": "Marche rapide",
-        "value": "0/10",
-        "color": "green"
+        "name": "Saut unipodal G",
+        "value": "DOULEUR AIGUË",
+        "color": "red"
+      },
+      {
+        "name": "Footing tapis",
+        "value": "Douleur à 10-15 min, arrêt 25 min",
+        "color": "red"
+      },
+      {
+        "name": "Kiné",
+        "value": "RDV lundi 23 fév",
+        "color": "yellow"
       }
     ],
     "context": [
@@ -126,7 +121,7 @@
         "status": "a_venir"
       }
     ],
-    "decision_point": "Point de décision Cabornis (8 mars) : retest saut unipodal le 15 février. Si phase 3 non atteinte au 20 février : Cabornis annulée.",
+    "decision_point": "Cabornis DNS. Point de décision MMT (26 avril) : footing 30 min indolore le 15 mars = GO. Sinon DNS.",
     "prevention": [
       {
         "action": "Échauffement obligatoire : 10 min marche + montées mollets progressives",
@@ -147,6 +142,14 @@
       {
         "action": "Auto-test : 10 sauts unipodaux",
         "frequency": "Chaque lundi matin"
+      },
+      {
+        "action": "Paliers +5 min STRICTS à la reprise (ne jamais sauter)",
+        "frequency": "Règle absolue"
+      },
+      {
+        "action": "Magnésium bisglycinate 300-400 mg/j + hydratation 2L+/j",
+        "frequency": "Quotidien, à vie"
       }
     ],
     "history": [
