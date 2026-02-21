@@ -115,7 +115,8 @@
     {
       "date": "2026-02-19",
       "checks": {
-        "Protocole": true
+        "Footing tapis 25min (7-8 km/h, 0%, Z1)": true,
+        "Stanish 3×15 avant + après": true
       },
       "soleaire": 2,
       "rpe": 1
@@ -123,8 +124,9 @@
     {
       "date": "2026-02-20",
       "checks": {
-        "PPG": true,
-        "Protocole": true
+        "Elliptique 50-60min Z2": true,
+        "PPG complète": true,
+        "Stanish 3×15": true
       },
       "soleaire": 1,
       "rpe": 1
@@ -132,60 +134,72 @@
     {
       "date": "2026-02-21",
       "checks": {
-        "Protocole": false
+        "Stanish 3×15 + marche 5min échauff (5 km/h)": false,
+        "Footing plat 30min (7-8 km/h, 0%, Z1 <127 bpm)": false,
+        "Retour calme 3min marche + Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-22",
       "checks": {
-        "Protocole": false
+        "Stanish 3×15": false,
+        "Bilan W08 + décision Cabornis": false
       }
     },
     {
       "date": "2026-02-23",
       "checks": {
-        "Auto-test": false,
-        "Protocole": false
+        "Auto-test : 10 sauts unipodaux G → noter /10": false,
+        "Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-24",
       "checks": {
-        "intro pente": false,
-        "Protocole": false
+        "Stanish 3×15 + marche 5min échauff": false,
+        "Footing plat 25min (7.5-8.5 km/h, 0%)": false,
+        "Pente douce 10min (6-7 km/h, 2-3%)": false,
+        "Retour calme + Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-25",
       "checks": {
-        "PPG complète": false,
-        "Protocole": false
+        "Elliptique 55-60min Z2 (<141 bpm)": false,
+        "PPG complète 30min (pompes, gainage, squats, fentes, superman)": false,
+        "Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-26",
       "checks": {
-        "Première sortie extérieure 35 min": false,
-        "Protocole": false
+        "Stanish 3×15 + marche 5min + montées pointes": false,
+        "Footing extérieur 35-40min plat (~5 km, Z1-Z2)": false,
+        "Montées = MARCHER power hike (pas courir)": false,
+        "Retour calme + Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-27",
       "checks": {
-        "Protocole": false
+        "Elliptique 45-50min Z1-Z2 (récup)": false,
+        "Stanish 3×15": false
       }
     },
     {
       "date": "2026-02-28",
       "checks": {
-        "power hiking pente": false,
-        "Protocole": false
+        "Stanish 3×15 + marche 5min échauff": false,
+        "Footing plat 20min (8 km/h, 0%)": false,
+        "Power hiking : 5min@3% → 5min@5% → 5min@8% (marche 5.5-6 km/h)": false,
+        "Retour plat 5-10min + Stanish 3×15": false
       }
     },
     {
       "date": "2026-03-01",
       "checks": {
-        "Protocole": false
+        "Stanish 3×15": false,
+        "Bilan W09 (footings OK ? pente OK ? extérieur OK ?)": false
       }
     }
   ],
