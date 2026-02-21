@@ -152,9 +152,9 @@
     {
       "date": "2026-02-23",
       "checks": {
-        "Repos complet": false,
-        "Glace 15min si douleur": false,
-        "Test palpation douce (sans forcer)": false
+        "RDV kiné (bilan rechute soléaire)": false,
+        "Suivre consignes kiné": false,
+        "Glace 15min si prescrit": false
       }
     },
     {
@@ -205,8 +205,8 @@
     "status": "blessure",
     "occ_weeks_remaining": 27,
     "current_block": "Bloc 0 — Rechute, retour Phase 1",
-    "next_race": "Cabornis (8 mars) — DNS. Prochaine cible à définir après guérison.",
-    "trajectory": "RECHUTE 21 fév. Douleur tendon/mollet à 10-15min de footing tapis, saut unipodal = douleur aiguë. Retour Phase 1. Palier 20 min sauté (trot 17 fév non fait) = progression trop rapide probable. Retest Phase 2 prévu 28 fév.",
+    "next_race": "MMT (26 avril, 51km/2500D+) — Objectif A. Décision GO/DNS le 15 mars (footing 30min indolore).",
+    "trajectory": "RECHUTE 21 fév. Retour Phase 1. Cabornis DNS. MMT = nouvel objectif A (avec OCC en A saison). Kiné lundi 23 fév. Retest Phase 2 prévu 28 fév. Si guérison OK mi-mars → 6 semaines de build express MMT.",
     "protocol_phase": 1,
     "evaluation": {
       "current": {

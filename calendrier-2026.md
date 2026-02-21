@@ -4,17 +4,18 @@
 
 | # | Course | Date | Distance | D+ | Type | Objectif |
 |---|---|---|---|---|---|---|
-| 1 | Cabornis | 8 mars | 25 km | 1000 m | Trail court | **C** — Reprise / évaluation terrain |
-| 2 | MMT (Marathon Mistral Trail) | 26 avril | 51 km | 2500 m | Ultra court | **B** — Montée en charge, gestion effort long |
+| ~~1~~ | ~~Cabornis~~ | ~~8 mars~~ | ~~25 km~~ | ~~1000 m~~ | ~~Trail court~~ | **DNS** — Rechute soléaire 21 fév |
+| 2 | **MMT (Marathon Mistral Trail)** | **26 avril** | **51 km** | **2500 m** | **Ultra court** | **A — OBJECTIF PRIORITAIRE** ⚠️ Décision GO/DNS le 15 mars |
 | 3 | Marathon-eXpérience | 31 mai | 42 km | 1800 m | Marathon trail | **B** — Travail allure, gestion ravitaillement |
 | 4 | Monistrail (Trail du Saint-Jacques UTMB) | 14 juin | ~53 km | ~1810 m | Ultra 50K | **B** — Même course qu'en 2025 (UTMB 451). Dernière grosse avant affûtage |
-| 5 | **OCC** | **27 août** | **57 km** | **3500 m** | **Ultra** | **A — OBJECTIF PRINCIPAL** |
+| 5 | **OCC** | **27 août** | **57 km** | **3500 m** | **Ultra** | **A — OBJECTIF SAISON** |
 
 ### Classification
 
-- **A** : Objectif de la saison. Toute la préparation converge vers cette course. On arrive frais, affûté, prêt.
+- **A** : Objectif prioritaire. Toute la préparation converge vers cette course. On arrive frais, affûté, prêt. Double A en 2026 : MMT (court terme) + OCC (saison).
 - **B** : Courses de préparation. On court pour progresser, tester la stratégie, s'aguerrir. Pas de tapering complet.
 - **C** : Course de reprise/test. Intensité modérée, évaluation de l'état de forme.
+- **DNS** : Non-départ (blessure, décision coach).
 
 ---
 
@@ -23,26 +24,28 @@
 ```
 Fév        Mars       Avril      Mai        Juin       Juil       Août
 |----------|----------|----------|----------|----------|----------|----------|
-  REPRISE    BUILD 1    BUILD 2    BUILD 3    SPÉCIF     VOLUME+    AFFÛT
-  + SOIN     Cabornis   MMT        MaraXP     Monistr.   PIC        OCC
-  soléaire   (C)        (B)        (B)        (B)        FORME      (A)
+  SOIN       SOIN →     BUILD      BUILD 2    SPÉCIF     VOLUME+    AFFÛT
+  rechute    BUILD 1    → TAPER    MaraXP     Monistr.   PIC        OCC
+  21 fév     décis.15/3 MMT (A)    (B)        (B)        FORME      (A)
 ```
 
 ### Détail des blocs
 
-#### Bloc 0 — Reprise & soin (fév. → 8 mars)
-- **Priorité** : guérison du soléaire
-- Volume réduit, cross-training privilégié (vélo, natation, PPG haut du corps)
-- Reprise progressive de la course selon la douleur
-- Cabornis : participation adaptée à l'état du soléaire (objectif = finir sans forcer)
+#### Bloc 0 — Soin & rechute (fév. → mi-mars)
+- **Priorité** : guérison du soléaire post-rechute du 21 fév
+- Rechute Phase 3 → retour Phase 1 (isométrique)
+- Cross-training privilégié : elliptique Z1, PPG haut du corps, natation
+- **Paliers de +5 min STRICTS** à la reprise (plus jamais sauter un palier)
+- **Point de décision MMT : 15 mars** — footing 30 min indolore = GO. Sinon = DNS.
+- Cabornis : DNS confirmé
 
-#### Bloc 1 — Build 1 (mars → 26 avril)
-- Reconstruction du volume de course post-blessure
-- Réintroduction progressive du D+ (côtes marchées puis trottées)
-- PPG orientée membres inférieurs + proprioception
-- Montée progressive : +10% volume/semaine max
-- **Cible fin de bloc** : être capable de tenir 4-5h en montagne
-- MMT comme test de référence sur format long
+#### Bloc 1 — Build express MMT (mi-mars → 26 avril)
+- 6 semaines si décision GO le 15 mars
+- Reconstruction rapide mais prudente : 30 min → 45 min → 1h → 1h30 → sortie longue 2h30-3h
+- Réintroduction D+ par power hiking (marche active en montée, course en descente/plat)
+- PPG membres inférieurs progressive (squats, fentes, chaise)
+- **Stratégie MMT** : finisher intelligent, pas de chrono. Power hiking sur 2500 D+, courir plats/descentes, Z1-Z2 strict.
+- Taper léger S-1 (semaine du 20 avril)
 
 #### Bloc 2 — Build 2 (avril → 31 mai)
 - Volume pic sur les sorties longues (SL de 3h à 5h avec D+)
@@ -75,10 +78,10 @@ Fév        Mars       Avril      Mai        Juin       Juil       Août
 
 | Semaine | Enjeu |
 |---|---|
-| S06-S09 (fév.) | Guérison soléaire — patience |
-| S10 (8 mars) | Cabornis — ne pas forcer |
-| S15-S16 (avant MMT) | Pic volume bloc 1, mini-taper |
-| S17 (26 avril) | MMT — test long |
+| S06-S09 (fév.) | Guérison soléaire — rechute 21 fév, patience absolue |
+| **S11 (15 mars)** | **DÉCISION MMT — footing 30 min indolore = GO** |
+| S12-S16 (mars-avril) | Build express MMT, montée volume + D+ progressive |
+| **S17 (26 avril)** | **MMT — OBJECTIF A** (51 km, 2500 D+) |
 | S22 (31 mai) | MaraXP — allure + nutrition |
 | S24 (14 juin) | Monistrail — répétition générale |
 | S30-S34 (juil.) | Pic de charge, grosse vigilance fatigue |

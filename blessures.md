@@ -39,6 +39,7 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | 15 fév. | — | — | Trot 15 min ext. | 1er footing post-épisode. 1.8 km, FC 125 (Z1). RAS. |
 | 19 fév. | — | — | Footing tapis 25 min | 7-8 km/h, 0%, Z1. Soléaire 2/10, RPE 1. RAS. |
 | **21 fév.** | **AIGU** | — | **⚠️ RECHUTE** | Footing tapis 30 min — douleur apparue à 10-15 min au tendon derrière la cheville, remontée au mollet. Arrêt à 25 min. Saut unipodal = **douleur aiguë et pointue**. **Retour Phase 1.** Palier 20 min sauté (trot 17 fév non fait). Progression trop rapide probable : 15 min → 25 min → 30 min en 6 jours. |
+| 23 fév. | — | — | RDV kiné | Bilan rechute — diagnostic kiné à compléter ici |
 
 #### Protocole de retour à la course
 
