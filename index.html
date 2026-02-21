@@ -1943,10 +1943,33 @@ function matchWeekActivities(activities, athlete) {
         // Day fully validated?
         var dayFullyDone = dayExpected > 0 && dayDone === dayExpected;
 
+        // Deduplicate activities (same session from Strava + Garmin)
+        var dedupActs = [];
+        dayActs.forEach(act => {
+            var dominated = false;
+            var actStart = new Date(act.start_date_local.replace(' ', 'T')).getTime();
+            var actDur = act.moving_time || act.elapsed_time || 0;
+            for (var k = 0; k < dedupActs.length; k++) {
+                var other = dedupActs[k];
+                var otherStart = new Date(other.start_date_local.replace(' ', 'T')).getTime();
+                var otherDur = other.moving_time || other.elapsed_time || 0;
+                // Same start time (within 5 min) and similar duration (within 20%)
+                if (Math.abs(actStart - otherStart) < 300000 && Math.abs(actDur - otherDur) < Math.max(actDur, otherDur) * 0.2 + 60) {
+                    // Keep the one with more data (heart rate)
+                    if (act.average_heartrate && !other.average_heartrate) {
+                        dedupActs[k] = act;
+                    }
+                    dominated = true;
+                    break;
+                }
+            }
+            if (!dominated) dedupActs.push(act);
+        });
+
         // Display: activity match
-        if (dayActs.length > 0) {
+        if (dedupActs.length > 0) {
             let html = '';
-            dayActs.forEach(act => {
+            dedupActs.forEach(act => {
                 const st = detectType(act);
                 const t = TYPES[st] || { label: st, color: 'var(--accent-light)' };
                 const dist = (act.distance / 1000).toFixed(1);
