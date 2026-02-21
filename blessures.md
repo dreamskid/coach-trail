@@ -11,7 +11,7 @@
 | **Déclencheur** | Sortie en état de fatigue résiduelle post-course (6 fév. 2026) |
 | **Symptôme principal** | Douleur à l'impulsion et réception lors de sauts unipodaux |
 | **Historique** | Fragilité chronique **bilatérale** — 3 épisodes précédents (2x gauche, 1x droit) |
-| **Statut** | ACTIF — phase de rééducation |
+| **Statut** | ACTIF — **RECHUTE 21 fév.** Retour Phase 1 |
 
 #### Bilan du 7 février 2026
 
@@ -36,6 +36,9 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | 7 fév. | 4-5/10 | Gêne légère | Bilan initial, repos course | Palpation 0, marche OK |
 | 11 fév. | — | **0 gêne** (15 reps) | **→ PHASE 2 validée** | Test unipodal 15 reps OK sans échauffement complet. Raideur mollet 2/10, pas de douleur. 1er Stanish 3×10 enchaîné : série 2 plus facile que série 1, série 3 plus facile que série 2. Tissu sain qui chauffe. |
 | 13 fév. | **0/10** | 0 gêne | **→ PHASE 3 validée** | Retest saut unipodal 10 sauts = **0 douleur** (vs 4-5/10 le 7 fév). Progression spectaculaire en 6 jours. Raideur mollet toujours présente mais pas de douleur. Footing tapis prévu W08. |
+| 15 fév. | — | — | Trot 15 min ext. | 1er footing post-épisode. 1.8 km, FC 125 (Z1). RAS. |
+| 19 fév. | — | — | Footing tapis 25 min | 7-8 km/h, 0%, Z1. Soléaire 2/10, RPE 1. RAS. |
+| **21 fév.** | **AIGU** | — | **⚠️ RECHUTE** | Footing tapis 30 min — douleur apparue à 10-15 min au tendon derrière la cheville, remontée au mollet. Arrêt à 25 min. Saut unipodal = **douleur aiguë et pointue**. **Retour Phase 1.** Palier 20 min sauté (trot 17 fév non fait). Progression trop rapide probable : 15 min → 25 min → 30 min en 6 jours. |
 
 #### Protocole de retour à la course
 

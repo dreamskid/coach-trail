@@ -97,25 +97,25 @@
     "protocol": [
       {
         "phase": "1 — Isométrique",
-        "entry": "7 fév.",
-        "content": "Iso mollet 30sx4, bilatéral puis unipodal",
-        "status": "validee"
-      },
-      {
-        "phase": "2 — Excentrique",
-        "entry": "11 fév. (unipodal 15 reps 0 gêne)",
-        "content": "Stanish lent 3×10 → 3×15",
-        "status": "validee"
-      },
-      {
-        "phase": "3 — Footing",
-        "entry": "13 fév. (saut 0/10)",
-        "content": "Trot 15min (15/02), footings tapis 25-30min en cours",
+        "entry": "⚠️ RECHUTE 21 fév → retour Phase 1",
+        "content": "Iso mollet 30sx4, bilatéral puis unipodal. Repos 48-72h d'abord.",
         "status": "en_cours"
       },
       {
+        "phase": "2 — Excentrique",
+        "entry": "Retest unipodal 15 reps 0 gêne (prévu ~28 fév)",
+        "content": "Stanish lent 3×10 → 3×15",
+        "status": "a_venir"
+      },
+      {
+        "phase": "3 — Footing",
+        "entry": "Saut unipodal ≤ 1/10",
+        "content": "⚠️ Rechute à 25min le 21/02. Prochain footing : 15 min MAX, paliers de +5min STRICTS",
+        "status": "a_venir"
+      },
+      {
         "phase": "4 — Progression",
-        "entry": "30 min tapis indolore",
+        "entry": "Footing 30 min indolore",
         "content": "Durée 35-45min, intro inclinaison 2-5%, 1ère sortie extérieure",
         "status": "a_venir"
       },

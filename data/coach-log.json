@@ -134,83 +134,80 @@
     {
       "date": "2026-02-21",
       "checks": {
-        "Stanish 3×15 + marche 5min échauff (5 km/h)": false,
-        "Footing plat 30min (7-8 km/h, 0%, Z1 <127 bpm)": false,
-        "Retour calme 3min marche + Stanish 3×15": false
-      }
+        "Footing tapis 30min → ⚠️ ARRÊT 25min (douleur tendon/mollet à 10-15min)": true,
+        "Saut unipodal = douleur aiguë → RECHUTE": true,
+        "GLACE 15min + surélever jambe ce soir": false
+      },
+      "soleaire": 7,
+      "rpe": 5
     },
     {
       "date": "2026-02-22",
       "checks": {
-        "Stanish 3×15": false,
-        "Bilan W08 + décision Cabornis": false
+        "Repos complet (pas de Stanish — laisser calmer)": false,
+        "Glace 15min ×2 (matin + soir)": false,
+        "Cabornis = DNS confirmé": false
       }
     },
     {
       "date": "2026-02-23",
       "checks": {
-        "Auto-test : 10 sauts unipodaux G → noter /10": false,
-        "Stanish 3×15": false
+        "Repos complet": false,
+        "Glace 15min si douleur": false,
+        "Test palpation douce (sans forcer)": false
       }
     },
     {
       "date": "2026-02-24",
       "checks": {
-        "Stanish 3×15 + marche 5min échauff": false,
-        "Footing plat 25min (7.5-8.5 km/h, 0%)": false,
-        "Pente douce 10min (6-7 km/h, 2-3%)": false,
-        "Retour calme + Stanish 3×15": false
+        "Isométrique mollet bilatéral 4×30s (si 0 douleur palp.)": false,
+        "Elliptique douce 30min Z1 (si toléré)": false
       }
     },
     {
       "date": "2026-02-25",
       "checks": {
-        "Elliptique 55-60min Z2 (<141 bpm)": false,
-        "PPG complète 30min (pompes, gainage, squats, fentes, superman)": false,
-        "Stanish 3×15": false
+        "Isométrique bilatéral 4×30s": false,
+        "PPG haut du corps uniquement (0 jambes)": false
       }
     },
     {
       "date": "2026-02-26",
       "checks": {
-        "Stanish 3×15 + marche 5min + montées pointes": false,
-        "Footing extérieur 35-40min plat (~5 km, Z1-Z2)": false,
-        "Montées = MARCHER power hike (pas courir)": false,
-        "Retour calme + Stanish 3×15": false
+        "Isométrique → test unipodal G 5 reps (noter gêne)": false,
+        "Elliptique 40min Z1 si mollet OK": false
       }
     },
     {
       "date": "2026-02-27",
       "checks": {
-        "Elliptique 45-50min Z1-Z2 (récup)": false,
-        "Stanish 3×15": false
+        "Isométrique unipodal 4×30s": false,
+        "Marche active 20-30min": false
       }
     },
     {
       "date": "2026-02-28",
       "checks": {
-        "Stanish 3×15 + marche 5min échauff": false,
-        "Footing plat 20min (8 km/h, 0%)": false,
-        "Power hiking : 5min@3% → 5min@5% → 5min@8% (marche 5.5-6 km/h)": false,
-        "Retour plat 5-10min + Stanish 3×15": false
+        "RETEST : mollet unipodal G 15 reps → noter gêne /10": false,
+        "Si 0 gêne → relancer Stanish 3×10 doux": false
       }
     },
     {
       "date": "2026-03-01",
       "checks": {
-        "Stanish 3×15": false,
-        "Bilan W09 (footings OK ? pente OK ? extérieur OK ?)": false
+        "Stanish 3×10 si retest OK": false,
+        "Bilan semaine : évaluer gravité rechute": false
       }
     }
   ],
   "longterm": {
-    "updated": "2026-02-18",
-    "status": "reprise",
+    "updated": "2026-02-21",
+    "status": "blessure",
     "occ_weeks_remaining": 27,
-    "current_block": "Bloc 0 → Bloc 1 transition",
-    "next_race": "Cabornis (8 mars) — decision 22 fev, footing OK si W08 validée",
-    "trajectory": "Protocole en avance (Phase 3 en 6j). Reprise footing amorcée. Transition Bloc 1 en W09 si footings W08 passent.",
-    "protocol_phase": 3,
+    "current_block": "Bloc 0 — Rechute, retour Phase 1",
+    "next_race": "Cabornis (8 mars) — DNS. Prochaine cible à définir après guérison.",
+    "trajectory": "RECHUTE 21 fév. Douleur tendon/mollet à 10-15min de footing tapis, saut unipodal = douleur aiguë. Retour Phase 1. Palier 20 min sauté (trot 17 fév non fait) = progression trop rapide probable. Retest Phase 2 prévu 28 fév.",
+    "protocol_phase": 1,
     "evaluation": {
       "current": {
         "date": "2026-02-07",
