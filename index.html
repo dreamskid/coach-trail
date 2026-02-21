@@ -2672,6 +2672,9 @@ function buildTodayCard(athlete) {
         exercises = detectExercises(badgeEl ? badgeEl.textContent : '', detailsHTML);
 
         // MOVE (not clone) the source element into the today-card wrapper
+        // Hide the original day-header to avoid duplicate badge
+        var origHeader = sourceEl.querySelector('.day-header');
+        if (origHeader) origHeader.style.display = 'none';
         sourceEl.classList.add('today-card');
 
         var iconsHTML = '';
