@@ -39,7 +39,8 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | 15 fév. | — | — | Trot 15 min ext. | 1er footing post-épisode. 1.8 km, FC 125 (Z1). RAS. |
 | 19 fév. | — | — | Footing tapis 25 min | 7-8 km/h, 0%, Z1. Soléaire 2/10, RPE 1. RAS. |
 | **21 fév.** | **AIGU** | — | **⚠️ RECHUTE** | Footing tapis 30 min — douleur apparue à 10-15 min au tendon derrière la cheville, remontée au mollet. Arrêt à 25 min. Saut unipodal = **douleur aiguë et pointue**. **Retour Phase 1.** Palier 20 min sauté (trot 17 fév non fait). Progression trop rapide probable : 15 min → 25 min → 30 min en 6 jours. |
-| 23 fév. | — | — | RDV kiné | Bilan rechute — diagnostic kiné à compléter ici |
+| 21 fév. soir | — | — | Symptôme veineux | **Mollet se déforme visiblement, sensation de flux sanguin, battements palpables.** Terrain variqueux (opéré 2 mollets). → Signaler au kiné en priorité, écho-Doppler veineux à demander. |
+| 23 fév. | — | — | RDV kiné | Bilan rechute + symptômes veineux — diagnostic kiné à compléter ici |
 
 #### Protocole de retour à la course
 
@@ -62,7 +63,7 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | **Pattern** | Raideur systématique en début de séance, cède à l'échauffement |
 | **Facteurs aggravants** | Fatigue accumulée, entraînement sans échauffement suffisant, charge plyométrique |
 | **Crampes orteils** | Crampes chroniques aux doigts de pied (y compris nocturnes) — **antérieures** aux varices, motif initial de l'opération. Persistent post-op → déficit magnésium probable |
-| **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Retour veineux amélioré mais fragilité bilatérale persistante |
+| **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Retour veineux amélioré mais fragilité bilatérale persistante. **21 fév** : mollet se déforme, flux sanguin palpable, battements → possible insuffisance veineuse résiduelle/récidive |
 
 ### Protocole de prévention permanent
 
