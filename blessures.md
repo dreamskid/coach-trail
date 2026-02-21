@@ -66,6 +66,8 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Symptômes veineux persistants **depuis ~15 ans** : déformation visible du mollet, flux sanguin palpable, battements. Insuffisance veineuse résiduelle probable. Écho-Doppler à faire. |
 | **Plancher pelvien** | Hypertonie diagnostiquée. Fréquence urinaire excessive (y compris nocturne), rétention d'eau insuffisante. Rééducation périnéale tentée puis arrêtée (trop douloureuse). Prostate OK (bilan sanguin). Tension chaîne postérieure (bassin → ischio → mollets) possible facteur aggravant. |
 | **Déficit électrolytes** | Crampes orteils 15+ ans + rétention d'eau insuffisante = déficit chronique Mg/Na/K. L'eau traverse sans être retenue → déshydratation tissulaire (tendons 70% eau) malgré les apports. |
+| **Composante héréditaire** | Varices + fragilité tendineuse récurrente + crampes chroniques = probable **fragilité constitutionnelle du collagène** (insuffisance veineuse constitutionnelle, 60-80% héréditaire). Collagène fragile = veines qui se dilatent + jonction myo-tendineuse vulnérable + retour veineux insuffisant. Bilan collagène/tissu conjonctif à demander au médecin du sport. |
+| **Nicotine** | Rechute cigarette électronique ~21 fév. Vasoconstricteur puissant : réduit flux sanguin (aggrave IVC), dégrade synthèse collagène, ralentit cicatrisation 30-40%, aggrave déshydratation tissulaire. **Incompatible avec guérison soléaire et objectifs course.** |
 
 ### Tableau des facteurs aggravants interconnectés
 
@@ -82,13 +84,22 @@ Déficit magnésium/électrolytes chronique
     → muscle ne se relâche pas → jonction sous contrainte 24h/24
     → crampes orteils nocturnes (15+ ans)
 
+Fragilité constitutionnelle du collagène (héréditaire probable)
+    → veines fragiles (varices) + tendons fragiles (soléaire)
+    → terrain de base qui amplifie TOUS les autres facteurs
+
+Nicotine (rechute ~21 fév)
+    → vasoconstriction → aggrave insuffisance veineuse
+    → dégrade synthèse collagène → ralentit cicatrisation 30-40%
+    → déshydratation tissulaire accrue
+
     === CONVERGENT SUR === → jonction myo-tendineuse soléaire
                             → 4 épisodes + rechute en 2 ans
 ```
 
 ### Actions médicales à mener
 
-1. **Médecin du sport** — bilan global : écho-Doppler veineux + écho soléaire + PRP/ondes de choc ?
+1. **Médecin du sport** — bilan global : écho-Doppler veineux + écho soléaire + **bilan collagène/tissu conjonctif** + PRP/ondes de choc ?
 2. **Phlébologue** — si écho-Doppler anormal : traitement veines (sclérothérapie/laser)
 3. **Magnésium bisglycinate** 300-400 mg/j — démarré, à maintenir à vie
 4. **Électrolytes dans l'eau** — Hydratis ou pincée de sel + potassium pour retenir l'eau

@@ -81,7 +81,7 @@
 ## Points de vigilance
 
 - **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes + rechute : 3x gauche, 1x droit). Épisode actif + rechute fév. 2026 — voir `blessures.md`
-- **Cigarette électronique** : sevrage acquis depuis le 7 fév. 2026 (0 mg)
+- **Cigarette électronique** : sevrage acquis 7 fév. → **rechute nicotine ~21 fév.** Impact direct : vasoconstriction + dégradation collagène + cicatrisation ralentie 30-40%. Incompatible avec guérison soléaire.
 - **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
 - **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)
 - À 44 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + terrain vasculaire + électrolytes ont un effet cumulé estimé à -12 à -20% sur la performance
