@@ -139,52 +139,94 @@
     },
     {
       "date": "2026-02-22",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Protocole": false
+        "⚠️ REPOS STRICT — douleur vive J+1": false,
+        "Glace 15 min (matin) — poche enveloppée, jambe surélevée": false,
+        "Glace 15 min (après-midi)": false,
+        "Glace 15 min (soir) + jambes surélevées 20 min": false,
+        "Magnésium 300mg + collagène 10g + vit C": false,
+        "Hydratation 2L avec électrolytes": false
       }
     },
     {
       "date": "2026-02-23",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "KINÉ": false
+        "🏥 KINÉ — bilan rechute + symptômes veineux + demander écho-Doppler": false,
+        "Repos strict — pas de marche prolongée": false,
+        "Glace 15 min x2 (matin + soir)": false,
+        "Jambes surélevées 20 min soir": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
       "date": "2026-02-24",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Isométrique bilatéral": false
+        "Repos — observer si douleur à la marche diminue": false,
+        "Glace 15 min x2": false,
+        "Si marche OK : test isométrique bilatéral léger (30s x 2, sans douleur)": false,
+        "Magnésium + collagène + vit C + électrolytes": false,
+        "Jambes surélevées 20 min soir": false
       }
     },
     {
       "date": "2026-02-25",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Isométrique": false,
-        "PPG haut du corps": false
+        "Si isométrique bilatéral OK hier : répéter 30s x 4 bilatéral": false,
+        "PPG haut du corps (gainage, pompes, tractions) — 20 min": false,
+        "Glace 15 min soir": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
       "date": "2026-02-26",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Test unipodal": false
+        "Isométrique bilatéral 30s x 4 si toujours 0 douleur": false,
+        "Marche courte 10-15 min (test tolérance)": false,
+        "Glace post-marche si gêne": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
       "date": "2026-02-27",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Isométrique": false,
-        "Marche active": false
+        "Isométrique bilatéral 30s x 4": false,
+        "Elliptique ou natation 20 min si marche hier OK (cardio sans impact mollet)": false,
+        "Magnésium + collagène + vit C + électrolytes": false,
+        "Jambes surélevées 20 min soir": false
       }
     },
     {
       "date": "2026-02-28",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "RETEST : mollet unipodal 15 reps": false
+        "TEST : mollet unipodal gauche 15 reps — noter douleur 0-10": false,
+        "Si 0 gêne → Phase 2 validée, lancer Stanish lundi": false,
+        "Si gêne → rester Phase 1, prolonger iso semaine suivante": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
       "date": "2026-03-01",
+      "soleaire": null,
+      "rpe": null,
       "checks": {
-        "Glace": false
+        "Repos actif — marche 20-30 min si toléré": false,
+        "Isométrique bilatéral 30s x 4": false,
+        "Glace 15 min soir": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     }
   ],

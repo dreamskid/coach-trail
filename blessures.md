@@ -40,6 +40,7 @@ Raideur bilatérale systématique à la jonction mollet/soléaire en début de c
 | 19 fév. | — | — | Footing tapis 25 min | 7-8 km/h, 0%, Z1. Soléaire 2/10, RPE 1. RAS. |
 | **21 fév.** | **AIGU** | — | **⚠️ RECHUTE** | Footing tapis 30 min — douleur apparue à 10-15 min au tendon derrière la cheville, remontée au mollet. Arrêt à 25 min. Saut unipodal = **douleur aiguë et pointue**. **Retour Phase 1.** Palier 20 min sauté (trot 17 fév non fait). Progression trop rapide probable : 15 min → 25 min → 30 min en 6 jours. |
 | 21 fév. soir | — | — | Symptôme veineux | **Mollet se déforme visiblement, sensation de flux sanguin, battements palpables.** Terrain variqueux (opéré 2 mollets). → Signaler au kiné en priorité, écho-Doppler veineux à demander. |
+| **22 fév.** | — | — | **Repos strict** | Douleur **présente et vive** au repos. J+1 post-rechute. Glace 15 min x2-3, jambes surélevées, zéro sollicitation. Rechute nicotine (aggravant). |
 | 23 fév. | — | — | RDV kiné | Bilan rechute + symptômes veineux — diagnostic kiné à compléter ici |
 
 #### Protocole de retour à la course
