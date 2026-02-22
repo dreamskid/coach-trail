@@ -1,5 +1,22 @@
 [
   {
+    "id": 17481042409,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-02-22T08:44:36Z",
+    "distance": 18016.8,
+    "moving_time": 9601,
+    "elapsed_time": 9601,
+    "total_elevation_gain": 0,
+    "average_speed": 1.877,
+    "max_speed": 4.24,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 4
+  },
+  {
     "id": 17471994827,
     "name": "Morning Trail Run",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 176.0,
     "suffer_score": 273.0,
     "kudos_count": 9
-  },
-  {
-    "id": 16792861217,
-    "name": "Oprtalj Endurance Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2025-12-20T12:45:31Z",
-    "distance": 8849.8,
-    "moving_time": 3296,
-    "elapsed_time": 3296,
-    "total_elevation_gain": 0,
-    "average_speed": 2.685,
-    "max_speed": 3.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 5
   }
 ]

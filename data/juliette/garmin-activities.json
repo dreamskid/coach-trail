@@ -1,5 +1,21 @@
 [
   {
+    "id": 21946373299,
+    "name": "Course à pied sur tapis roulant",
+    "type": "treadmill_running",
+    "start_date_local": "2026-02-22 08:46:41",
+    "distance": 18000.0,
+    "moving_time": 4390,
+    "elapsed_time": 9475,
+    "total_elevation_gain": 2000.0,
+    "average_speed": 1.9,
+    "average_heartrate": 146.0,
+    "max_heartrate": 209.0,
+    "calories": 1067.0,
+    "steps": 12968,
+    "source": "garmin"
+  },
+  {
     "id": 21937935917,
     "name": "Anse Trail",
     "type": "trail_running",
@@ -461,22 +477,6 @@
     "max_heartrate": 170.0,
     "calories": 506.0,
     "steps": 9526,
-    "source": "garmin"
-  },
-  {
-    "id": 21287706430,
-    "name": "Course à pied sur tapis roulant",
-    "type": "treadmill_running",
-    "start_date_local": "2025-12-18 08:41:17",
-    "distance": 10040.0,
-    "moving_time": 3695,
-    "elapsed_time": 3787,
-    "total_elevation_gain": 0,
-    "average_speed": 2.651,
-    "average_heartrate": 162.0,
-    "max_heartrate": 187.0,
-    "calories": 707.0,
-    "steps": 10878,
     "source": "garmin"
   }
 ]
