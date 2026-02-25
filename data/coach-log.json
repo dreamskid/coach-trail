@@ -155,10 +155,9 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "🏥 KINÉ — bilan rechute + symptômes veineux + demander écho-Doppler": false,
-        "Repos strict — pas de marche prolongée": false,
-        "Glace 15 min x2 (matin + soir)": false,
-        "Jambes surélevées 20 min soir": false,
+        "🏥 KINÉ — Diagnostic : PPM trop bas, pas de protocole": true,
+        "Footing tapis 25 min tranquille — cadence 170+ ppm, 7-8 km/h, 0%": false,
+        "Échauffement 5 min marche + retour au calme 5 min": false,
         "Magnésium + collagène + vit C + électrolytes": false
       }
     },
@@ -167,11 +166,10 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Repos — observer si douleur à la marche diminue": false,
-        "Glace 15 min x2": false,
-        "Si marche OK : test isométrique bilatéral léger (30s x 2, sans douleur)": false,
-        "Magnésium + collagène + vit C + électrolytes": false,
-        "Jambes surélevées 20 min soir": false
+        "Footing tapis 25 min — cadence 170+ ppm, 7-8 km/h, Z1": false,
+        "Échauffement 5 min marche + retour au calme 5 min": false,
+        "PPG haut du corps 20 min (gainage, pompes, tractions)": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
@@ -179,9 +177,8 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Si isométrique bilatéral OK hier : répéter 30s x 4 bilatéral": false,
-        "PPG haut du corps (gainage, pompes, tractions) — 20 min": false,
-        "Glace 15 min soir": false,
+        "Footing tapis 25 min — cadence 170+ ppm, Z1": false,
+        "PPG complète 30 min (haut + bas du corps)": false,
         "Magnésium + collagène + vit C + électrolytes": false
       }
     },
@@ -190,9 +187,8 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Isométrique bilatéral 30s x 4 si toujours 0 douleur": false,
-        "Marche courte 10-15 min (test tolérance)": false,
-        "Glace post-marche si gêne": false,
+        "Footing tapis 30 min — cadence 170+ ppm, Z1": false,
+        "Échauffement 5 min + retour au calme 5 min": false,
         "Magnésium + collagène + vit C + électrolytes": false
       }
     },
@@ -201,10 +197,9 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Isométrique bilatéral 30s x 4": false,
-        "Elliptique ou natation 20 min si marche hier OK (cardio sans impact mollet)": false,
-        "Magnésium + collagène + vit C + électrolytes": false,
-        "Jambes surélevées 20 min soir": false
+        "Repos ou elliptique 30 min Z1-Z2": false,
+        "PPG haut du corps 20 min": false,
+        "Magnésium + collagène + vit C + électrolytes": false
       }
     },
     {
@@ -212,9 +207,8 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "TEST : mollet unipodal gauche 15 reps — noter douleur 0-10": false,
-        "Si 0 gêne → Phase 2 validée, lancer Stanish lundi": false,
-        "Si gêne → rester Phase 1, prolonger iso semaine suivante": false,
+        "Footing tapis 30 min — cadence 170+ ppm, Z1": false,
+        "Échauffement 5 min + retour au calme 5 min": false,
         "Magnésium + collagène + vit C + électrolytes": false
       }
     },
@@ -223,21 +217,19 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Repos actif — marche 20-30 min si toléré": false,
-        "Isométrique bilatéral 30s x 4": false,
-        "Glace 15 min soir": false,
+        "Sortie extérieure 30-35 min — cadence 170+ ppm, Z1, plat": false,
         "Magnésium + collagène + vit C + électrolytes": false
       }
     }
   ],
   "longterm": {
-    "updated": "2026-02-21",
-    "status": "blessure",
+    "updated": "2026-02-23",
+    "status": "reprise",
     "occ_weeks_remaining": 27,
-    "current_block": "Bloc 0 — Rechute, retour Phase 1",
+    "current_block": "Bloc 0 — Reprise cadence (diagnostic kiné : PPM trop bas)",
     "next_race": "MMT (26 avril, 51km/2500D+) — Objectif A. Décision GO/DNS le 15 mars (footing 30min indolore).",
-    "trajectory": "RECHUTE 21 fév. Retour Phase 1. Cabornis DNS. MMT = nouvel objectif A (avec OCC en A saison). Kiné lundi 23 fév. Retest Phase 2 prévu 28 fév. Si guérison OK mi-mars → 6 semaines de build express MMT.",
-    "protocol_phase": 1,
+    "trajectory": "Kiné 23 fév : diagnostic PPM trop bas (cadence). Pas de protocole iso/Stanish. Reprise course immédiate en travaillant la cadence 170+ ppm. PPG maintenue. MMT objectif A. Build express si cadence corrigée → progression rapide possible.",
+    "protocol_phase": null,
     "evaluation": {
       "current": {
         "date": "2026-02-07",
