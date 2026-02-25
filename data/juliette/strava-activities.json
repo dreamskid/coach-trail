@@ -1,5 +1,22 @@
 [
   {
+    "id": 17505450064,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-02-24T13:28:09Z",
+    "distance": 10003.3,
+    "moving_time": 2759,
+    "elapsed_time": 2759,
+    "total_elevation_gain": 0,
+    "average_speed": 3.626,
+    "max_speed": 5.34,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 3
+  },
+  {
     "id": 17481042409,
     "name": "Manual Workout",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 6
-  },
-  {
-    "id": 16809920226,
-    "name": "Morning Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2025-12-22T10:45:21Z",
-    "distance": 19471.4,
-    "moving_time": 6633,
-    "elapsed_time": 6763,
-    "total_elevation_gain": 363.0,
-    "average_speed": 2.936,
-    "max_speed": 4.36,
-    "average_heartrate": 156.2,
-    "max_heartrate": 176.0,
-    "suffer_score": 273.0,
-    "kudos_count": 9
   }
 ]
