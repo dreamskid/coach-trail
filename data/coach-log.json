@@ -130,76 +130,12 @@
       "rpe": 1
     },
     {
-      "date": "2026-02-21",
-      "checks": {
-        "Protocole": false
-      },
-      "soleaire": 9,
-      "rpe": 1
-    },
-    {
-      "date": "2026-02-22",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "⚠️ REPOS STRICT — douleur vive J+1": false,
-        "Glace 15 min (matin) — poche enveloppée, jambe surélevée": false,
-        "Glace 15 min (après-midi)": false,
-        "Glace 15 min (soir) + jambes surélevées 20 min": false,
-        "Magnésium 300mg + collagène 10g + vit C": false,
-        "Hydratation 2L avec électrolytes": false
-      }
-    },
-    {
-      "date": "2026-02-23",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "🏥 KINÉ — Diagnostic : PPM trop bas, pas de protocole": true,
-        "Footing tapis 25 min tranquille — cadence 170+ ppm, 7-8 km/h, 0%": false,
-        "Échauffement 5 min marche + retour au calme 5 min": false,
-        "Magnésium + collagène + vit C + électrolytes": false
-      }
-    },
-    {
-      "date": "2026-02-24",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Footing tapis 25 min — cadence 170+ ppm, 7-8 km/h, Z1": false,
-        "Échauffement 5 min marche + retour au calme 5 min": false,
-        "PPG haut du corps 20 min (gainage, pompes, tractions)": false,
-        "Magnésium + collagène + vit C + électrolytes": false
-      }
-    },
-    {
       "date": "2026-02-25",
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Footing tapis 25 min — cadence 170+ ppm, Z1": false,
-        "PPG complète 30 min (haut + bas du corps)": false,
-        "Magnésium + collagène + vit C + électrolytes": false
-      }
-    },
-    {
-      "date": "2026-02-26",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Footing tapis 30 min — cadence 170+ ppm, Z1": false,
-        "Échauffement 5 min + retour au calme 5 min": false,
-        "Magnésium + collagène + vit C + électrolytes": false
-      }
-    },
-    {
-      "date": "2026-02-27",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Repos ou elliptique 30 min Z1-Z2": false,
-        "PPG haut du corps 20 min": false,
-        "Magnésium + collagène + vit C + électrolytes": false
+        "Footing tapis 25 min — cadence 170+ ppm, 7-8 km/h, Z1": false,
+        "PPG": false
       }
     },
     {
@@ -207,18 +143,7 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Footing tapis 30 min — cadence 170+ ppm, Z1": false,
-        "Échauffement 5 min + retour au calme 5 min": false,
-        "Magnésium + collagène + vit C + électrolytes": false
-      }
-    },
-    {
-      "date": "2026-03-01",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Sortie extérieure 30-35 min — cadence 170+ ppm, Z1, plat": false,
-        "Magnésium + collagène + vit C + électrolytes": false
+        "PPG": false
       }
     }
   ],
