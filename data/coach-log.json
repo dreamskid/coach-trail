@@ -1,16 +1,9 @@
 {
   "daily": [
     {
-      "date": "2026-02-02",
-      "checks": {
-        "aucune séance structurée. Phase de repos post-épisode 4.": false
-      }
-    },
-    {
       "date": "2026-02-07",
       "checks": {
-        "bilan soléaire": true,
-        "lancement protocole iso": true
+        "Protocole iso": true
       },
       "soleaire": 5,
       "rpe": 2
@@ -18,7 +11,7 @@
     {
       "date": "2026-02-08",
       "checks": {
-        "protocole iso": false
+        "Protocole iso": false
       },
       "soleaire": 2,
       "rpe": null
@@ -36,7 +29,6 @@
       "soleaire": 4,
       "rpe": 2,
       "checks": {
-        "Marche active (Paris)": true,
         "Protocole": true
       }
     },
@@ -52,8 +44,7 @@
     {
       "date": "2026-02-12",
       "checks": {
-        "Protocole": true,
-        "Transition phase 2 ?": true
+        "Protocole": true
       },
       "soleaire": 2,
       "rpe": 1
@@ -61,8 +52,7 @@
     {
       "date": "2026-02-13",
       "checks": {
-        "Protocole": true,
-        "RETEST SAUT": true
+        "Protocole": true
       },
       "soleaire": 0,
       "rpe": 3
@@ -72,7 +62,6 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Marche active": false,
         "Protocole": false
       }
     },
@@ -97,7 +86,6 @@
     {
       "date": "2026-02-17",
       "checks": {
-        "Trot plat 20 min": false,
         "Protocole": false
       },
       "soleaire": null,
@@ -106,7 +94,6 @@
     {
       "date": "2026-02-18",
       "checks": {
-        "Marche": true,
         "Protocole": true
       },
       "soleaire": 0,
@@ -118,15 +105,6 @@
         "Protocole": false
       },
       "soleaire": 2,
-      "rpe": 1
-    },
-    {
-      "date": "2026-02-20",
-      "checks": {
-        "PPG": false,
-        "Protocole": false
-      },
-      "soleaire": 1,
       "rpe": 1
     },
     {
