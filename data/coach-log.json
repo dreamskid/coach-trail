@@ -112,8 +112,9 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Footing tapis 25 min — cadence 170+ ppm, 7-8 km/h, Z1": false,
-        "PPG": false
+        "Footing extérieur 25 min": true,
+        "PPG": false,
+        "Protocole": false
       }
     },
     {
@@ -121,17 +122,18 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "PPG": false
+        "PPG": false,
+        "Protocole": false
       }
     }
   ],
   "longterm": {
-    "updated": "2026-02-23",
-    "status": "reprise",
-    "occ_weeks_remaining": 27,
-    "current_block": "Bloc 0 — Reprise cadence (diagnostic kiné : PPM trop bas)",
-    "next_race": "MMT (26 avril, 51km/2500D+) — Objectif A. Décision GO/DNS le 15 mars (footing 30min indolore).",
-    "trajectory": "Kiné 23 fév : diagnostic PPM trop bas (cadence). Pas de protocole iso/Stanish. Reprise course immédiate en travaillant la cadence 170+ ppm. PPG maintenue. MMT objectif A. Build express si cadence corrigée → progression rapide possible.",
+    "updated": "2026-02-25",
+    "status": "actif",
+    "occ_weeks_remaining": 26,
+    "current_block": "Bloc 1 — Reprise + Build MMT",
+    "next_race": "MMT (26 avril, 51km/2500D+) — Objectif A.",
+    "trajectory": "Médecin du sport 25 fév : aucune blessure, cicatrice 3mm (décollement gastrocnémien-soléaire juin 2025) irritée par déshydratation/sommeil/échauffement. Kiné 23 fév : PPM trop bas. Footing 25 min ext. OK. Feu vert total. Protocole + PPG maintenus. Build MMT lancé.",
     "protocol_phase": null,
     "evaluation": {
       "current": {

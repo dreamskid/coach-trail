@@ -1,131 +1,91 @@
 # Suivi Blessures & Points de Vigilance
 
-## Blessure active
+## Statut actuel
 
-### Soléaire / Mollet — Épisode 4 (février 2026)
+### Cicatrice soléaire gauche — Décollement gastrocnémien-soléaire (juin 2025)
 
 | Champ | Détail |
 |---|---|
-| **Localisation** | Jonction mollet/soléaire, côté **gauche** |
-| **Contexte** | Raidlight Winter Trail (19 km, 1000 D+) le 31/01 → récupération insuffisante → sortie en fatigue le 6 fév. |
-| **Déclencheur** | Sortie en état de fatigue résiduelle post-course (6 fév. 2026) |
-| **Symptôme principal** | Douleur à l'impulsion et réception lors de sauts unipodaux |
-| **Historique** | Fragilité chronique **bilatérale** — 3 épisodes précédents (2x gauche, 1x droit) |
-| **Statut** | ACTIF — **RECHUTE 21 fév.** Retour Phase 1 |
+| **Localisation** | Jonction gastrocnémien/soléaire, côté **gauche** |
+| **Origine** | Juin 2025 : trail 55 km / 2200 D+ **couru sur une déchirure mollet/soléaire existante** |
+| **Diagnostic** | **Décollement gastrocnémien-soléaire** — plusieurs mois d'arrêt |
+| **Écho (fév. 2026)** | Cicatrice visible de **3 mm de large** |
+| **Statut** | Pas de blessure active. La cicatrice **tire** quand les conditions sont mauvaises (déshydratation, manque de sommeil, pas d'échauffement) |
 
-#### Bilan du 7 février 2026
+#### Bilan médecin du sport (25 février 2026)
 
-| Test | Résultat | Douleur | Interprétation |
-|---|---|---|---|
-| Palpation jonction | Pas de douleur | 0/10 | Pas de lésion musculaire palpable |
-| Mollets bilatéral (10 reps) | OK | 0/10 | Charge bilatérale tolérée |
-| Mollet unilatéral gauche (5 reps) | Gêne en haut de course | ~1/10 | Quasi OK, léger déficit en amplitude max |
-| Saut unipodal gauche (5 sauts) | **Douleur pointe** | **4-5/10** | Charge plyométrique NON tolérée |
-| Marche rapide 2 min | OK | 0/10 | Activité quotidienne non impactée |
+**Aucune blessure apparente.** Écho : cicatrice de 3 mm visible, tissu cicatriciel intact. La douleur des dernières semaines = **irritation de la cicatrice**, pas une nouvelle lésion ni une rechute.
 
-**Diagnostic fonctionnel** : atteinte de la jonction myo-tendineuse du soléaire gauche, grade léger. La charge concentrique/excentrique lente est tolérée, la charge élastique/plyométrique ne l'est pas encore. Ce n'est PAS une déchirure.
+**Facteurs déclencheurs identifiés** :
+- Manque d'hydratation
+- Manque de sommeil
+- Pas d'échauffement
 
-#### Observation importante
+**Diagnostic kiné (23 février 2026)** : PPM (cadence) trop bas → foulée trop longue → surcharge excentrique sur la cicatrice.
 
-Raideur bilatérale systématique à la jonction mollet/soléaire en début de chaque séance d'entraînement. Ce pattern chronique indique une fragilité structurelle de cette zone — à traiter par un protocole de prévention permanent, pas uniquement en phase de blessure.
+**Conclusion** : la cicatrice est un point de fragilité permanent. Il ne s'agit pas de la guérir mais de **ne pas l'irriter** : échauffement, hydratation, sommeil, cadence 170+ ppm.
 
-#### Journal de suivi
+#### Journal de suivi (février 2026)
 
-| Date | Douleur saut (0-10) | Mollet unipodal | Action | Notes |
-|---|---|---|---|---|
-| 7 fév. | 4-5/10 | Gêne légère | Bilan initial, repos course | Palpation 0, marche OK |
-| 11 fév. | — | **0 gêne** (15 reps) | **→ PHASE 2 validée** | Test unipodal 15 reps OK sans échauffement complet. Raideur mollet 2/10, pas de douleur. 1er Stanish 3×10 enchaîné : série 2 plus facile que série 1, série 3 plus facile que série 2. Tissu sain qui chauffe. |
-| 13 fév. | **0/10** | 0 gêne | **→ PHASE 3 validée** | Retest saut unipodal 10 sauts = **0 douleur** (vs 4-5/10 le 7 fév). Progression spectaculaire en 6 jours. Raideur mollet toujours présente mais pas de douleur. Footing tapis prévu W08. |
-| 15 fév. | — | — | Trot 15 min ext. | 1er footing post-épisode. 1.8 km, FC 125 (Z1). RAS. |
-| 19 fév. | — | — | Footing tapis 25 min | 7-8 km/h, 0%, Z1. Soléaire 2/10, RPE 1. RAS. |
-| **21 fév.** | **AIGU** | — | **⚠️ RECHUTE** | Footing tapis 30 min — douleur apparue à 10-15 min au tendon derrière la cheville, remontée au mollet. Arrêt à 25 min. Saut unipodal = **douleur aiguë et pointue**. **Retour Phase 1.** Palier 20 min sauté (trot 17 fév non fait). Progression trop rapide probable : 15 min → 25 min → 30 min en 6 jours. |
-| 21 fév. soir | — | — | Symptôme veineux | **Mollet se déforme visiblement, sensation de flux sanguin, battements palpables.** Terrain variqueux (opéré 2 mollets). → Signaler au kiné en priorité, écho-Doppler veineux à demander. |
-| **22 fév.** | — | — | **Repos strict** | Douleur **présente et vive** au repos. J+1 post-rechute. Glace 15 min x2-3, jambes surélevées, zéro sollicitation. Rechute nicotine (aggravant). |
-| **23 fév.** | — | — | **RDV kiné** | **Diagnostic : PPM (cadence) trop bas.** Le kiné écarte le problème vasculaire/tissulaire comme cause principale. Foulée trop longue = surcharge excentrique sur le soléaire à chaque pas. Prescription : reprendre la course en travaillant la cadence (objectif 170-180 ppm), pas de protocole isométrique/Stanish. Footing tapis 25 min tranquille aujourd'hui. |
-
-#### Protocole de retour à la course
-
-| Phase | Critère d'entrée | Contenu | Durée estimée |
-|---|---|---|---|
-| 1 — Isométrique | Maintenant | Isométrique mollet (30s x 4, bilatéral puis unipodal) + marche | 3-5 jours |
-| 2 — Excentrique | Mollet unipodal 15 reps sans gêne | Excentrique lent (Stanish) + marche rapide/incline tapis | 5-7 jours |
-| 3 — Footing | Saut unipodal ≤ 1/10 | Footing lent tapis (plat, 7-8 km/h, 15-20 min) | 3-5 jours |
-| 4 — Progression | Footing 30 min indolore | Allongement durée, introduction légère inclinaison | Progressif |
-| 5 — Validation | 10 sauts unipodaux 0/10 | Retour course normale, réintroduction D+ | — |
+| Date | Événement | Notes |
+|---|---|---|
+| 7 fév. | Bilan initial | Saut unipodal 4-5/10, palpation 0, marche OK |
+| 11 fév. | Phase 2 validée | Unipodal 15 reps OK, 1er Stanish 3×10 |
+| 13 fév. | Phase 3 validée | Saut unipodal 0/10 |
+| 15 fév. | Trot 15 min ext. | 1.8 km, Z1, RAS |
+| 19 fév. | Footing tapis 25 min | Z1, soléaire 2/10, RAS |
+| 21 fév. | Douleur tapis 30 min | Douleur à 10-15 min, arrêt 25 min. Cicatrice irritée (déshydratation + pas d'échauffement + manque de sommeil) |
+| 23 fév. | Kiné | Diagnostic PPM trop bas. Feu vert pour courir |
+| 25 fév. | Médecin du sport | **Aucune blessure.** Écho : cicatrice 3 mm. Irritation uniquement. |
+| 25 fév. | Footing extérieur 25 min | **Aucun problème** |
 
 ---
 
-## Fragilité chronique : jonction mollet/soléaire bilatérale
+## Cicatrice : gestion permanente
+
+La cicatrice de 3 mm au décollement gastrocnémien-soléaire est **définitive**. Elle ne disparaîtra pas. L'objectif est de ne jamais l'irriter.
+
+### Facteurs d'irritation (à éviter)
+
+| Facteur | Mécanisme |
+|---|---|
+| **Déshydratation** | Tissu cicatriciel moins élastique → tire sous contrainte |
+| **Manque de sommeil** | Récupération tissulaire insuffisante |
+| **Pas d'échauffement** | Cicatrice sollicitée à froid = douleur |
+| **Cadence trop basse** | Foulée longue = charge excentrique excessive sur la cicatrice |
+| **Fatigue accumulée** | Muscle compense moins → la cicatrice absorbe plus |
+
+### Protocole de prévention
+
+1. **Échauffement obligatoire** : 10 min marche + montées de mollets progressives AVANT toute course
+2. **Cadence 170+ ppm** : foulées courtes, pose médio-pied — toujours
+3. **Protocole Stanish** : excentrique lent, à maintenir en prévention
+4. **Hydratation 2L+/j** avec électrolytes — quotidien
+5. **Magnésium bisglycinate** 300-400 mg/j + collagène 10-15g + vit C
+6. **Sommeil 7h30+ minimum**
+7. **Compression mollets** — manchons pendant l'effort
+8. **Ne JAMAIS courir sans échauffement** — règle non-négociable
+
+---
+
+## Terrain médical
 
 | Aspect | Détail |
 |---|---|
-| **Nature** | Raideur et fragilité structurelle à la jonction myo-tendineuse |
-| **Côtés** | Bilatéral (gauche plus touché) |
-| **Pattern** | Raideur systématique en début de séance, cède à l'échauffement |
-| **Facteurs aggravants** | Fatigue accumulée, entraînement sans échauffement suffisant, charge plyométrique |
-| **Crampes orteils** | Crampes chroniques aux doigts de pied (y compris nocturnes) — **antérieures** aux varices, motif initial de l'opération. Persistent post-op → déficit magnésium probable |
-| **Terrain vasculaire** | **Opéré de varices aux deux mollets** (opération motivée par les crampes). Symptômes veineux persistants **depuis ~15 ans** : déformation visible du mollet, flux sanguin palpable, battements. Insuffisance veineuse résiduelle probable. Écho-Doppler à faire. |
-| **Plancher pelvien** | Hypertonie diagnostiquée. Fréquence urinaire excessive (y compris nocturne), rétention d'eau insuffisante. Rééducation périnéale tentée puis arrêtée (trop douloureuse). Prostate OK (bilan sanguin). Tension chaîne postérieure (bassin → ischio → mollets) possible facteur aggravant. |
-| **Déficit électrolytes** | Crampes orteils 15+ ans + rétention d'eau insuffisante = déficit chronique Mg/Na/K. L'eau traverse sans être retenue → déshydratation tissulaire (tendons 70% eau) malgré les apports. |
-| **Composante héréditaire** | Varices + fragilité tendineuse récurrente + crampes chroniques = probable **fragilité constitutionnelle du collagène** (insuffisance veineuse constitutionnelle, 60-80% héréditaire). Collagène fragile = veines qui se dilatent + jonction myo-tendineuse vulnérable + retour veineux insuffisant. Bilan collagène/tissu conjonctif à demander au médecin du sport. |
-| **Nicotine** | Rechute cigarette électronique ~21 fév. Vasoconstricteur puissant : réduit flux sanguin (aggrave IVC), dégrade synthèse collagène, ralentit cicatrisation 30-40%, aggrave déshydratation tissulaire. **Incompatible avec guérison soléaire et objectifs course.** |
-
-### Tableau des facteurs aggravants interconnectés
-
-```
-Plancher pelvien hypertonique
-    → tension chaîne postérieure → raideur mollets chronique
-    → rétention d'eau insuffisante → déshydratation tissulaire
-
-Insuffisance veineuse (varices opérées, symptômes 15 ans)
-    → drainage mollets insuffisant → micro-inflammation chronique
-    → cicatrisation ralentie entre épisodes
-
-Déficit magnésium/électrolytes chronique
-    → muscle ne se relâche pas → jonction sous contrainte 24h/24
-    → crampes orteils nocturnes (15+ ans)
-
-Fragilité constitutionnelle du collagène (héréditaire probable)
-    → veines fragiles (varices) + tendons fragiles (soléaire)
-    → terrain de base qui amplifie TOUS les autres facteurs
-
-Nicotine (rechute ~21 fév)
-    → vasoconstriction → aggrave insuffisance veineuse
-    → dégrade synthèse collagène → ralentit cicatrisation 30-40%
-    → déshydratation tissulaire accrue
-
-    === CONVERGENT SUR === → jonction myo-tendineuse soléaire
-                            → 4 épisodes + rechute en 2 ans
-```
-
-### Actions médicales à mener
-
-1. **Médecin du sport** — bilan global : écho-Doppler veineux + écho soléaire + **bilan collagène/tissu conjonctif** + PRP/ondes de choc ?
-2. **Phlébologue** — si écho-Doppler anormal : traitement veines (sclérothérapie/laser)
-3. **Magnésium bisglycinate** 300-400 mg/j — démarré, à maintenir à vie
-4. **Électrolytes dans l'eau** — Hydratis ou pincée de sel + potassium pour retenir l'eau
-5. **Contention** — bas/manchons compression classe 2 au quotidien + pendant/après effort
-6. **Chaîne postérieure** — stretching bassin/ischio (pigeon, happy baby, squat profond 2 min) + respiration diaphragmatique 5 min/jour
-
-### Protocole de prévention permanent
-
-1. **Échauffement obligatoire** : 10 min marche + montées de mollets progressives AVANT toute course
-2. **Isométrique quotidien** : 4 x 30s mollet unipodal, même les jours off
-3. **Excentrique 3x/semaine** : protocole Stanish (3 x 15 reps, lent, amplitude complète)
-4. **Règle absolue** : ne JAMAIS courir en fatigue accumulée sans réduire l'intensité/volume
-5. **Auto-test hebdomadaire** : 10 sauts unipodaux chaque lundi matin → noter dans le log de semaine
-6. **Paliers +5 min STRICTS** à la reprise — ne jamais sauter un palier
-7. **Magnésium + électrolytes + hydratation 2L+/j** — quotidien, non-négociable
-8. **Compression mollets** — manchons pendant l'effort, chaussettes après
-9. **Jambes surélevées** 15-20 min chaque soir
+| **Crampes orteils** | Chroniques 15+ ans (y compris nocturnes), antérieures aux varices, motif de l'opération. Déficit magnésium probable |
+| **Terrain vasculaire** | Opéré de varices aux deux mollets. Symptômes veineux persistants ~15 ans : déformation mollet, flux sanguin palpable, battements |
+| **Plancher pelvien** | Hypertonie diagnostiquée. Fréquence urinaire excessive. Rééducation arrêtée (trop douloureuse). Prostate OK |
+| **Déficit électrolytes** | Crampes + rétention d'eau insuffisante = déficit chronique Mg/Na/K |
+| **Nicotine** | Cigarette électronique — impact : vasoconstriction, dégradation collagène, déshydratation tissulaire |
 
 ---
 
 ## Historique des blessures
 
-| # | Date | Localisation | Côté | Gravité | Traitement | Résolution |
+| # | Date | Localisation | Côté | Gravité | Détail | Résolution |
 |---|---|---|---|---|---|---|
-| 1 | - | Jonction mollet/soléaire | Gauche | Modéré | Kiné + rééducation | Résolu |
-| 2 | - | Jonction mollet/soléaire | Gauche | Modéré | Kiné + rééducation | Résolu |
-| 3 | - | Jonction mollet/soléaire | Droit | Léger | Rééducation | Résolu |
-| 4 | Fév. 2026 | Jonction mollet/soléaire | Gauche | Léger | Protocole en cours | **En cours** |
+| 1 | — | Jonction mollet/soléaire | Gauche | Modéré | Déchirure | Résolu (kiné) |
+| 2 | — | Jonction mollet/soléaire | Gauche | Modéré | Déchirure | Résolu (kiné) |
+| 3 | — | Jonction mollet/soléaire | Droit | Léger | — | Résolu |
+| 4 | Juin 2025 | Décollement gastrocnémien-soléaire | Gauche | **Sévère** | Trail 55 km couru sur déchirure existante → décollement. Plusieurs mois d'arrêt. **Cicatrice 3 mm permanente.** | Résolu — cicatrice permanente |
+| 5 | Fév. 2026 | Cicatrice soléaire | Gauche | Léger | Irritation cicatrice (déshydratation + sommeil + échauffement + cadence). Pas de nouvelle lésion. | **Résolu** (médecin du sport 25 fév.) |
