@@ -5242,7 +5242,11 @@ _loadedAthletes[currentAthlete] = true;
 
     function fmtMd(text) {
         if (!text) return '';
-        var s = escHtml(text);
+        // Collapse 3+ consecutive newlines into a single double newline
+        var s = text.replace(/\n{3,}/g, '\n\n');
+        // Remove blank lines between list items / bold lines to keep them compact
+        s = s.replace(/\n\n(?=[-•*]\s|>\s|\d+\.\s|\*\*)/g, '\n');
+        s = escHtml(s);
         // Headers → bold text (strip # markers)
         s = s.replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>');
         // Horizontal rules → just a spacer
