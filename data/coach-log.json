@@ -112,9 +112,16 @@
       "soleaire": null,
       "rpe": null,
       "checks": {
-        "Footing extérieur 25 min": true,
         "PPG": false,
         "Protocole": false
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "soleaire": null,
+      "rpe": null,
+      "checks": {
+        "Footing extérieur 25 min": true
       }
     },
     {
