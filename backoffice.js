@@ -380,6 +380,28 @@ function badgeClassFromTitle(title) {
     return 'badge-blue';
 }
 
+// Whitelist: only these keywords produce a manual check
+const MANUAL_CHECK_MAP = {
+    'ppg': 'PPG', 'gainage': 'PPG', 'musculation': 'PPG', 'renfo': 'PPG', 'renforcement': 'PPG',
+    'protocole': 'Protocole', 'stanish': 'Protocole'
+};
+function extractChecks(title) {
+    const parts = title.split(/\s+\+\s+/).map(s => s.trim()).filter(Boolean);
+    const result = [];
+    const seen = {};
+    for (const part of parts) {
+        const lower = part.toLowerCase();
+        for (const [kw, normalized] of Object.entries(MANUAL_CHECK_MAP)) {
+            if (lower.includes(kw) && !seen[normalized]) {
+                seen[normalized] = true;
+                result.push(normalized);
+                break;
+            }
+        }
+    }
+    return result;
+}
+
 function parseWeekPlan(markdown, weekId) {
     const lines = markdown.split('\n');
     const result = {
@@ -487,8 +509,7 @@ function parseTableFormat(lines, weekId, result) {
             if (notes && notes !== '—' && notes !== '-') detailsHtml += '. ' + escapeHtml(notes);
         }
 
-        const checks = title.split(/[+,]/).map(s => s.trim()).filter(Boolean)
-            .filter(c => !/^(repos|off)\b/i.test(c));
+        const checks = extractChecks(title);
 
         result.days.push({
             date: date,
@@ -531,9 +552,7 @@ function parseHeadingFormat(lines, weekId, result) {
             }
         });
         currentDay.detailsHtml = html;
-        // Extract checks from title (split on +), filter out repos/off entries but keep others (e.g. Protocole)
-        currentDay.checks = currentDay.title.split(/\s*\+\s*/).map(s => s.trim()).filter(Boolean)
-            .filter(c => !/^(repos|off)\b/i.test(c));
+        currentDay.checks = extractChecks(currentDay.title);
         result.days.push(currentDay);
     }
 
@@ -710,7 +729,11 @@ const CHAT_TOOLS = [
     },
     {
         name: 'write_week_plan',
-        description: 'Ecrire ou reecrire le plan d\'entrainement complet d\'une semaine (fichier semaines/YYYY-Wxx.md).',
+        description: 'Ecrire ou reecrire le plan d\'entrainement complet d\'une semaine (fichier semaines/YYYY-Wxx.md).\n'
+            + 'FORMAT TITRES JOURS : "### Lundi 2 mars — [Titre activite]"\n'
+            + 'Le titre est compose de : une ACTIVITE GARMIN (Course a pied, Footing, Trail, Natation, Elliptique, Velo, Tapis) et/ou un COMPLEMENT MANUEL separe par " + " (PPG, Protocole, Stanish, Gainage, Musculation, Renfo).\n'
+            + 'Exemples valides : "Footing 30min Z2", "PPG Haut du corps + Gainage", "Natation + Protocole", "Course a pied 25min", "Repos".\n'
+            + 'INTERDIT : mots hors de ces categories dans le titre (pas de "glace", "kiné", "massage", etc.).',
         input_schema: {
             type: 'object',
             properties: {

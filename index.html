@@ -2306,7 +2306,7 @@ function updateDayValidation(dayEl, athlete) {
     // Check Garmin activities expected (from badge title)
     var badge = dayEl.querySelector('.day-header .badge');
     if (badge) {
-        badge.textContent.split(/\s*\+\s*/).forEach(function(part) {
+        badge.textContent.split(/\s+\+\s+/).forEach(function(part) {
             var lower = part.trim().toLowerCase();
             if (GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; })) {
                 hasExpected = true;
@@ -2622,12 +2622,30 @@ function detectExercises(badgeText, detailsText) {
 
 // Filter out Garmin-tracked activities from checks — they are validated automatically by activity matching
 var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running', 'footing'];
+// Whitelist: only these keywords produce a manual check
+var MANUAL_CHECK_MAP = {
+    'ppg': 'PPG', 'gainage': 'PPG', 'musculation': 'PPG', 'renfo': 'PPG', 'renforcement': 'PPG',
+    'protocole': 'Protocole', 'stanish': 'Protocole'
+};
 function filterManualChecks(checks) {
     if (!checks || checks.length === 0) return [];
-    return checks.filter(function(c) {
+    var result = [];
+    var seen = {};
+    checks.forEach(function(c) {
         var lower = c.toLowerCase();
-        return !GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+        var keys = Object.keys(MANUAL_CHECK_MAP);
+        for (var i = 0; i < keys.length; i++) {
+            if (lower.indexOf(keys[i]) >= 0) {
+                var normalized = MANUAL_CHECK_MAP[keys[i]];
+                if (!seen[normalized]) {
+                    seen[normalized] = true;
+                    result.push(normalized);
+                }
+                return;
+            }
+        }
     });
+    return result;
 }
 
 // ===== DYNAMIC WEEK PLAN =====
