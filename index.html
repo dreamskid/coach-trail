@@ -2163,12 +2163,10 @@ function initDayMetrics(athlete) {
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
-        // RPE only on days with a Garmin/Strava activity in the PLAN (not PPG/Protocole/Repos)
-        var planBadges = dayEl.dataset.badges ? dayEl.dataset.badges.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
-        var hasGarminActivity = planBadges.some(function(c) {
-            var lower = c.toLowerCase();
-            return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
-        });
+        // RPE only on days with a Garmin/Strava activity in the PLAN badge
+        var badgeEl = dayEl.querySelector('.day-header .badge');
+        var badgeText = badgeEl ? badgeEl.textContent.toLowerCase() : '';
+        var hasGarminActivity = GARMIN_KEYWORDS.some(function(kw) { return badgeText.indexOf(kw) >= 0; });
         if (!hasGarminActivity && !Object.keys(savedDirty).length) return;
 
         var trackInjury = ATHLETES[athlete].trackInjury;
