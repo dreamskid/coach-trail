@@ -2124,6 +2124,15 @@ function initDayMetrics(athlete) {
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
+        // Only show metrics on days with real activities (not rest-only days)
+        var hasActivity = false;
+        if (coachEntry && coachEntry.checks) {
+            hasActivity = Object.keys(coachEntry.checks).some(function(k) { return k !== 'Repos'; });
+        }
+        // Also show if metrics already have saved values (past data)
+        var hasMetricData = coachEntry && (coachEntry[injuryKey] != null || coachEntry.rpe != null);
+        if (!hasActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
+
         var isPast = dayEl.classList.contains('day-past');
 
         var injuryLabel = injuryKey === 'soleaire' ? 'Sol' : injuryKey === 'genou' ? 'Gen' : injuryKey;
