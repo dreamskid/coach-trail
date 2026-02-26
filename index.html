@@ -5259,8 +5259,8 @@ _loadedAthletes[currentAthlete] = true;
         if (!text) return '';
         // Collapse 3+ consecutive newlines into a single double newline
         var s = text.replace(/\n{3,}/g, '\n\n');
-        // Remove blank lines between list items / bold lines to keep them compact
-        s = s.replace(/\n\n(?=[-•*]\s|>\s|\d+\.\s|\*\*)/g, '\n');
+        // Remove blank lines between short lines (implicit lists), bullet items, bold lines
+        s = s.replace(/([^\n]{1,120})\n\n(?=[-\u2022*]\s|>\s|\d+\.\s|\*\*|[^\n]{1,120}(\n|$))/g, '$1\n');
         s = escHtml(s);
         // Headers → bold text (strip # markers)
         s = s.replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>');
