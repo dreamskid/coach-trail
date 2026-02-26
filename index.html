@@ -1444,7 +1444,8 @@ var ATHLETES = {
         dataDir: 'data/',
         block: 'Bloc 0 — Reprise & Soin',
         weekSubId: 'week',
-        injuryKey: 'soleaire'
+        injuryKey: 'soleaire',
+        trackInjury: false
     },
     juliette: {
         name: 'Juliette Sailland',
@@ -1456,7 +1457,8 @@ var ATHLETES = {
         dataDir: 'data/juliette/',
         block: 'Build 1 — Construction base',
         weekSubId: 'j-week',
-        injuryKey: 'genou'
+        injuryKey: 'genou',
+        trackInjury: true
     }
 };
 var currentAthlete = localStorage.getItem('currentAthlete') || 'yohann';
@@ -2130,17 +2132,19 @@ function initDayMetrics(athlete) {
             hasActivity = Object.keys(coachEntry.checks).some(function(k) { return k !== 'Repos'; });
         }
         // Also show if metrics already have saved values (past data)
-        var hasMetricData = coachEntry && (coachEntry[injuryKey] != null || coachEntry.rpe != null);
+        var hasMetricData = coachEntry && coachEntry.rpe != null;
         if (!hasActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
 
         var isPast = dayEl.classList.contains('day-past');
 
+        var trackInjury = ATHLETES[athlete].trackInjury;
         var injuryLabel = injuryKey === 'soleaire' ? 'Sol' : injuryKey === 'genou' ? 'Gen' : injuryKey;
         var injuryLabelFull = injuryKey === 'soleaire' ? 'Soléaire' : injuryKey === 'genou' ? 'Genou' : injuryKey;
-        var metrics = [
-            { key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: injuryKey === 'genou' ? genouColor : soleaireColor },
-            { key: 'rpe', label: 'RPE', shortLabel: 'RPE', colorFn: rpeColor }
-        ];
+        var metrics = [];
+        if (trackInjury) {
+            metrics.push({ key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: injuryKey === 'genou' ? genouColor : soleaireColor });
+        }
+        metrics.push({ key: 'rpe', label: 'RPE', shortLabel: 'RPE', colorFn: rpeColor });
 
         // For past days: add compact summary badges in header
         if (isPast) {
