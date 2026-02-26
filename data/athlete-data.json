@@ -2,11 +2,11 @@
   "profile": {
     "age": 44,
     "height_cm": 184,
-    "weight_kg": 82,
-    "imc": 24.2,
+    "weight_kg": 85,
+    "imc": 25.1,
     "fc_repos": 46,
-    "fc_max": 181,
-    "rfc": 135,
+    "fc_max": 178,
+    "rfc": 132,
     "vo2max": 45,
     "vma": 15,
     "vma_tested": false,
@@ -22,7 +22,7 @@
   "zones": [
     {
       "label": "Z1",
-      "min": 114,
+      "min": 112,
       "max": 127
     },
     {
@@ -48,108 +48,88 @@
   ],
   "injury": {
     "location": "Soléaire gauche",
-    "episode": "4 — RECHUTE 21 fév",
-    "detail": "Jonction myo-tendineuse · Rechute sous charge (footing tapis 25min). Douleur tendon + mollet. Marche douloureuse.",
-    "status": "active",
-    "assessment_date": "2026-02-21",
+    "episode": "Cicatrice 3mm — décollement gastrocnémien-soléaire (Maratrail ~2025)",
+    "detail": "Cicatrice permanente 3mm à la jonction gastrocnémien/soléaire gauche. Irritation en fév. 2026 (déshydratation + sommeil + échauffement + cadence 162 ppm). Médecin du sport 25 fév : aucune blessure active.",
+    "status": "resolved",
+    "assessment_date": "2026-02-25",
     "tests": [
       {
-        "name": "Marche",
-        "value": "DOULEUR AIGUË",
-        "color": "red"
+        "name": "Écho",
+        "value": "Cicatrice 3mm, tissu intact",
+        "color": "green"
       },
       {
-        "name": "Saut unipodal G",
-        "value": "DOULEUR AIGUË",
-        "color": "red"
-      },
-      {
-        "name": "Footing tapis",
-        "value": "Douleur à 10-15 min, arrêt 25 min",
-        "color": "red"
+        "name": "Footing 25 min",
+        "value": "Aucun problème",
+        "color": "green"
       },
       {
         "name": "Kiné",
-        "value": "RDV lundi 23 fév",
+        "value": "PPM trop bas → cadence 170+",
         "color": "yellow"
+      },
+      {
+        "name": "Médecin du sport",
+        "value": "Aucune blessure apparente",
+        "color": "green"
       }
     ],
     "context": [
       {
-        "label": "Déclencheur",
-        "value": "Raidlight WT (31/01) puis sortie fatiguée (06/02)"
+        "label": "Origine",
+        "value": "Maratrail (~2025) : 55km/2200D+ couru sur déchirure → décollement gastrocnémien-soléaire"
       },
       {
-        "label": "Historique",
-        "value": "4 épisodes (3x G, 1x D) — fragilité bilatérale chronique"
+        "label": "Diagnostic",
+        "value": "Cicatrice 3mm permanente. Irritée par déshydratation, manque sommeil, pas d'échauffement, cadence basse"
       },
       {
-        "label": "Terrain vasculaire",
-        "value": "Crampes orteils chroniques (pré-opératoires) → opération varices 2 mollets. Crampes persistent = déficit magnésium"
+        "label": "Collagénopathie",
+        "value": "Fragilité constitutionnelle du collagène probable (héréditaire). Varices + décollement + cicatrice fragile"
       }
     ],
-    "observation": "Raideur bilatérale systématique à la jonction mollet/soléaire en début de chaque séance. Pattern chronique = fragilité structurelle permanente aggravée par un terrain vasculaire (varices opérées bilatérales). Protocole de prévention à vie + hydratation et magnésium prioritaires.",
+    "observation": "Cicatrice définitive de 3mm. L'objectif n'est pas de guérir mais de ne pas irriter : échauffement, hydratation 2L+, sommeil 7h30+, cadence 170+ ppm, collagène + magnésium.",
     "protocol": [
       {
-        "phase": "1 — Isométrique",
-        "entry": "⚠️ RECHUTE 21 fév → retour Phase 1",
-        "content": "Iso mollet 30sx4, bilatéral puis unipodal. Repos 48-72h d'abord.",
+        "phase": "Prévention",
+        "entry": "Permanent",
+        "content": "Stanish excentrique 3x/semaine + échauffement 10min obligatoire + cadence 170+ ppm",
         "status": "en_cours"
-      },
-      {
-        "phase": "2 — Excentrique",
-        "entry": "Retest unipodal 15 reps 0 gêne (prévu ~28 fév)",
-        "content": "Stanish lent 3×10 → 3×15",
-        "status": "a_venir"
-      },
-      {
-        "phase": "3 — Footing",
-        "entry": "Saut unipodal ≤ 1/10",
-        "content": "⚠️ Rechute à 25min le 21/02. Prochain footing : 15 min MAX, paliers de +5min STRICTS",
-        "status": "a_venir"
-      },
-      {
-        "phase": "4 — Progression",
-        "entry": "Footing 30 min indolore",
-        "content": "Durée 35-45min, intro inclinaison 2-5%, 1ère sortie extérieure",
-        "status": "a_venir"
-      },
-      {
-        "phase": "5 — Validation",
-        "entry": "10 sauts unipodaux 0/10",
-        "content": "Course normale, réintro D+",
-        "status": "a_venir"
       }
     ],
-    "decision_point": "Cabornis DNS. Point de décision MMT (26 avril) : footing 30 min indolore le 15 mars = GO. Sinon DNS.",
+    "decision_point": "MMT (26 avril) — Objectif A. Build lancé.",
     "prevention": [
       {
-        "action": "Échauffement obligatoire : 10 min marche + montées mollets progressives",
+        "action": "Échauffement obligatoire : 10 min marche + montées mollets",
         "frequency": "Avant CHAQUE course"
       },
       {
-        "action": "Isométrique mollet unipodal 4x30s",
-        "frequency": "Quotidien"
+        "action": "Cadence 170+ ppm — foulées courtes, pose médio-pied",
+        "frequency": "Toujours"
       },
       {
-        "action": "Excentrique Stanish 3x15 reps",
+        "action": "Protocole Stanish excentrique lent",
         "frequency": "3x / semaine"
       },
       {
-        "action": "Ne JAMAIS courir en fatigue accumulée",
+        "action": "Collagène hydrolysé (Peptan) 10-15g + vit C",
+        "frequency": "Chaque matin à jeun"
+      },
+      {
+        "action": "Magnésium bisglycinate 300-400 mg",
+        "frequency": "Chaque soir"
+      },
+      {
+        "action": "Hydratation 2L+/j avec électrolytes",
+        "frequency": "Quotidien"
+      },
+      {
+        "action": "Sommeil 7h30+ minimum",
+        "frequency": "Quotidien"
+      },
+      {
+        "action": "Ne JAMAIS courir sans échauffement",
         "frequency": "Règle absolue"
-      },
-      {
-        "action": "Auto-test : 10 sauts unipodaux",
-        "frequency": "Chaque lundi matin"
-      },
-      {
-        "action": "Paliers +5 min STRICTS à la reprise (ne jamais sauter)",
-        "frequency": "Règle absolue"
-      },
-      {
-        "action": "Magnésium bisglycinate 300-400 mg/j + hydratation 2L+/j",
-        "frequency": "Quotidien, à vie"
       }
     ],
     "history": [
@@ -162,10 +142,10 @@
       },
       {
         "num": 2,
-        "location": "Jonction mollet/soléaire",
+        "location": "Décollement gastrocnémien-soléaire",
         "side": "Gauche",
-        "severity": "Modéré",
-        "resolution": "Résolu"
+        "severity": "Sévère",
+        "resolution": "Résolu — cicatrice 3mm permanente"
       },
       {
         "num": 3,
@@ -176,10 +156,17 @@
       },
       {
         "num": 4,
-        "location": "Jonction mollet/soléaire",
+        "location": "Astragale 66km",
+        "side": "—",
+        "severity": "—",
+        "resolution": "Terminé, pas de blessure"
+      },
+      {
+        "num": 5,
+        "location": "Cicatrice soléaire",
         "side": "Gauche",
         "severity": "Léger",
-        "resolution": "En cours"
+        "resolution": "Résolu (médecin 25 fév)"
       }
     ]
   },
@@ -199,18 +186,18 @@
         "name": "Cabornis",
         "distance": "25 km",
         "dplus": "1000 D+",
-        "objective": "C",
+        "objective": "DNS",
         "result": null,
-        "note": "Conditionné à la guérison soléaire"
+        "note": "DNS — rechute soléaire 21 fév"
       },
       {
         "date": "2026-04-26",
         "name": "MMT (Marathon Mistral Trail)",
         "distance": "51 km",
         "dplus": "2500 D+",
-        "objective": "B",
+        "objective": "A",
         "result": null,
-        "note": null
+        "note": "Objectif A prioritaire"
       },
       {
         "date": "2026-05-31",
@@ -245,7 +232,7 @@
         "bloc": "BLOC 0",
         "badge_class": "badge-blue",
         "period": "Fév. (actuel)",
-        "focus": "Reprise & soin soléaire. Cross-training. Zéro course.\n+ Arrêt nicotine + sommeil + alimentation",
+        "focus": "Reprise + correction cadence. Cicatrice soléaire gérée. Feu vert médecin du sport.",
         "races": "—"
       },
       {
@@ -253,14 +240,14 @@
         "badge_class": "badge-green",
         "period": "Mars",
         "focus": "Reconstruction volume. Reprise D+ progressive. PPG bas du corps.",
-        "races": "Cabornis (C)"
+        "races": "Cabornis (DNS)"
       },
       {
         "bloc": "BLOC 2",
         "badge_class": "badge-yellow",
         "period": "Avril",
         "focus": "Build volume + D+. Sorties longues 3-5h. Seuil en côte.",
-        "races": "MMT (B)"
+        "races": "MMT (A)"
       },
       {
         "bloc": "BLOC 3",
@@ -688,8 +675,8 @@
     },
     {
       "name": "Nicotine",
-      "current": "Sevrage en cours",
-      "color": "yellow",
+      "current": "Rechute ~21 fév",
+      "color": "red",
       "impact": "+3-5% cardio à récupérer, vasoconstriction = cicatrisation ralentie",
       "target": "0 mg permanent"
     },
@@ -697,20 +684,20 @@
       "name": "Alimentation",
       "current": "1-2 repas / jour",
       "color": "red",
-      "impact": "Déficit protéique chronique, besoin 2800-3500 kcal/j pour 83 kg à 6-7 séances/sem",
+      "impact": "Déficit protéique chronique, besoin 2800-3500 kcal/j pour 85 kg à 6-7 séances/sem",
       "target": "Dîner syst. (30-40g prot) + petit-déj jours séance"
     },
     {
       "name": "Hydratation",
-      "current": "Non suivi",
-      "color": "red",
+      "current": "Électrolytes + 2L/j en cours",
+      "color": "yellow",
       "impact": "PRIORITAIRE — crampes orteils chroniques (persistent post-opération varices). Déshydratation aggrave la fragilité soléaire.",
       "target": "2L+ / jour"
     },
     {
       "name": "Magnésium",
-      "current": "Non supplémenté",
-      "color": "red",
+      "current": "Bisglycinate 300-400mg/j (soir)",
+      "color": "green",
       "impact": "Crampes orteils chroniques (pré- et post-opération varices) = déficit probable. Aide récupération musculaire et qualité du sommeil.",
       "target": "300-400 mg/j (bisglycinate)"
     }

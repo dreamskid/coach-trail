@@ -16,7 +16,7 @@
 | Réserve cardiaque (RFC) | **132 bpm** | - | Karvonen (178 - 46) |
 | VO2max | **45 ml/kg/min** | 07/02/2026 | Garmin Connect |
 | VMA estimée | **~15.0 km/h** | - | Estimation (VO2max/3), **à confirmer par test** |
-| Sommeil moyen | **6h03 /nuit** | 07/02/2026 | Apple Health (moy. 7 jours) |
+| Sommeil moyen | **7h08 /nuit** | mi-fév. 2026 | Garmin (moy. 14 jours) — initial 6h03 le 07/02 |
 | Body Battery | 80/100 | 07/02/2026 | Garmin Fenix 7 Pro |
 
 ## Niveau & expérience
@@ -63,7 +63,7 @@
 - **Varices opérées aux deux mollets** — opération motivée par des crampes orteils chroniques (15+ ans)
 - **Symptômes veineux persistants** : déformation visible du mollet, sensation de flux sanguin et battements palpables — **depuis ~15 ans**, avant et après l'opération
 - **Insuffisance veineuse probable** : le retour veineux reste altéré → drainage insuffisant → facteur aggravant direct de la fragilité soléaire bilatérale
-- **À faire** : écho-Doppler veineux des deux mollets (via médecin du sport)
+- **Écho-Doppler** : réalisé 25 fév. 2026 (médecin du sport). Cicatrice 3mm visible, tissu intact. Aucune blessure active.
 
 ### Plancher pelvien
 - **Fréquence urinaire excessive** : mictions fréquentes y compris nocturnes, urines rapides après ingestion d'eau — symptôme chronique ancien
@@ -80,8 +80,8 @@
 
 ## Points de vigilance
 
-- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes + rechute : 3x gauche, 1x droit). Épisode actif + rechute fév. 2026 — voir `blessures.md`
-- **Cigarette électronique** : sevrage acquis 7 fév. → **rechute nicotine ~21 fév.** Impact direct : vasoconstriction + dégradation collagène + cicatrisation ralentie 30-40%. Incompatible avec guérison soléaire.
+- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Cicatrice 3mm permanente (décollement gastrocnémien-soléaire, Maratrail ~2025). Irritation fév. 2026 résolue (médecin 25 fév). Gestion permanente — voir `blessures.md`
+- **Cigarette électronique** : sevrage acquis 7 fév. → **rechute nicotine ~21 fév.** Impact direct : vasoconstriction + dégradation collagène + fragilisation cicatricielle.
 - **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
 - **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)
 - À 44 ans : récupération à surveiller de près, les facteurs sommeil + alimentation + terrain vasculaire + électrolytes ont un effet cumulé estimé à -12 à -20% sur la performance

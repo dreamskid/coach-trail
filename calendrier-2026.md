@@ -24,19 +24,19 @@
 ```
 Fév        Mars       Avril      Mai        Juin       Juil       Août
 |----------|----------|----------|----------|----------|----------|----------|
-  SOIN       SOIN →     BUILD      BUILD 2    SPÉCIF     VOLUME+    AFFÛT
-  rechute    BUILD 1    → TAPER    MaraXP     Monistr.   PIC        OCC
-  21 fév     décis.15/3 MMT (A)    (B)        (B)        FORME      (A)
+  REPRISE    BUILD 1    BUILD      BUILD 2    SPÉCIF     VOLUME+    AFFÛT
+  feu vert   montée vol → TAPER    MaraXP     Monistr.   PIC        OCC
+  25 fév     décis.15/3 MMT (A)    (B)        (B)        FORME      (A)
 ```
 
 ### Détail des blocs
 
-#### Bloc 0 — Soin & rechute (fév. → mi-mars)
-- **Priorité** : guérison du soléaire post-rechute du 21 fév
-- Rechute Phase 3 → retour Phase 1 (isométrique)
-- Cross-training privilégié : elliptique Z1, PPG haut du corps, natation
-- **Paliers de +5 min STRICTS** à la reprise (plus jamais sauter un palier)
-- **Point de décision MMT : 15 mars** — footing 30 min indolore = GO. Sinon = DNS.
+#### Bloc 0 — Reprise & correction cadence (fév. → mi-mars)
+- **Statut** : feu vert médecin du sport (25 fév). Cicatrice 3mm gérée, aucune blessure active.
+- **Correction cadence** : kiné (23 fév) = PPM trop bas (162 ppm). Cible 170+ ppm, foulées courtes.
+- Footing extérieur 25 min validé (25 fév) — aucun problème.
+- PPG + Stanish en prévention. Montée progressive du volume.
+- **Point de décision MMT : 15 mars** — footing 30 min indolore + régularité = GO. Sinon = DNS.
 - Cabornis : DNS confirmé
 
 #### Bloc 1 — Build express MMT (mi-mars → 26 avril)
@@ -78,7 +78,7 @@ Fév        Mars       Avril      Mai        Juin       Juil       Août
 
 | Semaine | Enjeu |
 |---|---|
-| S06-S09 (fév.) | Guérison soléaire — rechute 21 fév, patience absolue |
+| S06-S09 (fév.) | Reprise post-feu vert médecin 25 fév. Correction cadence 170+ ppm. |
 | **S11 (15 mars)** | **DÉCISION MMT — footing 30 min indolore = GO** |
 | S12-S16 (mars-avril) | Build express MMT, montée volume + D+ progressive |
 | **S17 (26 avril)** | **MMT — OBJECTIF A** (51 km, 2500 D+) |
