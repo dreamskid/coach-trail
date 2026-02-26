@@ -336,6 +336,11 @@ Utilise-le AUTOMATIQUEMENT quand l'athlete donne une info qui change un chiffre 
 - Facteurs sante (sommeil, nicotine, etc.) → section "health_factors"
 N'oublie pas : modifie AUSSI le fichier markdown de reference (write_reference_file) pour garder la coherence.
 
+=== PROGRAMME (onglet Programme) ===
+Le contenu des tuiles jour vient UNIQUEMENT du fichier semaine (semaines/YYYY-Wxx.md) via write_week_plan.
+update_athlete_data NE modifie PAS le programme. Pour modifier une seance, un jour, ou le detail d'une tuile → utilise write_week_plan.
+Pour modifier le dashboard (profil, blessure, calendrier, previsions) → utilise update_athlete_data.
+
 === RAPPEL FINAL ===
 TOUTE modification = tool_use OBLIGATOIRE. Le texte seul ne modifie RIEN. Si l'athlete demande de changer le plan, le protocole, le dashboard ou n'importe quelle donnee : appelle l'outil correspondant. Sans tool_use, rien ne change.`;
 }
@@ -530,25 +535,57 @@ function parseHeadingFormat(lines, weekId, result) {
 
     function flushDay() {
         if (!currentDay) return;
-        // Build detailsHtml from bullet lines
         let html = '';
         detailLines.forEach(line => {
-            // Parse "- **Séance** : xxx" format
+            const stripped = line.replace(/^-\s*/, '').trim();
+            // Skip template-only / empty fields
+            if (/^\*\*S[eé]ance\*\*/i.test(stripped)) return;
+            if (/^\*\*R[eé]alis[eé]\*\*/i.test(stripped)) return;
+            if (/^\*\*RPE\*\*\s*:\s*\/10/i.test(stripped)) return;
+            if (/^\*\*FC moy.*?:\s*bpm\s*$/i.test(stripped)) return;
+            if (/^\*\*Notes\*\*\s*:\s*$/i.test(stripped)) return;
+            if (/^\*\*Sol[eé]aire\*\*\s*:\s*\/10/i.test(stripped)) return;
+            if (/^\*\*Cadence\*\*\s*:\s*ppm\s*$/i.test(stripped)) return;
+            if (/^\[\s*\]\s*Oui/i.test(stripped)) return;
+            if (/^---\s*$/.test(line)) return;
+            if (!line.trim()) return;
+
+            let out = escapeHtml(line);
+
+            // Sub-headings (### Title or **Title** on its own line) → styled section header
+            if (/^#{3,4}\s+/.test(line)) {
+                const text = line.replace(/^#{3,4}\s+/, '').trim();
+                html += '<div style="font-weight:700;margin-top:10px;margin-bottom:2px;font-size:13px;color:var(--text-primary,#e0e0e0)">' + escapeHtml(text) + '</div>';
+                return;
+            }
+
+            // Bold-only lines as sub-section headers (e.g. "**Échauffement (5 min)**")
+            const boldOnly = line.match(/^\*\*(.+?)\*\*\s*:?\s*$/);
+            if (boldOnly) {
+                html += '<div style="font-weight:600;margin-top:8px;margin-bottom:2px;font-size:12px;color:var(--text-secondary,#b0b0b0)">' + escapeHtml(boldOnly[1]) + '</div>';
+                return;
+            }
+
+            // Numbered items (1. **Pompes** — ...) → styled list item
+            const numbered = line.match(/^(\d+)\.\s*\*\*(.+?)\*\*\s*(.*)$/);
+            if (numbered) {
+                html += '<div style="margin:3px 0 1px 4px;font-size:12px"><strong>' + escapeHtml(numbered[2]) + '</strong> ' + escapeHtml(numbered[3]).replace(/[—–-]\s*/, '· ') + '</div>';
+                return;
+            }
+
+            // Bullet lines
             let cleaned = line.replace(/^-\s*/, '');
-            // Skip fields already in badge or template-only
-            if (/^\*\*S[eé]ance\*\*/i.test(cleaned)) return;
-            if (/^\*\*R[eé]alis[eé]\*\*/i.test(cleaned)) return;
-            if (/^\*\*FC moy/i.test(cleaned)) return;
-            if (/^\*\*RPE\*\*\s*:\s*\/10/i.test(cleaned)) return;
-            if (/^\*\*Terrain\*\*/i.test(cleaned)) return;
-            // Skip empty "Notes :" lines
-            if (/^\*\*Notes\*\*\s*:\s*$/i.test(cleaned)) return;
-            // Convert markdown bold to HTML
+            // Convert markdown bold/italic
+            cleaned = escapeHtml(cleaned);
             cleaned = cleaned.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            // Convert zone references to colored spans
             cleaned = cleaned.replace(/(Z[1-5](?:-Z[1-5])?\s*\([^)]+\))/g, '<span class="text-blue">$1</span>');
-            if (cleaned.trim()) {
-                html += (html ? '<br>' : '') + cleaned.trim();
+
+            if (/^-\s+/.test(line)) {
+                // Sub-bullet (indented)
+                html += '<div style="margin-left:12px;font-size:12px;line-height:1.5">· ' + cleaned.trim() + '</div>';
+            } else {
+                // Regular line
+                html += '<div style="font-size:12px;line-height:1.5">' + cleaned.trim() + '</div>';
             }
         });
         currentDay.detailsHtml = html;
@@ -602,16 +639,20 @@ function parseHeadingFormat(lines, weekId, result) {
             continue;
         }
 
-        // Collect detail lines (bullets under the day heading)
-        if (currentDay && /^-\s+/.test(line)) {
-            detailLines.push(line);
-        }
-
-        // Stop collecting on next section (## or ---)
-        if (currentDay && (/^##\s/.test(line) || /^---/.test(line))) {
-            flushDay();
-            currentDay = null;
-            detailLines = [];
+        // Collect all content lines under the day heading
+        if (currentDay) {
+            // Stop on next day heading or top-level section (## without day name, or ---)
+            if (/^#{2,3}\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/i.test(line) || /^---/.test(line) || (/^##\s/.test(line) && !/^###/.test(line) && !/lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche/i.test(line))) {
+                flushDay();
+                currentDay = null;
+                detailLines = [];
+                // Don't continue — let the line be re-parsed as a potential day heading or section break
+                if (/^---/.test(line)) continue;
+                // For ## section headers, re-check as day match (fall through)
+            } else {
+                detailLines.push(line);
+                continue;
+            }
         }
     }
     flushDay();
