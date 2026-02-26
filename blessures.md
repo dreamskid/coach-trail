@@ -7,7 +7,7 @@
 | Champ | Détail |
 |---|---|
 | **Localisation** | Jonction gastrocnémien/soléaire, côté **gauche** |
-| **Origine** | Juin 2025 : trail 55 km / 2200 D+ **couru sur une déchirure mollet/soléaire existante** |
+| **Origine** | Maratrail (~2025) : 55 km / 2200 D+ **couru sur une déchirure mollet/soléaire existante** |
 | **Diagnostic** | **Décollement gastrocnémien-soléaire** — plusieurs mois d'arrêt |
 | **Écho (fév. 2026)** | Cicatrice visible de **3 mm de large** |
 | **Statut** | Pas de blessure active. La cicatrice **tire** quand les conditions sont mauvaises (déshydratation, manque de sommeil, pas d'échauffement) |
@@ -84,8 +84,8 @@ La cicatrice de 3 mm au décollement gastrocnémien-soléaire est **définitive*
 
 | # | Date | Localisation | Côté | Gravité | Détail | Résolution |
 |---|---|---|---|---|---|---|
-| 1 | — | Jonction mollet/soléaire | Gauche | Modéré | Déchirure | Résolu (kiné) |
-| 2 | — | Jonction mollet/soléaire | Gauche | Modéré | Déchirure | Résolu (kiné) |
-| 3 | — | Jonction mollet/soléaire | Droit | Léger | — | Résolu |
-| 4 | Juin 2025 | Décollement gastrocnémien-soléaire | Gauche | **Sévère** | Trail 55 km couru sur déchirure existante → décollement. Plusieurs mois d'arrêt. **Cicatrice 3 mm permanente.** | Résolu — cicatrice permanente |
-| 5 | Fév. 2026 | Cicatrice soléaire | Gauche | Léger | Irritation cicatrice (déshydratation + sommeil + échauffement + cadence). Pas de nouvelle lésion. | **Résolu** (médecin du sport 25 fév.) |
+| 1 | Avant 2025 | Jonction mollet/soléaire | Gauche | Modéré | Déchirure mollet/soléaire | Résolu (kiné) |
+| 2 | ~2025 | Décollement gastrocnémien-soléaire | Gauche | **Sévère** | **Maratrail** (55 km, 2200 D+) couru sur déchirure existante (épisode 1) → décollement. Plusieurs mois d'arrêt. **Cicatrice 3 mm permanente.** | Résolu — cicatrice permanente |
+| 3 | Sept. 2025 | Jonction mollet/soléaire | Droit | Léger | — | Résolu |
+| 4 | Déc. 2025 | — | — | — | **Astragale** 66 km — terminé, pas de blessure | — |
+| 5 | Fév. 2026 | Cicatrice soléaire | Gauche | Léger | Irritation cicatrice (déshydratation + sommeil + échauffement + cadence basse 162 ppm). Pas de nouvelle lésion. | **Résolu** (médecin du sport 25 fév.) |
