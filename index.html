@@ -884,8 +884,7 @@
         /* Validated day card */
         .day-validated { border-left-color: var(--green) !important; background: rgba(76, 175, 80, 0.08) !important; }
         .day-past.day-validated { opacity: 0.6; }
-        .day-metrics-summary { display: flex; gap: 6px; margin-left: auto; }
-        .metric-badge { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid; background: rgba(0,0,0,0.3); white-space: nowrap; }
+        /* day-metrics-summary + metric-badge removed — unified dots display for all days */
         .day-hidden { display: none; }
 
         /* Sub-tabs (Programme: A venir / Passés) */
@@ -2126,15 +2125,15 @@ function initDayMetrics(athlete) {
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
-        // Only show RPE on days with an activity (any non-Repos check)
-        var hasActivity = false;
+        // RPE only on days with a Garmin/Strava activity (not PPG/Protocole/Repos)
+        var hasGarminCheck = false;
         if (coachEntry && coachEntry.checks) {
-            hasActivity = Object.keys(coachEntry.checks).some(function(k) { return k !== 'Repos'; });
+            hasGarminCheck = Object.keys(coachEntry.checks).some(function(k) {
+                var lower = k.toLowerCase();
+                return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            });
         }
-        var hasMetricData = coachEntry && coachEntry.rpe != null;
-        if (!hasActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
-
-        var isPast = dayEl.classList.contains('day-past');
+        if (!hasGarminCheck && !Object.keys(savedDirty).length) return;
 
         var trackInjury = ATHLETES[athlete].trackInjury;
         var injuryLabel = injuryKey === 'soleaire' ? 'Sol' : injuryKey === 'genou' ? 'Gen' : injuryKey;
@@ -2144,29 +2143,6 @@ function initDayMetrics(athlete) {
             metrics.push({ key: injuryKey, label: injuryLabelFull, shortLabel: injuryLabel, colorFn: injuryKey === 'genou' ? genouColor : soleaireColor });
         }
         metrics.push({ key: 'rpe', label: 'RPE', shortLabel: 'RPE', colorFn: rpeColor });
-
-        // For past days: add compact summary badges in header
-        if (isPast) {
-            var summaryEl = document.createElement('div');
-            summaryEl.className = 'day-metrics-summary';
-            var hasSummary = false;
-            metrics.forEach(function(m) {
-                var val = coachEntry && coachEntry[m.key] != null ? Math.round(coachEntry[m.key]) : null;
-                if (val != null) {
-                    var badge = document.createElement('span');
-                    badge.className = 'metric-badge';
-                    badge.style.color = m.colorFn(val);
-                    badge.style.borderColor = m.colorFn(val);
-                    badge.textContent = m.shortLabel + ' ' + val;
-                    summaryEl.appendChild(badge);
-                    hasSummary = true;
-                }
-            });
-            if (hasSummary) {
-                var header = dayEl.querySelector('.day-header');
-                if (header) header.appendChild(summaryEl);
-            }
-        }
 
         // Full metric dots (interactive)
         var container = document.createElement('div');
