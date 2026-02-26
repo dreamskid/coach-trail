@@ -5099,7 +5099,9 @@ _loadedAthletes[currentAthlete] = true;
                         appendMsg(el.messages, m.role, m.content, m.timestamp, false);
                     });
                 }
+                el.messages.style.scrollBehavior = 'auto';
                 scrollBot(el.messages);
+                setTimeout(function() { el.messages.style.scrollBehavior = ''; }, 100);
                 chatLoadedFor[athlete] = true;
             })
             .catch(function() {
