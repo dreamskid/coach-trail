@@ -58,7 +58,6 @@
     {
       "date": "2026-02-15",
       "checks": {
-        "Trot plat 15 min": true,
         "Protocole": true
       },
       "rpe": 4
@@ -74,14 +73,12 @@
     {
       "date": "2026-02-17",
       "checks": {
-        "Trot plat 20 min": false,
-        "Protocole": false
+        "Repos": true
       }
     },
     {
       "date": "2026-02-18",
       "checks": {
-        "Marche": true,
         "Protocole": true
       },
       "rpe": 3
