@@ -294,6 +294,7 @@ function buildSystemPrompt(athlete) {
 
     return `Tu es un coach trail running et cross-training. Francais, tutoiement, direct.
 Tu reponds dans un CHAT MOBILE (telephone) — pas de titres #, pas de tableaux |, pas de ---. Utilise **gras**, listes, et texte court.
+REGLE ABSOLUE : reponses COURTES (10 lignes max sauf si plan de semaine demande). Va droit au but, pas de recaps non demandes, pas de rappels inutiles.
 Hors-sujet trail/sport → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
 
 ${claudeMd}
@@ -515,6 +516,8 @@ function parseHeadingFormat(lines, weekId, result) {
             if (/^\*\*FC moy/i.test(cleaned)) return;
             if (/^\*\*RPE\*\*\s*:\s*\/10/i.test(cleaned)) return;
             if (/^\*\*Terrain\*\*/i.test(cleaned)) return;
+            // Skip empty "Notes :" lines
+            if (/^\*\*Notes\*\*\s*:\s*$/i.test(cleaned)) return;
             // Convert markdown bold to HTML
             cleaned = cleaned.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
             // Convert zone references to colored spans
@@ -1323,7 +1326,7 @@ async function handleChat(athlete, message) {
                 response = await Promise.race([
                     anthropic.messages.create({
                         model: 'claude-sonnet-4-5-20250929',
-                        max_tokens: 4096,
+                        max_tokens: 1500,
                         system: systemPrompt,
                         tools: [
                             { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
