@@ -2164,7 +2164,7 @@ function initDayMetrics(athlete) {
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
         // RPE only on days with a Garmin/Strava activity in the PLAN (not PPG/Protocole/Repos)
-        var planBadges = dayEl.dataset.checks ? dayEl.dataset.checks.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+        var planBadges = dayEl.dataset.badges ? dayEl.dataset.badges.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
         var hasGarminActivity = planBadges.some(function(c) {
             var lower = c.toLowerCase();
             return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
@@ -2438,7 +2438,8 @@ function renderWeekPlan(plan, athlete) {
         var highlightStyle = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
         var manualChecks = filterManualChecks(day.checks);
         var checksAttr = manualChecks.length > 0 ? ' data-checks="' + manualChecks.join(',') + '"' : '';
-        html += '<div class="week-day"' + highlightStyle + ' data-date="' + day.date + '"' + checksAttr + '>';
+        var allBadges = day.checks && day.checks.length > 0 ? ' data-badges="' + day.checks.join(',') + '"' : '';
+        html += '<div class="week-day"' + highlightStyle + ' data-date="' + day.date + '"' + checksAttr + allBadges + '>';
         html += '<div class="day-header">';
         html += '<span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
         var badgeClass = day.badgeClass || 'badge-blue';
@@ -2577,7 +2578,8 @@ function applyWeekPlan(weekData, athlete) {
             var hl = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
             var mc = filterManualChecks(day.checks);
             var ca = mc.length > 0 ? ' data-checks="' + mc.join(',') + '"' : '';
-            nextHtml += '<div class="week-day"' + hl + ' data-date="' + day.date + '"' + ca + '>';
+            var ab = day.checks && day.checks.length > 0 ? ' data-badges="' + day.checks.join(',') + '"' : '';
+            nextHtml += '<div class="week-day"' + hl + ' data-date="' + day.date + '"' + ca + ab + '>';
             nextHtml += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
             var bc = day.badgeClass || 'badge-blue';
             if (bc === 'badge-grey') nextHtml += '<span class="badge" style="background: #333; color: #999;">' + escapeHtmlFront(day.title) + '</span>';
@@ -2645,7 +2647,8 @@ function populatePastDays(previousPlan, athlete) {
     days.forEach(function(day) {
         var mc = filterManualChecks(day.checks);
         var checksAttr = mc.length > 0 ? ' data-checks="' + mc.join(',') + '"' : '';
-        var html = '<div class="week-day day-past" data-date="' + day.date + '"' + checksAttr + '>';
+        var ab = day.checks && day.checks.length > 0 ? ' data-badges="' + day.checks.join(',') + '"' : '';
+        var html = '<div class="week-day day-past" data-date="' + day.date + '"' + checksAttr + ab + '>';
         html += '<div class="day-header"><span class="day-name">' + day.dayName + ' ' + day.dayNum + '</span>';
         var bc = day.badgeClass || 'badge-blue';
         if (bc === 'badge-grey') html += '<span class="badge" style="background: #333; color: #999;">' + escapeHtmlFront(day.title) + '</span>';
