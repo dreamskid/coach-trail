@@ -86,8 +86,9 @@
     {
       "date": "2026-02-19",
       "checks": {
-        "Repos": true
-      }
+        "Protocole": true
+      },
+      "rpe": 2
     },
     {
       "date": "2026-02-20",
@@ -99,7 +100,8 @@
       "date": "2026-02-21",
       "checks": {
         "Repos": true
-      }
+      },
+      "rpe": 5
     },
     {
       "date": "2026-02-22",
