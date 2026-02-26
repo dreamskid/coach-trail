@@ -1101,6 +1101,19 @@ const BUDGET_JOKES_MONTHLY = [
     'Meme l\'UTMB coute moins cher par mois. Reviens le mois prochain.',
 ];
 
+const CREDIT_EMPTY_JOKES = [
+    'Mon cerveau tourne a credit... et y en a plus. Recharge sur console.anthropic.com et on reprend.',
+    'Erreur 400 : portefeuille vide. Meme mes iso mollets sont plus garnis que ton compte Anthropic.',
+    'J\'aimerais bien te coacher mais la CB a dit non. Va recharger les credits, je bouge pas.',
+    'Solde API : 0. C\'est comme partir sur un ultra sans eau — ca va pas le faire.',
+    'Pas de tokens, pas de plan. C\'est la version IA de "pas de bras, pas de chocolat".',
+    'Credit balance : neant. Meme ton Body Battery est plus charge que ca.',
+    'Le seul deficit que j\'accepte c\'est un deficit calorique apres une sortie longue. Recharge les credits.',
+    'Mon reservoir est a sec. Comme toi au km 50 sans ravito. console.anthropic.com → Billing.',
+    'Tu veux que je te coache gratos ? J\'suis une IA, pas un benevole UTMB.',
+    'Alerte ravitaillement : plus de credits. Recharge avant la prochaine cote.',
+];
+
 function todayParis() {
     return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' }); // YYYY-MM-DD
 }
@@ -1239,6 +1252,9 @@ async function handleChat(athlete, message) {
                     const wait = retries * 15000; // 15s, 30s, 45s
                     console.log(`[chat] Rate limited, retry ${retries}/3 in ${wait/1000}s...`);
                     await new Promise(r => setTimeout(r, wait));
+                } else if (apiErr.status === 400 && apiErr.message && apiErr.message.includes('credit balance')) {
+                    const joke = CREDIT_EMPTY_JOKES[Math.floor(Math.random() * CREDIT_EMPTY_JOKES.length)];
+                    return { result: joke, modifications: [] };
                 } else {
                     throw apiErr;
                 }
