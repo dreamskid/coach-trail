@@ -2,158 +2,132 @@
   "daily": [
     {
       "date": "2026-02-07",
-      "checks": {
-        "Protocole iso": true
-      },
-      "soleaire": 5,
+      "checks": { "Protocole iso": true },
       "rpe": 2
     },
     {
       "date": "2026-02-08",
-      "checks": {
-        "Protocole iso": false
-      },
-      "soleaire": 2,
-      "rpe": null
+      "checks": { "Repos": true }
     },
     {
       "date": "2026-02-09",
-      "checks": {
-        "Protocole": true
-      },
-      "soleaire": 3,
+      "checks": { "Protocole": true },
       "rpe": 1
     },
     {
       "date": "2026-02-10",
-      "soleaire": 4,
-      "rpe": 2,
-      "checks": {
-        "Protocole": true
-      }
+      "checks": { "Protocole": true },
+      "rpe": 2
     },
     {
       "date": "2026-02-11",
-      "checks": {
-        "PPG haut du corps": true,
-        "Protocole": true
-      },
-      "soleaire": 2,
+      "checks": { "PPG haut du corps": true, "Protocole": true },
       "rpe": 2
     },
     {
       "date": "2026-02-12",
-      "checks": {
-        "Protocole": true
-      },
-      "soleaire": 2,
+      "checks": { "Protocole": true },
       "rpe": 1
     },
     {
       "date": "2026-02-13",
-      "checks": {
-        "Protocole": true
-      },
-      "soleaire": 0,
+      "checks": { "Protocole": true },
       "rpe": 3
     },
     {
       "date": "2026-02-14",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Protocole": false
-      }
+      "checks": { "Repos": true }
     },
     {
       "date": "2026-02-15",
-      "soleaire": null,
-      "rpe": 4,
-      "checks": {
-        "Trot plat 15 min": true,
-        "Protocole": true
-      }
+      "checks": { "Trot plat 15 min": true, "Protocole": true },
+      "rpe": 4
     },
     {
       "date": "2026-02-16",
-      "checks": {
-        "PPG": true,
-        "Protocole": true
-      },
-      "soleaire": 1,
+      "checks": { "PPG": true, "Protocole": true },
       "rpe": 2
     },
     {
       "date": "2026-02-17",
-      "checks": {
-        "Protocole": false
-      },
-      "soleaire": null,
-      "rpe": null
+      "checks": { "Repos": true }
     },
     {
       "date": "2026-02-18",
-      "checks": {
-        "Protocole": true
-      },
-      "soleaire": 0,
+      "checks": { "Protocole": true },
       "rpe": 3
     },
     {
       "date": "2026-02-19",
-      "checks": {
-        "Protocole": false
-      },
-      "soleaire": 2,
-      "rpe": 1
+      "checks": { "Repos": true }
+    },
+    {
+      "date": "2026-02-20",
+      "checks": { "Repos": true }
+    },
+    {
+      "date": "2026-02-21",
+      "checks": { "Repos": true }
+    },
+    {
+      "date": "2026-02-22",
+      "checks": { "Repos": true }
+    },
+    {
+      "date": "2026-02-23",
+      "checks": { "Repos": true }
+    },
+    {
+      "date": "2026-02-24",
+      "checks": { "Repos": true }
     },
     {
       "date": "2026-02-25",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "PPG": false
-      }
+      "checks": { "Repos": true }
     },
     {
       "date": "2026-02-26",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "Footing extérieur 25 min": true
-      }
+      "checks": { "Footing extérieur 25 min": true }
+    },
+    {
+      "date": "2026-02-27",
+      "checks": { "Repos": false }
     },
     {
       "date": "2026-02-28",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "PPG": false
-      }
+      "checks": { "PPG": false }
+    },
+    {
+      "date": "2026-03-01",
+      "checks": { "Repos": false }
+    },
+    {
+      "date": "2026-03-02",
+      "checks": { "Repos": false }
     },
     {
       "date": "2026-03-03",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "PPG": false
-      }
+      "checks": { "PPG": false }
+    },
+    {
+      "date": "2026-03-04",
+      "checks": { "Repos": false }
     },
     {
       "date": "2026-03-05",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "PPG": false
-      }
+      "checks": { "PPG": false }
+    },
+    {
+      "date": "2026-03-06",
+      "checks": { "Repos": false }
     },
     {
       "date": "2026-03-07",
-      "soleaire": null,
-      "rpe": null,
-      "checks": {
-        "PPG": false
-      }
+      "checks": { "PPG": false }
+    },
+    {
+      "date": "2026-03-08",
+      "checks": { "Repos": false }
     }
   ],
   "longterm": {
