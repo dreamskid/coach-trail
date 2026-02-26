@@ -2126,16 +2126,13 @@ function initDayMetrics(athlete) {
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
-        // Only show RPE on days with Garmin/Strava activities (not PPG, Protocole, Repos)
-        var hasGarminActivity = false;
+        // Only show RPE on days with an activity (any non-Repos check)
+        var hasActivity = false;
         if (coachEntry && coachEntry.checks) {
-            hasGarminActivity = Object.keys(coachEntry.checks).some(function(k) {
-                var lower = k.toLowerCase();
-                return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
-            });
+            hasActivity = Object.keys(coachEntry.checks).some(function(k) { return k !== 'Repos'; });
         }
         var hasMetricData = coachEntry && coachEntry.rpe != null;
-        if (!hasGarminActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
+        if (!hasActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
 
         var isPast = dayEl.classList.contains('day-past');
 

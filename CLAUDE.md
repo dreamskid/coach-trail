@@ -71,7 +71,7 @@ Chaque séance contient au minimum :
 - Les checks (cases à cocher) ne contiennent **QUE des activités sportives** : PPG, Protocole, Course à pied, Footing, Trail, Elliptique, Natation, Vélo, etc.
 - **JAMAIS** de rendez-vous médicaux (kiné, médecin, ostéo), de soins (glace, massage), de logistique, ou quoi que ce soit de non-sportif.
 - Les jours sans activité sportive = `"Repos"` uniquement.
-- RPE : uniquement sur les jours avec une activité Garmin/Strava (course, trail, footing, elliptique, natation, vélo). Pas de RPE sur les jours PPG/Protocole seuls.
+- RPE : sur tout jour avec une activité (PPG, Protocole, Course, Footing, etc.). Pas de RPE sur les jours Repos uniquement. Règle : **activité = RPE à cocher**.
 
 ### Mise à jour des données
 
