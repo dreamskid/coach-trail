@@ -3329,6 +3329,7 @@ function renderGarminWellness(data, athlete) {
                 hrvHtml += '<span style="font-size:13px;color:var(--text-muted);">Statut VFC</span>';
                 hrvHtml += hrvStatusBadge(h.status);
                 hrvHtml += '</div>';
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Variation entre chaque battement de c\u0153ur, mesur\u00e9e pendant le sommeil. Plus la VFC est \u00e9lev\u00e9e, meilleure est la r\u00e9cup\u00e9ration.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#581c87,#a855f7);">';
@@ -3354,7 +3355,8 @@ function renderGarminWellness(data, athlete) {
             if (latestStress && latestStress.stress) {
                 const st = latestStress.stress;
                 hrvHtml += '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">';
-                hrvHtml += '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Stress (' + fmtDateLabel(latestStress.date) + ')</div>';
+                hrvHtml += '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;">Stress (' + fmtDateLabel(latestStress.date) + ')</div>';
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Niveau de stress calcul\u00e9 par Garmin \u00e0 partir de la VFC. 0\u201325 = repos, 26\u201350 = bas, 51\u201375 = moyen, 76\u2013100 = \u00e9lev\u00e9.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#9a3412,#f97316);">';
@@ -3364,26 +3366,28 @@ function renderGarminWellness(data, athlete) {
                 hrvHtml += '<div class="health-metric-label">Niveau moyen</div></div>';
                 hrvHtml += '</div>';
 
-                // Stress durations
+                // Stress durations (only show if data available)
                 const restH = st.rest_stress_duration ? Math.round(st.rest_stress_duration / 60) : 0;
                 const lowH = st.low_stress_duration ? Math.round(st.low_stress_duration / 60) : 0;
                 const medH = st.medium_stress_duration ? Math.round(st.medium_stress_duration / 60) : 0;
                 const highH = st.high_stress_duration ? Math.round(st.high_stress_duration / 60) : 0;
-                const totalStressMin = restH + lowH + medH + highH || 1;
+                const totalStressMin = restH + lowH + medH + highH;
 
-                hrvHtml += '<div style="display:flex;height:20px;border-radius:4px;overflow:hidden;margin-top:8px;">';
-                if (restH > 0) hrvHtml += '<div style="width:' + (restH / totalStressMin * 100) + '%;background:var(--green);" title="Repos ' + restH + ' min"></div>';
-                if (lowH > 0) hrvHtml += '<div style="width:' + (lowH / totalStressMin * 100) + '%;background:var(--yellow);" title="Bas ' + lowH + ' min"></div>';
-                if (medH > 0) hrvHtml += '<div style="width:' + (medH / totalStressMin * 100) + '%;background:var(--orange);" title="Moyen ' + medH + ' min"></div>';
-                if (highH > 0) hrvHtml += '<div style="width:' + (highH / totalStressMin * 100) + '%;background:var(--red);" title="Eleve ' + highH + ' min"></div>';
-                hrvHtml += '</div>';
+                if (totalStressMin > 0) {
+                    hrvHtml += '<div style="display:flex;height:20px;border-radius:4px;overflow:hidden;margin-top:8px;">';
+                    if (restH > 0) hrvHtml += '<div style="width:' + (restH / totalStressMin * 100) + '%;background:var(--green);" title="Repos ' + restH + ' min"></div>';
+                    if (lowH > 0) hrvHtml += '<div style="width:' + (lowH / totalStressMin * 100) + '%;background:var(--yellow);" title="Bas ' + lowH + ' min"></div>';
+                    if (medH > 0) hrvHtml += '<div style="width:' + (medH / totalStressMin * 100) + '%;background:var(--orange);" title="Moyen ' + medH + ' min"></div>';
+                    if (highH > 0) hrvHtml += '<div style="width:' + (highH / totalStressMin * 100) + '%;background:var(--red);" title="Eleve ' + highH + ' min"></div>';
+                    hrvHtml += '</div>';
 
-                hrvHtml += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:11px;">';
-                hrvHtml += '<span><span style="color:var(--green);">●</span> Repos ' + restH + 'm</span>';
-                hrvHtml += '<span><span style="color:var(--yellow);">●</span> Bas ' + lowH + 'm</span>';
-                hrvHtml += '<span><span style="color:var(--orange);">●</span> Moyen ' + medH + 'm</span>';
-                hrvHtml += '<span><span style="color:var(--red);">●</span> Eleve ' + highH + 'm</span>';
-                hrvHtml += '</div>';
+                    hrvHtml += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:11px;">';
+                    if (restH > 0) hrvHtml += '<span><span style="color:var(--green);">\u25cf</span> Repos ' + restH + ' min</span>';
+                    if (lowH > 0) hrvHtml += '<span><span style="color:var(--yellow);">\u25cf</span> Bas ' + lowH + ' min</span>';
+                    if (medH > 0) hrvHtml += '<span><span style="color:var(--orange);">\u25cf</span> Moyen ' + medH + ' min</span>';
+                    if (highH > 0) hrvHtml += '<span><span style="color:var(--red);">\u25cf</span> Elev\u00e9 ' + highH + ' min</span>';
+                    hrvHtml += '</div>';
+                }
                 hrvHtml += '</div>';
             }
 
