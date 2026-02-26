@@ -34,6 +34,42 @@
             --radius: 12px;
         }
 
+        /*
+         * ===== DESIGN SYSTEM =====
+         *
+         * COULEURS SEMANTIQUES :
+         *   --green   = validé, OK, pas de douleur (0-1/10)
+         *   --yellow  = attention, léger (2-3/10 soléaire, 5-6 RPE)
+         *   --orange  = préoccupant (4-5/10 soléaire, 7-8 RPE)
+         *   --red     = danger, stop (6+/10 soléaire, 9-10 RPE)
+         *   --accent  = info, neutre, sélection active (bleu)
+         *
+         * JOURS — ÉTATS (identiques passé/présent/futur) :
+         *   .day-past       = opacity 0.5, details cachés (hover = expand)
+         *   .today-card     = bordure bleue, détails visibles
+         *   (futur)         = normal, détails visibles
+         *   .day-validated  = bordure verte, fond vert translucide
+         *
+         * CHECKS (cases à cocher manuelles) :
+         *   = UNIQUEMENT activités sportives : PPG, Protocole
+         *   ≠ JAMAIS de médical, kiné, glace, marche, logistique
+         *   Jours sans sport = "Repos" uniquement
+         *
+         * ACTIVITÉS (Garmin/Strava) :
+         *   = course, trail, footing, elliptique, natation, vélo, tapis
+         *   Matchées automatiquement via GARMIN_KEYWORDS
+         *   Affichées en vert "✓ Type — détails" ou rouge "✗ Pas d'activité"
+         *
+         * RPE (dots interactifs 0-10) :
+         *   = UNIQUEMENT sur jours avec activité Garmin/Strava
+         *   ≠ JAMAIS pour PPG/Protocole seuls ou Repos
+         *   Même affichage (dots) pour passé, présent et futur
+         *
+         * INJURY METRIC (dots Soléaire/Genou) :
+         *   Contrôlé par ATHLETES[x].trackInjury (true/false)
+         *   Yohann = false (pas de suivi soléaire), Juliette = true (genou)
+         */
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -516,7 +552,7 @@
         }
         .day-check .check-icon { font-size: 14px; }
 
-        /* ===== DAY METRICS (Soléaire + RPE dots) ===== */
+        /* ===== DAY METRICS (RPE dots — only for Garmin/Strava activity days) ===== */
         .day-metrics { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
         .metric-row {
             display: flex;
@@ -875,7 +911,9 @@
         .today-icon-item .exercise-svg { width: 48px; height: 48px; }
         .today-icon-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
 
-        /* Past days: compact + greyed out, expandable on hover/tap */
+        /* Past days: compact + greyed out, expandable on hover/tap.
+           Checks, match and metrics are siblings of day-details (not children)
+           so they remain visible even when day-details is collapsed. */
         .day-past { opacity: 0.5; }
         .day-past .day-details { max-height: 0; overflow: hidden; margin: 0; padding: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
         .day-past .day-header { margin-bottom: 0; flex-wrap: wrap; }
@@ -884,7 +922,7 @@
         /* Validated day card */
         .day-validated { border-left-color: var(--green) !important; background: rgba(76, 175, 80, 0.08) !important; }
         .day-past.day-validated { opacity: 0.6; }
-        /* day-metrics-summary + metric-badge removed — unified dots display for all days */
+        /* No summary badges — unified dots display for past/present/future (design system) */
         .day-hidden { display: none; }
 
         /* Sub-tabs (Programme: A venir / Passés) */
