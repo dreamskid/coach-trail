@@ -4237,11 +4237,24 @@ function renderProgression(data, athlete) {
         var maxIdx = Math.max.apply(null, hist.map(function(r) { return r.utmb_index; }));
         var minIdx = Math.min.apply(null, hist.map(function(r) { return r.utmb_index; }));
         var range = maxIdx - minIdx || 1;
-        h += '<div style="display: flex; align-items: flex-end; gap: ' + (hist.length > 15 ? '3' : '4') + 'px; height: 120px; margin: 20px 0; padding: 0 4px;">';
-        hist.slice().reverse().forEach(function(r) {
-            var pct = Math.round(((r.utmb_index - minIdx) / range) * 100);
+        var gap = hist.length > 15 ? '3' : '4';
+        var radius = gap;
+        var reversed = hist.slice().reverse();
+        h += '<div style="display: flex; align-items: flex-end; gap: ' + gap + 'px; height: 140px; margin: 20px 0 4px; padding: 0 4px;">';
+        reversed.forEach(function(r) {
+            var pct = 15 + Math.round(((r.utmb_index - minIdx) / range) * 85);
             var color = r.utmb_index >= maxIdx - 10 ? 'var(--green)' : r.utmb_index >= maxIdx - 40 ? 'var(--yellow)' : r.utmb_index >= maxIdx - 80 ? 'var(--orange)' : 'var(--red)';
-            h += '<div style="flex:1; background: ' + color + '; border-radius: ' + (hist.length > 15 ? '3' : '4') + 'px ' + (hist.length > 15 ? '3' : '4') + 'px 0 0; height: ' + pct + '%;" title="' + r.utmb_index + ' - ' + esc(r.name) + '"></div>';
+            h += '<div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%;">';
+            h += '<div style="font-size:10px; font-weight:700; color:' + color + '; margin-bottom:2px;">' + r.utmb_index + '</div>';
+            h += '<div style="flex:1;"></div>';
+            h += '<div style="width:100%; background:' + color + '; border-radius:' + radius + 'px ' + radius + 'px 0 0; height:' + pct + '%;" title="' + r.utmb_index + ' - ' + esc(r.name) + '"></div>';
+            h += '</div>';
+        });
+        h += '</div>';
+        h += '<div style="display:flex; gap:' + gap + 'px; padding: 0 4px;">';
+        reversed.forEach(function(r) {
+            var shortName = r.name.length > 12 ? r.name.slice(0, 11) + '\u2026' : r.name;
+            h += '<div style="flex:1; text-align:center; font-size:9px; color:var(--text-muted); overflow:hidden; white-space:nowrap;">' + esc(shortName) + '</div>';
         });
         h += '</div>';
     }
