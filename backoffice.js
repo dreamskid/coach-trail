@@ -1326,7 +1326,7 @@ async function handleChat(athlete, message) {
                 response = await Promise.race([
                     anthropic.messages.create({
                         model: 'claude-sonnet-4-5-20250929',
-                        max_tokens: 1500,
+                        max_tokens: 4096,
                         system: systemPrompt,
                         tools: [
                             { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
