@@ -3329,7 +3329,7 @@ function renderGarminWellness(data, athlete) {
                 hrvHtml += '<span style="font-size:13px;color:var(--text-muted);">Statut VFC</span>';
                 hrvHtml += hrvStatusBadge(h.status);
                 hrvHtml += '</div>';
-                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Variation entre chaque battement de c\u0153ur, mesur\u00e9e pendant le sommeil. Plus la VFC est \u00e9lev\u00e9e, meilleure est la r\u00e9cup\u00e9ration.</div>';
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Variation entre chaque battement de c\u0153ur, mesur\u00e9e pendant le sommeil. &lt;50 ms = faible, 50\u201370 ms = correct, &gt;70 ms = bon.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#581c87,#a855f7);">';
@@ -3356,7 +3356,7 @@ function renderGarminWellness(data, athlete) {
                 const st = latestStress.stress;
                 hrvHtml += '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">';
                 hrvHtml += '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;">Stress (' + fmtDateLabel(latestStress.date) + ')</div>';
-                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Niveau de stress calcul\u00e9 par Garmin \u00e0 partir de la VFC. 0\u201325 = repos, 26\u201350 = bas, 51\u201375 = moyen, 76\u2013100 = \u00e9lev\u00e9.</div>';
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Niveau de stress calcul\u00e9 \u00e0 partir de la VFC. 0\u201325 = repos, 26\u201350 = bas, 51\u201375 = moyen, 76\u2013100 = \u00e9lev\u00e9.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#9a3412,#f97316);">';
