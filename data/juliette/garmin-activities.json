@@ -1,5 +1,21 @@
 [
   {
+    "id": 21992482536,
+    "name": "Course à pied sur tapis roulant",
+    "type": "treadmill_running",
+    "start_date_local": "2026-02-26 12:12:54",
+    "distance": 23597.3,
+    "moving_time": 7107,
+    "elapsed_time": 9841,
+    "total_elevation_gain": 0,
+    "average_speed": 2.398,
+    "average_heartrate": 146.0,
+    "max_heartrate": 208.0,
+    "calories": 1238.0,
+    "steps": 20500,
+    "source": "garmin"
+  },
+  {
     "id": 21969254814,
     "name": "Course à pied sur tapis roulant",
     "type": "treadmill_running",
@@ -461,22 +477,6 @@
     "max_heartrate": 169.0,
     "calories": 714.0,
     "steps": 12344,
-    "source": "garmin"
-  },
-  {
-    "id": 21321897747,
-    "name": "Saint-Yrieix-la-Perche Course à pied",
-    "type": "running",
-    "start_date_local": "2025-12-22 10:45:21",
-    "distance": 19471.4,
-    "moving_time": 6574,
-    "elapsed_time": 6753,
-    "total_elevation_gain": 363.4,
-    "average_speed": 2.883,
-    "average_heartrate": 156.0,
-    "max_heartrate": 176.0,
-    "calories": 1210.0,
-    "steps": 20352,
     "source": "garmin"
   }
 ]

@@ -1,5 +1,22 @@
 [
   {
+    "id": 17530262890,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-02-26T12:15:10Z",
+    "distance": 20005.5,
+    "moving_time": 9833,
+    "elapsed_time": 9833,
+    "total_elevation_gain": 0,
+    "average_speed": 2.035,
+    "max_speed": 3.62,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 4
+  },
+  {
     "id": 17505450064,
     "name": "Manual Workout",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 8
-  },
-  {
-    "id": 16915478816,
-    "name": "Lagoa do Fogo Long Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-02T18:07:20Z",
-    "distance": 11680.2,
-    "moving_time": 4392,
-    "elapsed_time": 4392,
-    "total_elevation_gain": 0,
-    "average_speed": 2.659,
-    "max_speed": 3.08,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 6
   }
 ]

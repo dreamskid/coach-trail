@@ -1,5 +1,21 @@
 [
   {
+    "id": 21994388699,
+    "name": "Anse Course à pied",
+    "type": "running",
+    "start_date_local": "2026-02-26 17:36:51",
+    "distance": 4232.9,
+    "moving_time": 1540,
+    "elapsed_time": 1544,
+    "total_elevation_gain": 27.0,
+    "average_speed": 2.741,
+    "average_heartrate": 147.0,
+    "max_heartrate": 179.0,
+    "calories": 333.0,
+    "steps": 4170,
+    "source": "garmin"
+  },
+  {
     "id": 21940659804,
     "name": "Course à pied sur tapis roulant",
     "type": "treadmill_running",
