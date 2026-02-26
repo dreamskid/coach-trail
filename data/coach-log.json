@@ -89,14 +89,13 @@
     {
       "date": "2026-02-19",
       "checks": {
-        "Protocole": false
+        "Repos": true
       }
     },
     {
       "date": "2026-02-20",
       "checks": {
-        "PPG": false,
-        "Protocole": false
+        "Repos": true
       }
     },
     {
@@ -198,12 +197,12 @@
     }
   ],
   "longterm": {
-    "updated": "2026-02-25",
+    "updated": "2026-02-26",
     "status": "actif",
     "occ_weeks_remaining": 26,
     "current_block": "Bloc 1 — Reprise + Build MMT",
     "next_race": "MMT (26 avril, 51km/2500D+) — Objectif A.",
-    "trajectory": "Médecin du sport 25 fév : aucune blessure, cicatrice 3mm (décollement gastrocnémien-soléaire juin 2025) irritée par déshydratation/sommeil/échauffement. Kiné 23 fév : PPM trop bas. Footing 25 min ext. OK. Feu vert total. Protocole + PPG maintenus. Build MMT lancé.",
+    "trajectory": "Médecin du sport 26 fév : aucune blessure, cicatrice 3mm (décollement gastrocnémien-soléaire juin 2025) irritée par déshydratation/sommeil/échauffement. Kiné 23 fév : PPM trop bas. Footing 25 min ext. OK. Feu vert total. Protocole + PPG maintenus. Build MMT lancé.",
     "protocol_phase": null,
     "evaluation": {
       "current": {

@@ -66,6 +66,13 @@ Chaque séance contient au minimum :
 - Protocole : évaluer la gravité → adapter le plan → suivi quotidien jusqu'à résolution
 - Le soléaire droit est une **fragilité chronique connue** — toujours surveiller
 
+### Checks du programme (coach-log)
+
+- Les checks (cases à cocher) ne contiennent **QUE des activités sportives** : PPG, Protocole, Course à pied, Footing, Trail, Elliptique, Natation, Vélo, etc.
+- **JAMAIS** de rendez-vous médicaux (kiné, médecin, ostéo), de soins (glace, massage), de logistique, ou quoi que ce soit de non-sportif.
+- Les jours sans activité sportive = `"Repos"` uniquement.
+- RPE : uniquement sur les jours avec une activité Garmin/Strava (course, trail, footing, elliptique, natation, vélo). Pas de RPE sur les jours PPG/Protocole seuls.
+
 ### Mise à jour des données
 
 - Après chaque course : compte-rendu dans `courses/`

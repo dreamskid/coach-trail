@@ -49,9 +49,9 @@
   "injury": {
     "location": "Soléaire gauche",
     "episode": "Cicatrice 3mm — décollement gastrocnémien-soléaire (Maratrail ~2025)",
-    "detail": "Cicatrice permanente 3mm à la jonction gastrocnémien/soléaire gauche. Irritation en fév. 2026 (déshydratation + sommeil + échauffement + cadence 162 ppm). Médecin du sport 25 fév : aucune blessure active.",
+    "detail": "Cicatrice permanente 3mm à la jonction gastrocnémien/soléaire gauche. Irritation en fév. 2026 (déshydratation + sommeil + échauffement + cadence 162 ppm). Médecin du sport 26 fév : aucune blessure active.",
     "status": "resolved",
-    "assessment_date": "2026-02-25",
+    "assessment_date": "2026-02-26",
     "tests": [
       {
         "name": "Écho",
@@ -166,7 +166,7 @@
         "location": "Cicatrice soléaire",
         "side": "Gauche",
         "severity": "Léger",
-        "resolution": "Résolu (médecin 25 fév)"
+        "resolution": "Résolu (médecin 26 fév)"
       }
     ]
   },

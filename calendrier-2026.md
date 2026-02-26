@@ -32,7 +32,7 @@ Fév        Mars       Avril      Mai        Juin       Juil       Août
 ### Détail des blocs
 
 #### Bloc 0 — Reprise & correction cadence (fév. → mi-mars)
-- **Statut** : feu vert médecin du sport (25 fév). Cicatrice 3mm gérée, aucune blessure active.
+- **Statut** : feu vert médecin du sport (26 fév). Cicatrice 3mm gérée, aucune blessure active.
 - **Correction cadence** : kiné (23 fév) = PPM trop bas (162 ppm). Cible 170+ ppm, foulées courtes.
 - Footing extérieur 25 min validé (25 fév) — aucun problème.
 - PPG + Stanish en prévention. Montée progressive du volume.

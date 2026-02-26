@@ -63,7 +63,7 @@
 - **Varices opérées aux deux mollets** — opération motivée par des crampes orteils chroniques (15+ ans)
 - **Symptômes veineux persistants** : déformation visible du mollet, sensation de flux sanguin et battements palpables — **depuis ~15 ans**, avant et après l'opération
 - **Insuffisance veineuse probable** : le retour veineux reste altéré → drainage insuffisant → facteur aggravant direct de la fragilité soléaire bilatérale
-- **Écho-Doppler** : réalisé 25 fév. 2026 (médecin du sport). Cicatrice 3mm visible, tissu intact. Aucune blessure active.
+- **Écho-Doppler** : réalisé 26 fév. 2026 (médecin du sport). Cicatrice 3mm visible, tissu intact. Aucune blessure active.
 
 ### Plancher pelvien
 - **Fréquence urinaire excessive** : mictions fréquentes y compris nocturnes, urines rapides après ingestion d'eau — symptôme chronique ancien
@@ -80,7 +80,7 @@
 
 ## Points de vigilance
 
-- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Cicatrice 3mm permanente (décollement gastrocnémien-soléaire, Maratrail ~2025). Irritation fév. 2026 résolue (médecin 25 fév). Gestion permanente — voir `blessures.md`
+- **Soléaire/mollet** : fragilité chronique bilatérale (4 épisodes : 3x gauche, 1x droit). Cicatrice 3mm permanente (décollement gastrocnémien-soléaire, Maratrail ~2025). Irritation fév. 2026 résolue (médecin 26 fév). Gestion permanente — voir `blessures.md`
 - **Cigarette électronique** : sevrage acquis 7 fév. → **rechute nicotine ~21 fév.** Impact direct : vasoconstriction + dégradation collagène + fragilisation cicatricielle.
 - **Alimentation** : saute régulièrement le dîner et le petit-déjeuner → déficit protéique chronique probable, récupération compromise
 - **Bâtons** : utilise les bâtons en montée (technique fluide), les garde en main en courant/plat (pas de rangement pendant la course)

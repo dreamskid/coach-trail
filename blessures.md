@@ -12,7 +12,7 @@
 | **Écho (fév. 2026)** | Cicatrice visible de **3 mm de large** |
 | **Statut** | Pas de blessure active. La cicatrice **tire** quand les conditions sont mauvaises (déshydratation, manque de sommeil, pas d'échauffement) |
 
-#### Bilan médecin du sport (25 février 2026)
+#### Bilan médecin du sport (26 février 2026)
 
 **Aucune blessure apparente.** Écho : cicatrice de 3 mm visible, tissu cicatriciel intact. La douleur des dernières semaines = **irritation de la cicatrice**, pas une nouvelle lésion ni une rechute.
 
@@ -36,8 +36,8 @@
 | 19 fév. | Footing tapis 25 min | Z1, soléaire 2/10, RAS |
 | 21 fév. | Douleur tapis 30 min | Douleur à 10-15 min, arrêt 25 min. Cicatrice irritée (déshydratation + pas d'échauffement + manque de sommeil) |
 | 23 fév. | Kiné | Diagnostic PPM trop bas. Feu vert pour courir |
-| 25 fév. | Médecin du sport | **Aucune blessure.** Écho : cicatrice 3 mm. Irritation uniquement. |
-| 25 fév. | Footing extérieur 25 min | **Aucun problème** |
+| 26 fév. | Médecin du sport | **Aucune blessure.** Écho : cicatrice 3 mm. Irritation uniquement. |
+| 26 fév. | Course à pied 25 min | **Aucun problème** |
 
 ---
 
@@ -100,4 +100,4 @@ La fragilité du collagène est le **fil rouge** de tout l'historique :
 | 2 | ~2025 | Décollement gastrocnémien-soléaire | Gauche | **Sévère** | **Maratrail** (55 km, 2200 D+) couru sur déchirure existante (épisode 1) → décollement. Plusieurs mois d'arrêt. **Cicatrice 3 mm permanente.** | Résolu — cicatrice permanente |
 | 3 | Sept. 2025 | Jonction mollet/soléaire | Droit | Léger | — | Résolu |
 | 4 | Déc. 2025 | — | — | — | **Astragale** 66 km — terminé, pas de blessure | — |
-| 5 | Fév. 2026 | Cicatrice soléaire | Gauche | Léger | Irritation cicatrice (déshydratation + sommeil + échauffement + cadence basse 162 ppm). Pas de nouvelle lésion. | **Résolu** (médecin du sport 25 fév.) |
+| 5 | Fév. 2026 | Cicatrice soléaire | Gauche | Léger | Irritation cicatrice (déshydratation + sommeil + échauffement + cadence basse 162 ppm). Pas de nouvelle lésion. | **Résolu** (médecin du sport 26 fév.) |
