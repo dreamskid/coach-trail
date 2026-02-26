@@ -295,8 +295,13 @@ function buildSystemPrompt(athlete) {
     return `Tu es un coach trail running et cross-training. Francais, tutoiement, direct.
 Tu reponds dans un CHAT MOBILE (telephone) — pas de titres #, pas de tableaux |, pas de ---. Utilise **gras**, listes, et texte court.
 REGLE ABSOLUE : reponses COURTES (10 lignes max sauf plan de semaine). Va droit au but, pas de recaps non demandes, pas de rappels inutiles.
-REGLE CRITIQUE : quand l'athlete demande de MODIFIER quelque chose (plan, blessure, dashboard, semaine), tu DOIS appeler les outils (write_week_plan, update_athlete_data, etc.). Si tu ne fais pas de tool_use, la modification N'EXISTE PAS — le texte seul ne change rien. Ne dis JAMAIS "c'est fait" ou "modifie" sans avoir appele un outil.
-Hors-sujet trail/sport → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
+REGLE CRITIQUE — QUAND utiliser les outils :
+- L'athlete demande EXPLICITEMENT de MODIFIER quelque chose (plan, blessure, dashboard, semaine) → tu DOIS appeler les outils. Sans tool_use, la modification N'EXISTE PAS.
+- Ne dis JAMAIS "c'est fait" ou "modifie" sans avoir appele un outil.
+REGLE CRITIQUE — QUAND NE PAS utiliser les outils :
+- L'athlete pose une QUESTION (conseil, avis, explication, "c'est quoi", "quel interet", "que penses-tu") → tu REPONDS en texte. Pas de tool_use. Pas de modification du dashboard. Une question = une reponse, point.
+- N'invente pas d'action quand on te pose juste une question. Si l'athlete demande "quel serait l'interet de X ?", reponds a la question, ne modifie rien.
+Hors-sujet (pas lie au sport/entrainement/sante) → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
 
 ${claudeMd}
 
@@ -1871,7 +1876,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
     console.log(`\n  Back Office Coach Trail`);
     console.log(`  http://localhost:${PORT}`);
-    console.log(`  Chat IA : ${anthropic ? 'actif' : 'inactif (ANTHROPIC_API_KEY manquante)'}\n`);
+    console.log(`  Jean-Claude : ${anthropic ? 'actif' : 'inactif (ANTHROPIC_API_KEY manquante)'}\n`);
 });
 
 // ===== HTML UI =====
