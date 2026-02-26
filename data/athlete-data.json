@@ -2,8 +2,8 @@
   "profile": {
     "age": 44,
     "height_cm": 184,
-    "weight_kg": 85,
-    "imc": 25.1,
+    "weight_kg": 83,
+    "imc": 24.5,
     "fc_repos": 46,
     "fc_max": 178,
     "rfc": 132,
@@ -23,113 +23,108 @@
     {
       "label": "Z1",
       "min": 112,
-      "max": 127
+      "max": 125
     },
     {
       "label": "Z2",
-      "min": 127,
-      "max": 141
+      "min": 125,
+      "max": 138
     },
     {
       "label": "Z3",
-      "min": 141,
-      "max": 154
+      "min": 138,
+      "max": 152
     },
     {
       "label": "Z4",
-      "min": 154,
-      "max": 168
+      "min": 152,
+      "max": 165
     },
     {
       "label": "Z5",
-      "min": 168,
-      "max": 181
+      "min": 165,
+      "max": 178
     }
   ],
   "injury": {
-    "location": "Soléaire gauche",
-    "episode": "Cicatrice 3mm — décollement gastrocnémien-soléaire (Maratrail ~2025)",
-    "detail": "Cicatrice permanente 3mm à la jonction gastrocnémien/soléaire gauche. Irritation en fév. 2026 (déshydratation + sommeil + échauffement + cadence 162 ppm). Médecin du sport 26 fév : aucune blessure active.",
-    "status": "resolved",
+    "location": "Jonction gastrocnémien/soléaire gauche",
+    "episode": 5,
+    "detail": "Cicatrice 3mm permanente (décollement gastrocnémien-soléaire, juin 2025, Maratrail). Irritation fév. 2026 résolue (médecin 26 fév : aucune blessure active).",
+    "status": "managing",
     "assessment_date": "2026-02-26",
     "tests": [
       {
-        "name": "Écho",
-        "value": "Cicatrice 3mm, tissu intact",
+        "name": "Saut unipodal",
+        "value": "0/10",
         "color": "green"
       },
       {
-        "name": "Footing 25 min",
-        "value": "Aucun problème",
+        "name": "Palpation cicatrice",
+        "value": "0/10",
         "color": "green"
       },
       {
-        "name": "Kiné",
-        "value": "PPM trop bas → cadence 170+",
-        "color": "yellow"
-      },
-      {
-        "name": "Médecin du sport",
-        "value": "Aucune blessure apparente",
+        "name": "Footing 25 min extérieur",
+        "value": "Validé",
         "color": "green"
       }
     ],
     "context": [
       {
-        "label": "Origine",
-        "value": "Maratrail (~2025) : 55km/2200D+ couru sur déchirure → décollement gastrocnémien-soléaire"
+        "label": "Cadence",
+        "value": "170+ ppm (kiné 23 fév)"
       },
       {
-        "label": "Diagnostic",
-        "value": "Cicatrice 3mm permanente. Irritée par déshydratation, manque sommeil, pas d'échauffement, cadence basse"
+        "label": "Feu vert médecin",
+        "value": "26 février 2026"
       },
       {
-        "label": "Collagénopathie",
-        "value": "Fragilité constitutionnelle du collagène probable (héréditaire). Varices + décollement + cicatrice fragile"
+        "label": "Phase protocole",
+        "value": "Phase 3 (footing progressif)"
       }
     ],
-    "observation": "Cicatrice définitive de 3mm. L'objectif n'est pas de guérir mais de ne pas irriter : échauffement, hydratation 2L+, sommeil 7h30+, cadence 170+ ppm, collagène + magnésium.",
+    "observation": "Médecin du sport 26 fév : aucune blessure active. Écho : cicatrice 3mm intacte. Irritation uniquement (déshydratation + sommeil + échauffement + cadence basse). Footing 25 min ext. validé sans problème. **Protocole 3 phases terminé** — passage build progressif MMT.",
     "protocol": [
       {
-        "phase": "Prévention",
-        "entry": "Permanent",
-        "content": "Stanish excentrique 3x/semaine + échauffement 10min obligatoire + cadence 170+ ppm",
+        "phase": "Stanish",
+        "entry": "Excentrique soléaire",
+        "content": "**Position** : debout sur marche, avant-pieds sur le bord, talons dans le vide.\n\n**Exécution** : monter sur pointes (2 pieds), descendre lentement sur 1 pied (côté cicatrice) en 3-5 secondes, talon sous la marche.\n\n**Progression** : 3×10 → 3×15 → 3×20. Augmenter charge (sac à dos) quand trop facile. Douleur légère acceptable (≤3/10), arrêter si >5/10.\n\n**Fréquence** : tous les jours en prévention, ou selon prescription.",
         "status": "en_cours"
       }
     ],
-    "decision_point": "MMT (26 avril) — Objectif A. Build lancé.",
+    "decision_point": "Point de décision MMT : **15 mars 2026**. Footing 30 min indolore + régularité = GO. Sinon DNS.",
     "prevention": [
       {
-        "action": "Échauffement obligatoire : 10 min marche + montées mollets",
-        "frequency": "Avant CHAQUE course"
+        "action": "Échauffement 10 min (marche + montées mollets)",
+        "frequency": "Avant chaque course"
       },
       {
-        "action": "Cadence 170+ ppm — foulées courtes, pose médio-pied",
+        "action": "Cadence 170+ ppm, foulées courtes",
         "frequency": "Toujours"
       },
       {
-        "action": "Protocole Stanish excentrique lent",
-        "frequency": "3x / semaine"
+        "action": "Stanish 3×15",
+        "frequency": "Tous les 2 jours (6 semaines)"
       },
       {
-        "action": "Collagène hydrolysé (Peptan) 10-15g + vit C",
-        "frequency": "Chaque matin à jeun"
-      },
-      {
-        "action": "Magnésium bisglycinate 300-400 mg",
-        "frequency": "Chaque soir"
-      },
-      {
-        "action": "Hydratation 2L+/j avec électrolytes",
+        "action": "Hydratation 2L+ avec électrolytes",
         "frequency": "Quotidien"
+      },
+      {
+        "action": "Collagène hydrolysé 10-15g + vit C",
+        "frequency": "Le matin à jeun"
+      },
+      {
+        "action": "Magnésium bisglycinate 300-400mg",
+        "frequency": "Le soir"
       },
       {
         "action": "Sommeil 7h30+ minimum",
         "frequency": "Quotidien"
       },
       {
-        "action": "Ne JAMAIS courir sans échauffement",
-        "frequency": "Règle absolue"
+        "action": "Compression mollets (manchons)",
+        "frequency": "Pendant l'effort"
       }
     ],
     "history": [
@@ -138,35 +133,35 @@
         "location": "Jonction mollet/soléaire",
         "side": "Gauche",
         "severity": "Modéré",
-        "resolution": "Résolu"
+        "resolution": "Résolu (kiné)"
       },
       {
         "num": 2,
         "location": "Décollement gastrocnémien-soléaire",
         "side": "Gauche",
         "severity": "Sévère",
-        "resolution": "Résolu — cicatrice 3mm permanente"
+        "resolution": "Résolu — cicatrice 3mm permanente (juin 2025, Maratrail 55km sur déchirure existante)"
       },
       {
         "num": 3,
         "location": "Jonction mollet/soléaire",
         "side": "Droit",
         "severity": "Léger",
-        "resolution": "Résolu"
+        "resolution": "Résolu (sept. 2025)"
       },
       {
         "num": 4,
-        "location": "Astragale 66km",
+        "location": "Aucune blessure",
         "side": "—",
         "severity": "—",
-        "resolution": "Terminé, pas de blessure"
+        "resolution": "Astragale 66km terminé (déc. 2025)"
       },
       {
         "num": 5,
         "location": "Cicatrice soléaire",
         "side": "Gauche",
         "severity": "Léger",
-        "resolution": "Résolu (médecin 26 fév)"
+        "resolution": "Résolu — irritation uniquement, pas de lésion (médecin 26 fév 2026)"
       }
     ]
   },

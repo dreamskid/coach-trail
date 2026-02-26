@@ -414,7 +414,7 @@
             white-space: nowrap;
         }
         .mini-chart .bar:hover { opacity: 0.8; }
-        .mini-chart-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); padding: 4px 2px 0; }
+        .mini-chart-labels { display: flex; gap: 3px; font-size: 9px; color: var(--text-muted); padding: 4px 2px 0; }
 
         .health-metric {
             display: flex;
@@ -1158,11 +1158,8 @@
     <!-- SUB-TAB : A venir -->
     <div id="week-upcoming" class="sub-content active">
 
-    <!-- Plan de semaine (chargé dynamiquement via API) — inclut la barre de régularité -->
+    <!-- Plan de semaine (chargé dynamiquement via API) — inclut régularité + aujourd'hui -->
     <div id="week-plan-container"></div>
-
-    <!-- AUJOURD'HUI (dynamique) — après le plan, sous la régularité -->
-    <div id="today-container"></div>
 
     <!-- Semaine type -->
     <div class="card" style="margin-top: 20px;">
@@ -1423,11 +1420,8 @@
     <!-- SUB-TAB : A venir -->
     <div id="j-week-upcoming" class="sub-content active">
 
-    <!-- Plan de semaine (chargé dynamiquement via API) -->
+    <!-- Plan de semaine (chargé dynamiquement via API) — inclut régularité + aujourd'hui -->
     <div id="j-week-plan-container"></div>
-
-    <!-- AUJOURD'HUI (dynamique) — après le plan, sous la régularité -->
-    <div id="j-today-container"></div>
 
     </div><!-- /j-week-upcoming -->
 
@@ -2657,7 +2651,8 @@ function renderWeekPlan(plan, athlete) {
     if (!container) return;
 
     if (!plan || plan.notFound) {
-        container.innerHTML = '<div class="card" style="margin-top:20px;text-align:center;padding:40px;color:var(--text-muted);">' +
+        container.innerHTML = '<div id="' + p + 'today-container"></div>' +
+            '<div class="card" style="margin-top:20px;text-align:center;padding:40px;color:var(--text-muted);">' +
             '<div style="font-size:14px;">Pas de programme pour cette semaine.</div>' +
             '<div style="font-size:12px;margin-top:8px;">Demande a ton coach de le creer via le chat.</div></div>';
         return;
@@ -2691,6 +2686,9 @@ function renderWeekPlan(plan, athlete) {
     html += '<div id="' + p + 'week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>';
     html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"></div>';
     html += '</div>';
+
+    // Today container (inside the card, after regularity)
+    html += '<div id="' + p + 'today-container"></div>';
 
     // Days
     plan.days.forEach(function(day) {
@@ -3138,7 +3136,9 @@ function renderMiniChart(containerId, labelsId, values, colorFn, unit, formatLab
     container.innerHTML = html;
 
     if (labelsEl && values.length > 0) {
-        labelsEl.innerHTML = '<span>' + values[0].shortLabel + '</span><span>' + values[values.length - 1].shortLabel + '</span>';
+        labelsEl.innerHTML = values.map(function(v) {
+            return '<span style="flex:1;text-align:center;">' + v.shortLabel + '</span>';
+        }).join('');
     }
 }
 

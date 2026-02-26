@@ -143,7 +143,8 @@
     {
       "date": "2026-02-28",
       "checks": {
-        "PPG": false
+        "ppg": true,
+        "details": "PPG Haut du corps + Gainage (25 min)\n\n**Échauffement (5 min)**\n- Rotations épaules : 2×10 avant/arrière\n- Rotations bras (moulinet) : 2×10\n- Gainage actif léger : 2×20s planche + 2×15s latéral\n\n**Circuit principal (3 tours)**\n1. Pompes — 3 séries au max (repos 1 min)\n   - Descente contrôlée 3s, poussée explosive\n   - Si trop dur : sur genoux\n\n2. Gainage frontal — 3×30s (repos 30s)\n   - Coudes sous épaules, corps gainé\n   - Fessiers contractés\n\n3. Gainage latéral — 2×20s/côté (repos 20s)\n   - Coude sous épaule, bassin aligné\n\n4. Superman — 3×10 reps (repos 30s)\n   - Lever bras + jambes, tenir 2s\n\n5. Chaise murale — 3×30s (repos 1 min)\n   - Dos plaqué, cuisses // sol, genoux 90°\n\n**Retour au calme (3 min)** : Étirements épaules, dos, psoas"
       }
     },
     {
