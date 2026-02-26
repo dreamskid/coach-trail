@@ -1072,8 +1072,8 @@ function executeTool(toolName, toolInput, athlete) {
 
 // ===== COST TRACKING =====
 const COST_FILE = path.join(__dirname, 'data', 'api-costs.json');
-const COST_PER_M_INPUT = 15;   // Opus: $15 / 1M input tokens
-const COST_PER_M_OUTPUT = 75;  // Opus: $75 / 1M output tokens
+const COST_PER_M_INPUT = 3;    // Sonnet 4.5: $3 / 1M input tokens
+const COST_PER_M_OUTPUT = 15;  // Sonnet 4.5: $15 / 1M output tokens
 const DAILY_BUDGET_USD = 6;    // $6/jour max
 const MONTHLY_BUDGET_USD = 50; // $50/mois max
 
@@ -1220,7 +1220,7 @@ async function handleChat(athlete, message) {
             try {
                 response = await Promise.race([
                     anthropic.messages.create({
-                        model: 'claude-opus-4-6',
+                        model: 'claude-sonnet-4-5-20250929',
                         max_tokens: 4096,
                         system: systemPrompt,
                         tools: [
