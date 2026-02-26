@@ -731,7 +731,7 @@ const CHAT_TOOLS = [
         name: 'write_week_plan',
         description: 'Ecrire ou reecrire le plan d\'entrainement complet d\'une semaine (fichier semaines/YYYY-Wxx.md).\n'
             + 'FORMAT TITRES JOURS : "### Lundi 2 mars — [Titre activite]"\n'
-            + 'Le titre est compose de : une ACTIVITE GARMIN (Course a pied, Footing, Trail, Natation, Elliptique, Velo, Tapis) et/ou un COMPLEMENT MANUEL separe par " + " (PPG, Protocole, Stanish, Gainage, Musculation, Renfo).\n'
+            + 'Le titre est compose de : REPOS, ou une ACTIVITE GARMIN (Course a pied, Footing, Trail, Natation, Elliptique, Velo, Tapis) et/ou un COMPLEMENT MANUEL separe par " + " (PPG, Protocole, Stanish, Gainage, Musculation, Renfo).\n'
             + 'Exemples valides : "Footing 30min Z2", "PPG Haut du corps + Gainage", "Natation + Protocole", "Course a pied 25min", "Repos".\n'
             + 'INTERDIT : mots hors de ces categories dans le titre (pas de "glace", "kiné", "massage", etc.).',
         input_schema: {
