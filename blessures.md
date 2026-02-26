@@ -61,10 +61,11 @@ La cicatrice de 3 mm au décollement gastrocnémien-soléaire est **définitive*
 2. **Cadence 170+ ppm** : foulées courtes, pose médio-pied — toujours
 3. **Protocole Stanish** : excentrique lent, à maintenir en prévention
 4. **Hydratation 2L+/j** avec électrolytes — quotidien
-5. **Magnésium bisglycinate** 300-400 mg/j + collagène 10-15g + vit C
-6. **Sommeil 7h30+ minimum**
-7. **Compression mollets** — manchons pendant l'effort
-8. **Ne JAMAIS courir sans échauffement** — règle non-négociable
+5. **Collagène hydrolysé (Peptan)** 10-15g + vit C — le matin à jeun
+6. **Magnésium bisglycinate** 300-400 mg/j — le soir
+7. **Sommeil 7h30+ minimum**
+8. **Compression mollets** — manchons pendant l'effort
+9. **Ne JAMAIS courir sans échauffement** — règle non-négociable
 
 ---
 
@@ -72,11 +73,22 @@ La cicatrice de 3 mm au décollement gastrocnémien-soléaire est **définitive*
 
 | Aspect | Détail |
 |---|---|
+| **Collagénopathie probable** | Fragilité constitutionnelle du collagène (héréditaire probable, 60-80%). Varices + décollement gastrocnémien-soléaire + cicatrice 3 mm qui peine à se remodeler = collagène de qualité inférieure. Bilan HSD (score de Beighton) à confirmer. Explique TOUTES les blessures : veines qui lâchent, jonction myo-tendineuse qui lâche, cicatrice fragile. |
 | **Crampes orteils** | Chroniques 15+ ans (y compris nocturnes), antérieures aux varices, motif de l'opération. Déficit magnésium probable |
 | **Terrain vasculaire** | Opéré de varices aux deux mollets. Symptômes veineux persistants ~15 ans : déformation mollet, flux sanguin palpable, battements |
 | **Plancher pelvien** | Hypertonie diagnostiquée. Fréquence urinaire excessive. Rééducation arrêtée (trop douloureuse). Prostate OK |
 | **Déficit électrolytes** | Crampes + rétention d'eau insuffisante = déficit chronique Mg/Na/K |
 | **Nicotine** | Cigarette électronique — impact : vasoconstriction, dégradation collagène, déshydratation tissulaire |
+
+### Lien collagénopathie → blessures
+
+La fragilité du collagène est le **fil rouge** de tout l'historique :
+- Épisode 1 : déchirure soléaire gauche (collagène fragile à la jonction)
+- Épisode 2 : décollement gastrocnémien-soléaire (collagène incapable de tenir sous 55 km de charge)
+- Cicatrice 3 mm : collagène de réparation de moindre qualité → cicatrice qui **tire** au lieu de se remodeler complètement
+- Varices : collagène des parois veineuses fragile → dilatation
+
+**Supplémentation en cours** : collagène hydrolysé (Peptan) 10-15g le matin + vitamine C + magnésium bisglycinate 300-400 mg le soir. À maintenir à vie.
 
 ---
 
