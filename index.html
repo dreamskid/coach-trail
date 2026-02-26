@@ -2681,6 +2681,17 @@ function renderWeekPlan(plan, athlete) {
         html += '</div>';
     }
 
+    // Regularity widget (before day tiles)
+    html += '<div id="' + p + 'week-regularity" style="margin-top: 12px; margin-bottom: 16px; padding: 14px; background: var(--bg-card-alt); border-radius: 8px; display: none;">';
+    html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">';
+    html += '<span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">R\u00e9gularit\u00e9</span>';
+    html += '<span id="' + p + 'week-regularity-badge" class="badge badge-yellow">--</span>';
+    html += '</div>';
+    html += '<div class="progress-bar" style="height: 10px;"><div class="fill" id="' + p + 'week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>';
+    html += '<div id="' + p + 'week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>';
+    html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"></div>';
+    html += '</div>';
+
     // Days
     plan.days.forEach(function(day) {
         var highlightStyle = day.highlight ? ' style="border-left: 3px solid var(--red);"' : '';
@@ -2702,17 +2713,6 @@ function renderWeekPlan(plan, athlete) {
         html += '<div class="day-checks"></div>';
         html += '</div>';
     });
-
-    // Regularity widget
-    html += '<div id="' + p + 'week-regularity" style="margin-top: 16px; padding: 14px; background: var(--bg-card-alt); border-radius: 8px; display: none;">';
-    html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">';
-    html += '<span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">R\u00e9gularit\u00e9</span>';
-    html += '<span id="' + p + 'week-regularity-badge" class="badge badge-yellow">--</span>';
-    html += '</div>';
-    html += '<div class="progress-bar" style="height: 10px;"><div class="fill" id="' + p + 'week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>';
-    html += '<div id="' + p + 'week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>';
-    html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"></div>';
-    html += '</div>';
 
     // Volume summary
     if (plan.volume) {
