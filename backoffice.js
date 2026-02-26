@@ -535,8 +535,8 @@ function parseHeadingFormat(lines, weekId, result) {
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        // Match ## or ### Lundi 9 fév. — Title
-        const dayMatch = line.match(/^#{2,3}\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\s+[^—–\-]*[—–\-]\s*(.+)/i);
+        // Match ## or ### Lundi 9 fév. — Title (supports ordinal suffixes like 1er, 2e, 3ème)
+        const dayMatch = line.match(/^#{2,3}\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(\d+)\w*\s+[^—–\-]*[—–\-]\s*(.+)/i);
         if (dayMatch) {
             flushDay();
             const dayName = dayMatch[1];
