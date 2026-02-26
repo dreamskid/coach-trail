@@ -1171,6 +1171,83 @@ function checkBudget() {
     return null;
 }
 
+// ===== CHAT HISTORY SUMMARIZATION =====
+const HAIKU_MODEL = 'claude-haiku-4-5-20251001';
+const HAIKU_COST_PER_M_INPUT = 0.80;
+const HAIKU_COST_PER_M_OUTPUT = 4;
+
+function trackHaikuCost(usage) {
+    if (!usage) return;
+    const costs = readCosts();
+    const today = todayParis();
+    const month = today.slice(0, 7);
+    const inputCost = (usage.input_tokens || 0) / 1_000_000 * HAIKU_COST_PER_M_INPUT;
+    const outputCost = (usage.output_tokens || 0) / 1_000_000 * HAIKU_COST_PER_M_OUTPUT;
+    const totalCost = inputCost + outputCost;
+
+    if (!costs.daily[today]) costs.daily[today] = 0;
+    if (!costs.monthly[month]) costs.monthly[month] = 0;
+    costs.daily[today] = Math.round((costs.daily[today] + totalCost) * 10000) / 10000;
+    costs.monthly[month] = Math.round((costs.monthly[month] + totalCost) * 10000) / 10000;
+
+    writeCosts(costs);
+    console.log(`[cost-haiku] +$${totalCost.toFixed(4)} (${usage.input_tokens}in/${usage.output_tokens}out) | jour: $${costs.daily[today].toFixed(2)}/${DAILY_BUDGET_USD}`);
+}
+
+async function summarizeHistory(history, athlete) {
+    if (!anthropic) return;
+
+    const messages = history.messages || [];
+    const summarizedUpTo = history.summarizedUpTo || 0;
+
+    // Keep the last 10 messages as "recent", summarize everything before
+    const cutoff = messages.length - 10;
+    if (cutoff <= summarizedUpTo) return;
+
+    // Only summarize if >20 messages AND at least 10 new messages to summarize
+    const newToSummarize = cutoff - summarizedUpTo;
+    if (messages.length <= 20 || newToSummarize < 10) return;
+
+    // Build text from messages to summarize (from summarizedUpTo to cutoff)
+    const toSummarize = messages.slice(summarizedUpTo, cutoff);
+    const textParts = toSummarize.map(m => `${m.role}: ${m.content}`);
+    const conversationText = textParts.join('\n\n');
+
+    // Prepend previous summary if exists
+    const previousContext = history.summary
+        ? `Résumé précédent des échanges :\n${history.summary}\n\n---\n\nNouveaux échanges à intégrer :\n`
+        : '';
+
+    const name = athlete === 'juliette' ? 'Juliette' : 'Yohann';
+
+    try {
+        console.log(`[summary] Generating summary for ${name}: messages ${summarizedUpTo}-${cutoff} (${toSummarize.length} messages)`);
+
+        const response = await anthropic.messages.create({
+            model: HAIKU_MODEL,
+            max_tokens: 1024,
+            system: `Tu es un assistant qui résume des conversations de coaching sportif. Produis un résumé concis (~300 mots max) en français qui conserve les informations essentielles : décisions d'entraînement, blessures/douleurs mentionnées, objectifs discutés, métriques clés (FC, allures, distances), changements de plan, et tout élément important pour la continuité du coaching. Sois factuel et structuré.`,
+            messages: [{
+                role: 'user',
+                content: `${previousContext}Résume cette conversation de coaching entre le coach et ${name} :\n\n${conversationText}`
+            }]
+        });
+
+        trackHaikuCost(response.usage);
+
+        const summary = response.content.map(b => b.type === 'text' ? b.text : '').join('');
+        if (summary) {
+            history.summary = summary;
+            history.summarizedUpTo = cutoff;
+            writeChatHistory(history, athlete);
+            console.log(`[summary] Done — ${summary.length} chars, summarizedUpTo=${cutoff}`);
+        }
+    } catch (err) {
+        console.error(`[summary] Error generating summary:`, err.message);
+        // Non-blocking: if summary fails, chat continues without it
+    }
+}
+
 // ===== CHAT API HANDLER =====
 const _rateLimitMap = {};
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
@@ -1203,6 +1280,9 @@ async function handleChat(athlete, message) {
     });
     writeChatHistory(history, athlete);
 
+    // Summarize old messages if needed (non-blocking on failure)
+    await summarizeHistory(history, athlete);
+
     // Build API messages — estimate tokens and trim to fit budget
     const systemPrompt = buildSystemPrompt(athlete);
     const TOKEN_BUDGET = 20000; // keep well under 30K/min rate limit
@@ -1217,7 +1297,16 @@ async function handleChat(athlete, message) {
         if (msgTokens <= budgetForMessages) break;
         recentMessages = recentMessages.slice(1);
     }
-    const apiMessages = recentMessages.map(m => ({ role: m.role, content: m.content }));
+    let apiMessages = recentMessages.map(m => ({ role: m.role, content: m.content }));
+
+    // Inject summary of older messages as context
+    if (history.summary) {
+        apiMessages = [
+            { role: 'user', content: `[Contexte des échanges précédents]\n${history.summary}` },
+            { role: 'assistant', content: 'Compris, j\'ai le contexte de nos échanges précédents.' },
+            ...apiMessages
+        ];
+    }
 
     const allModifications = [];
 

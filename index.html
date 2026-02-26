@@ -5143,25 +5143,26 @@ _loadedAthletes[currentAthlete] = true;
         .then(function(r) { return r.json(); })
         .then(function(data) {
             el.typing.classList.remove('visible');
+            var msgDiv;
             if (data.error) {
-                appendMsg(el.messages, 'assistant', 'Erreur : ' + data.error, new Date().toISOString(), true);
+                msgDiv = appendMsg(el.messages, 'assistant', 'Erreur : ' + data.error, new Date().toISOString(), true);
             } else {
-                appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
+                msgDiv = appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
                 if (data.modifications && data.modifications.length > 0) {
                     addModNotice(el.messages, data.modifications);
                     // Refresh only affected dashboard sections
                     refreshAfterModification(athlete, data.modifications);
                 }
             }
-            scrollBot(el.messages);
+            scrollToMsg(msgDiv);
             chatSending[athlete] = false;
             el.send.disabled = false;
             el.input.focus();
         })
         .catch(function() {
             el.typing.classList.remove('visible');
-            appendMsg(el.messages, 'assistant', 'Erreur de connexion. V\u00e9rifie que le serveur tourne sur ton Mac.', new Date().toISOString(), true);
-            scrollBot(el.messages);
+            var errDiv = appendMsg(el.messages, 'assistant', 'Erreur de connexion. V\u00e9rifie que le serveur tourne sur ton Mac.', new Date().toISOString(), true);
+            scrollToMsg(errDiv);
             chatSending[athlete] = false;
             el.send.disabled = false;
         });
@@ -5179,6 +5180,7 @@ _loadedAthletes[currentAthlete] = true;
             div.appendChild(t);
         }
         container.appendChild(div);
+        return div;
     }
 
     function addDateSep(container, dateStr) {
@@ -5210,6 +5212,7 @@ _loadedAthletes[currentAthlete] = true;
     }
 
     function scrollBot(el) { setTimeout(function() { el.scrollTop = el.scrollHeight; }, 50); }
+    function scrollToMsg(msgEl) { if (msgEl) setTimeout(function() { msgEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }
 
     function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
