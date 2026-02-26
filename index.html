@@ -2104,9 +2104,9 @@ function renderTrainingLoad(activities, athlete) {
     });
     function kmColor(v) {
         if (v >= 50) return 'var(--green)';
-        if (v >= 30) return 'var(--accent)';
-        if (v >= 15) return 'var(--blue)';
-        return 'var(--text-muted)';
+        if (v >= 30) return 'var(--yellow)';
+        if (v >= 15) return 'var(--orange)';
+        return 'var(--red)';
     }
     renderMiniChart(p + 'chart-weekly-km', p + 'chart-weekly-km-labels', kmValues, kmColor, ' km');
 
@@ -2119,10 +2119,10 @@ function renderTrainingLoad(activities, athlete) {
         };
     });
     function elevColor(v) {
-        if (v >= 1000) return 'var(--red)';
-        if (v >= 500) return 'var(--orange)';
-        if (v >= 200) return 'var(--yellow)';
-        return 'var(--text-muted)';
+        if (v >= 1000) return 'var(--green)';
+        if (v >= 500) return 'var(--yellow)';
+        if (v >= 200) return 'var(--orange)';
+        return 'var(--red)';
     }
     renderMiniChart(p + 'chart-weekly-elev', p + 'chart-weekly-elev-labels', elevValues, elevColor, ' m');
 }
