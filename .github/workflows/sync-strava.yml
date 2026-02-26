@@ -52,7 +52,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/strava-activities.json data/garmin-wellness.json data/garmin-activities.json
-          git add data/juliette/strava-activities.json data/juliette/garmin-wellness.json data/juliette/garmin-activities.json
+          git add data/strava-activities.json data/strava-details.json data/garmin-wellness.json data/garmin-activities.json
+          git add data/juliette/strava-activities.json data/juliette/strava-details.json data/juliette/garmin-wellness.json data/juliette/garmin-activities.json
           git diff --cached --quiet || git commit -m "Auto-sync Strava + Garmin data $(date -u +%Y-%m-%d)"
           git push

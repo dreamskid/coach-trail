@@ -14,13 +14,16 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
+from urllib.error import HTTPError
 
 STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token"
 STRAVA_ACTIVITIES_URL = "https://www.strava.com/api/v3/athlete/activities"
+STRAVA_ACTIVITY_URL = "https://www.strava.com/api/v3/activities"
 
 
 def get_access_token(client_id, client_secret, refresh_token):
@@ -52,6 +55,113 @@ def fetch_activities(access_token, per_page=30):
     req = Request(url, headers={"Authorization": f"Bearer {access_token}"})
     with urlopen(req) as resp:
         return json.loads(resp.read())
+
+
+def fetch_activity_detail(access_token, activity_id):
+    """Fetch detailed data for a single activity (polyline, splits, laps, etc.)."""
+    url = f"{STRAVA_ACTIVITY_URL}/{activity_id}"
+    req = Request(url, headers={"Authorization": f"Bearer {access_token}"})
+    try:
+        with urlopen(req) as resp:
+            act = json.loads(resp.read())
+    except HTTPError as e:
+        print(f"[WARN] Failed to fetch detail for {activity_id}: {e.code}")
+        return None
+
+    detail = {"id": activity_id}
+
+    # Polyline for map
+    map_data = act.get("map", {})
+    if map_data.get("summary_polyline"):
+        detail["polyline"] = map_data["summary_polyline"]
+
+    # Splits per km
+    splits = act.get("splits_metric")
+    if splits:
+        detail["splits"] = [
+            {
+                "km": i + 1,
+                "moving_time": s.get("moving_time", 0),
+                "distance": round(s.get("distance", 0), 1),
+                "elevation_difference": round(s.get("elevation_difference", 0), 1),
+                "average_heartrate": s.get("average_heartrate"),
+                "average_speed": round(s.get("average_speed", 0), 3),
+                "pace_zone": s.get("pace_zone"),
+            }
+            for i, s in enumerate(splits)
+        ]
+
+    # Laps
+    laps = act.get("laps")
+    if laps:
+        detail["laps"] = [
+            {
+                "name": l.get("name", ""),
+                "distance": round(l.get("distance", 0), 1),
+                "moving_time": l.get("moving_time", 0),
+                "average_heartrate": l.get("average_heartrate"),
+                "average_speed": round(l.get("average_speed", 0), 3),
+                "total_elevation_gain": round(l.get("total_elevation_gain", 0), 1),
+            }
+            for l in laps
+        ]
+
+    # Extra metrics
+    if act.get("calories"):
+        detail["calories"] = act["calories"]
+    if act.get("average_cadence"):
+        detail["average_cadence"] = act["average_cadence"]
+    if act.get("description"):
+        detail["description"] = act["description"]
+
+    # Best efforts (5k, 10k, etc.)
+    best_efforts = act.get("best_efforts")
+    if best_efforts:
+        detail["best_efforts"] = [
+            {
+                "name": e.get("name", ""),
+                "distance": round(e.get("distance", 0), 1),
+                "moving_time": e.get("moving_time", 0),
+            }
+            for e in best_efforts
+        ]
+
+    return detail
+
+
+def sync_activity_details(access_token, activity_ids, details_file):
+    """Fetch details for activities not yet in the details file. Incremental."""
+    # Load existing details
+    existing = {}
+    if details_file.exists():
+        try:
+            existing = json.loads(details_file.read_text())
+        except (json.JSONDecodeError, IOError):
+            existing = {}
+
+    # Find missing IDs
+    missing = [aid for aid in activity_ids if str(aid) not in existing]
+    if not missing:
+        print(f"[INFO] All {len(activity_ids)} activity details already cached")
+        return existing
+
+    print(f"[INFO] Fetching details for {len(missing)} new activities...")
+    for i, aid in enumerate(missing):
+        detail = fetch_activity_detail(access_token, aid)
+        if detail:
+            existing[str(aid)] = detail
+            print(f"  [{i+1}/{len(missing)}] {aid} OK")
+        else:
+            print(f"  [{i+1}/{len(missing)}] {aid} SKIPPED")
+        # Rate limit: Strava allows 100 req/15min → ~1.5s between calls
+        if i < len(missing) - 1:
+            time.sleep(1.5)
+
+    # Write updated details
+    with open(details_file, "w") as f:
+        json.dump(existing, f, indent=2, ensure_ascii=False)
+    print(f"[OK] Saved {len(existing)} activity details to {details_file}")
+    return existing
 
 
 def simplify_activity(act):
@@ -108,6 +218,11 @@ def main():
         json.dump(simplified, f, indent=2, ensure_ascii=False)
 
     print(f"[OK] Saved {len(simplified)} activities to {output_file}")
+
+    # Fetch detailed data (polyline, splits, laps) for each activity
+    details_file = data_dir / "strava-details.json"
+    activity_ids = [a["id"] for a in simplified]
+    sync_activity_details(access_token, activity_ids, details_file)
 
 
 if __name__ == "__main__":

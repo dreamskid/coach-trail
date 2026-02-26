@@ -342,6 +342,7 @@
             display: flex;
             overflow: hidden;
             transition: transform 0.15s, box-shadow 0.15s;
+            cursor: pointer;
         }
         .activity-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
         .act-icon {
@@ -935,6 +936,120 @@
 
         .athlete-content { display: none; }
         .athlete-content.active { display: block; }
+
+        /* ===== ACTIVITY DETAIL MODAL ===== */
+        .activity-detail-modal {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+            display: flex; align-items: flex-end; justify-content: center;
+            animation: fadeIn 0.15s;
+        }
+        @media (min-width: 700px) {
+            .activity-detail-modal { align-items: center; }
+        }
+        .activity-detail-box {
+            background: var(--bg); border-radius: 20px 20px 0 0;
+            width: 100%; max-width: 800px;
+            max-height: 95vh; overflow-y: auto; overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        @media (min-width: 700px) {
+            .activity-detail-box { border-radius: 16px; max-height: 90vh; }
+        }
+        .detail-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            padding: 20px 24px 16px;
+            position: sticky; top: 0; background: var(--bg); z-index: 1;
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-header-info { flex: 1; min-width: 0; }
+        .detail-header-info h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .detail-header-info .detail-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .detail-type-badge {
+            display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 10px;
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .detail-close {
+            background: var(--bg-card-alt); border: 1px solid var(--border); color: var(--text-muted); font-size: 20px;
+            cursor: pointer; padding: 4px 10px; line-height: 1; border-radius: 8px; margin-left: 12px; flex-shrink: 0;
+        }
+        .detail-close:hover { color: var(--text); background: var(--border); }
+        .detail-map { height: 300px; background: var(--bg-card); }
+        @media (max-width: 699px) { .detail-map { height: 220px; } }
+        .detail-map-empty {
+            height: 60px; display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 12px; background: var(--bg-card);
+        }
+        /* Stats bar — Strava style big numbers */
+        .detail-stats-bar {
+            display: flex; flex-wrap: wrap; padding: 20px 24px; gap: 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-stat-item {
+            flex: 1 1 auto; min-width: 100px; padding: 4px 16px 4px 0;
+            border-right: 1px solid var(--border);
+        }
+        .detail-stat-item:last-child { border-right: none; padding-right: 0; }
+        .detail-stat-value { font-size: 26px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+        .detail-stat-unit { font-size: 14px; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
+        .detail-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @media (max-width: 500px) {
+            .detail-stats-bar { padding: 16px 16px; }
+            .detail-stat-item { min-width: 0; flex: 1 1 0; padding: 4px 8px 4px 0; }
+            .detail-stat-value { font-size: 18px; }
+            .detail-stat-label { font-size: 9px; }
+            .detail-stats-secondary { padding: 10px 16px; gap: 12px; }
+            .detail-stat-secondary { font-size: 11px; }
+            .detail-section-title { padding: 16px 16px 8px; }
+            .detail-splits { padding: 0 12px 16px; }
+            .detail-splits table { font-size: 11px; }
+            .detail-elevation { padding: 0 12px 8px; }
+            .detail-best-efforts { padding: 0 12px 16px; }
+            .detail-best-efforts table { font-size: 11px; }
+            .detail-header { padding: 16px 16px 12px; }
+            .detail-header-info h3 { font-size: 16px; }
+        }
+        /* Secondary stats row */
+        .detail-stats-secondary {
+            display: flex; flex-wrap: wrap; padding: 12px 24px; gap: 20px;
+            border-bottom: 1px solid var(--border); background: var(--bg-card);
+        }
+        .detail-stat-secondary { font-size: 13px; }
+        .detail-stat-secondary span { font-weight: 700; }
+        /* Section titles */
+        .detail-section-title {
+            font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text); padding: 20px 24px 10px;
+        }
+        /* Elevation chart */
+        .detail-elevation { padding: 0 24px 8px; }
+        .detail-elevation canvas { width: 100%; height: 150px; display: block; border-radius: 8px; }
+        /* Splits — Strava style with pace bars */
+        .detail-splits { padding: 0 24px 20px; }
+        .detail-splits table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+        .detail-splits th {
+            text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-muted); padding: 8px 8px; border-bottom: 2px solid var(--border); font-weight: 700;
+        }
+        .detail-splits th:first-child { width: 40px; }
+        .detail-splits td { padding: 0; height: 36px; vertical-align: middle; position: relative; }
+        .detail-splits td .cell { padding: 0 8px; position: relative; z-index: 1; }
+        .detail-splits tr { border-bottom: 1px solid rgba(42,45,58,0.3); }
+        .detail-splits tr:last-child { border-bottom: none; }
+        .split-pace-bar {
+            position: absolute; left: 0; top: 2px; bottom: 2px; border-radius: 3px; opacity: 0.2;
+        }
+        /* Best efforts */
+        .detail-best-efforts { padding: 0 24px 20px; }
+        .detail-best-efforts table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+        .detail-best-efforts th {
+            text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-muted); padding: 8px; border-bottom: 2px solid var(--border); font-weight: 700;
+        }
+        .detail-best-efforts td { padding: 8px; border-bottom: 1px solid rgba(42,45,58,0.3); }
+        .detail-best-efforts tr:last-child td { border-bottom: none; }
+        /* Description */
+        .detail-description { padding: 12px 24px 16px; font-size: 13px; color: var(--text-muted); line-height: 1.6; background: var(--bg-card); border-bottom: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -1837,7 +1952,7 @@ function renderActivitiesList(activities, athlete) {
         if (isSwim && act.distance > 0) stats += '<div class="act-stat"><div class="act-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="act-stat-label">Allure /100m</div></div>';
 
         list.innerHTML +=
-            '<div class="activity-card">' +
+            '<div class="activity-card" data-activity-id="' + act.id + '">' +
                 '<div class="act-icon ' + t.iconClass + '">' + SVG[t.icon] + '</div>' +
                 '<div class="act-body">' +
                     '<div class="act-header">' +
@@ -1848,6 +1963,16 @@ function renderActivitiesList(activities, athlete) {
                 '</div>' +
             '</div>';
     });
+
+    // Click handler for activity detail modal (event delegation, once per list)
+    if (!list._actDetailBound) {
+        list._actDetailBound = true;
+        list.addEventListener('click', function(e) {
+            var card = e.target.closest('.activity-card');
+            if (!card) return;
+            showActivityDetail(card.dataset.activityId, athlete);
+        });
+    }
 
     document.getElementById(p + 'sum-runs').textContent = totalRuns;
     document.getElementById(p + 'sum-distance').textContent = Math.round(totalDist);
@@ -3970,6 +4095,526 @@ function updateDynamicHealthFactors(garmin, athlete) {
     }
 }
 
+// ===== ACTIVITY DETAIL MODAL =====
+var _activityDetailsByAthlete = {};
+var _activityIndexByAthlete = {};
+var _leafletLoaded = false;
+
+function decodePolyline(encoded) {
+    var points = [], lat = 0, lng = 0, i = 0;
+    while (i < encoded.length) {
+        var b, shift = 0, result = 0;
+        do { b = encoded.charCodeAt(i++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+        lat += (result & 1) ? ~(result >> 1) : (result >> 1);
+        shift = 0; result = 0;
+        do { b = encoded.charCodeAt(i++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+        lng += (result & 1) ? ~(result >> 1) : (result >> 1);
+        points.push([lat / 1e5, lng / 1e5]);
+    }
+    return points;
+}
+
+function loadLeaflet(callback) {
+    if (_leafletLoaded) { callback(); return; }
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(link);
+    var script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = function() { _leafletLoaded = true; callback(); };
+    document.head.appendChild(script);
+}
+
+function fetchActivityDetails(athlete) {
+    var cfg = ATHLETES[athlete];
+    var _nc = '?t=' + Date.now();
+    return fetch(cfg.dataDir + 'strava-details.json' + _nc)
+        .then(function(r) { return r.ok ? r.json() : {}; })
+        .catch(function() { return {}; });
+}
+
+// Universal intensity color: 0 = green, 0.5 = yellow/orange, 1 = red
+// Returns an rgb() string. Smooth gradient: #22c55e → #eab308 → #f97316 → #ef4444
+function intensityColor(ratio) {
+    ratio = Math.max(0, Math.min(1, ratio));
+    var r, g, b;
+    if (ratio < 0.33) {
+        var t = ratio / 0.33;
+        r = Math.round(34 + t * (234 - 34));
+        g = Math.round(197 + t * (179 - 197));
+        b = Math.round(94 + t * (8 - 94));
+    } else if (ratio < 0.66) {
+        var t = (ratio - 0.33) / 0.33;
+        r = Math.round(234 + t * (249 - 234));
+        g = Math.round(179 + t * (115 - 179));
+        b = Math.round(8 + t * (22 - 8));
+    } else {
+        var t = (ratio - 0.66) / 0.34;
+        r = Math.round(249 + t * (239 - 249));
+        g = Math.round(115 + t * (68 - 115));
+        b = Math.round(22 + t * (68 - 22));
+    }
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
+// Same but with reduced opacity for background usage
+function intensityBg(ratio, alpha) {
+    ratio = Math.max(0, Math.min(1, ratio));
+    alpha = alpha || 0.15;
+    var r, g, b;
+    if (ratio < 0.33) {
+        var t = ratio / 0.33;
+        r = Math.round(34 + t * (234 - 34));
+        g = Math.round(197 + t * (179 - 197));
+        b = Math.round(94 + t * (8 - 94));
+    } else if (ratio < 0.66) {
+        var t = (ratio - 0.33) / 0.33;
+        r = Math.round(234 + t * (249 - 234));
+        g = Math.round(179 + t * (115 - 179));
+        b = Math.round(8 + t * (22 - 8));
+    } else {
+        var t = (ratio - 0.66) / 0.34;
+        r = Math.round(249 + t * (239 - 249));
+        g = Math.round(115 + t * (68 - 115));
+        b = Math.round(22 + t * (68 - 22));
+    }
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
+
+// Compute ratio of a HR value within the athlete's zone range
+function hrRatio(hr, athlete) {
+    var zones = _fcZonesByAthlete[athlete || currentAthlete] || FC_ZONES_DEFAULT;
+    var minHR = zones[0].max; // bottom of Z1
+    var maxHR = zones[zones.length - 1].max; // top of Z5
+    if (maxHR > 300) maxHR = zones[zones.length - 2].max; // skip the 999 sentinel
+    return (hr - minHR) / (maxHR - minHR);
+}
+
+function fmtPaceSplit(mps) {
+    if (!mps || mps === 0) return '-';
+    var spk = 1000 / mps;
+    return Math.floor(spk / 60) + ':' + String(Math.round(spk % 60)).padStart(2, '0');
+}
+
+function fmtTimeSplit(seconds) {
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
+    return m + ':' + String(Math.round(s)).padStart(2, '0');
+}
+
+// Build time series from splits: resample at fixed intervals (default 5 min)
+// Returns { times: [min], hr: [bpm], alt: [m relative] }
+function buildTimeSeriesFromSplits(splits, intervalSec) {
+    intervalSec = intervalSec || 300; // 5 min default
+    // Build raw timeline: each split occupies [tStart, tEnd] with constant HR and linear altitude
+    var segments = []; // { tStart, tEnd, hr, altStart, altEnd }
+    var t = 0, alt = 0;
+    splits.forEach(function(s) {
+        var tEnd = t + (s.moving_time || 0);
+        var altEnd = alt + (s.elevation_difference || 0);
+        segments.push({ tStart: t, tEnd: tEnd, hr: s.average_heartrate || 0, altStart: alt, altEnd: altEnd });
+        t = tEnd;
+        alt = altEnd;
+    });
+    var totalTime = t;
+    if (totalTime === 0) return null;
+
+    // Sample at intervalSec intervals
+    var times = [], hrs = [], alts = [];
+    for (var ts = 0; ts <= totalTime; ts += intervalSec) {
+        times.push(ts / 60); // in minutes
+        // Find which segment this time falls in
+        var seg = segments[segments.length - 1]; // fallback to last
+        for (var i = 0; i < segments.length; i++) {
+            if (ts <= segments[i].tEnd) { seg = segments[i]; break; }
+        }
+        var segDur = seg.tEnd - seg.tStart || 1;
+        var frac = (ts - seg.tStart) / segDur;
+        frac = Math.max(0, Math.min(1, frac));
+        hrs.push(seg.hr);
+        alts.push(seg.altStart + (seg.altEnd - seg.altStart) * frac);
+    }
+    // Always include the final point
+    if (times[times.length - 1] < totalTime / 60) {
+        times.push(totalTime / 60);
+        var lastSeg = segments[segments.length - 1];
+        hrs.push(lastSeg.hr);
+        alts.push(lastSeg.altEnd);
+    }
+    return { times: times, hr: hrs, alt: alts };
+}
+
+// Generic time-series chart renderer (used for both HR and elevation)
+// opts: { canvasId, times[], values[], color, fillColor, gradientTop, gradientBottom,
+//         yLabel, yUnit, minRange, zones (optional, for HR), height }
+function renderTimeChart(opts) {
+    var canvas = document.getElementById(opts.canvasId);
+    if (!canvas || !opts.times || opts.times.length < 2) return;
+    var dpr = window.devicePixelRatio || 1;
+    var W = canvas.parentElement.getBoundingClientRect().width;
+    var H = opts.height || 140;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    var times = opts.times, vals = opts.values;
+    var minV = Math.min.apply(null, vals);
+    var maxV = Math.max.apply(null, vals);
+    var range = maxV - minV;
+    var minRange = opts.minRange || 20;
+    if (range < minRange) { var mid = (maxV + minV) / 2; minV = mid - minRange / 2; maxV = mid + minRange / 2; range = minRange; }
+    var padV = range * 0.12;
+    minV -= padV; maxV += padV; range = maxV - minV;
+
+    var maxT = times[times.length - 1];
+    var padL = 46, padR = 12, padT = 10, padB = 26;
+    var cW = W - padL - padR, cH = H - padT - padB;
+
+    function xP(t) { return padL + (t / maxT) * cW; }
+    function yP(v) { return padT + cH - ((v - minV) / range) * cH; }
+
+    // Background
+    ctx.fillStyle = '#1a1d27';
+    ctx.fillRect(0, 0, W, H);
+
+    // Zone bands (for HR chart)
+    if (opts.zones && opts.zones.length > 0) {
+        opts.zones.forEach(function(z) {
+            var zTop = Math.min(z.max, maxV);
+            var zBot = z.min !== undefined ? Math.max(z.min, minV) : minV;
+            if (zTop <= minV || zBot >= maxV) return;
+            var y1 = yP(Math.min(zTop, maxV));
+            var y2 = yP(Math.max(zBot, minV));
+            ctx.fillStyle = z.bg;
+            ctx.fillRect(padL, y1, cW, y2 - y1);
+        });
+    }
+
+    // Grid lines + Y labels
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#8b8fa3';
+    ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    var nY = 4;
+    for (var i = 0; i <= nY; i++) {
+        var v = minV + (range * i / nY);
+        var y = yP(v);
+        ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+        ctx.fillText(Math.round(v) + (opts.yUnit || ''), padL - 6, y + 3);
+    }
+
+    // X-axis time labels (every 5 min)
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#8b8fa3';
+    var step = maxT <= 15 ? 5 : maxT <= 45 ? 10 : maxT <= 120 ? 15 : 30;
+    for (var m = step; m < maxT; m += step) {
+        var x = xP(m);
+        ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + cH); ctx.stroke();
+        ctx.fillText(m + 'min', x, H - 6);
+    }
+
+    // Filled area
+    ctx.beginPath();
+    ctx.moveTo(xP(times[0]), yP(vals[0]));
+    for (var i = 1; i < times.length; i++) ctx.lineTo(xP(times[i]), yP(vals[i]));
+    ctx.lineTo(xP(times[times.length - 1]), yP(minV));
+    ctx.lineTo(xP(times[0]), yP(minV));
+    ctx.closePath();
+    var grad = ctx.createLinearGradient(0, padT, 0, padT + cH);
+    grad.addColorStop(0, opts.gradientTop || 'rgba(249,115,22,0.45)');
+    grad.addColorStop(1, opts.gradientBottom || 'rgba(249,115,22,0.03)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line — colored per segment if colorFn provided
+    var colorFn = opts.colorFn; // function(value) → color string
+    if (colorFn) {
+        ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        for (var i = 1; i < times.length; i++) {
+            ctx.beginPath();
+            ctx.moveTo(xP(times[i - 1]), yP(vals[i - 1]));
+            ctx.lineTo(xP(times[i]), yP(vals[i]));
+            ctx.strokeStyle = colorFn((vals[i - 1] + vals[i]) / 2);
+            ctx.stroke();
+        }
+    } else {
+        ctx.beginPath();
+        ctx.moveTo(xP(times[0]), yP(vals[0]));
+        for (var i = 1; i < times.length; i++) ctx.lineTo(xP(times[i]), yP(vals[i]));
+        ctx.strokeStyle = opts.color || '#f97316';
+        ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+
+    // Dots
+    for (var i = 0; i < times.length; i++) {
+        ctx.beginPath();
+        ctx.arc(xP(times[i]), yP(vals[i]), 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = colorFn ? colorFn(vals[i]) : (opts.color || '#f97316');
+        ctx.fill();
+        ctx.strokeStyle = '#1a1d27';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+
+    // Average line
+    var avg = vals.reduce(function(a, b) { return a + b; }, 0) / vals.length;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, yP(avg));
+    ctx.lineTo(W - padR, yP(avg));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Average label
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = '9px -apple-system, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('moy ' + Math.round(avg) + (opts.yUnit || ''), padL + 4, yP(avg) - 4);
+}
+
+function showActivityDetail(activityId, athlete) {
+    athlete = athlete || currentAthlete;
+    var act = (_activityIndexByAthlete[athlete] || {})[activityId];
+    if (!act) return;
+    var detail = (_activityDetailsByAthlete[athlete] || {})[String(activityId)] || {};
+    var st = detectType(act);
+    var t = TYPES[st] || { icon: 'default', iconClass: 'default', label: st.toUpperCase(), color: 'var(--accent-light)' };
+    var isRun = st === 'Run' || st === 'TrailRun' || st === 'Treadmill';
+    var isSwim = st === 'Swim';
+
+    // Date formatting
+    var d = new Date(act.start_date_local);
+    var dateStr = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    var timeStr = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+    var html = '<div class="activity-detail-modal" id="activity-detail-modal">';
+    html += '<div class="activity-detail-box">';
+
+    // ── Header ──
+    html += '<div class="detail-header"><div class="detail-header-info">';
+    html += '<h3>' + (act.name || 'Activite') + '</h3>';
+    html += '<div class="detail-meta">';
+    html += '<span class="detail-type-badge" style="background:' + t.color + ';color:#000;">' + t.label + '</span>';
+    if (act.source) html += '<span style="opacity:0.6;">' + act.source.toUpperCase() + '</span>';
+    html += '<span>' + dateStr + ' a ' + timeStr + '</span>';
+    html += '</div></div>';
+    html += '<button class="detail-close" onclick="closeActivityDetail()">&times;</button>';
+    html += '</div>';
+
+    // ── Description (if any) ──
+    if (detail.description) {
+        html += '<div class="detail-description">' + detail.description.replace(/\n/g, '<br>') + '</div>';
+    }
+
+    // ── Map ──
+    if (detail.polyline) {
+        html += '<div class="detail-map" id="detail-map-container"></div>';
+    } else {
+        html += '<div class="detail-map-empty">Pas de trace GPS</div>';
+    }
+
+    // ── Primary stats bar (Strava style) ──
+    html += '<div class="detail-stats-bar">';
+    if (act.distance > 0) {
+        html += '<div class="detail-stat-item"><div class="detail-stat-value">' + (act.distance / 1000).toFixed(2) + '<span class="detail-stat-unit">km</span></div><div class="detail-stat-label">Distance</div></div>';
+    }
+    if (act.total_elevation_gain > 0) {
+        html += '<div class="detail-stat-item"><div class="detail-stat-value text-orange">' + Math.round(act.total_elevation_gain) + '<span class="detail-stat-unit">m</span></div><div class="detail-stat-label">Denivele positif</div></div>';
+    }
+    html += '<div class="detail-stat-item"><div class="detail-stat-value">' + fmt(act.moving_time) + '</div><div class="detail-stat-label">Temps de deplacement</div></div>';
+    if (isRun && act.average_speed) {
+        html += '<div class="detail-stat-item"><div class="detail-stat-value">' + fmtPace(act.average_speed) + '</div><div class="detail-stat-label">Allure moyenne</div></div>';
+    }
+    if (isSwim && act.distance > 0) {
+        html += '<div class="detail-stat-item"><div class="detail-stat-value text-cyan">' + fmtSwimPace(act.distance, act.moving_time) + '</div><div class="detail-stat-label">Allure /100m</div></div>';
+    }
+    html += '</div>';
+
+    // ── Secondary stats ──
+    var sec = [];
+    if (act.average_heartrate) {
+        var zone = getZone(act.average_heartrate, athlete);
+        var hrR = hrRatio(act.average_heartrate, athlete);
+        sec.push('<span style="color:' + intensityColor(hrR) + ';">' + Math.round(act.average_heartrate) + ' bpm</span> FC moy' + (zone ? ' <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:' + intensityBg(hrR, 0.2) + ';color:' + intensityColor(hrR) + ';">' + zone.label + '</span>' : ''));
+    }
+    if (act.max_heartrate) {
+        var maxR = hrRatio(act.max_heartrate, athlete);
+        sec.push('<span style="color:' + intensityColor(maxR) + ';">' + Math.round(act.max_heartrate) + ' bpm</span> FC max');
+    }
+    if (detail.calories) {
+        sec.push('<span>' + Math.round(detail.calories) + '</span> kcal');
+    }
+    if (detail.average_cadence) {
+        sec.push('<span>' + Math.round(detail.average_cadence * 2) + '</span> pas/min');
+    }
+    if (act.elapsed_time && act.moving_time && act.elapsed_time > act.moving_time + 30) {
+        sec.push('<span>' + fmt(act.elapsed_time) + '</span> temps total');
+    }
+    if (act.suffer_score) {
+        var effortR = Math.min(1, act.suffer_score / 150);
+        sec.push('<span style="color:' + intensityColor(effortR) + ';">' + act.suffer_score + '</span> effort relatif');
+    }
+    if (sec.length > 0) {
+        html += '<div class="detail-stats-secondary">';
+        sec.forEach(function(s) { html += '<div class="detail-stat-secondary">' + s + '</div>'; });
+        html += '</div>';
+    }
+
+    // ── Charts: HR + Elevation (time-based, 5 min resolution) ──
+    var hasSplitsHR = detail.splits && detail.splits.some(function(s) { return s.average_heartrate > 0; });
+    var hasSplitsElev = detail.splits && detail.splits.some(function(s) { return s.elevation_difference !== 0; });
+    if (hasSplitsHR) {
+        html += '<div class="detail-section-title">Frequence cardiaque</div>';
+        html += '<div class="detail-elevation"><canvas id="detail-hr-canvas"></canvas></div>';
+    }
+    if (hasSplitsElev) {
+        html += '<div class="detail-section-title">Profil altimetrique</div>';
+        html += '<div class="detail-elevation"><canvas id="detail-elev-canvas"></canvas></div>';
+    }
+
+    // ── Splits table with pace bars ──
+    if (detail.splits && detail.splits.length > 0) {
+        // Compute ranges for gradient coloring
+        var paces = detail.splits.map(function(s) { return s.average_speed > 0 ? 1000 / s.average_speed : 0; });
+        var validPaces = paces.filter(function(p) { return p > 0; });
+        var minPace = validPaces.length ? Math.min.apply(null, validPaces) : 0;
+        var maxPace = validPaces.length ? Math.max.apply(null, validPaces) : 1;
+        var paceRange = maxPace - minPace || 1;
+        var splitHRs = detail.splits.map(function(s) { return s.average_heartrate || 0; }).filter(function(h) { return h > 0; });
+        var minSplitHR = splitHRs.length ? Math.min.apply(null, splitHRs) : 100;
+        var maxSplitHR = splitHRs.length ? Math.max.apply(null, splitHRs) : 180;
+        var hrRange = maxSplitHR - minSplitHR || 1;
+        var elevs = detail.splits.map(function(s) { return Math.abs(s.elevation_difference || 0); });
+        var maxElev = Math.max.apply(null, elevs) || 1;
+
+        html += '<div class="detail-section-title">Splits par km</div>';
+        html += '<div class="detail-splits"><table>';
+        html += '<tr><th>Km</th><th>Allure</th><th>Temps</th><th>FC</th><th>D+</th></tr>';
+        detail.splits.forEach(function(s, idx) {
+            var pace = fmtPaceSplit(s.average_speed);
+            var paceVal = s.average_speed > 0 ? 1000 / s.average_speed : 0;
+            var elev = s.elevation_difference;
+            var elevStr = elev > 0 ? '+' + Math.round(elev) : (elev < 0 ? Math.round(elev) : '0');
+            var isPartial = (idx === detail.splits.length - 1) && s.distance < 900;
+
+            // Green→Red ratios
+            var paceRatio = paceVal > 0 ? (paceVal - minPace) / paceRange : 0; // faster=green, slower=red
+            var hrRat = s.average_heartrate ? (s.average_heartrate - minSplitHR) / hrRange : 0;
+            var elevRatio = Math.abs(elev) / maxElev;
+            var barPct = paceVal > 0 ? Math.max(20, Math.min(100, paceRatio * 80 + 20)) : 0;
+
+            html += '<tr style="background:' + intensityBg(hrRat, 0.08) + ';"' + (isPartial ? ' class="split-partial"' : '') + '>';
+            html += '<td><div class="cell" style="font-weight:700;font-size:12px;color:var(--text-muted);">' + s.km + '</div></td>';
+            html += '<td style="position:relative;"><div class="split-pace-bar" style="width:' + barPct + '%;background:' + intensityColor(paceRatio) + ';"></div><div class="cell" style="font-weight:700;color:' + intensityColor(paceRatio) + ';">' + pace + '/km</div></td>';
+            html += '<td><div class="cell" style="color:var(--text-muted);font-size:12px;">' + fmtTimeSplit(s.moving_time) + '</div></td>';
+            html += '<td><div class="cell" style="color:' + intensityColor(hrRat) + ';font-weight:600;">' + (s.average_heartrate ? Math.round(s.average_heartrate) : '-') + '</div></td>';
+            html += '<td><div class="cell" style="color:' + (elev === 0 ? 'var(--text-muted)' : intensityColor(elevRatio * 0.8)) + ';">' + elevStr + 'm</div></td>';
+            html += '</tr>';
+        });
+        html += '</table></div>';
+    }
+
+    // ── Best efforts ──
+    if (detail.best_efforts && detail.best_efforts.length > 0) {
+        html += '<div class="detail-section-title">Meilleurs efforts</div>';
+        html += '<div class="detail-best-efforts"><table>';
+        html += '<tr><th>Distance</th><th>Temps</th><th>Allure</th></tr>';
+        detail.best_efforts.forEach(function(e) {
+            var ePace = e.distance > 0 && e.moving_time > 0 ? fmtPaceSplit(e.distance / e.moving_time) + '/km' : '-';
+            html += '<tr><td style="font-weight:700;">' + e.name + '</td><td>' + fmt(e.moving_time) + '</td><td style="color:var(--text-muted);">' + ePace + '</td></tr>';
+        });
+        html += '</table></div>';
+    }
+
+    // Phase 2 placeholder
+    html += '<div style="height:20px;"></div>';
+    html += '</div></div>';
+
+    // Insert modal
+    var existing = document.getElementById('activity-detail-modal');
+    if (existing) existing.remove();
+    document.body.insertAdjacentHTML('beforeend', html);
+    document.body.style.overflow = 'hidden';
+
+    // Render charts (time-based, 5 min resolution)
+    if (hasSplitsHR || hasSplitsElev) {
+        setTimeout(function() {
+            var ts = buildTimeSeriesFromSplits(detail.splits, 300);
+            if (!ts) return;
+            // Build FC zone bands with green→red gradient backgrounds
+            var zones = (_fcZonesByAthlete[athlete] || FC_ZONES_DEFAULT);
+            var hrZoneBands = [];
+            var prevMax = 0;
+            var nZones = zones.length;
+            zones.forEach(function(z, zi) {
+                var ratio = zi / (nZones - 1);
+                hrZoneBands.push({ min: prevMax, max: z.max, bg: intensityBg(ratio, 0.12) });
+                prevMax = z.max;
+            });
+            if (hasSplitsHR) {
+                var hrColorFn = function(v) { return intensityColor(hrRatio(v, athlete)); };
+                renderTimeChart({
+                    canvasId: 'detail-hr-canvas', times: ts.times, values: ts.hr,
+                    colorFn: hrColorFn,
+                    gradientTop: 'rgba(239,68,68,0.25)', gradientBottom: 'rgba(34,197,94,0.05)',
+                    yUnit: '', minRange: 30, zones: hrZoneBands, height: 150
+                });
+            }
+            if (hasSplitsElev) {
+                renderTimeChart({
+                    canvasId: 'detail-elev-canvas', times: ts.times, values: ts.alt,
+                    color: '#f97316', gradientTop: 'rgba(249,115,22,0.45)', gradientBottom: 'rgba(249,115,22,0.03)',
+                    yUnit: 'm', minRange: 20, height: 150
+                });
+            }
+        }, 50);
+    }
+
+    // Render map if polyline exists
+    if (detail.polyline) {
+        loadLeaflet(function() {
+            var container = document.getElementById('detail-map-container');
+            if (!container) return;
+            var coords = decodePolyline(detail.polyline);
+            if (coords.length === 0) return;
+            var map = L.map(container, { zoomControl: false, attributionControl: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                maxZoom: 19
+            }).addTo(map);
+            var polyline = L.polyline(coords, { color: '#f97316', weight: 3.5, opacity: 0.9 }).addTo(map);
+            // Start/end markers
+            L.circleMarker(coords[0], { radius: 5, color: '#22c55e', fillColor: '#22c55e', fillOpacity: 1, weight: 2 }).addTo(map);
+            L.circleMarker(coords[coords.length - 1], { radius: 5, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 1, weight: 2 }).addTo(map);
+            map.fitBounds(polyline.getBounds(), { padding: [30, 30] });
+        });
+    }
+
+    // Close on overlay click
+    document.getElementById('activity-detail-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeActivityDetail();
+    });
+    // Close on Escape
+    document._actDetailEscHandler = function(e) { if (e.key === 'Escape') closeActivityDetail(); };
+    document.addEventListener('keydown', document._actDetailEscHandler);
+}
+
+function closeActivityDetail() {
+    var modal = document.getElementById('activity-detail-modal');
+    if (modal) modal.remove();
+    document.body.style.overflow = '';
+    if (document._actDetailEscHandler) {
+        document.removeEventListener('keydown', document._actDetailEscHandler);
+        document._actDetailEscHandler = null;
+    }
+}
+
 // ===== LOAD ATHLETE DATA (all data for one athlete) =====
 function loadAthleteData(athlete) {
     var thisLoadId = (_loadId[athlete] || 0) + 1;
@@ -3980,7 +4625,8 @@ function loadAthleteData(athlete) {
         fetchWeekPlan(athlete),
         fetchActivities(athlete),
         fetchGarminData(athlete),
-        fetchAthleteProfile(athlete)
+        fetchAthleteProfile(athlete),
+        fetchActivityDetails(athlete)
     ]).then(function(results) {
         // Abort if a newer load was triggered while we were fetching
         if (_loadId[athlete] !== thisLoadId) return;
@@ -3990,12 +4636,19 @@ function loadAthleteData(athlete) {
         var activities = results[2];
         var garmin = results[3];
         var profile = results[4];
+        var actDetails = results[5];
 
         // Store data
         _coachLogByAthlete[athlete] = coachLog.daily || [];
         _weekPlanByAthlete[athlete] = weekData.current || weekData;
         _activitiesByAthlete[athlete] = activities;
         _athleteDataByAthlete[athlete] = profile;
+        _activityDetailsByAthlete[athlete] = actDetails;
+
+        // Build activity index by ID
+        var idx = {};
+        activities.forEach(function(a) { idx[a.id] = a; });
+        _activityIndexByAthlete[athlete] = idx;
 
         // Render profile + zones FIRST (zones needed for activity matching)
         renderProfile(profile, athlete);

@@ -16,3 +16,6 @@
 
 # Node
 node_modules/
+
+# Activity streams cache (Phase 2 — fetched on-demand via backoffice)
+data/activity-streams/

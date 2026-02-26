@@ -1491,6 +1491,87 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // GET /api/activity-streams — Fetch HR/altitude/cadence streams from Strava (Phase 2)
+    if (req.method === 'GET' && url.pathname === '/api/activity-streams') {
+        setCorsHeaders(res, req);
+        const athlete = validateAthlete(url.searchParams.get('athlete'));
+        const activityId = url.searchParams.get('id');
+        if (!activityId || !/^\d+$/.test(activityId)) {
+            json(res, 400, { error: 'Missing or invalid activity id' });
+            return;
+        }
+
+        // Check cache first
+        const streamsDir = path.join(__dirname, 'data', 'activity-streams');
+        const cacheFile = path.join(streamsDir, activityId + '.json');
+        if (fs.existsSync(cacheFile)) {
+            try {
+                json(res, 200, JSON.parse(fs.readFileSync(cacheFile, 'utf8')));
+                return;
+            } catch { /* fall through to fetch */ }
+        }
+
+        // Fetch from Strava
+        const envPrefix = athlete === 'juliette' ? 'JULIETTE_' : '';
+        const clientId = process.env[envPrefix + 'STRAVA_CLIENT_ID'];
+        const clientSecret = process.env[envPrefix + 'STRAVA_CLIENT_SECRET'];
+        const refreshToken = process.env[envPrefix + 'STRAVA_REFRESH_TOKEN'];
+        if (!clientId || !clientSecret || !refreshToken) {
+            json(res, 500, { error: 'Missing Strava credentials in env' });
+            return;
+        }
+
+        try {
+            // Get access token
+            const https = require('https');
+            const tokenData = await new Promise((resolve, reject) => {
+                const postData = new URLSearchParams({
+                    client_id: clientId, client_secret: clientSecret,
+                    refresh_token: refreshToken, grant_type: 'refresh_token'
+                }).toString();
+                const tokenReq = https.request('https://www.strava.com/oauth/token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(postData) }
+                }, (tokenRes) => {
+                    let body = '';
+                    tokenRes.on('data', c => body += c);
+                    tokenRes.on('end', () => resolve(JSON.parse(body)));
+                });
+                tokenReq.on('error', reject);
+                tokenReq.write(postData);
+                tokenReq.end();
+            });
+
+            const accessToken = tokenData.access_token;
+            if (!accessToken) {
+                json(res, 500, { error: 'Failed to get Strava token' });
+                return;
+            }
+
+            // Fetch streams
+            const streamsData = await new Promise((resolve, reject) => {
+                const streamUrl = `https://www.strava.com/api/v3/activities/${activityId}/streams?keys=heartrate,cadence,altitude,distance,time&key_type=distance`;
+                https.get(streamUrl, { headers: { 'Authorization': 'Bearer ' + accessToken } }, (sRes) => {
+                    let body = '';
+                    sRes.on('data', c => body += c);
+                    sRes.on('end', () => {
+                        if (sRes.statusCode !== 200) { reject(new Error('Strava streams ' + sRes.statusCode)); return; }
+                        resolve(JSON.parse(body));
+                    });
+                }).on('error', reject);
+            });
+
+            // Cache locally
+            fs.mkdirSync(streamsDir, { recursive: true });
+            fs.writeFileSync(cacheFile, JSON.stringify(streamsData, null, 2));
+
+            json(res, 200, streamsData);
+        } catch (e) {
+            json(res, 500, { error: 'Strava streams fetch failed: ' + e.message });
+        }
+        return;
+    }
+
     // POST /api/publish
     if (req.method === 'POST' && url.pathname === '/api/publish') {
         try {
