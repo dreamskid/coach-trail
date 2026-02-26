@@ -1112,6 +1112,21 @@
 <!-- ======================================================================== -->
 <div id="overview" class="tab-content active">
     <div id="overview-kpi" class="grid grid-4" style="margin-bottom: 24px;"></div>
+    <div class="card" id="training-load-card" style="margin-bottom: 16px;">
+        <h2>Charge d'entraînement</h2>
+        <div class="grid grid-2" style="gap: 24px;">
+            <div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Volume (km)</div>
+                <div id="chart-weekly-km" class="mini-chart" style="height: 80px;"></div>
+                <div id="chart-weekly-km-labels" class="mini-chart-labels"></div>
+            </div>
+            <div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Dénivelé (D+)</div>
+                <div id="chart-weekly-elev" class="mini-chart" style="height: 80px;"></div>
+                <div id="chart-weekly-elev-labels" class="mini-chart-labels"></div>
+            </div>
+        </div>
+    </div>
     <div class="grid grid-2-1">
         <div class="card" id="profile-card"></div>
         <div class="card">
@@ -1362,6 +1377,21 @@
 <!-- ======================================================================== -->
 <div id="j-overview" class="tab-content active">
     <div id="j-overview-kpi" class="grid grid-4" style="margin-bottom: 24px;"></div>
+    <div class="card" id="j-training-load-card" style="margin-bottom: 16px;">
+        <h2>Charge d'entraînement</h2>
+        <div class="grid grid-2" style="gap: 24px;">
+            <div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Volume (km)</div>
+                <div id="j-chart-weekly-km" class="mini-chart" style="height: 80px;"></div>
+                <div id="j-chart-weekly-km-labels" class="mini-chart-labels"></div>
+            </div>
+            <div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Dénivelé (D+)</div>
+                <div id="j-chart-weekly-elev" class="mini-chart" style="height: 80px;"></div>
+                <div id="j-chart-weekly-elev-labels" class="mini-chart-labels"></div>
+            </div>
+        </div>
+    </div>
     <div class="grid grid-2-1">
         <div class="card" id="j-profile-card"></div>
         <div class="card">
@@ -1987,6 +2017,7 @@ function renderActivitiesList(activities, athlete) {
 
     // ===== KPI VUE D'ENSEMBLE : Km + D+ semaine =====
     updateWeekKPIs(all, athlete);
+    renderTrainingLoad(all, athlete);
 }
 
 function updateWeekKPIs(activities, athlete) {
@@ -2024,6 +2055,82 @@ function updateWeekKPIs(activities, athlete) {
         elevEl.style.color = weekElev >= 500 ? 'var(--green)' : weekElev >= 200 ? 'var(--yellow)' : 'var(--text-muted)';
     }
     if (elevSub) elevSub.textContent = 'D+ semaine en cours';
+}
+
+function renderTrainingLoad(activities, athlete) {
+    athlete = athlete || 'yohann';
+    var p = ATHLETES[athlete].prefix;
+    var now = new Date();
+
+    // Get Monday of current week
+    var day = now.getDay();
+    var diffToMonday = (day === 0 ? 6 : day - 1);
+    var currentMonday = new Date(now);
+    currentMonday.setDate(now.getDate() - diffToMonday);
+    currentMonday.setHours(0, 0, 0, 0);
+
+    // Build 8 weeks: 7 past completed weeks + current week
+    var weeks = [];
+    for (var w = 7; w >= 0; w--) {
+        var weekMonday = new Date(currentMonday);
+        weekMonday.setDate(currentMonday.getDate() - w * 7);
+        var weekSunday = new Date(weekMonday);
+        weekSunday.setDate(weekMonday.getDate() + 6);
+        weekSunday.setHours(23, 59, 59, 999);
+        weeks.push({
+            monday: weekMonday,
+            sunday: weekSunday,
+            weekNum: getISOWeek(weekMonday),
+            km: 0,
+            elev: 0,
+            count: 0
+        });
+    }
+
+    // Aggregate activities into weeks
+    activities.forEach(function(act) {
+        var d = new Date((act.start_date_local || '').replace('Z', '').replace(' ', 'T'));
+        for (var i = 0; i < weeks.length; i++) {
+            if (d >= weeks[i].monday && d <= weeks[i].sunday) {
+                weeks[i].km += (act.distance || 0) / 1000;
+                weeks[i].elev += act.total_elevation_gain || 0;
+                weeks[i].count++;
+                break;
+            }
+        }
+    });
+
+    // Render km chart
+    var kmValues = weeks.map(function(w) {
+        return {
+            value: Math.round(w.km * 10) / 10,
+            label: 'S' + String(w.weekNum).padStart(2, '0') + ' — ' + Math.round(w.km) + ' km',
+            shortLabel: 'S' + String(w.weekNum).padStart(2, '0')
+        };
+    });
+    function kmColor(v) {
+        if (v >= 50) return 'var(--green)';
+        if (v >= 30) return 'var(--accent)';
+        if (v >= 15) return 'var(--blue)';
+        return 'var(--text-muted)';
+    }
+    renderMiniChart(p + 'chart-weekly-km', p + 'chart-weekly-km-labels', kmValues, kmColor, ' km');
+
+    // Render D+ chart
+    var elevValues = weeks.map(function(w) {
+        return {
+            value: Math.round(w.elev),
+            label: 'S' + String(w.weekNum).padStart(2, '0') + ' — ' + Math.round(w.elev) + ' D+',
+            shortLabel: 'S' + String(w.weekNum).padStart(2, '0')
+        };
+    });
+    function elevColor(v) {
+        if (v >= 1000) return 'var(--red)';
+        if (v >= 500) return 'var(--orange)';
+        if (v >= 200) return 'var(--yellow)';
+        return 'var(--text-muted)';
+    }
+    renderMiniChart(p + 'chart-weekly-elev', p + 'chart-weekly-elev-labels', elevValues, elevColor, ' m');
 }
 
 function matchWeekActivities(activities, athlete) {
@@ -3110,6 +3217,34 @@ function renderGarminWellness(data, athlete) {
                 const ovSub = document.getElementById(p + 'kpi-vo2max-sub');
                 if (ovSub) ovSub.textContent = 'Garmin · ' + sum.last_sync.split(' ')[0];
             }
+            // ===== UPDATE FC REPOS FROM GARMIN =====
+            if (sum.resting_hr) {
+                var profileData = _athleteDataByAthlete[athlete];
+                var staticFcRepos = profileData && profileData.profile ? profileData.profile.fc_repos : null;
+                // Update profile card display
+                var profCard = document.getElementById(p + 'profile-card');
+                if (profCard) {
+                    var rows = profCard.querySelectorAll('.stat-row');
+                    rows.forEach(function(row) {
+                        var lbl = row.querySelector('.label');
+                        if (lbl && lbl.textContent.trim() === 'FC repos') {
+                            var val = row.querySelector('.value');
+                            if (val) val.innerHTML = sum.resting_hr + ' bpm' + (sum.resting_hr !== staticFcRepos ? ' <span style="font-size:11px;color:var(--accent);">Garmin</span>' : '');
+                        }
+                        if (lbl && lbl.textContent.trim() === 'Réserve cardiaque') {
+                            var val = row.querySelector('.value');
+                            var fcMax = profileData && profileData.profile ? profileData.profile.fc_max : 178;
+                            var newRfc = fcMax - sum.resting_hr;
+                            if (val) val.innerHTML = newRfc + ' bpm' + (sum.resting_hr !== staticFcRepos ? ' <span style="font-size:11px;color:var(--accent);">Garmin</span>' : '');
+                        }
+                    });
+                }
+                // Recalculate zones if FC repos changed
+                if (staticFcRepos && sum.resting_hr !== staticFcRepos) {
+                    recalculateZones(athlete, sum.resting_hr);
+                }
+            }
+
             // ===== SOMMEIL DETAIL =====
             const sleepDetail = document.getElementById(p + 'health-sleep-detail');
             const latestSleep = findLatest(days, 'sleep');
@@ -3786,6 +3921,53 @@ function renderProfile(data, athlete) {
             '<div class="stat-label">Poids</div>' +
             '<div style="font-size:12px; color: var(--text-muted); margin-top:4px;">' + prof.height_cm + ' cm · IMC ' + (prof.imc || (prof.weight_kg / ((prof.height_cm/100) * (prof.height_cm/100))).toFixed(1)) + '</div>';
     }
+}
+
+function recalculateZones(athlete, newFcRepos) {
+    var profileData = _athleteDataByAthlete[athlete];
+    if (!profileData || !profileData.profile) return;
+    var prof = profileData.profile;
+    var fcMax = prof.fc_max;
+    var newRfc = fcMax - newFcRepos;
+    // Karvonen percentages for Z1-Z5
+    var pcts = [
+        { label: 'Z1', low: 0.50, high: 0.61 },
+        { label: 'Z2', low: 0.61, high: 0.72 },
+        { label: 'Z3', low: 0.72, high: 0.82 },
+        { label: 'Z4', low: 0.82, high: 0.92 },
+        { label: 'Z5', low: 0.92, high: 1.02 }
+    ];
+    var newZones = pcts.map(function(z) {
+        return {
+            label: z.label,
+            min: Math.round(newFcRepos + z.low * newRfc),
+            max: Math.round(newFcRepos + z.high * newRfc)
+        };
+    });
+    // Update _fcZonesByAthlete for activity matching
+    var az = _fcZonesByAthlete[athlete];
+    if (az && az.length >= 6) {
+        az[0].max = newZones[0].min - 1;
+        az[1].max = newZones[0].max;
+        az[2].max = newZones[1].max;
+        az[3].max = newZones[2].max;
+        az[4].max = newZones[3].max;
+        az[5].max = 999;
+    }
+    // Re-render zones card
+    var p = ATHLETES[athlete].prefix;
+    var el = document.getElementById(p + 'zones-card');
+    if (!el) return;
+    var barHtml = '<div class="zone-bar">';
+    newZones.forEach(function(z, i) {
+        barHtml += '<div class="zone-' + (i+1) + '" style="width:' + (100/newZones.length) + '%;">' + z.label + ' ' + z.min + '-' + z.max + '</div>';
+    });
+    barHtml += '</div>';
+    el.innerHTML =
+        '<h2>Zones de fréquence cardiaque</h2>' +
+        '<p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Méthode Karvonen · FC repos ' + newFcRepos + ' · FC max ' + fcMax + ' · RFC ' + newRfc + ' bpm' +
+        ' <span style="color: var(--accent); font-weight: 600;">· Mis à jour depuis Garmin</span></p>' +
+        barHtml;
 }
 
 function renderZones(data, athlete) {
