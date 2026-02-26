@@ -3083,7 +3083,8 @@ function rhrColor(val) {
     if (!val) return 'var(--text-muted)';
     if (val <= 48) return 'var(--green)';
     if (val <= 55) return 'var(--yellow)';
-    return 'var(--orange)';
+    if (val <= 65) return 'var(--orange)';
+    return 'var(--red)';
 }
 
 function stressColor(val) {
@@ -3094,11 +3095,24 @@ function stressColor(val) {
     return 'var(--red)';
 }
 
+function hrvStatusColor(status) {
+    const map = {
+        'FAVORABLE': 'var(--green)',
+        'BALANCED': 'var(--green)',
+        'UNBALANCED': 'var(--orange)',
+        'UNFAVORABLE': 'var(--orange)',
+        'LOW': 'var(--red)',
+        'POOR': 'var(--red)',
+    };
+    return map[status] || 'var(--text-muted)';
+}
 function hrvStatusBadge(status) {
     if (!status || status === 'UNKNOWN') return '<span class="hrv-status-badge" style="background:#333;color:#999;">INCONNU</span>';
     const map = {
-        'BALANCED': { bg: 'var(--green-dark)', color: 'var(--green)', label: 'EQUILIBRE' },
-        'UNBALANCED': { bg: '#854d0e', color: 'var(--yellow)', label: 'DESEQUILIBRE' },
+        'FAVORABLE': { bg: 'var(--green-dark)', color: 'var(--green)', label: 'FAVORABLE' },
+        'BALANCED': { bg: 'var(--green-dark)', color: 'var(--green)', label: '\u00c9QUILIBR\u00c9' },
+        'UNBALANCED': { bg: '#854d0e', color: 'var(--orange)', label: 'D\u00c9S\u00c9QUILIBR\u00c9' },
+        'UNFAVORABLE': { bg: '#854d0e', color: 'var(--orange)', label: 'D\u00c9FAVORABLE' },
         'LOW': { bg: 'var(--red-dark)', color: '#fca5a5', label: 'BAS' },
         'POOR': { bg: 'var(--red-dark)', color: '#fca5a5', label: 'FAIBLE' },
     };
@@ -3329,13 +3343,14 @@ function renderGarminWellness(data, athlete) {
                 hrvHtml += '<span style="font-size:13px;color:var(--text-muted);">Statut VFC</span>';
                 hrvHtml += hrvStatusBadge(h.status);
                 hrvHtml += '</div>';
-                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Variation entre chaque battement de c\u0153ur, mesur\u00e9e pendant le sommeil. &lt;50 ms = faible, 50\u201370 ms = correct, &gt;70 ms = bon.</div>';
+                var _hrvColor = hrvStatusColor(h.status);
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Variation entre chaque battement de c\u0153ur, mesur\u00e9e pendant le sommeil. La valeur est personnelle \u2014 le statut (<span style="color:' + _hrvColor + ';font-weight:600;">' + (hrvStatusBadge(h.status).replace(/<[^>]+>/g, '').trim() || '--') + '</span>) compare ta VFC \u00e0 ta propre baseline.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#581c87,#a855f7);">';
                 hrvHtml += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>';
                 hrvHtml += '</div>';
-                hrvHtml += '<div><div class="health-metric-value text-purple">' + (h.weekly_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
+                hrvHtml += '<div><div class="health-metric-value" style="color:' + _hrvColor + ';">' + (h.weekly_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
                 hrvHtml += '<div class="health-metric-label">Moyenne hebdo</div></div>';
                 hrvHtml += '</div>';
 
@@ -3343,12 +3358,12 @@ function renderGarminWellness(data, athlete) {
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#4338ca,#818cf8);">';
                 hrvHtml += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a5 5 0 015 5c0 6-5 8-5 13-2-3-5-7-5-13a5 5 0 015-5z"/></svg>';
                 hrvHtml += '</div>';
-                hrvHtml += '<div><div class="health-metric-value" style="color:#818cf8;">' + (h.last_night_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
-                hrvHtml += '<div class="health-metric-label">Derniere nuit</div></div>';
+                hrvHtml += '<div><div class="health-metric-value" style="color:' + _hrvColor + ';">' + (h.last_night_avg || '--') + ' <span style="font-size:12px;font-weight:400;color:var(--text-muted);">ms</span></div>';
+                hrvHtml += '<div class="health-metric-label">Derni\u00e8re nuit</div></div>';
                 hrvHtml += '</div>';
 
                 if (h.baseline_balanced_low && h.baseline_balanced_upper) {
-                    hrvHtml += '<div style="font-size:12px;color:var(--text-muted);margin-top:8px;">Baseline : ' + h.baseline_balanced_low + ' — ' + h.baseline_balanced_upper + ' ms</div>';
+                    hrvHtml += '<div style="font-size:12px;color:var(--text-muted);margin-top:8px;">Baseline : ' + h.baseline_balanced_low + ' \u2014 ' + h.baseline_balanced_upper + ' ms</div>';
                 }
             }
 
@@ -3356,7 +3371,7 @@ function renderGarminWellness(data, athlete) {
                 const st = latestStress.stress;
                 hrvHtml += '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">';
                 hrvHtml += '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;">Stress (' + fmtDateLabel(latestStress.date) + ')</div>';
-                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Niveau de stress calcul\u00e9 \u00e0 partir de la VFC. 0\u201325 = repos, 26\u201350 = bas, 51\u201375 = moyen, 76\u2013100 = \u00e9lev\u00e9.</div>';
+                hrvHtml += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Niveau de stress calcul\u00e9 \u00e0 partir de la VFC. <span style="color:var(--green);">0\u201325 repos</span> · <span style="color:var(--yellow);">26\u201350 bas</span> · <span style="color:var(--orange);">51\u201375 moyen</span> · <span style="color:var(--red);">76\u2013100 \u00e9lev\u00e9</span>.</div>';
 
                 hrvHtml += '<div class="health-metric">';
                 hrvHtml += '<div class="health-metric-icon" style="background:linear-gradient(135deg,#9a3412,#f97316);">';
@@ -3404,7 +3419,7 @@ function renderGarminWellness(data, athlete) {
             // VFC
             renderMiniChart(p + 'chart-hrv', p + 'chart-hrv-labels',
                 days.map(d => ({ value: d.hrv ? d.hrv.last_night_avg : null, label: fmtDateLabel(d.date), shortLabel: fmtDateDay(d.date) })),
-                function(v) { return v >= 50 ? 'var(--green)' : v >= 30 ? 'var(--yellow)' : 'var(--orange)'; }, ' ms'
+                function(v) { return v >= 50 ? 'var(--green)' : v >= 35 ? 'var(--yellow)' : v >= 20 ? 'var(--orange)' : 'var(--red)'; }, ' ms'
             );
 
             // Pas
