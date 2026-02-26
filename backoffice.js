@@ -295,7 +295,7 @@ function buildSystemPrompt(athlete) {
     return `Tu es un coach trail running et cross-training. Francais, tutoiement, direct.
 Tu reponds dans un CHAT MOBILE (telephone) — pas de titres #, pas de tableaux |, pas de ---. Utilise **gras**, listes, et texte court.
 REGLE ABSOLUE : reponses COURTES (10 lignes max sauf plan de semaine). Va droit au but, pas de recaps non demandes, pas de rappels inutiles.
-REGLE CRITIQUE : quand l'athlete demande de MODIFIER quelque chose (plan, blessure, dashboard, semaine), tu DOIS utiliser les outils (write_week_plan, update_athlete_data, etc.) AVANT de repondre. Ne dis JAMAIS "je vais modifier" sans appeler l'outil. Agis d'abord, confirme ensuite.
+REGLE CRITIQUE : quand l'athlete demande de MODIFIER quelque chose (plan, blessure, dashboard, semaine), tu DOIS appeler les outils (write_week_plan, update_athlete_data, etc.). Si tu ne fais pas de tool_use, la modification N'EXISTE PAS — le texte seul ne change rien. Ne dis JAMAIS "c'est fait" ou "modifie" sans avoir appele un outil.
 Hors-sujet trail/sport → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
 
 ${claudeMd}
@@ -334,7 +334,10 @@ Utilise-le AUTOMATIQUEMENT quand l'athlete donne une info qui change un chiffre 
 - Resultat de course, nouvelle course → section "calendar" ou "race_history"
 - Previsions de temps → section "predictions"
 - Facteurs sante (sommeil, nicotine, etc.) → section "health_factors"
-N'oublie pas : modifie AUSSI le fichier markdown de reference (write_reference_file) pour garder la coherence.`;
+N'oublie pas : modifie AUSSI le fichier markdown de reference (write_reference_file) pour garder la coherence.
+
+=== RAPPEL FINAL ===
+TOUTE modification = tool_use OBLIGATOIRE. Le texte seul ne modifie RIEN. Si l'athlete demande de changer le plan, le protocole, le dashboard ou n'importe quelle donnee : appelle l'outil correspondant. Sans tool_use, rien ne change.`;
 }
 
 function getISOWeek(date) {
@@ -1394,7 +1397,19 @@ async function handleChat(athlete, message) {
                 ...toolResults.map(tr => ({ role: 'user', content: [tr] }))
             ];
         } else {
-            // end_turn — extract text
+            // end_turn — check if model claims modification without tool use
+            const textBlocks = response.content.filter(b => b.type === 'text').map(b => b.text).join('');
+            const claimsModification = /(?:fait|modifi|corrig|mis [àa] jour|ecrit|reedite|supprim|ajout|chang|retir|remplac|simplifi|nettoy)/i.test(textBlocks)
+                && /(?:✅|dashboard|rafra[iî]chis|semaine|protocole|plan|blessure)/i.test(textBlocks);
+            if (claimsModification && allModifications.length === 0 && iterations < MAX_ITERATIONS) {
+                console.log('[chat] Model claimed modification without tool_use — forcing retry');
+                currentMessages = [
+                    ...currentMessages,
+                    { role: 'assistant', content: response.content },
+                    { role: 'user', content: [{ type: 'text', text: 'ERREUR SYSTEME : tu as repondu en texte sans appeler d\'outil. Aucune modification n\'a ete faite. Tu DOIS appeler write_week_plan ou update_athlete_data pour que la modification soit reelle. Fais-le maintenant.' }] }
+                ];
+                continue;
+            }
             break;
         }
     }
