@@ -2126,14 +2126,16 @@ function initDayMetrics(athlete) {
 
         var coachEntry = daily.find(function(d) { return d.date === date; });
 
-        // Only show metrics on days with real activities (not rest-only days)
-        var hasActivity = false;
+        // Only show RPE on days with Garmin/Strava activities (not PPG, Protocole, Repos)
+        var hasGarminActivity = false;
         if (coachEntry && coachEntry.checks) {
-            hasActivity = Object.keys(coachEntry.checks).some(function(k) { return k !== 'Repos'; });
+            hasGarminActivity = Object.keys(coachEntry.checks).some(function(k) {
+                var lower = k.toLowerCase();
+                return GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
+            });
         }
-        // Also show if metrics already have saved values (past data)
         var hasMetricData = coachEntry && coachEntry.rpe != null;
-        if (!hasActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
+        if (!hasGarminActivity && !hasMetricData && !Object.keys(savedDirty).length) return;
 
         var isPast = dayEl.classList.contains('day-past');
 
@@ -2380,7 +2382,7 @@ function detectExercises(badgeText, detailsText) {
 }
 
 // Filter out Garmin-tracked activities from checks — they are validated automatically by activity matching
-var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running'];
+var GARMIN_KEYWORDS = ['elliptique', 'course', 'trail', 'natation', 'tapis', 'vélo', 'velo', 'running', 'footing'];
 function filterManualChecks(checks) {
     if (!checks || checks.length === 0) return [];
     return checks.filter(function(c) {
