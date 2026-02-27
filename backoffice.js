@@ -307,6 +307,8 @@ REGLE CRITIQUE — SCOPE DES MODIFICATIONS :
 - AVANT d'ecrire un plan (write_week_plan), lis TOUJOURS le plan existant (read_week_plan) pour le conserver. Si un plan existe, recopie les jours non modifies a l'identique.
 - Si aucun plan n'existe et qu'on te demande d'ajouter UNE seance → cree un plan minimal avec cette seance + Repos les autres jours. N'invente PAS un programme complet.
 - Exemples : "ajoute PPG jeudi" → modifie SEULEMENT jeudi. "mets la meme seance que X" → copie CETTE seance, ne cree pas de VMA, seuil, sortie longue, etc.
+REGLE CRITIQUE — REFERENCES A UN AUTRE ATHLETE :
+- Si l'athlete mentionne le plan/seance d'un autre athlete ("la meme que Yohann", "comme Juliette") → tu DOIS lire le plan de cet athlete avec read_week_plan(athlete="yohann" ou "juliette") AVANT de repondre. Ne devine JAMAIS le contenu d'un plan que tu n'as pas lu.
 Hors-sujet (pas lie au sport/entrainement/sante) → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
 
 ${claudeMd}
@@ -770,11 +772,12 @@ const CHAT_TOOLS = [
     },
     {
         name: 'read_week_plan',
-        description: 'Lire le plan d\'entrainement d\'une semaine (fichier semaines/YYYY-Wxx.md). Par defaut, lit la semaine en cours.',
+        description: 'Lire le plan d\'entrainement d\'une semaine (fichier semaines/YYYY-Wxx.md). Par defaut, lit la semaine en cours de l\'athlete actuel. Utilise le parametre "athlete" pour lire le plan d\'un AUTRE athlete (ex: lire le plan de Yohann depuis le chat de Juliette).',
         input_schema: {
             type: 'object',
             properties: {
-                week: { type: 'string', description: 'Identifiant semaine au format YYYY-Wxx (ex: 2026-W07). Si omis, semaine en cours.' }
+                week: { type: 'string', description: 'Identifiant semaine au format YYYY-Wxx (ex: 2026-W07). Si omis, semaine en cours.' },
+                athlete: { type: 'string', description: 'Athlete dont on veut lire le plan : "yohann" ou "juliette". Si omis, athlete actuel.', enum: ['yohann', 'juliette'] }
             },
             required: []
         }
@@ -987,7 +990,8 @@ function executeTool(toolName, toolInput, athlete) {
                 const now = new Date();
                 week = now.getFullYear() + '-W' + String(getISOWeek(now)).padStart(2, '0');
             }
-            const weekDir = WEEK_DIRS[athlete] || WEEK_DIRS.yohann;
+            const targetAthlete = toolInput.athlete || athlete;
+            const weekDir = WEEK_DIRS[targetAthlete] || WEEK_DIRS[athlete] || WEEK_DIRS.yohann;
             const filePath = path.join(weekDir, week + '.md');
             try {
                 result = fs.readFileSync(filePath, 'utf8');
