@@ -301,6 +301,12 @@ REGLE CRITIQUE — QUAND utiliser les outils :
 REGLE CRITIQUE — QUAND NE PAS utiliser les outils :
 - L'athlete pose une QUESTION (conseil, avis, explication, "c'est quoi", "quel interet", "que penses-tu") → tu REPONDS en texte. Pas de tool_use. Pas de modification du dashboard. Une question = une reponse, point.
 - N'invente pas d'action quand on te pose juste une question. Si l'athlete demande "quel serait l'interet de X ?", reponds a la question, ne modifie rien.
+REGLE CRITIQUE — SCOPE DES MODIFICATIONS :
+- Fais EXACTEMENT ce qui est demande. RIEN de plus, RIEN de moins.
+- Si l'athlete demande de modifier UN jour ou UNE seance → modifie UNIQUEMENT ce jour. Ne touche PAS aux autres jours. Ne rajoute PAS de seances non demandees.
+- AVANT d'ecrire un plan (write_week_plan), lis TOUJOURS le plan existant (read_week_plan) pour le conserver. Si un plan existe, recopie les jours non modifies a l'identique.
+- Si aucun plan n'existe et qu'on te demande d'ajouter UNE seance → cree un plan minimal avec cette seance + Repos les autres jours. N'invente PAS un programme complet.
+- Exemples : "ajoute PPG jeudi" → modifie SEULEMENT jeudi. "mets la meme seance que X" → copie CETTE seance, ne cree pas de VMA, seuil, sortie longue, etc.
 Hors-sujet (pas lie au sport/entrainement/sante) → "Je suis ton coach trail. Pose-moi une question sur ton entrainement."
 
 ${claudeMd}
@@ -776,6 +782,7 @@ const CHAT_TOOLS = [
     {
         name: 'write_week_plan',
         description: 'Ecrire ou reecrire le plan d\'entrainement complet d\'une semaine (fichier semaines/YYYY-Wxx.md).\n'
+            + 'IMPORTANT : TOUJOURS appeler read_week_plan AVANT pour recuperer le plan existant. Si un plan existe, recopier les jours non modifies a l\'identique. Ne jamais ecraser un plan existant sans l\'avoir lu.\n'
             + 'FORMAT TITRES JOURS : "### Lundi 2 mars — [Titre activite]"\n'
             + 'Le titre est compose de : REPOS, ou une ACTIVITE GARMIN (Course a pied, Footing, Trail, Natation, Elliptique, Velo, Tapis) et/ou un COMPLEMENT MANUEL separe par " + " (PPG, Protocole, Stanish, Gainage, Musculation, Renfo).\n'
             + 'Exemples valides : "Footing 30min Z2", "PPG Haut du corps + Gainage", "Natation + Protocole", "Course a pied 25min", "Repos".\n'
