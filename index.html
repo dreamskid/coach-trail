@@ -2165,7 +2165,7 @@ function matchWeekActivities(activities, athlete) {
             return;
         }
 
-        // Count planned items from badge text (title) — source of truth for what's expected
+        // Count planned items: Garmin activities from badge + manual checks from actual chips
         var badge = el.querySelector('.day-header .badge');
         var badgeText = badge ? badge.textContent : '';
         var titleParts = badgeText.split(/\s*\+\s*/).map(function(s) { return s.trim(); }).filter(Boolean);
@@ -2173,26 +2173,22 @@ function matchWeekActivities(activities, athlete) {
         var dayExpected = 0, dayDone = 0;
         var hasGarminExpected = false;
 
+        // 1) Garmin activities: count from badge title parts
         titleParts.forEach(function(part) {
             var lower = part.toLowerCase();
             var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
-            var isRest = /^(repos|off)\b/i.test(part);
-            if (isRest) return; // OFF/repos entries don't count as expected items
             if (isGarmin) {
                 hasGarminExpected = true;
                 dayExpected++;
                 if (dayActs.length > 0) dayDone++;
-            } else {
-                dayExpected++;
-                // Check if corresponding chip is checked in DOM
-                var chips = el.querySelectorAll('.day-check');
-                var found = false;
-                chips.forEach(function(chip) {
-                    var label = chip.textContent.replace(/^[\u2713\u25CB]\s*/, '').trim();
-                    if (label === part && chip.classList.contains('checked')) found = true;
-                });
-                if (found) dayDone++;
             }
+        });
+
+        // 2) Manual checks: count from actual chips (already normalized by extractChecks)
+        var chips = el.querySelectorAll('.day-check');
+        chips.forEach(function(chip) {
+            dayExpected++;
+            if (chip.classList.contains('checked')) dayDone++;
         });
 
         // Rest day with nothing planned counts as 1/1
@@ -2262,23 +2258,31 @@ function matchWeekActivities(activities, athlete) {
     // Regularity widget
     var p = ATHLETES[athlete].prefix;
     var regEl = document.getElementById(p + 'week-regularity');
-    if (regEl && weekExpected > 0) {
+    if (regEl && (weekExpected > 0 || globalExpected > 0)) {
         regEl.style.display = 'block';
-        var pct = Math.round(weekDone / weekExpected * 100);
-        var color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--orange)';
-        var badgeCls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-orange';
-        var regBadge = document.getElementById(p + 'week-regularity-badge');
-        if (regBadge) { regBadge.className = 'badge ' + badgeCls; regBadge.textContent = pct + '%'; }
-        var regBar = document.getElementById(p + 'week-regularity-bar');
-        if (regBar) { regBar.style.width = pct + '%'; regBar.style.background = color; }
-        var regDetail = document.getElementById(p + 'week-regularity-detail');
-        if (regDetail) regDetail.textContent = 'Semaine : ' + weekDone + '/' + weekExpected + ' exercices';
-        // Global regularity (across all available weeks)
-        var regGlobal = document.getElementById(p + 'week-regularity-global');
-        if (regGlobal && globalExpected > 0) {
+        // Week section (current week)
+        if (weekExpected > 0) {
+            var wPct = Math.round(weekDone / weekExpected * 100);
+            var wColor = wPct >= 80 ? 'var(--green)' : wPct >= 60 ? 'var(--yellow)' : 'var(--orange)';
+            var wBadgeCls = wPct >= 80 ? 'badge-green' : wPct >= 60 ? 'badge-yellow' : 'badge-orange';
+            var wBadge = document.getElementById(p + 'week-regularity-badge');
+            if (wBadge) { wBadge.className = 'badge ' + wBadgeCls; wBadge.style.fontSize = '11px'; wBadge.textContent = weekDone + '/' + weekExpected + ' (' + wPct + '%)'; }
+            var wBar = document.getElementById(p + 'week-regularity-bar');
+            if (wBar) { wBar.style.width = wPct + '%'; wBar.style.background = wColor; }
+            var wDetail = document.getElementById(p + 'week-regularity-detail');
+            if (wDetail) wDetail.textContent = weekDone + ' exercice' + (weekDone > 1 ? 's' : '') + ' r\u00e9alis\u00e9' + (weekDone > 1 ? 's' : '') + ' sur ' + weekExpected + ' pr\u00e9vus cette semaine';
+        }
+        // Global section (all loaded weeks)
+        if (globalExpected > 0) {
             var gPct = Math.round(globalDone / globalExpected * 100);
             var gColor = gPct >= 80 ? 'var(--green)' : gPct >= 60 ? 'var(--yellow)' : 'var(--orange)';
-            regGlobal.innerHTML = 'Global : <strong style="color:' + gColor + ';">' + globalDone + '/' + globalExpected + '</strong> exercices (' + gPct + '%)';
+            var gBadgeCls = gPct >= 80 ? 'badge-green' : gPct >= 60 ? 'badge-yellow' : 'badge-orange';
+            var gBadge = document.getElementById(p + 'week-regularity-global-badge');
+            if (gBadge) { gBadge.className = 'badge ' + gBadgeCls; gBadge.style.fontSize = '11px'; gBadge.textContent = globalDone + '/' + globalExpected + ' (' + gPct + '%)'; }
+            var gBar = document.getElementById(p + 'week-regularity-global-bar');
+            if (gBar) { gBar.style.width = gPct + '%'; gBar.style.background = gColor; }
+            var gDetail = document.getElementById(p + 'week-regularity-global');
+            if (gDetail) gDetail.textContent = globalDone + ' exercice' + (globalDone > 1 ? 's' : '') + ' r\u00e9alis\u00e9' + (globalDone > 1 ? 's' : '') + ' sur ' + globalExpected + ' (semaine pr\u00e9c\u00e9dente + courante)';
         }
     }
 }
@@ -2678,13 +2682,25 @@ function renderWeekPlan(plan, athlete) {
 
     // Regularity widget (before day tiles)
     html += '<div id="' + p + 'week-regularity" style="margin-top: 12px; margin-bottom: 16px; padding: 14px; background: var(--bg-card-alt); border-radius: 8px; display: none;">';
-    html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">';
-    html += '<span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">R\u00e9gularit\u00e9</span>';
-    html += '<span id="' + p + 'week-regularity-badge" class="badge badge-yellow">--</span>';
+    html += '<div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">R\u00e9gularit\u00e9</div>';
+    // Week section (first)
+    html += '<div style="margin-bottom: 10px;">';
+    html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">';
+    html += '<span style="font-size: 12px; color: var(--text-muted);">Semaine en cours</span>';
+    html += '<span id="' + p + 'week-regularity-badge" class="badge badge-yellow" style="font-size: 11px;">--</span>';
     html += '</div>';
-    html += '<div class="progress-bar" style="height: 10px;"><div class="fill" id="' + p + 'week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>';
-    html += '<div id="' + p + 'week-regularity-detail" style="font-size: 12px; color: var(--text-muted); margin-top: 6px;"></div>';
-    html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);"></div>';
+    html += '<div class="progress-bar" style="height: 8px;"><div class="fill" id="' + p + 'week-regularity-bar" style="width: 0%; background: var(--yellow);"></div></div>';
+    html += '<div id="' + p + 'week-regularity-detail" style="font-size: 11px; color: var(--text-muted); margin-top: 3px;"></div>';
+    html += '</div>';
+    // Global section (second)
+    html += '<div style="padding-top: 8px; border-top: 1px solid var(--border);">';
+    html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">';
+    html += '<span style="font-size: 12px; color: var(--text-muted);">Global</span>';
+    html += '<span id="' + p + 'week-regularity-global-badge" class="badge badge-yellow" style="font-size: 11px;">--</span>';
+    html += '</div>';
+    html += '<div class="progress-bar" style="height: 8px;"><div class="fill" id="' + p + 'week-regularity-global-bar" style="width: 0%; background: var(--yellow);"></div></div>';
+    html += '<div id="' + p + 'week-regularity-global" style="font-size: 11px; color: var(--text-muted); margin-top: 3px;"></div>';
+    html += '</div>';
     html += '</div>';
 
     // Today container (inside the card, after regularity)
@@ -5300,6 +5316,8 @@ _loadedAthletes[currentAthlete] = true;
             if (block.indexOf('<ul>') >= 0) return block; // Already wrapped as UL
             return '<ol>' + block + '</ol>';
         });
+        // Strip newlines inside lists (prevent them becoming <br> between items)
+        s = s.replace(/<\/li>\n/g, '</li>');
         // Paragraphs
         s = s.replace(/\n\n/g, '</p><p>');
         s = s.replace(/\n/g, '<br>');
