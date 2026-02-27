@@ -1,56 +1,18 @@
 {
   "summary": {
-    "last_sync": "2026-02-26 20:53",
+    "last_sync": "2026-02-27 06:28",
     "vo2max": 45.7,
     "resting_hr": 46,
     "resting_hr_avg": 47,
-    "sleep_avg_seconds": 25940,
+    "sleep_avg_seconds": 26028,
     "sleep_score": 92,
     "body_battery_current": 95,
     "hrv_status": "BALANCED",
     "hrv_weekly_avg": 50,
-    "stress_avg": 30,
-    "steps_today": 11289
+    "stress_avg": 31,
+    "steps_today": null
   },
   "days": [
-    {
-      "date": "2026-02-13",
-      "steps": 9460,
-      "calories": 2657.0,
-      "active_minutes": 134,
-      "resting_hr": 44,
-      "vo2max": 45.7,
-      "sleep": {
-        "duration_seconds": 24885,
-        "deep_seconds": 2400,
-        "light_seconds": 15300,
-        "rem_seconds": 7200,
-        "awake_seconds": 0,
-        "score": 79
-      },
-      "body_battery": {
-        "highest": 88,
-        "lowest": 32,
-        "charged": 66,
-        "drained": 63
-      },
-      "hrv": {
-        "weekly_avg": 50,
-        "last_night_avg": 54,
-        "last_night_5_min_high": 77,
-        "baseline_low": 0,
-        "baseline_balanced_low": 0,
-        "baseline_balanced_upper": 0,
-        "status": "NONE"
-      },
-      "stress": {
-        "avg": 18,
-        "rest_stress_duration": 0,
-        "low_stress_duration": 0,
-        "medium_stress_duration": 0,
-        "high_stress_duration": 0
-      }
-    },
     {
       "date": "2026-02-14",
       "steps": 5831,
@@ -530,6 +492,29 @@
       },
       "stress": {
         "avg": 33,
+        "rest_stress_duration": 0,
+        "low_stress_duration": 0,
+        "medium_stress_duration": 0,
+        "high_stress_duration": 0
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "steps": null,
+      "calories": null,
+      "active_minutes": 0,
+      "resting_hr": null,
+      "vo2max": 45.7,
+      "sleep": {
+        "duration_seconds": null,
+        "deep_seconds": null,
+        "light_seconds": null,
+        "rem_seconds": null,
+        "awake_seconds": null,
+        "score": 0
+      },
+      "stress": {
+        "avg": 0,
         "rest_stress_duration": 0,
         "low_stress_duration": 0,
         "medium_stress_duration": 0,
