@@ -2173,7 +2173,7 @@ function matchWeekActivities(activities, athlete) {
         var dayExpected = 0, dayDone = 0;
         var hasGarminExpected = false;
 
-        // 1) Garmin activities: count from badge title parts
+        // 1) Garmin activities: count from badge title parts (for day validation only, NOT regularity)
         titleParts.forEach(function(part) {
             var lower = part.toLowerCase();
             var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
@@ -2201,7 +2201,7 @@ function matchWeekActivities(activities, athlete) {
         globalExpected += dayExpected;
         globalDone += dayDone;
 
-        // Day fully validated?
+        // Day fully validated? (considers both Garmin + manual checks)
         var dayFullyDone = dayExpected > 0 && dayDone === dayExpected;
 
         // Deduplicate activities (same session from Strava + Garmin)
@@ -2270,7 +2270,7 @@ function matchWeekActivities(activities, athlete) {
             var wBar = document.getElementById(p + 'week-regularity-bar');
             if (wBar) { wBar.style.width = wPct + '%'; wBar.style.background = wColor; }
             var wDetail = document.getElementById(p + 'week-regularity-detail');
-            if (wDetail) wDetail.textContent = weekDone + ' exercice' + (weekDone > 1 ? 's' : '') + ' r\u00e9alis\u00e9' + (weekDone > 1 ? 's' : '') + ' sur ' + weekExpected + ' pr\u00e9vus cette semaine';
+            if (wDetail) wDetail.textContent = weekDone + ' exercice et activit\u00e9 r\u00e9alis\u00e9' + (weekDone > 1 ? 's' : '') + ' sur ' + weekExpected + ' pr\u00e9vu' + (weekExpected > 1 ? 's' : '') + ' cette semaine';
         }
         // Global section (all loaded weeks)
         if (globalExpected > 0) {
@@ -2282,7 +2282,7 @@ function matchWeekActivities(activities, athlete) {
             var gBar = document.getElementById(p + 'week-regularity-global-bar');
             if (gBar) { gBar.style.width = gPct + '%'; gBar.style.background = gColor; }
             var gDetail = document.getElementById(p + 'week-regularity-global');
-            if (gDetail) gDetail.textContent = globalDone + ' exercice' + (globalDone > 1 ? 's' : '') + ' r\u00e9alis\u00e9' + (globalDone > 1 ? 's' : '') + ' sur ' + globalExpected + ' (semaine pr\u00e9c\u00e9dente + courante)';
+            if (gDetail) gDetail.textContent = globalDone + ' exercice et activit\u00e9 r\u00e9alis\u00e9' + (globalDone > 1 ? 's' : '') + ' sur ' + globalExpected + ' (semaine pr\u00e9c\u00e9dente + courante)';
         }
     }
 }
