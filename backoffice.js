@@ -1524,9 +1524,15 @@ async function handleChat(athlete, message) {
     return {
         response: textResponse,
         modifications: allModifications,
-        pending_writes: pendingWrites.length > 0 ? pendingWrites : undefined,
+        pending_writes: pendingWrites.length > 0 ? deduplicatePendingWrites(pendingWrites) : undefined,
         usage: response.usage ? { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens } : null
     };
+}
+
+function deduplicatePendingWrites(writes) {
+    const byKey = {};
+    writes.forEach(w => { byKey[w.athlete + '|' + w.week] = w; });
+    return Object.values(byKey);
 }
 
 // ===== CORS HELPER =====
