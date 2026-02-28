@@ -2188,12 +2188,13 @@ function matchWeekActivities(activities, athlete) {
 
         // Rest day: nothing to count (no activity, no check)
 
-        // Accumulate: weekly (current week only) + global (all weeks)
+        // Accumulate: weekly (current week only) + global (past weeks + current week, NOT future weeks)
         var dayDate = new Date(date + 'T00:00:00');
-        var isCurrentWeek = getISOWeek(dayDate) === currentWeekNum;
+        var dayWeekNum = getISOWeek(dayDate);
+        var isCurrentWeek = dayWeekNum === currentWeekNum;
+        var isFutureWeek = dayWeekNum > currentWeekNum;
         if (isCurrentWeek) { weekExpected += dayExpected; weekDone += dayDone; }
-        globalExpected += dayExpected;
-        globalDone += dayDone;
+        if (!isFutureWeek) { globalExpected += dayExpected; globalDone += dayDone; }
 
         if (isFuture) {
             matchEl.innerHTML = '<div class="day-match-future">A venir</div>';
@@ -2281,7 +2282,7 @@ function matchWeekActivities(activities, athlete) {
             var gBar = document.getElementById(p + 'week-regularity-global-bar');
             if (gBar) { gBar.style.width = gPct + '%'; gBar.style.background = gColor; }
             var gDetail = document.getElementById(p + 'week-regularity-global');
-            if (gDetail) gDetail.textContent = globalDone + ' exercice et activit\u00e9 r\u00e9alis\u00e9' + (globalDone > 1 ? 's' : '') + ' sur ' + globalExpected + ' (semaine pr\u00e9c\u00e9dente + courante)';
+            if (gDetail) gDetail.textContent = globalDone + ' exercice et activit\u00e9 r\u00e9alis\u00e9' + (globalDone > 1 ? 's' : '') + ' sur ' + globalExpected + ' (toutes semaines pass\u00e9es + courante)';
         }
     }
 }
