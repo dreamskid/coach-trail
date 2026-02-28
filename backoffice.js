@@ -304,8 +304,11 @@ REGLE CRITIQUE — QUAND utiliser les outils :
 - L'athlete demande EXPLICITEMENT de MODIFIER quelque chose (plan, blessure, dashboard, semaine) → tu DOIS appeler les outils. Sans tool_use, la modification N'EXISTE PAS.
 - Ne dis JAMAIS "c'est fait" ou "modifie" sans avoir appele un outil.
 REGLE CRITIQUE — QUAND NE PAS utiliser les outils :
-- L'athlete pose une QUESTION (conseil, avis, explication, "c'est quoi", "quel interet", "que penses-tu") → tu REPONDS en texte. Pas de tool_use. Pas de modification du dashboard. Une question = une reponse, point.
+- L'athlete pose une QUESTION (conseil, avis, explication, "c'est quoi", "quel interet", "que penses-tu", "c'est quoi demain", "qu'est-ce que j'ai", "montre-moi") → tu REPONDS en texte. Pas de tool_use d'ecriture. Pas de modification du dashboard ni du plan.
+- Tu peux LIRE (read_week_plan, read_reference_file) pour repondre a une question, mais tu ne dois JAMAIS enchainer avec un write_week_plan ou update_athlete_data apres une simple question.
 - N'invente pas d'action quand on te pose juste une question. Si l'athlete demande "quel serait l'interet de X ?", reponds a la question, ne modifie rien.
+- "C'est quoi le programme de demain ?" = QUESTION. Lis le plan, reponds en texte. Ne reecris PAS le plan.
+- "Qu'est-ce que j'ai cette semaine ?" = QUESTION. Lis le plan, reponds en texte. Ne reecris PAS le plan.
 REGLE CRITIQUE — SCOPE DES MODIFICATIONS :
 - Fais EXACTEMENT ce qui est demande. RIEN de plus, RIEN de moins.
 - Si l'athlete demande de modifier UN jour ou UNE seance → modifie UNIQUEMENT ce jour. Ne touche PAS aux autres jours. Ne rajoute PAS de seances non demandees.
@@ -1008,12 +1011,8 @@ function executeTool(toolName, toolInput, athlete) {
         case 'write_week_plan': {
             const week = toolInput.week;
             const content = toolInput.content;
-            const weekDir = WEEK_DIRS[athlete] || WEEK_DIRS.yohann;
-            fs.mkdirSync(weekDir, { recursive: true });
-            const filePath = path.join(weekDir, week + '.md');
-            fs.writeFileSync(filePath, content, 'utf8');
-            modifications.push({ type: 'week_plan', week });
-            result = 'Plan semaine ' + week + ' ecrit.';
+            // Don't write yet — store as pending, needs user confirmation
+            result = '__PENDING_WRITE__' + JSON.stringify({ week, content, athlete });
             break;
         }
         case 'read_activities': {
@@ -1401,6 +1400,7 @@ async function handleChat(athlete, message) {
     }
 
     const allModifications = [];
+    const pendingWrites = [];
 
     let response;
     let iterations = 0;
@@ -1466,8 +1466,14 @@ async function handleChat(athlete, message) {
                     }
                     try {
                         const { result, modifications } = executeTool(block.name, block.input, athlete);
-                        allModifications.push(...modifications);
-                        toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: result });
+                        if (typeof result === 'string' && result.startsWith('__PENDING_WRITE__')) {
+                            const pending = JSON.parse(result.slice('__PENDING_WRITE__'.length));
+                            pendingWrites.push(pending);
+                            toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: 'Plan semaine ' + pending.week + ' pret. En attente de confirmation.' });
+                        } else {
+                            allModifications.push(...modifications);
+                            toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: result });
+                        }
                     } catch (toolErr) {
                         console.error('[tool-error]', block.name, toolErr.message);
                         toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: 'ERREUR: ' + toolErr.message });
@@ -1518,6 +1524,7 @@ async function handleChat(athlete, message) {
     return {
         response: textResponse,
         modifications: allModifications,
+        pending_writes: pendingWrites.length > 0 ? pendingWrites : undefined,
         usage: response.usage ? { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens } : null
     };
 }
@@ -1848,6 +1855,30 @@ const server = http.createServer(async (req, res) => {
             }
             const result = await handleChat(athlete, message.trim());
             json(res, 200, result);
+        } catch (e) {
+            json(res, 500, { error: e.message });
+        }
+        return;
+    }
+
+    // POST /api/confirm-write — Confirm a pending week plan write
+    if (req.method === 'POST' && url.pathname === '/api/confirm-write') {
+        setCorsHeaders(res, req);
+        try {
+            const payload = await parseBody(req);
+            const athlete = validateAthlete(payload.athlete);
+            const week = payload.week;
+            const content = payload.content;
+            if (!week || !content) {
+                json(res, 400, { error: 'week and content required' });
+                return;
+            }
+            const weekDir = WEEK_DIRS[athlete] || WEEK_DIRS.yohann;
+            fs.mkdirSync(weekDir, { recursive: true });
+            const filePath = path.join(weekDir, week + '.md');
+            fs.writeFileSync(filePath, content, 'utf8');
+            console.log('[confirm-write] Plan ' + week + ' written for ' + athlete);
+            json(res, 200, { ok: true, modifications: [{ type: 'week_plan', week }] });
         } catch (e) {
             json(res, 500, { error: e.message });
         }

@@ -5217,8 +5217,12 @@ _loadedAthletes[currentAthlete] = true;
                 msgDiv = appendMsg(el.messages, 'assistant', data.response, new Date().toISOString(), true);
                 if (data.modifications && data.modifications.length > 0) {
                     addModNotice(el.messages, data.modifications);
-                    // Refresh only affected dashboard sections
                     refreshAfterModification(athlete, data.modifications);
+                }
+                if (data.pending_writes && data.pending_writes.length > 0) {
+                    data.pending_writes.forEach(function(pw) {
+                        addWriteConfirmation(el.messages, pw, athlete);
+                    });
                 }
             }
             scrollToMsg(msgDiv);
@@ -5276,6 +5280,40 @@ _loadedAthletes[currentAthlete] = true;
         div.className = 'chat-notification';
         div.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Mis \u00e0 jour : ' + labels.join(', ');
         container.appendChild(div);
+    }
+
+    function addWriteConfirmation(container, pw, athlete) {
+        var div = document.createElement('div');
+        div.className = 'chat-notification';
+        div.style.background = 'var(--bg-card-alt)';
+        div.style.border = '1px solid var(--yellow)';
+        div.style.padding = '12px';
+        div.innerHTML = '<div style="margin-bottom: 8px; font-weight: 600;">Le coach veut modifier le plan ' + escHtml(pw.week) + '</div>' +
+            '<div style="display: flex; gap: 8px;">' +
+            '<button class="confirm-write-btn" style="padding: 6px 16px; border-radius: 6px; border: none; background: var(--green); color: #fff; font-weight: 600; cursor: pointer;">Confirmer</button>' +
+            '<button class="cancel-write-btn" style="padding: 6px 16px; border-radius: 6px; border: none; background: var(--bg-card); color: var(--text-muted); cursor: pointer;">Annuler</button>' +
+            '</div>';
+        container.appendChild(div);
+        scrollBot(container);
+
+        div.querySelector('.confirm-write-btn').addEventListener('click', function() {
+            fetch(API_BASE + '/api/confirm-write', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': '1' },
+                body: JSON.stringify({ athlete: pw.athlete || athlete, week: pw.week, content: pw.content })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                div.style.border = '1px solid var(--green)';
+                div.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"><path d="M20 6L9 17l-5-5"/></svg>Plan ' + escHtml(pw.week) + ' confirm\u00e9';
+                if (data.modifications) refreshAfterModification(athlete, data.modifications);
+            });
+        });
+
+        div.querySelector('.cancel-write-btn').addEventListener('click', function() {
+            div.style.border = '1px solid var(--text-muted)';
+            div.innerHTML = '<span style="color: var(--text-muted);">Modification du plan ' + escHtml(pw.week) + ' annul\u00e9e</span>';
+        });
     }
 
     function scrollBot(el) { setTimeout(function() { el.scrollTop = el.scrollHeight; }, 50); }
