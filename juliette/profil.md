@@ -34,13 +34,11 @@
 
 ## Points a travailler
 
-- Technique de descente (point faible identifie, aggrave par le menisque)
+- Technique de descente (point faible identifie)
 - Gestion de l'effort sur ultra (tendance a partir trop vite)
 - Puissance en montee
 - Recuperation
-- Gestion du genou (menisque)
 
 ## Fragilites connues
 
-- **Genou droit** : fissure meniscale (IRM confirmee), douleur recurrente
-- Historique : tendon d'Achille (resolu), entorse cheville (resolu)
+- Historique : tendon d'Achille (resolu), entorse cheville (resolu), genou droit / fissure meniscale (resolu fev 2026)
