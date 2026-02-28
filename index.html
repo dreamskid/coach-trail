@@ -2160,11 +2160,6 @@ function matchWeekActivities(activities, athlete) {
         const detailEl = el.querySelector('.day-details');
         const isRestDay = detailEl ? detailEl.textContent.toLowerCase().includes('repos complet') : false;
 
-        if (isFuture) {
-            matchEl.innerHTML = '<div class="day-match-future">A venir</div>';
-            return;
-        }
-
         // Count planned items: Garmin activities from badge + manual checks from actual chips
         var badge = el.querySelector('.day-header .badge');
         var badgeText = badge ? badge.textContent : '';
@@ -2173,14 +2168,14 @@ function matchWeekActivities(activities, athlete) {
         var dayExpected = 0, dayDone = 0;
         var hasGarminExpected = false;
 
-        // 1) Garmin activities: count from badge title parts (for day validation only, NOT regularity)
+        // 1) Garmin activities: count from badge title parts
         titleParts.forEach(function(part) {
             var lower = part.toLowerCase();
             var isGarmin = GARMIN_KEYWORDS.some(function(kw) { return lower.indexOf(kw) >= 0; });
             if (isGarmin) {
                 hasGarminExpected = true;
                 dayExpected++;
-                if (dayActs.length > 0) dayDone++;
+                if (!isFuture && dayActs.length > 0) dayDone++;
             }
         });
 
@@ -2188,11 +2183,11 @@ function matchWeekActivities(activities, athlete) {
         var chips = el.querySelectorAll('.day-check');
         chips.forEach(function(chip) {
             dayExpected++;
-            if (chip.classList.contains('checked')) dayDone++;
+            if (!isFuture && chip.classList.contains('checked')) dayDone++;
         });
 
         // Rest day with nothing planned counts as 1/1
-        if (isRestDay && dayExpected === 0) { dayExpected = 1; dayDone = 1; }
+        if (isRestDay && dayExpected === 0) { dayExpected = 1; if (!isFuture) dayDone = 1; }
 
         // Accumulate: weekly (current week only) + global (all weeks)
         var dayDate = new Date(date + 'T00:00:00');
@@ -2200,6 +2195,11 @@ function matchWeekActivities(activities, athlete) {
         if (isCurrentWeek) { weekExpected += dayExpected; weekDone += dayDone; }
         globalExpected += dayExpected;
         globalDone += dayDone;
+
+        if (isFuture) {
+            matchEl.innerHTML = '<div class="day-match-future">A venir</div>';
+            return;
+        }
 
         // Day fully validated? (considers both Garmin + manual checks)
         var dayFullyDone = dayExpected > 0 && dayDone === dayExpected;
