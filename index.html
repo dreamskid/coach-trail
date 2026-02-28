@@ -2186,8 +2186,7 @@ function matchWeekActivities(activities, athlete) {
             if (!isFuture && chip.classList.contains('checked')) dayDone++;
         });
 
-        // Rest day with nothing planned counts as 1/1
-        if (isRestDay && dayExpected === 0) { dayExpected = 1; if (!isFuture) dayDone = 1; }
+        // Rest day: nothing to count (no activity, no check)
 
         // Accumulate: weekly (current week only) + global (all weeks)
         var dayDate = new Date(date + 'T00:00:00');
