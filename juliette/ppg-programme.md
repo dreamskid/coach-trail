@@ -2,7 +2,18 @@
 
 **Objectif** : Renforcement musculaire general pour le Grand to Grand Ultra (275 km, sept 2026)
 **Frequence** : 5 sessions / semaine (~20-25 min chacune)
-**Niveau** : Debutant (2 series, repos genereux)
+**Niveau** : Debutant PPG (2 series, repos genereux) — le niveau est celui du renfo, pas de l'athlete
+
+### Pourquoi ces exercices ?
+
+Chaque session cible des besoins specifiques au G2G (275 km, 6 etapes, canyon/desert) :
+
+- **Moyen fessier** (clamshell, elevation laterale hanche, equilibre unipodal) → stabilite du bassin sur terrain inegal, previent les douleurs de hanche en multi-etapes
+- **Core anti-rotation** (Paloff press, dead bug, bird dog) → maintien du tronc avec sac charge pendant 6 jours consecutifs
+- **Dos & epaules** (rowing, tirage elastique, superman, rotations epaule) → endurance du haut du corps pour le portage sac a dos lourd
+- **Unilateral** (pont fessier unilateral, fentes, step-ups) → le trail c'est courir sur une jambe a la fois, le renfo doit le refleter
+- **Mollets** → puissance montee/descente canyon, prevention tendinopathies
+
 ---
 
 ## Echauffement (avant chaque session — 3 min)
@@ -110,6 +121,7 @@ Le programme est concu pour evoluer progressivement. Rester au niveau actuel pen
 - Passer aux **pompes classiques** (plus sur genoux)
 - Ajouter **poids sur pont fessier** (haltere sur les hanches)
 - Ajouter **elastique sur clamshell** (si pas deja utilise)
+- Ajouter **travail excentrique** : squat bulgare, descente de marche lente (3-4s) → prepare les descentes de canyon du G2G
 
 ### Niveau 4 — A partir de la semaine 13 (approche course)
 - 3 series
