@@ -1,5 +1,22 @@
 [
   {
+    "id": 17564481572,
+    "name": "Morning Trail Run",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-03-01T09:15:34Z",
+    "distance": 36097.2,
+    "moving_time": 16325,
+    "elapsed_time": 16560,
+    "total_elevation_gain": 841.0,
+    "average_speed": 2.211,
+    "max_speed": 3.48,
+    "average_heartrate": 137.4,
+    "max_heartrate": 162.0,
+    "suffer_score": 261.0,
+    "kudos_count": 4
+  },
+  {
     "id": 17551852193,
     "name": "Atacama Desert Long Progressive Run",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 5
-  },
-  {
-    "id": 16994385011,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-09T22:28:06Z",
-    "distance": 16793.6,
-    "moving_time": 5102,
-    "elapsed_time": 5102,
-    "total_elevation_gain": 0,
-    "average_speed": 3.292,
-    "max_speed": 5.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 7
   }
 ]
