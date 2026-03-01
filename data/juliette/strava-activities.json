@@ -1,5 +1,22 @@
 [
   {
+    "id": 17551852193,
+    "name": "Atacama Desert Long Progressive Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-02-28T11:29:28Z",
+    "distance": 20090.8,
+    "moving_time": 6679,
+    "elapsed_time": 6679,
+    "total_elevation_gain": 0,
+    "average_speed": 3.008,
+    "max_speed": 4.0,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 6
+  },
+  {
     "id": 17530262890,
     "name": "Manual Workout",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 6
+    "kudos_count": 7
   },
   {
     "id": 17505450064,
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 7
-  },
-  {
-    "id": 16949923964,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-05T21:35:39Z",
-    "distance": 20003.8,
-    "moving_time": 6116,
-    "elapsed_time": 6116,
-    "total_elevation_gain": 0,
-    "average_speed": 3.271,
-    "max_speed": 4.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 8
   }
 ]
