@@ -1,5 +1,21 @@
 [
   {
+    "id": 22063780405,
+    "name": "Course à pied sur tapis roulant",
+    "type": "treadmill_running",
+    "start_date_local": "2026-03-04 21:17:23",
+    "distance": 7500.0,
+    "moving_time": 2889,
+    "elapsed_time": 2956,
+    "total_elevation_gain": 0,
+    "average_speed": 2.537,
+    "average_heartrate": 127.0,
+    "max_heartrate": 156.0,
+    "calories": 325.0,
+    "steps": 8012,
+    "source": "garmin"
+  },
+  {
     "id": 22048470717,
     "name": "Course à pied sur tapis roulant",
     "type": "treadmill_running",
@@ -461,22 +477,6 @@
     "max_heartrate": 174.0,
     "calories": 892.0,
     "steps": 17390,
-    "source": "garmin"
-  },
-  {
-    "id": 21499113848,
-    "name": "Course à pied sur tapis roulant",
-    "type": "treadmill_running",
-    "start_date_local": "2026-01-10 10:20:34",
-    "distance": 3240.0,
-    "moving_time": 942,
-    "elapsed_time": 963,
-    "total_elevation_gain": 0,
-    "average_speed": 3.364,
-    "average_heartrate": 128.0,
-    "max_heartrate": 151.0,
-    "calories": 126.0,
-    "steps": 2914,
     "source": "garmin"
   }
 ]
