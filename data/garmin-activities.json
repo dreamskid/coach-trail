@@ -1,5 +1,21 @@
 [
   {
+    "id": 22068349901,
+    "name": "Anse Course à pied",
+    "type": "running",
+    "start_date_local": "2026-03-05 11:07:56",
+    "distance": 5351.8,
+    "moving_time": 2016,
+    "elapsed_time": 2022,
+    "total_elevation_gain": 29.7,
+    "average_speed": 2.645,
+    "average_heartrate": 130.0,
+    "max_heartrate": 170.0,
+    "calories": 401.0,
+    "steps": 5398,
+    "source": "garmin"
+  },
+  {
     "id": 22026318184,
     "name": "Anse Course à pied",
     "type": "running",
