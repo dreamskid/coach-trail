@@ -1,5 +1,21 @@
 [
   {
+    "id": 22103481834,
+    "name": "Chasselay Trail",
+    "type": "trail_running",
+    "start_date_local": "2026-03-08 09:02:03",
+    "distance": 41719.0,
+    "moving_time": 18372,
+    "elapsed_time": 18598,
+    "total_elevation_gain": 2006.5,
+    "average_speed": 2.243,
+    "average_heartrate": 158.0,
+    "max_heartrate": 179.0,
+    "calories": 2714.0,
+    "steps": 46974,
+    "source": "garmin"
+  },
+  {
     "id": 22069363789,
     "name": "Anse Course à pied",
     "type": "running",
@@ -461,22 +477,6 @@
     "max_heartrate": 167.0,
     "calories": 442.0,
     "steps": 5998,
-    "source": "garmin"
-  },
-  {
-    "id": 21532876621,
-    "name": "Course à pied sur tapis roulant",
-    "type": "treadmill_running",
-    "start_date_local": "2026-01-13 11:56:15",
-    "distance": 15000.0,
-    "moving_time": 5780,
-    "elapsed_time": 7876,
-    "total_elevation_gain": 2000.0,
-    "average_speed": 1.904,
-    "average_heartrate": 147.0,
-    "max_heartrate": 185.0,
-    "calories": 1001.0,
-    "steps": 18276,
     "source": "garmin"
   }
 ]

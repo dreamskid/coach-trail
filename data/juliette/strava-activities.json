@@ -1,5 +1,22 @@
 [
   {
+    "id": 17648369692,
+    "name": "Trail des Cabornis 8f 1er de cat",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-03-08T09:02:03Z",
+    "distance": 41719.0,
+    "moving_time": 18401,
+    "elapsed_time": 18598,
+    "total_elevation_gain": 2006.0,
+    "average_speed": 2.267,
+    "max_speed": 4.76,
+    "average_heartrate": 157.7,
+    "max_heartrate": 179.0,
+    "suffer_score": 792.0,
+    "kudos_count": 14
+  },
+  {
     "id": 17612261117,
     "name": "Lunch Run",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": 113.2,
     "max_heartrate": 153.0,
     "suffer_score": 9.0,
-    "kudos_count": 3
+    "kudos_count": 4
   },
   {
     "id": 17606020896,
@@ -31,7 +48,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 4
+    "kudos_count": 5
   },
   {
     "id": 17605986610,
@@ -48,7 +65,7 @@
     "average_heartrate": 126.7,
     "max_heartrate": 156.0,
     "suffer_score": 28.0,
-    "kudos_count": 4
+    "kudos_count": 5
   },
   {
     "id": 17587843644,
@@ -491,22 +508,5 @@
     "max_heartrate": 159.0,
     "suffer_score": 43.0,
     "kudos_count": 8
-  },
-  {
-    "id": 17067056214,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-16T08:32:56Z",
-    "distance": 15004.1,
-    "moving_time": 4381,
-    "elapsed_time": 4381,
-    "total_elevation_gain": 0,
-    "average_speed": 3.425,
-    "max_speed": 5.0,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 4
   }
 ]
