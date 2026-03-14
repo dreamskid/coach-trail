@@ -1,10 +1,10 @@
 {
   "summary": {
-    "last_sync": "2026-03-13 07:05",
+    "last_sync": "2026-03-14 06:59",
     "vo2max": 52.1,
     "resting_hr": 49,
     "resting_hr_avg": 48,
-    "sleep_avg_seconds": 25960,
+    "sleep_avg_seconds": 26119,
     "sleep_score": 84,
     "body_battery_current": 92,
     "hrv_status": "BALANCED",
@@ -13,44 +13,6 @@
     "steps_today": null
   },
   "days": [
-    {
-      "date": "2026-02-28",
-      "steps": 24540,
-      "calories": 2639.0,
-      "active_minutes": 59,
-      "resting_hr": 46,
-      "vo2max": 52.1,
-      "sleep": {
-        "duration_seconds": 24060,
-        "deep_seconds": 4500,
-        "light_seconds": 15420,
-        "rem_seconds": 4140,
-        "awake_seconds": 0,
-        "score": 80
-      },
-      "body_battery": {
-        "highest": 97,
-        "lowest": 21,
-        "charged": 64,
-        "drained": 80
-      },
-      "hrv": {
-        "weekly_avg": 70,
-        "last_night_avg": 68,
-        "last_night_5_min_high": 93,
-        "baseline_low": 0,
-        "baseline_balanced_low": 0,
-        "baseline_balanced_upper": 0,
-        "status": "BALANCED"
-      },
-      "stress": {
-        "avg": 25,
-        "rest_stress_duration": 0,
-        "low_stress_duration": 0,
-        "medium_stress_duration": 0,
-        "high_stress_duration": 0
-      }
-    },
     {
       "date": "2026-03-01",
       "steps": 45718,
@@ -509,6 +471,29 @@
     },
     {
       "date": "2026-03-13",
+      "steps": null,
+      "calories": null,
+      "active_minutes": 0,
+      "resting_hr": null,
+      "vo2max": 52.1,
+      "sleep": {
+        "duration_seconds": null,
+        "deep_seconds": null,
+        "light_seconds": null,
+        "rem_seconds": null,
+        "awake_seconds": null,
+        "score": 0
+      },
+      "stress": {
+        "avg": 0,
+        "rest_stress_duration": 0,
+        "low_stress_duration": 0,
+        "medium_stress_duration": 0,
+        "high_stress_duration": 0
+      }
+    },
+    {
+      "date": "2026-03-14",
       "steps": null,
       "calories": null,
       "active_minutes": 0,
