@@ -1,5 +1,21 @@
 [
   {
+    "id": 22178014212,
+    "name": "Anse Trail",
+    "type": "trail_running",
+    "start_date_local": "2026-03-15 09:13:16",
+    "distance": 7993.1,
+    "moving_time": 2799,
+    "elapsed_time": 2801,
+    "total_elevation_gain": 193.9,
+    "average_speed": 2.853,
+    "average_heartrate": 150.0,
+    "max_heartrate": 172.0,
+    "calories": 625.0,
+    "steps": 7710,
+    "source": "garmin"
+  },
+  {
     "id": 22158737537,
     "name": "Champagne-au-Mont-d'Or Trail",
     "type": "trail_running",

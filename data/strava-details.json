@@ -4721,5 +4721,183 @@
         "moving_time": 2066
       }
     ]
+  },
+  "17727362837": {
+    "id": 17727362837,
+    "polyline": "whjwGcdw[xCPLBJHJV@\\Gp@g@tA[XEREnBJh@Pd@DZATOdAAZPlAIRKDODy@Uy@G]?iBb@}@CMNCRBFd@l@lAbAf@TrA\\VRXb@r@nBP`@^d@\\V\\b@V^DPBTKpBCrAEb@e@x@w@bA]^W\\}@dCcA~BSj@On@Qb@QPi@Vm@f@a@d@m@dAK@UIq@c@UMKAu@?_@KmAcA_B}@e@OKCk@?[Bo@ZKJEHGPIrAUnBe@dGe@`Da@xAUb@]lAWtAIr@Cf@@~AGvHAb@E\\PlCCdBMzBUxACX?p@a@hDE~@It@@HHPh@`@r@Rf@V`@^~@d@j@LdAPh@Fb@LZDX?NBNJVFtAVTR\\L~APf@JpBx@f@FV?`@Fl@@RFnBVZCjAPl@@`ANpBd@dCXz@Nf@BlBRxAPx@F|AVfAJtARVAf@M^QFENWd@]j@WNCr@YBCJs@N_@XiCJi@B]n@kENq@?QVoBCWm@mAuBaF]m@Qm@OMU@MDEVEb@D\\B`BElAKh@U^SH]?uB]]KKIMMO]Ga@@_ARmCB_BG}@Sg@W_@k@s@O]_@iAi@{CYaAk@uAo@sA{@oAY[w@o@_A_@g@Oy@Oq@UaAMyBI_@Bg@HW?QMI]@_@HOFEJEz@I`AQlAe@`Ac@n@i@dD_Er@aATk@Ha@\\kBJULKRCRJFNLz@HNRFL?DAJIJWRgAFeG?{@F{At@oGT_BA[Ie@m@eBiA_DSe@Ye@w@uBUcAg@}AO]c@{AwAyDo@uA[iAs@yASm@GYO[o@uBYu@I]Um@Wc@",
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 441,
+        "distance": 1001.8,
+        "elevation_difference": 51.2,
+        "average_heartrate": 127.70975056689342,
+        "average_speed": 2.27,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 475,
+        "distance": 998.9,
+        "elevation_difference": 72.4,
+        "average_heartrate": 154.3684210526316,
+        "average_speed": 2.1,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 390,
+        "distance": 999.7,
+        "elevation_difference": 37.0,
+        "average_heartrate": 151.43846153846152,
+        "average_speed": 2.56,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 364,
+        "distance": 1001.4,
+        "elevation_difference": 11.4,
+        "average_heartrate": 149.42032967032966,
+        "average_speed": 2.75,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 322,
+        "distance": 999.3,
+        "elevation_difference": -24.4,
+        "average_heartrate": 156.7888198757764,
+        "average_speed": 3.1,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 281,
+        "distance": 1002.0,
+        "elevation_difference": -48.8,
+        "average_heartrate": 152.59074733096085,
+        "average_speed": 3.57,
+        "pace_zone": 4
+      },
+      {
+        "km": 7,
+        "moving_time": 263,
+        "distance": 999.0,
+        "elevation_difference": -56.8,
+        "average_heartrate": 155.91634980988593,
+        "average_speed": 3.8,
+        "pace_zone": 5
+      },
+      {
+        "km": 8,
+        "moving_time": 265,
+        "distance": 991.0,
+        "elevation_difference": -41.4,
+        "average_heartrate": 160.0,
+        "average_speed": 3.74,
+        "pace_zone": 5
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 441,
+        "average_heartrate": 127.7,
+        "average_speed": 2.27,
+        "total_elevation_gain": 53.8
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 475,
+        "average_heartrate": 154.4,
+        "average_speed": 2.11,
+        "total_elevation_gain": 83.0
+      },
+      {
+        "name": "Lap 3",
+        "distance": 1000.0,
+        "moving_time": 390,
+        "average_heartrate": 151.5,
+        "average_speed": 2.56,
+        "total_elevation_gain": 40.4
+      },
+      {
+        "name": "Lap 4",
+        "distance": 1000.0,
+        "moving_time": 363,
+        "average_heartrate": 149.4,
+        "average_speed": 2.75,
+        "total_elevation_gain": 11.6
+      },
+      {
+        "name": "Lap 5",
+        "distance": 1000.0,
+        "moving_time": 322,
+        "average_heartrate": 156.8,
+        "average_speed": 3.11,
+        "total_elevation_gain": 12.6
+      },
+      {
+        "name": "Lap 6",
+        "distance": 1000.0,
+        "moving_time": 280,
+        "average_heartrate": 152.6,
+        "average_speed": 3.57,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 7",
+        "distance": 1000.0,
+        "moving_time": 263,
+        "average_heartrate": 155.9,
+        "average_speed": 3.8,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 8",
+        "distance": 993.1,
+        "moving_time": 265,
+        "average_heartrate": 160.0,
+        "average_speed": 3.75,
+        "total_elevation_gain": 0.0
+      }
+    ],
+    "calories": 625.0,
+    "average_cadence": 82.4,
+    "best_efforts": [
+      {
+        "name": "400m",
+        "distance": 400,
+        "moving_time": 104
+      },
+      {
+        "name": "1/2 mile",
+        "distance": 805,
+        "moving_time": 210
+      },
+      {
+        "name": "1K",
+        "distance": 1000,
+        "moving_time": 261
+      },
+      {
+        "name": "1 mile",
+        "distance": 1609,
+        "moving_time": 425
+      },
+      {
+        "name": "2 mile",
+        "distance": 3219,
+        "moving_time": 872
+      },
+      {
+        "name": "5K",
+        "distance": 5000,
+        "moving_time": 1498
+      }
+    ]
   }
 }
