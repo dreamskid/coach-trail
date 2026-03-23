@@ -8367,5 +8367,40 @@
         "moving_time": 13201
       }
     ]
+  },
+  "17827464699": {
+    "id": 17827464699,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 429,
+        "distance": 1001.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.33,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 291,
+        "distance": 685.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.35,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1686.1,
+        "moving_time": 720,
+        "average_heartrate": null,
+        "average_speed": 2.34,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 99.0,
+    "description": "Workout created from log"
   }
 }

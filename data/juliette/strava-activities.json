@@ -1,5 +1,22 @@
 [
   {
+    "id": 17827464699,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-03-23T14:01:28Z",
+    "distance": 1686.1,
+    "moving_time": 720,
+    "elapsed_time": 720,
+    "total_elevation_gain": 0,
+    "average_speed": 2.342,
+    "max_speed": 2.78,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 0
+  },
+  {
     "id": 17648369692,
     "name": "Trail des Cabornis 8f 1er de cat",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 6
-  },
-  {
-    "id": 17083643361,
-    "name": "Morning Walk",
-    "type": "Walk",
-    "sport_type": "Walk",
-    "start_date_local": "2026-01-17T10:04:58Z",
-    "distance": 18103.8,
-    "moving_time": 14888,
-    "elapsed_time": 25271,
-    "total_elevation_gain": 750.0,
-    "average_speed": 1.216,
-    "max_speed": 2.82,
-    "average_heartrate": 98.0,
-    "max_heartrate": 159.0,
-    "suffer_score": 43.0,
-    "kudos_count": 8
   }
 ]

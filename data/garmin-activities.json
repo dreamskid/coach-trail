@@ -1,5 +1,37 @@
 [
   {
+    "id": 22270281114,
+    "name": "Champagne-au-Mont-d'Or - Test Rabbit",
+    "type": "running",
+    "start_date_local": "2026-03-23 12:18:22",
+    "distance": 5264.3,
+    "moving_time": 2001,
+    "elapsed_time": 2029,
+    "total_elevation_gain": 23.2,
+    "average_speed": 2.594,
+    "average_heartrate": 139.0,
+    "max_heartrate": 179.0,
+    "calories": 410.0,
+    "steps": 5118,
+    "source": "garmin"
+  },
+  {
+    "id": 22225020286,
+    "name": "Champagne-au-Mont-d'Or Trail",
+    "type": "trail_running",
+    "start_date_local": "2026-03-19 11:51:42",
+    "distance": 6574.5,
+    "moving_time": 2575,
+    "elapsed_time": 2638,
+    "total_elevation_gain": 170.5,
+    "average_speed": 2.492,
+    "average_heartrate": 158.0,
+    "max_heartrate": 177.0,
+    "calories": 604.0,
+    "steps": 6764,
+    "source": "garmin"
+  },
+  {
     "id": 22178014212,
     "name": "Anse Trail",
     "type": "trail_running",
