@@ -206,36 +206,36 @@
     "protocol_phase": null,
     "evaluation": {
       "current": {
-        "date": "2026-02-07",
-        "trigger": "Bilan initial",
+        "date": "2026-02-26",
+        "trigger": "Analyse complète profil - 26 février 2026",
         "scores": {
-          "progression": 9,
-          "mental": 7,
-          "gestion_effort": 7,
+          "progression": 6,
+          "mental": 8,
+          "gestion_effort": 5,
           "socle_aerobie": 6,
-          "endurance_ultra": 6,
-          "technique_descente": 5,
-          "regularite": 5,
-          "puissance_montee": 4,
-          "resistance_musculaire": 4,
+          "endurance_ultra": 7,
+          "technique_descente": 6,
+          "regularite": 4,
+          "puissance_montee": 6,
+          "resistance_musculaire": 5,
           "recuperation": 4
         },
         "reasons": {
-          "progression": "UTMB 305 à 451 en 18 mois",
-          "mental": "Bon mental, frustration liée aux blessures récurrentes",
-          "gestion_effort": "Bonne allure en EF, tendance à partir vite en course",
-          "socle_aerobie": "Volume 60-100km/sem mais base cassée par blessures",
-          "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
-          "technique_descente": "Point faible, ratio D+/km OCC exige du travail spécifique",
-          "regularite": "Blessures à répétition cassent la continuité",
-          "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
-          "resistance_musculaire": "Soléaire fragile bilatéral, 4 épisodes en 2 ans",
-          "recuperation": "Reprises trop rapides, récup insuffisante entre charges"
+          "progression": "Feu vert médical 26 fév, poids -2kg (83kg), mais 3 semaines perdues sur rechute → retard MMT",
+          "mental": "Résilience exceptionnelle (4 épisodes soléaire, toujours revenu). Lucidité sur limites. Discipline en hausse",
+          "gestion_effort": "Maratrail 2025 = erreur majeure (55km sur déchirure). Astragale = gestion intelligente. Régularité à prouver",
+          "socle_aerobie": "FC repos 46 bpm excellent, VO2max 45 correct, mais 3 semaines arrêt → socle fragilisé",
+          "endurance_ultra": "Astragale 66km terminé sans blessure. 27 courses, 4 Running Stones. Manque volume long régulier 8+ semaines",
+          "technique_descente": "Bâtons maîtrisés en montée. Descente à travailler (excentrique, placement). Pas de données précises",
+          "regularite": "POINT NOIR : 4 épisodes soléaire en 2 ans. Rechute fév = rupture entraînement. Hygiène de vie instable",
+          "puissance_montee": "Power hiking efficace, bâtons fluides. Manque données chiffrées (VAM, W/kg). Travail Z3-Z4 à développer",
+          "resistance_musculaire": "Cicatrice 3mm = fragilité permanente. Collagénopathie probable. PPG intermittent. Manque renfo jambes régulier",
+          "recuperation": "CRITIQUE : sommeil 7h08 insuffisant. Nicotine active. Alimentation déficitaire (saute repas). Terrain vasculaire altéré"
         },
         "global_comment": {
-          "forces": "Courbe de progression exceptionnelle (UTMB 305 à 451, +48% en 18 mois — top 5% de progression sur la plateforme UTMB). Capacité aérobique et mental solides pour le niveau visé.",
-          "axes": "Le trio puissance montée / résistance musculaire / récupération (4/10) est le frein principal. La fragilité soléaire chronique (4 épisodes) empêche la continuité d'entraînement nécessaire à la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
-          "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploité à cause des blessures : la marge vers 500+ est réaliste à 12-18 mois si le soléaire tient."
+          "positionnement": "Athlète confirmé (27 courses, UTMB Index 446-451, 4 Running Stones) avec potentiel ultra solide, mais fragilisé par terrain médical complexe (collagénopathie probable, insuffisance veineuse, déficits électrolytes) et hygiène de vie instable. Statut : En reconstruction (feu vert 26 fév, reprise validée). Fenêtre MMT critique : décision GO/DNS le 15 mars (J-17).",
+          "forces": "Mental de guerrier (4 rechutes, toujours revenu). Capacité ultra prouvée (Astragale 66km déc. 2025). FC repos 46 bpm = cardio excellent. Discipline technique en hausse (cadence 170+ validée, échauffement systématique). Poids -2kg en 5 jours (83kg) = discipline alimentaire en amélioration.",
+          "axes": "1) RÉGULARITÉ entraînement (4 épisodes soléaire = ruptures répétées, impossible de construire base solide) - Outil : gestion cicatrice 3mm rigoureuse (échauffement, cadence 170+, Stanish, hydratation 2L+, sommeil 7h30+). 2) RÉCUPÉRATION & hygiène (nicotine + sommeil 7h08 + alimentation déficitaire = récupération compromise, non-négociable à 44 ans avec collagénopathie) - Outil : sevrage nicotine, sommeil 7h30+, dîner systématique 30-40g protéines. 3) RENFORCEMENT jambes (PPG intermittent, résistance insuffisante pour 3500 D+ OCC) - Outil : 2×PPG membres inférieurs/semaine. 4) VOLUME long & D+ progressif (socle fragilisé, 3 sem arrêt) - Outil : reprise 30min→3h, D+ par power hiking Z2. 5) DESCENTE technique & excentrique (OCC = descentes Chamonix, pas de données précises)."
         }
       },
       "history": [
@@ -265,6 +265,72 @@
             "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
             "resistance_musculaire": "Soléaire fragile bilatéral, 4 épisodes en 2 ans",
             "recuperation": "Reprises trop rapides, récup insuffisante entre charges"
+          }
+        },
+        {
+          "date": "2026-02-07",
+          "trigger": "Bilan initial",
+          "scores": {
+            "progression": 9,
+            "mental": 7,
+            "gestion_effort": 7,
+            "socle_aerobie": 6,
+            "endurance_ultra": 6,
+            "technique_descente": 5,
+            "regularite": 5,
+            "puissance_montee": 4,
+            "resistance_musculaire": 4,
+            "recuperation": 4
+          },
+          "reasons": {
+            "progression": "UTMB 305 à 451 en 18 mois",
+            "mental": "Bon mental, frustration liée aux blessures récurrentes",
+            "gestion_effort": "Bonne allure en EF, tendance à partir vite en course",
+            "socle_aerobie": "Volume 60-100km/sem mais base cassée par blessures",
+            "endurance_ultra": "Bon sur 50-65km, OCC 57km/3500D+ sera un cran au-dessus",
+            "technique_descente": "Point faible, ratio D+/km OCC exige du travail spécifique",
+            "regularite": "Blessures à répétition cassent la continuité",
+            "puissance_montee": "Ratio D+/km OCC (61) = double de ses courses habituelles",
+            "resistance_musculaire": "Soléaire fragile bilatéral, 4 épisodes en 2 ans",
+            "recuperation": "Reprises trop rapides, récup insuffisante entre charges"
+          },
+          "global_comment": {
+            "forces": "Courbe de progression exceptionnelle (UTMB 305 à 451, +48% en 18 mois — top 5% de progression sur la plateforme UTMB). Capacité aérobique et mental solides pour le niveau visé.",
+            "axes": "Le trio puissance montée / résistance musculaire / récupération (4/10) est le frein principal. La fragilité soléaire chronique (4 épisodes) empêche la continuité d'entraînement nécessaire à la construction du D+. Ratio D+/km de l'OCC (61 m/km) = quasi double de ses courses habituelles (34 m/km).",
+            "positionnement": "UTMB Index 451 = top 25% des finishers 50K. VO2max 45 ml/kg/min = percentile 75-80 pour un homme de 44 ans (norme ACSM). Potentiel sous-exploité à cause des blessures : la marge vers 500+ est réaliste à 12-18 mois si le soléaire tient."
+          }
+        },
+        {
+          "date": "2026-02-26",
+          "trigger": "Analyse complète 26 février 2026",
+          "scores": {
+            "progression": 9,
+            "mental": 7,
+            "gestion_effort": 7,
+            "socle_aerobie": 6,
+            "endurance_ultra": 6,
+            "technique_descente": 5,
+            "regularite": 5,
+            "puissance_montee": 4,
+            "resistance_musculaire": 4,
+            "recuperation": 4
+          },
+          "reasons": {
+            "progression": "UTMB 305→451 en 18 mois (+48%) = top 5% progression UTMB. Spectaculaire.",
+            "mental": "Solide malgré 4 épisodes soléaire. Frustration mais persévérance.",
+            "gestion_effort": "Bonne allure EF, tendance partir vite en course. Gestion ravito à travailler (OCC).",
+            "socle_aerobie": "VO2max 45.7 (percentile 75-80), FC repos 46. Base cassée par blessures récurrentes.",
+            "endurance_ultra": "Bon sur 50-65km (Saint-Jacques 451, Astragale 66km). OCC 57km/3500D+ = +1 cran.",
+            "technique_descente": "Point faible. Ratio D+/km OCC (61) exige travail spécifique descente.",
+            "regularite": "4 épisodes soléaire en 2 ans cassent la continuité. Reprise validée 26 fév.",
+            "puissance_montee": "OCC ratio D+/km 61 = double courses habituelles (34). Gap majeur à combler.",
+            "resistance_musculaire": "Soléaire fragile bilatéral, cicatrice 3mm permanente. Collagénopathie probable.",
+            "recuperation": "Reprises trop rapides historiquement. Actuel : HRV 50, BB 95, sommeil 92/100 = excellent."
+          },
+          "global_comment": {
+            "forces": "Progression exceptionnelle (UTMB 305→451, +48% en 18 mois = top 5% UTMB). Cardio de qualité (VO2max 45.7 = percentile 75-80 homme 44 ans, FC repos 46 = top 5% pop). Récup actuelle excellente (HRV 50 balanced, BB 95/100, sommeil 8h score 92/100). Mental solide. Feu vert médecin 26 fév : aucune blessure active, reprise lancée.",
+            "axes": "Trio puissance montée / résistance musculaire / récupération (4/10) = frein principal. Cicatrice soléaire 3mm permanente + collagénopathie probable = fragilité constitutionnelle. Nicotine ACTIVE (cigarette électronique) = vasoconstriction + dégradation collagène + fragilisation cicatrice. Déficit protéique chronique (saute dîner/p'tit-déj). Gap OCC : ratio D+/km 61 = double habituel (34). Poids 83kg (-2kg en 5j, trop rapide).",
+            "positionnement": "UTMB Index 451 = top 25% finishers 50K. VO2max 45.7 = percentile 75-80 (ACSM, homme 44 ans). Potentiel sous-exploité : marge vers 500+ réaliste à 12-18 mois SI soléaire tient + nicotine stoppée + alimentation corrigée. Build MMT (26 avril) : décision GO/DNS le 15 mars. OCC (27 août) : jouable si continuité sur 6 mois."
           }
         }
       ]

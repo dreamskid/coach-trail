@@ -88,6 +88,49 @@
       "verdict": "Footing recup 45min, Z1 (118-131 bpm). Si genou OK apres la longue de samedi. Sinon repos complet. Ecouter le corps.",
       "phase": "build1",
       "checks": {}
+    },
+    {
+      "date": "2026-02-28",
+      "rpe": 5
+    },
+    {
+      "date": "2026-03-01"
+    },
+    {
+      "date": "2026-03-02",
+      "checks": {
+        "PPG": false
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "checks": {
+        "PPG": false
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "checks": {
+        "PPG": false
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "checks": {
+        "PPG": false
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "checks": {
+        "PPG": false
+      }
+    },
+    {
+      "date": "2026-03-07"
+    },
+    {
+      "date": "2026-03-08"
     }
   ],
   "longterm": {

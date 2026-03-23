@@ -663,38 +663,38 @@
   "health_factors": [
     {
       "name": "Sommeil",
-      "current": "7h08 / nuit (14j)",
+      "current": "7h08/nuit",
       "color": "yellow",
-      "impact": "En progrès (+1h vs bilan initial). Nuits courtes (<6h30) encore fréquentes hors montagne.",
-      "target": "7h30 min"
+      "impact": "Récupération tendineuse compromise",
+      "target": "7h30+ minimum"
     },
     {
-      "name": "Nicotine",
-      "current": "Rechute ~21 fév",
+      "name": "Nicotine (cigarette électronique)",
+      "current": "Actif",
       "color": "red",
-      "impact": "+3-5% cardio à récupérer, vasoconstriction = cicatrisation ralentie",
-      "target": "0 mg permanent"
-    },
-    {
-      "name": "Alimentation",
-      "current": "1-2 repas / jour",
-      "color": "red",
-      "impact": "Déficit protéique chronique, besoin 2800-3500 kcal/j pour 85 kg à 6-7 séances/sem",
-      "target": "Dîner syst. (30-40g prot) + petit-déj jours séance"
+      "impact": "Vasoconstriction + dégradation collagène + fragilisation cicatrice",
+      "target": "Sevrage total"
     },
     {
       "name": "Hydratation",
-      "current": "Électrolytes + 2L/j en cours",
-      "color": "yellow",
-      "impact": "PRIORITAIRE — crampes orteils chroniques (persistent post-opération varices). Déshydratation aggrave la fragilité soléaire.",
-      "target": "2L+ / jour"
+      "current": "2L+/jour avec électrolytes",
+      "color": "green",
+      "impact": "Élasticité tissulaire optimale",
+      "target": "Maintenir"
     },
     {
-      "name": "Magnésium",
-      "current": "Bisglycinate 300-400mg/j (soir)",
+      "name": "Alimentation",
+      "current": "1-2 repas/jour",
+      "color": "orange",
+      "impact": "Déficit protéique chronique → récupération compromise",
+      "target": "Dîner systématique (30-40g protéines)"
+    },
+    {
+      "name": "Supplémentation",
+      "current": "Collagène 10-15g + Mg 300-400mg",
       "color": "green",
-      "impact": "Crampes orteils chroniques (pré- et post-opération varices) = déficit probable. Aide récupération musculaire et qualité du sommeil.",
-      "target": "300-400 mg/j (bisglycinate)"
+      "impact": "Soutien cicatrisation + prévention crampes",
+      "target": "Maintenir à vie"
     }
   ],
   "health_note": "Pour le soléaire : sommeil + protéines + hydratation + magnésium = les piliers de la cicatrisation tendineuse. Crampes orteils chroniques (motif de l'opération des varices) persistent → déficit magnésium à traiter.",
