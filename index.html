@@ -1022,8 +1022,8 @@
             color: var(--text); padding: 20px 24px 10px;
         }
         /* Elevation chart */
-        .detail-elevation { padding: 0 24px 8px; }
-        .detail-elevation canvas { width: 100%; height: 150px; display: block; border-radius: 8px; }
+        .detail-elevation { padding: 0 24px 8px; box-sizing: border-box; overflow: hidden; }
+        .detail-elevation canvas { width: 100%; max-width: 100%; height: 150px; display: block; border-radius: 8px; }
         /* Splits — Strava style with pace bars */
         .detail-splits { padding: 0 24px 20px; }
         .detail-splits table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
@@ -3646,8 +3646,28 @@ function pollSyncWorkflow() {
                 }
                 setTimeout(() => {
                     btn.classList.remove('syncing');
-                    label.textContent = 'Sync';
-                    updateSyncStatus();
+                    btn.classList.remove('stale');
+                    label.textContent = 'OK';
+                    // GitHub Pages met ~1-2min à déployer, retry updateSyncStatus
+                    let retries = 0;
+                    const recheck = () => {
+                        fetch('data/garmin-wellness.json?t=' + Date.now())
+                            .then(r => r.ok ? r.json() : null)
+                            .then(data => {
+                                if (!data || !data.summary || !data.summary.last_sync) return;
+                                const diffH = (new Date() - new Date(data.summary.last_sync.replace(' ', 'T'))) / 36e5;
+                                if (diffH < SYNC_STALE_HOURS) {
+                                    updateSyncStatus();
+                                } else if (++retries < 6) {
+                                    setTimeout(recheck, 30000);
+                                } else {
+                                    label.textContent = 'Sync';
+                                    updateSyncStatus();
+                                }
+                            })
+                            .catch(() => {});
+                    };
+                    setTimeout(recheck, 30000);
                 }, 2000);
             }
         })
