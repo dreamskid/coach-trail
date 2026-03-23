@@ -19,17 +19,18 @@ Calculées avec la **méthode Karvonen** (% de la réserve cardiaque).
 
 ## Repères d'allure
 
-> **VMA inconnue** — à déterminer par un test terrain (voir `tests/`).
-> Estimation basée sur VO2max 45 : **VMA ≈ 15.0 km/h** (à confirmer).
-> Une fois la VMA testée, ce tableau sera complété avec les allures de référence.
+- **VMA** : 14.0 km/h *(Test Rabbit, 23 mars 2026 — 3 min à 4:17/km)*
+- **Allure VMA** : 4:17/km
+- **Allure seuil** : 4:56/km *(confirmé sur 5 min, FC 155)*
+- **Allure max** : 2:11/km — 27.4 km/h *(Test Rabbit, sprint 30s meilleure pointe)*
 
-| Allure | Description | Zone FC associée |
-|---|---|---|
-| Récupération | Footing très lent, conversation facile | Z1 (112-125) |
-| Endurance fondamentale | Allure confortable, phrases complètes | Z2 (125-138) |
-| Tempo trail | Allure marathon trail, phrases courtes | Z3 (138-151) |
-| Seuil | Effort soutenu, quelques mots seulement | Z4 (151-165) |
-| VMA / Côtes | Effort maximal, pas de conversation | Z5 (165-178) |
+| Allure | % VMA | Vitesse | Allure/km | Zone FC |
+|---|---|---|---|---|
+| Récupération | 55-60% | 7.7-8.4 km/h | 7:08-7:48/km | Z1 (112-125) |
+| Endurance fondamentale | 60-70% | 8.4-9.8 km/h | 6:07-7:08/km | Z2 (125-138) |
+| Tempo trail | 70-80% | 9.8-11.2 km/h | 5:21-6:07/km | Z3 (138-151) |
+| Seuil | 80-90% | 11.2-12.6 km/h | 4:46-5:21/km | Z4 (151-165) |
+| VMA | 95-105% | 13.3-14.7 km/h | 4:05-4:31/km | Z5 (165-178) |
 
 ## Notes
 
@@ -44,3 +45,4 @@ Calculées avec la **méthode Karvonen** (% de la réserve cardiaque).
 |---|---|---|---|---|---|
 | 07/02/2026 | 46 bpm | 178 bpm | 45 ml/kg/min | Garmin Connect | Données de référence initiales |
 | 09/02/2026 | 46 bpm | 181 bpm | 45 ml/kg/min | Garmin Connect (analyse approfondie) | FC max corrigée à 181, puis re-corrigée à 178 |
+| 23/03/2026 | — | 179 bpm | — | Test Rabbit (terrain) | VMA mesurée : 14.0 km/h (3' à 4:17/km). FC max 179 observée post-sprint |
