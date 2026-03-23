@@ -1,5 +1,22 @@
 [
   {
+    "id": 17826564400,
+    "name": "Course à pied le midi",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-03-23T12:18:22Z",
+    "distance": 5264.3,
+    "moving_time": 1993,
+    "elapsed_time": 2029,
+    "total_elevation_gain": 23.0,
+    "average_speed": 2.641,
+    "max_speed": 7.6,
+    "average_heartrate": 139.1,
+    "max_heartrate": 179.0,
+    "suffer_score": 44.0,
+    "kudos_count": 0
+  },
+  {
     "id": 17777730595,
     "name": "Trail le midi",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 125.0,
     "suffer_score": 7.0,
     "kudos_count": 0
-  },
-  {
-    "id": 16959423380,
-    "name": "My Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-06T18:54:54Z",
-    "distance": 3476.8,
-    "moving_time": 1976,
-    "elapsed_time": 1976,
-    "total_elevation_gain": 231.1,
-    "average_speed": 1.76,
-    "max_speed": 2.68,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 4
   }
 ]
