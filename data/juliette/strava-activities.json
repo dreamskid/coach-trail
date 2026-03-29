@@ -1,5 +1,22 @@
 [
   {
+    "id": 17887432363,
+    "name": "Lunch Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-03-28T12:04:48Z",
+    "distance": 9316.0,
+    "moving_time": 3657,
+    "elapsed_time": 3664,
+    "total_elevation_gain": 208.0,
+    "average_speed": 2.547,
+    "max_speed": 4.627,
+    "average_heartrate": 145.2,
+    "max_heartrate": 166.0,
+    "suffer_score": 90.0,
+    "kudos_count": 5
+  },
+  {
     "id": 17879922161,
     "name": "Manual Workout",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 1
+    "kudos_count": 5
   },
   {
     "id": 17879951238,
@@ -31,7 +48,7 @@
     "average_heartrate": 141.4,
     "max_heartrate": 167.0,
     "suffer_score": 89.0,
-    "kudos_count": 0
+    "kudos_count": 5
   },
   {
     "id": 17870158587,
@@ -48,7 +65,7 @@
     "average_heartrate": 142.4,
     "max_heartrate": 163.0,
     "suffer_score": 78.0,
-    "kudos_count": 5
+    "kudos_count": 6
   },
   {
     "id": 17856290124,
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 6
-  },
-  {
-    "id": 17174803222,
-    "name": "My Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-01-25T17:06:13Z",
-    "distance": 7991.5,
-    "moving_time": 2400,
-    "elapsed_time": 2400,
-    "total_elevation_gain": 0,
-    "average_speed": 3.33,
-    "max_speed": 5.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 5
   }
 ]
