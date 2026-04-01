@@ -5637,5 +5637,149 @@
     ],
     "calories": 669.0,
     "description": "Workout created from log"
+  },
+  "17922336725": {
+    "id": 17922336725,
+    "polyline": "s~iwGy}w[n@SXB~At@`@N`@T\\Jn@Zh@PHF`Bn@jBz@RPD?FMPuA^iBFc@T}@^_AbCiENi@J_ACgBDg@T{@dAcDx@qBPWRGdADr@JfAZr@ZPNz@`@zA|@pAb@f@Vf@LtAj@bAZvA\\r@V^JVLZ@TE~@A~@IrAJd@CnAApAJjAR`@Aj@Gl@An@El@?tERNFPLP`@H\\PrAFNLJp@RJFHLFPHr@Bh@f@~GBx@FDZAVBfAPx@RZDlBB~@GH@BBDJH`BHb@L\\|@bANZL^XtAHj@@RCXKfAI^O^m@v@GTKJQDKFo@`@YVi@h@y@fAw@v@SZKJy@Pk@XkBbB]PQBWPeApAm@|@O\\Sp@UvAc@~AIL[Hc@?y@Ww@Me@AS]cAIU@w@@QB_@@k@Hs@@UBI?QD]?UFo@FSP}@BSCYIGICMLq@j@uCFk@McABmBAuAAS?[Eq@Gk@EKGIOIQQa@Ma@QGEYa@GEi@Ee@QaBy@gAc@kB_Aq@S_Ag@m@e@mAe@_AYSKm@MoAc@k@QmAe@{@Ui@WUAeAQyAOg@QWECAe@JuBWa@Me@Iw@i@SAc@QeAS[Q[Ge@S]De@EUMe@q@YS",
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 386,
+        "distance": 1002.3,
+        "elevation_difference": -12.6,
+        "average_heartrate": 127.96354166666667,
+        "average_speed": 2.6,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 385,
+        "distance": 999.5,
+        "elevation_difference": 1.2,
+        "average_heartrate": 121.20519480519481,
+        "average_speed": 2.6,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 390,
+        "distance": 999.1,
+        "elevation_difference": 9.2,
+        "average_heartrate": 127.9948717948718,
+        "average_speed": 2.56,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 387,
+        "distance": 999.1,
+        "elevation_difference": 12.6,
+        "average_heartrate": 142.40568475452196,
+        "average_speed": 2.58,
+        "pace_zone": 2
+      },
+      {
+        "km": 5,
+        "moving_time": 378,
+        "distance": 1000.0,
+        "elevation_difference": -9.8,
+        "average_heartrate": 138.3968253968254,
+        "average_speed": 2.65,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 354,
+        "distance": 934.4,
+        "elevation_difference": 1.4,
+        "average_heartrate": 143.08757062146893,
+        "average_speed": 2.64,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 393,
+        "average_heartrate": 128.0,
+        "average_speed": 2.54,
+        "total_elevation_gain": 10.0
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 385,
+        "average_heartrate": 121.2,
+        "average_speed": 2.6,
+        "total_elevation_gain": 4.2
+      },
+      {
+        "name": "Lap 3",
+        "distance": 1000.0,
+        "moving_time": 390,
+        "average_heartrate": 128.0,
+        "average_speed": 2.56,
+        "total_elevation_gain": 11.0
+      },
+      {
+        "name": "Lap 4",
+        "distance": 1000.0,
+        "moving_time": 387,
+        "average_heartrate": 142.4,
+        "average_speed": 2.58,
+        "total_elevation_gain": 18.6
+      },
+      {
+        "name": "Lap 5",
+        "distance": 1000.0,
+        "moving_time": 378,
+        "average_heartrate": 138.4,
+        "average_speed": 2.65,
+        "total_elevation_gain": 9.6
+      },
+      {
+        "name": "Lap 6",
+        "distance": 934.4,
+        "moving_time": 353,
+        "average_heartrate": 143.0,
+        "average_speed": 2.65,
+        "total_elevation_gain": 8.6
+      }
+    ],
+    "calories": 458.0,
+    "average_cadence": 79.5,
+    "best_efforts": [
+      {
+        "name": "400m",
+        "distance": 400,
+        "moving_time": 146
+      },
+      {
+        "name": "1/2 mile",
+        "distance": 805,
+        "moving_time": 301
+      },
+      {
+        "name": "1K",
+        "distance": 1000,
+        "moving_time": 376
+      },
+      {
+        "name": "1 mile",
+        "distance": 1609,
+        "moving_time": 604
+      },
+      {
+        "name": "2 mile",
+        "distance": 3219,
+        "moving_time": 1228
+      },
+      {
+        "name": "5K",
+        "distance": 5000,
+        "moving_time": 1916
+      }
+    ]
   }
 }
