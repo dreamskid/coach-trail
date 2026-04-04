@@ -10068,5 +10068,138 @@
     ],
     "calories": 1898.0,
     "description": "Workout created from log"
+  },
+  "17958951712": {
+    "id": 17958951712,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 513,
+        "distance": 1002.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.95,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 420,
+        "distance": 997.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.38,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 523,
+        "distance": 1001.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.92,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 527,
+        "distance": 998.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.9,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 521,
+        "distance": 999.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.92,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 518,
+        "distance": 999.9,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.93,
+        "pace_zone": 1
+      },
+      {
+        "km": 7,
+        "moving_time": 304,
+        "distance": 999.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 3.29,
+        "pace_zone": 3
+      },
+      {
+        "km": 8,
+        "moving_time": 512,
+        "distance": 1001.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.96,
+        "pace_zone": 1
+      },
+      {
+        "km": 9,
+        "moving_time": 431,
+        "distance": 873.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.03,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 8874.9,
+        "moving_time": 4269,
+        "average_heartrate": null,
+        "average_speed": 2.08,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 1220.0,
+    "description": "Workout created from log"
+  },
+  "17958319861": {
+    "id": 17958319861,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 362,
+        "distance": 1000.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.76,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 68,
+        "distance": 113.4,
+        "elevation_difference": 23.5,
+        "average_heartrate": null,
+        "average_speed": 1.67,
+        "pace_zone": 6
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1113.4,
+        "moving_time": 430,
+        "average_heartrate": null,
+        "average_speed": 2.59,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 80.0,
+    "description": "Workout created from log"
   }
 }
