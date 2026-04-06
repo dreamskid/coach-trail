@@ -1,5 +1,22 @@
 [
   {
+    "id": 17983790123,
+    "name": "Morning Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-05T09:04:06Z",
+    "distance": 9412.0,
+    "moving_time": 3314,
+    "elapsed_time": 3990,
+    "total_elevation_gain": 203.0,
+    "average_speed": 2.84,
+    "max_speed": 4.229,
+    "average_heartrate": 147.7,
+    "max_heartrate": 172.0,
+    "suffer_score": 93.0,
+    "kudos_count": 6
+  },
+  {
     "id": 17958951712,
     "name": "Manual Workout",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 9
-  },
-  {
-    "id": 17271923531,
-    "name": "Morning HIIT",
-    "type": "Workout",
-    "sport_type": "HighIntensityIntervalTraining",
-    "start_date_local": "2026-02-02T09:20:05Z",
-    "distance": 0.0,
-    "moving_time": 2648,
-    "elapsed_time": 2648,
-    "total_elevation_gain": 0,
-    "average_speed": 0.0,
-    "max_speed": 0.0,
-    "average_heartrate": 118.7,
-    "max_heartrate": 163.0,
-    "suffer_score": 18.0,
-    "kudos_count": 4
   }
 ]
