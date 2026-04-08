@@ -1,5 +1,22 @@
 [
   {
+    "id": 18014026562,
+    "name": "Afternoon Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-07T16:15:52Z",
+    "distance": 4000.6,
+    "moving_time": 1841,
+    "elapsed_time": 2295,
+    "total_elevation_gain": 132.0,
+    "average_speed": 2.173,
+    "max_speed": 4.48,
+    "average_heartrate": 128.8,
+    "max_heartrate": 167.0,
+    "suffer_score": 24.0,
+    "kudos_count": 3
+  },
+  {
     "id": 17983790123,
     "name": "Morning Run",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": 147.7,
     "max_heartrate": 172.0,
     "suffer_score": 93.0,
-    "kudos_count": 7
+    "kudos_count": 8
   },
   {
     "id": 17958951712,
@@ -31,7 +48,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 4
+    "kudos_count": 5
   },
   {
     "id": 17958319861,
@@ -48,7 +65,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 5
+    "kudos_count": 6
   },
   {
     "id": 17943038818,
@@ -65,7 +82,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 3
+    "kudos_count": 4
   },
   {
     "id": 17923320863,
@@ -491,22 +508,5 @@
     "max_heartrate": 166.0,
     "suffer_score": 26.0,
     "kudos_count": 7
-  },
-  {
-    "id": 17286736753,
-    "name": "Sajama Lagoon Long Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-02-04T17:44:27Z",
-    "distance": 15982.6,
-    "moving_time": 5720,
-    "elapsed_time": 5720,
-    "total_elevation_gain": 0,
-    "average_speed": 2.794,
-    "max_speed": 6.0,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 9
   }
 ]

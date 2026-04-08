@@ -1,5 +1,22 @@
 [
   {
+    "id": 18023024757,
+    "name": "Course à pied le matin",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-08T07:34:11Z",
+    "distance": 15008.7,
+    "moving_time": 5328,
+    "elapsed_time": 5330,
+    "total_elevation_gain": 243.0,
+    "average_speed": 2.817,
+    "max_speed": 3.98,
+    "average_heartrate": 145.5,
+    "max_heartrate": 175.0,
+    "suffer_score": 153.0,
+    "kudos_count": 0
+  },
+  {
     "id": 17999381409,
     "name": "Course à pied dans l'après-midi",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 155.0,
     "suffer_score": 112.0,
     "kudos_count": 8
-  },
-  {
-    "id": 17138383191,
-    "name": "Lunch Trail Run",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-01-22T12:11:25Z",
-    "distance": 12288.2,
-    "moving_time": 5966,
-    "elapsed_time": 6067,
-    "total_elevation_gain": 371.9,
-    "average_speed": 2.06,
-    "max_speed": 6.18,
-    "average_heartrate": 140.5,
-    "max_heartrate": 169.0,
-    "suffer_score": 139.0,
-    "kudos_count": 5
   }
 ]
