@@ -1,5 +1,22 @@
 [
   {
+    "id": 18069788329,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-11T16:58:39Z",
+    "distance": 19998.7,
+    "moving_time": 8964,
+    "elapsed_time": 8964,
+    "total_elevation_gain": 0,
+    "average_speed": 2.231,
+    "max_speed": 3.34,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 7
+  },
+  {
     "id": 18014026562,
     "name": "Afternoon Run",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 175.0,
     "suffer_score": 315.0,
     "kudos_count": 11
-  },
-  {
-    "id": 17297211057,
-    "name": "Afternoon Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-02-05T17:05:36Z",
-    "distance": 4270.3,
-    "moving_time": 2103,
-    "elapsed_time": 2474,
-    "total_elevation_gain": 157.0,
-    "average_speed": 2.031,
-    "max_speed": 5.975,
-    "average_heartrate": 128.5,
-    "max_heartrate": 166.0,
-    "suffer_score": 26.0,
-    "kudos_count": 7
   }
 ]
