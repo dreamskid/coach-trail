@@ -10724,5 +10724,327 @@
     ],
     "calories": 2024.0,
     "description": "Workout created from log"
+  },
+  "18078935310": {
+    "id": 18078935310,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 336,
+        "distance": 1000.9,
+        "elevation_difference": -28.5,
+        "average_heartrate": null,
+        "average_speed": 2.98,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 349,
+        "distance": 1000.4,
+        "elevation_difference": -49.9,
+        "average_heartrate": null,
+        "average_speed": 2.87,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 326,
+        "distance": 1000.3,
+        "elevation_difference": -32.5,
+        "average_heartrate": null,
+        "average_speed": 3.07,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 348,
+        "distance": 1000.9,
+        "elevation_difference": -50.4,
+        "average_heartrate": null,
+        "average_speed": 2.88,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 334,
+        "distance": 998.6,
+        "elevation_difference": -41.2,
+        "average_heartrate": null,
+        "average_speed": 2.99,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 318,
+        "distance": 999.8,
+        "elevation_difference": -27.9,
+        "average_heartrate": null,
+        "average_speed": 3.14,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 318,
+        "distance": 999.3,
+        "elevation_difference": -23.2,
+        "average_heartrate": null,
+        "average_speed": 3.14,
+        "pace_zone": 2
+      },
+      {
+        "km": 8,
+        "moving_time": 316,
+        "distance": 1000.2,
+        "elevation_difference": -11.0,
+        "average_heartrate": null,
+        "average_speed": 3.17,
+        "pace_zone": 2
+      },
+      {
+        "km": 9,
+        "moving_time": 354,
+        "distance": 1000.8,
+        "elevation_difference": -16.3,
+        "average_heartrate": null,
+        "average_speed": 2.83,
+        "pace_zone": 2
+      },
+      {
+        "km": 10,
+        "moving_time": 3,
+        "distance": 7.1,
+        "elevation_difference": -0.2,
+        "average_heartrate": null,
+        "average_speed": 2.37,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 9008.3,
+        "moving_time": 3002,
+        "average_heartrate": null,
+        "average_speed": 3.0,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 491.0,
+    "description": "Start this pillar run on Mount Teide—the highest point in Spain! iFIT Trainer Tommy Rivs will guide you down the mountain, coaching you through a long warmup and then a series of intervals."
+  },
+  "18078127944": {
+    "id": 18078127944,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 353,
+        "distance": 1001.0,
+        "elevation_difference": 9.3,
+        "average_heartrate": null,
+        "average_speed": 2.84,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 318,
+        "distance": 1002.2,
+        "elevation_difference": -19.6,
+        "average_heartrate": null,
+        "average_speed": 3.15,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 309,
+        "distance": 998.5,
+        "elevation_difference": -11.1,
+        "average_heartrate": null,
+        "average_speed": 3.23,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 319,
+        "distance": 998.3,
+        "elevation_difference": -14.5,
+        "average_heartrate": null,
+        "average_speed": 3.13,
+        "pace_zone": 2
+      },
+      {
+        "km": 5,
+        "moving_time": 321,
+        "distance": 1001.4,
+        "elevation_difference": -16.8,
+        "average_heartrate": null,
+        "average_speed": 3.12,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 320,
+        "distance": 1001.4,
+        "elevation_difference": -17.9,
+        "average_heartrate": null,
+        "average_speed": 3.13,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 307,
+        "distance": 1000.2,
+        "elevation_difference": 8.8,
+        "average_heartrate": null,
+        "average_speed": 3.26,
+        "pace_zone": 3
+      },
+      {
+        "km": 8,
+        "moving_time": 298,
+        "distance": 998.9,
+        "elevation_difference": 17.2,
+        "average_heartrate": null,
+        "average_speed": 3.35,
+        "pace_zone": 4
+      },
+      {
+        "km": 9,
+        "moving_time": 303,
+        "distance": 999.0,
+        "elevation_difference": 17.7,
+        "average_heartrate": null,
+        "average_speed": 3.3,
+        "pace_zone": 3
+      },
+      {
+        "km": 10,
+        "moving_time": 299,
+        "distance": 999.5,
+        "elevation_difference": 19.1,
+        "average_heartrate": null,
+        "average_speed": 3.34,
+        "pace_zone": 4
+      },
+      {
+        "km": 11,
+        "moving_time": 298,
+        "distance": 1002.1,
+        "elevation_difference": 29.8,
+        "average_heartrate": null,
+        "average_speed": 3.36,
+        "pace_zone": 4
+      },
+      {
+        "km": 12,
+        "moving_time": 295,
+        "distance": 999.3,
+        "elevation_difference": 18.0,
+        "average_heartrate": null,
+        "average_speed": 3.39,
+        "pace_zone": 4
+      },
+      {
+        "km": 13,
+        "moving_time": 286,
+        "distance": 998.4,
+        "elevation_difference": 10.3,
+        "average_heartrate": null,
+        "average_speed": 3.49,
+        "pace_zone": 4
+      },
+      {
+        "km": 14,
+        "moving_time": 365,
+        "distance": 1001.1,
+        "elevation_difference": 46.3,
+        "average_heartrate": null,
+        "average_speed": 2.74,
+        "pace_zone": 3
+      },
+      {
+        "km": 15,
+        "moving_time": 327,
+        "distance": 999.0,
+        "elevation_difference": 4.0,
+        "average_heartrate": null,
+        "average_speed": 3.06,
+        "pace_zone": 2
+      },
+      {
+        "km": 16,
+        "moving_time": 296,
+        "distance": 1001.5,
+        "elevation_difference": 6.3,
+        "average_heartrate": null,
+        "average_speed": 3.38,
+        "pace_zone": 3
+      },
+      {
+        "km": 17,
+        "moving_time": 297,
+        "distance": 998.8,
+        "elevation_difference": -2.3,
+        "average_heartrate": null,
+        "average_speed": 3.36,
+        "pace_zone": 3
+      },
+      {
+        "km": 18,
+        "moving_time": 350,
+        "distance": 1000.5,
+        "elevation_difference": 11.3,
+        "average_heartrate": null,
+        "average_speed": 2.86,
+        "pace_zone": 2
+      },
+      {
+        "km": 19,
+        "moving_time": 300,
+        "distance": 1000.6,
+        "elevation_difference": 8.4,
+        "average_heartrate": null,
+        "average_speed": 3.34,
+        "pace_zone": 3
+      },
+      {
+        "km": 20,
+        "moving_time": 301,
+        "distance": 1000.5,
+        "elevation_difference": 9.6,
+        "average_heartrate": null,
+        "average_speed": 3.32,
+        "pace_zone": 3
+      },
+      {
+        "km": 21,
+        "moving_time": 402,
+        "distance": 998.4,
+        "elevation_difference": 7.9,
+        "average_heartrate": null,
+        "average_speed": 2.48,
+        "pace_zone": 1
+      },
+      {
+        "km": 22,
+        "moving_time": 21,
+        "distance": 23.2,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.1,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 21023.8,
+        "moving_time": 6685,
+        "average_heartrate": null,
+        "average_speed": 3.14,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 1333.0,
+    "description": "You made it! This is your final workout of the first half of the Bolivia Half Marathon Training Series! iFIT Trainer Tommy Rivs will help you increase your aerobic capacity as you push through light-, moderate-, and high-intensity zones. Focus in, grab your water, and get ready to work!"
   }
 }

@@ -1,5 +1,39 @@
 [
   {
+    "id": 18078935310,
+    "name": "Volcan de Teide Pillar Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-12T13:24:14Z",
+    "distance": 9008.3,
+    "moving_time": 3002,
+    "elapsed_time": 3002,
+    "total_elevation_gain": 0,
+    "average_speed": 3.001,
+    "max_speed": 3.46,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 3
+  },
+  {
+    "id": 18078127944,
+    "name": "Atacama Desert Long Progressive Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-12T11:31:43Z",
+    "distance": 21023.8,
+    "moving_time": 6685,
+    "elapsed_time": 6685,
+    "total_elevation_gain": 0,
+    "average_speed": 3.145,
+    "max_speed": 4.06,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 4
+  },
+  {
     "id": 18069788329,
     "name": "Manual Workout",
     "type": "Run",
@@ -14,7 +48,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 7
+    "kudos_count": 8
   },
   {
     "id": 18014026562,
@@ -474,39 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 4
-  },
-  {
-    "id": 17324840572,
-    "name": "Famous Road Long Run: Moiben",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-02-08T07:57:56Z",
-    "distance": 16645.3,
-    "moving_time": 5539,
-    "elapsed_time": 5539,
-    "total_elevation_gain": 0,
-    "average_speed": 3.005,
-    "max_speed": 6.0,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 7
-  },
-  {
-    "id": 17316865212,
-    "name": "Morning Trail Run",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-02-07T10:43:01Z",
-    "distance": 30022.9,
-    "moving_time": 11814,
-    "elapsed_time": 12059,
-    "total_elevation_gain": 645.0,
-    "average_speed": 2.541,
-    "max_speed": 4.229,
-    "average_heartrate": 146.4,
-    "max_heartrate": 175.0,
-    "suffer_score": 315.0,
-    "kudos_count": 11
   }
 ]
