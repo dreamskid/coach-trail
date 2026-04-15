@@ -11046,5 +11046,397 @@
     ],
     "calories": 1333.0,
     "description": "You made it! This is your final workout of the first half of the Bolivia Half Marathon Training Series! iFIT Trainer Tommy Rivs will help you increase your aerobic capacity as you push through light-, moderate-, and high-intensity zones. Focus in, grab your water, and get ready to work!"
+  },
+  "18111151598": {
+    "id": 18111151598,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 442,
+        "distance": 1001.1,
+        "elevation_difference": 38.2,
+        "average_heartrate": null,
+        "average_speed": 2.26,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 351,
+        "distance": 1001.5,
+        "elevation_difference": 32.7,
+        "average_heartrate": null,
+        "average_speed": 2.85,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 361,
+        "distance": 998.0,
+        "elevation_difference": 25.3,
+        "average_heartrate": null,
+        "average_speed": 2.76,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 337,
+        "distance": 1002.2,
+        "elevation_difference": 25.9,
+        "average_heartrate": null,
+        "average_speed": 2.97,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 343,
+        "distance": 998.5,
+        "elevation_difference": 21.3,
+        "average_heartrate": null,
+        "average_speed": 2.91,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 319,
+        "distance": 1000.2,
+        "elevation_difference": 17.5,
+        "average_heartrate": null,
+        "average_speed": 3.14,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 333,
+        "distance": 1000.1,
+        "elevation_difference": 26.3,
+        "average_heartrate": null,
+        "average_speed": 3.0,
+        "pace_zone": 3
+      },
+      {
+        "km": 8,
+        "moving_time": 400,
+        "distance": 999.5,
+        "elevation_difference": 41.9,
+        "average_heartrate": null,
+        "average_speed": 2.5,
+        "pace_zone": 2
+      },
+      {
+        "km": 9,
+        "moving_time": 443,
+        "distance": 1000.7,
+        "elevation_difference": 50.3,
+        "average_heartrate": null,
+        "average_speed": 2.26,
+        "pace_zone": 1
+      },
+      {
+        "km": 10,
+        "moving_time": 374,
+        "distance": 999.2,
+        "elevation_difference": 49.4,
+        "average_heartrate": null,
+        "average_speed": 2.67,
+        "pace_zone": 3
+      },
+      {
+        "km": 11,
+        "moving_time": 229,
+        "distance": 439.1,
+        "elevation_difference": 16.8,
+        "average_heartrate": null,
+        "average_speed": 1.92,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 10440.1,
+        "moving_time": 3932,
+        "average_heartrate": null,
+        "average_speed": 2.66,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 735.0,
+    "description": "Get ready to sweat as you join iFIT Knox Robison for an endurance-based workout on the green hilly paths of Ireland! This workout includes various intervals alternating between an RPE of 6 and 8, each accompanied by recovery. You’ll begin with a couple of 1-minute sprints, move into two 10-minute endurance blocks, and then end strong with four additional 1-minute sprints."
+  },
+  "18110519860": {
+    "id": 18110519860,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 347,
+        "distance": 1000.0,
+        "elevation_difference": -2.8,
+        "average_heartrate": null,
+        "average_speed": 2.88,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 470,
+        "distance": 1000.3,
+        "elevation_difference": 46.7,
+        "average_heartrate": null,
+        "average_speed": 2.13,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 641,
+        "distance": 1000.8,
+        "elevation_difference": 209.8,
+        "average_heartrate": null,
+        "average_speed": 1.56,
+        "pace_zone": 4
+      },
+      {
+        "km": 4,
+        "moving_time": 734,
+        "distance": 999.4,
+        "elevation_difference": 278.6,
+        "average_heartrate": null,
+        "average_speed": 1.36,
+        "pace_zone": 6
+      },
+      {
+        "km": 5,
+        "moving_time": 634,
+        "distance": 1000.0,
+        "elevation_difference": 173.2,
+        "average_heartrate": null,
+        "average_speed": 1.58,
+        "pace_zone": 4
+      },
+      {
+        "km": 6,
+        "moving_time": 329,
+        "distance": 1002.0,
+        "elevation_difference": 0.9,
+        "average_heartrate": null,
+        "average_speed": 3.05,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 246,
+        "distance": 780.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 3.17,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6783.0,
+        "moving_time": 3401,
+        "average_heartrate": null,
+        "average_speed": 1.99,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 725.0,
+    "description": "Climb Mount Fitz Roy with iFIT Trainer John Peel. As the incline gradually increases, John will challenge you to take your hands off the machine for two minutes at a time, working your legs, glutes, and core. You’ll finish strong with some speedy bodyweight movements off your machine. "
+  },
+  "18110030877": {
+    "id": 18110030877,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 424,
+        "distance": 1000.5,
+        "elevation_difference": 39.4,
+        "average_heartrate": null,
+        "average_speed": 2.36,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 337,
+        "distance": 1000.1,
+        "elevation_difference": 34.1,
+        "average_heartrate": null,
+        "average_speed": 2.97,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 325,
+        "distance": 1001.2,
+        "elevation_difference": 20.4,
+        "average_heartrate": null,
+        "average_speed": 3.08,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 338,
+        "distance": 998.2,
+        "elevation_difference": 31.5,
+        "average_heartrate": null,
+        "average_speed": 2.95,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 324,
+        "distance": 1002.3,
+        "elevation_difference": 23.8,
+        "average_heartrate": null,
+        "average_speed": 3.09,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 346,
+        "distance": 1000.5,
+        "elevation_difference": 25.0,
+        "average_heartrate": null,
+        "average_speed": 2.89,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 297,
+        "distance": 997.9,
+        "elevation_difference": 20.0,
+        "average_heartrate": null,
+        "average_speed": 3.36,
+        "pace_zone": 4
+      },
+      {
+        "km": 8,
+        "moving_time": 350,
+        "distance": 1000.3,
+        "elevation_difference": 51.1,
+        "average_heartrate": null,
+        "average_speed": 2.86,
+        "pace_zone": 3
+      },
+      {
+        "km": 9,
+        "moving_time": 383,
+        "distance": 1000.1,
+        "elevation_difference": 50.4,
+        "average_heartrate": null,
+        "average_speed": 2.61,
+        "pace_zone": 2
+      },
+      {
+        "km": 10,
+        "moving_time": 435,
+        "distance": 1001.2,
+        "elevation_difference": 71.2,
+        "average_heartrate": null,
+        "average_speed": 2.3,
+        "pace_zone": 2
+      },
+      {
+        "km": 11,
+        "moving_time": 348,
+        "distance": 779.0,
+        "elevation_difference": 28.8,
+        "average_heartrate": null,
+        "average_speed": 2.24,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 10781.3,
+        "moving_time": 3907,
+        "average_heartrate": null,
+        "average_speed": 2.76,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 772.0,
+    "description": "Get ready to sweat as you join iFIT Knox Robison for an endurance-based workout on the green hilly paths of Ireland! This workout includes various intervals alternating between an RPE of 6 and 8, each accompanied by recovery. You’ll begin with a couple of 1-minute sprints, move into two 10-minute endurance blocks, and then end strong with four additional 1-minute sprints."
+  },
+  "18109423462": {
+    "id": 18109423462,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 510,
+        "distance": 1001.7,
+        "elevation_difference": 10.4,
+        "average_heartrate": null,
+        "average_speed": 1.96,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 475,
+        "distance": 998.3,
+        "elevation_difference": 84.0,
+        "average_heartrate": null,
+        "average_speed": 2.1,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 683,
+        "distance": 1000.0,
+        "elevation_difference": 233.1,
+        "average_heartrate": null,
+        "average_speed": 1.46,
+        "pace_zone": 5
+      },
+      {
+        "km": 4,
+        "moving_time": 824,
+        "distance": 1001.2,
+        "elevation_difference": 294.5,
+        "average_heartrate": null,
+        "average_speed": 1.22,
+        "pace_zone": 5
+      },
+      {
+        "km": 5,
+        "moving_time": 448,
+        "distance": 1000.1,
+        "elevation_difference": 63.5,
+        "average_heartrate": null,
+        "average_speed": 2.23,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 277,
+        "distance": 1002.2,
+        "elevation_difference": -2.1,
+        "average_heartrate": null,
+        "average_speed": 3.62,
+        "pace_zone": 4
+      },
+      {
+        "km": 7,
+        "moving_time": 185,
+        "distance": 715.6,
+        "elevation_difference": -3.6,
+        "average_heartrate": null,
+        "average_speed": 3.87,
+        "pace_zone": 5
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6719.1,
+        "moving_time": 3402,
+        "average_heartrate": null,
+        "average_speed": 1.98,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 711.0,
+    "description": "Climb Mount Fitz Roy with iFIT Trainer John Peel. As the incline gradually increases, John will challenge you to take your hands off the machine for two minutes at a time, working your legs, glutes, and core. You’ll finish strong with some speedy bodyweight movements off your machine. "
   }
 }
