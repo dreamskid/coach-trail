@@ -7598,5 +7598,93 @@
     ],
     "calories": 1021.0,
     "description": "Workout created from log"
+  },
+  "18153387640": {
+    "id": 18153387640,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 634,
+        "distance": 1000.6,
+        "elevation_difference": 102.6,
+        "average_heartrate": null,
+        "average_speed": 1.58,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 678,
+        "distance": 999.4,
+        "elevation_difference": 105.3,
+        "average_heartrate": null,
+        "average_speed": 1.47,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 180,
+        "distance": 405.9,
+        "elevation_difference": 7.0,
+        "average_heartrate": null,
+        "average_speed": 2.26,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2405.9,
+        "moving_time": 1492,
+        "average_heartrate": null,
+        "average_speed": 1.61,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 317.0,
+    "description": "ADVANCED INTENSITY - Join iFIT Trainer Evan Dollard in Austria at Krimml Waterfalls—Europe’s largest waterfall and the fifth largest in the world. You’ll start at the bottom of the three-tiered falls, then climb your way up to the top tier, alternating between a speed walk and leisurely stroll. It’s a steep climb, but the breathtaking views will be worth it! "
+  },
+  "18153230482": {
+    "id": 18153230482,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 672,
+        "distance": 1000.8,
+        "elevation_difference": 46.0,
+        "average_heartrate": null,
+        "average_speed": 1.49,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 602,
+        "distance": 1000.2,
+        "elevation_difference": 102.2,
+        "average_heartrate": null,
+        "average_speed": 1.66,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 217,
+        "distance": 538.5,
+        "elevation_difference": -3.6,
+        "average_heartrate": null,
+        "average_speed": 2.48,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2539.4,
+        "moving_time": 1491,
+        "average_heartrate": null,
+        "average_speed": 1.7,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 289.0,
+    "description": "ADVANCED INTENSITY - Start at the base of the beautiful Dachstein Mountains, then hike your way up to a quaint mountain hut known as Sudwandhutte. It’s a short workout that maintains a steady tempo throughout. With iFIT trainer Evan Dollard leading the way, you’ll pass mountain goats, a waterfall, and cross over patches of snow."
   }
 }

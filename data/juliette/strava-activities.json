@@ -1,5 +1,22 @@
 [
   {
+    "id": 18149770789,
+    "name": "Afternoon Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-17T15:13:36Z",
+    "distance": 25646.4,
+    "moving_time": 6889,
+    "elapsed_time": 6960,
+    "total_elevation_gain": 0,
+    "average_speed": 3.723,
+    "max_speed": 4.79,
+    "average_heartrate": 144.2,
+    "max_heartrate": 182.0,
+    "suffer_score": 176.0,
+    "kudos_count": 3
+  },
+  {
     "id": 18138304558,
     "name": "Afternoon Run",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": 147.6,
     "max_heartrate": 166.0,
     "suffer_score": 184.0,
-    "kudos_count": 4
+    "kudos_count": 6
   },
   {
     "id": 18111151598,
@@ -491,22 +508,5 @@
     "max_heartrate": 162.0,
     "suffer_score": 261.0,
     "kudos_count": 7
-  },
-  {
-    "id": 17551852193,
-    "name": "Atacama Desert Long Progressive Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-02-28T11:29:28Z",
-    "distance": 20090.8,
-    "moving_time": 6679,
-    "elapsed_time": 6679,
-    "total_elevation_gain": 0,
-    "average_speed": 3.008,
-    "max_speed": 4.0,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 6
   }
 ]
