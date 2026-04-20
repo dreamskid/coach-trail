@@ -8542,5 +8542,577 @@
     ],
     "calories": 2192.0,
     "average_cadence": 69.3
+  },
+  "18168989062": {
+    "id": 18168989062,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 363,
+        "distance": 1000.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.75,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 145,
+        "distance": 400.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.76,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1400.0,
+        "moving_time": 508,
+        "average_heartrate": null,
+        "average_speed": 2.76,
+        "total_elevation_gain": 0.0
+      }
+    ],
+    "calories": 128.0,
+    "description": "Workout created from log"
+  },
+  "18168804845": {
+    "id": 18168804845,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 422,
+        "distance": 1000.3,
+        "elevation_difference": 15.2,
+        "average_heartrate": null,
+        "average_speed": 2.37,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 461,
+        "distance": 1001.6,
+        "elevation_difference": 41.7,
+        "average_heartrate": null,
+        "average_speed": 2.17,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 490,
+        "distance": 998.6,
+        "elevation_difference": 43.1,
+        "average_heartrate": null,
+        "average_speed": 2.04,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 568,
+        "distance": 1001.2,
+        "elevation_difference": 29.4,
+        "average_heartrate": null,
+        "average_speed": 1.76,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 497,
+        "distance": 999.9,
+        "elevation_difference": 29.0,
+        "average_heartrate": null,
+        "average_speed": 2.01,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 17,
+        "distance": 33.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.96,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 5034.9,
+        "moving_time": 2455,
+        "average_heartrate": null,
+        "average_speed": 2.05,
+        "total_elevation_gain": 176.4
+      }
+    ],
+    "calories": 531.0,
+    "description": "Join iFIT Trainer Sally McRae in Part 1 of the Grand Circle Trailfest! In this 1st segment of Trailfest: Bryce Canyon, you’ll keep a steady pace as you race up and down hills. Taking in the breathtaking views while you work hard and have fun!"
+  },
+  "18168042907": {
+    "id": 18168042907,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 601,
+        "distance": 1000.0,
+        "elevation_difference": 76.6,
+        "average_heartrate": null,
+        "average_speed": 1.66,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 599,
+        "distance": 1001.4,
+        "elevation_difference": 107.3,
+        "average_heartrate": null,
+        "average_speed": 1.67,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 575,
+        "distance": 999.2,
+        "elevation_difference": 88.0,
+        "average_heartrate": null,
+        "average_speed": 1.74,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 358,
+        "distance": 898.1,
+        "elevation_difference": 9.2,
+        "average_heartrate": null,
+        "average_speed": 2.51,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 3898.7,
+        "moving_time": 2133,
+        "average_heartrate": null,
+        "average_speed": 1.83,
+        "total_elevation_gain": 287.6
+      }
+    ],
+    "calories": 483.0,
+    "description": "ADVANCED INTENSITY - Adventure through the dense Austrian forest with iFIT Trainer Evan Dollard. This workout is high-intensity and fast-paced the whole way through, as you’ll be climbing up a steep mountain for nearly 40 minutes straight. There won’t be any rest breaks, but there will be incredible views of cascading waterfalls and fields of wildflowers."
+  },
+  "18167603725": {
+    "id": 18167603725,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 501,
+        "distance": 1000.0,
+        "elevation_difference": 43.1,
+        "average_heartrate": null,
+        "average_speed": 2.0,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 497,
+        "distance": 1000.8,
+        "elevation_difference": 52.5,
+        "average_heartrate": null,
+        "average_speed": 2.01,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 537,
+        "distance": 1000.1,
+        "elevation_difference": 61.8,
+        "average_heartrate": null,
+        "average_speed": 1.86,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 636,
+        "distance": 1000.2,
+        "elevation_difference": 102.9,
+        "average_heartrate": null,
+        "average_speed": 1.57,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 264,
+        "distance": 686.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 2.6,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 4687.1,
+        "moving_time": 2435,
+        "average_heartrate": null,
+        "average_speed": 1.92,
+        "total_elevation_gain": 260.3
+      }
+    ],
+    "calories": 534.0,
+    "description": "ADVANCED INTENSITY- iFIT Trainer Evan Dollard will take you to Schafberg Mountain in Upper Austria for some advanced, power-walking intervals. This workout is designed to help you burn serious calories, while keeping the impact nice and low on your joints as you hike to the top. Be sure to push yourself up the inclines and take in all the luscious, green beauty of the Austrian countryside."
+  },
+  "18168983346": {
+    "id": 18168983346,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 771,
+        "distance": 1000.4,
+        "elevation_difference": 0.0,
+        "average_heartrate": 104.95849546044099,
+        "average_speed": 1.3,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 732,
+        "distance": 999.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": 110.1311475409836,
+        "average_speed": 1.37,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 644,
+        "distance": 1000.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": 111.70341614906832,
+        "average_speed": 1.55,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 680,
+        "distance": 1001.2,
+        "elevation_difference": 0.0,
+        "average_heartrate": 106.69117647058823,
+        "average_speed": 1.47,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 616,
+        "distance": 998.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": 114.72240259740259,
+        "average_speed": 1.62,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 545,
+        "distance": 1000.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": 119.63302752293578,
+        "average_speed": 1.84,
+        "pace_zone": 1
+      },
+      {
+        "km": 7,
+        "moving_time": 724,
+        "distance": 1000.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": 118.04972375690608,
+        "average_speed": 1.38,
+        "pace_zone": 1
+      },
+      {
+        "km": 8,
+        "moving_time": 650,
+        "distance": 999.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": 111.23692307692308,
+        "average_speed": 1.54,
+        "pace_zone": 1
+      },
+      {
+        "km": 9,
+        "moving_time": 517,
+        "distance": 999.9,
+        "elevation_difference": 0.0,
+        "average_heartrate": 124.48936170212765,
+        "average_speed": 1.93,
+        "pace_zone": 1
+      },
+      {
+        "km": 10,
+        "moving_time": 718,
+        "distance": 1001.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": 120.08774373259052,
+        "average_speed": 1.39,
+        "pace_zone": 1
+      },
+      {
+        "km": 11,
+        "moving_time": 510,
+        "distance": 999.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": 122.19019607843137,
+        "average_speed": 1.96,
+        "pace_zone": 1
+      },
+      {
+        "km": 12,
+        "moving_time": 576,
+        "distance": 1000.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": 117.02777777777777,
+        "average_speed": 1.74,
+        "pace_zone": 1
+      },
+      {
+        "km": 13,
+        "moving_time": 534,
+        "distance": 999.4,
+        "elevation_difference": 0.0,
+        "average_heartrate": 122.90823970037454,
+        "average_speed": 1.87,
+        "pace_zone": 1
+      },
+      {
+        "km": 14,
+        "moving_time": 899,
+        "distance": 1001.2,
+        "elevation_difference": 0.0,
+        "average_heartrate": 108.20133481646273,
+        "average_speed": 1.11,
+        "pace_zone": 1
+      },
+      {
+        "km": 15,
+        "moving_time": 546,
+        "distance": 1000.2,
+        "elevation_difference": 0.0,
+        "average_heartrate": 113.52747252747253,
+        "average_speed": 1.83,
+        "pace_zone": 1
+      },
+      {
+        "km": 16,
+        "moving_time": 573,
+        "distance": 999.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": 117.72425828970331,
+        "average_speed": 1.74,
+        "pace_zone": 1
+      },
+      {
+        "km": 17,
+        "moving_time": 609,
+        "distance": 950.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": 117.2512315270936,
+        "average_speed": 1.56,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 771,
+        "average_heartrate": 105.0,
+        "average_speed": 1.3,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 732,
+        "average_heartrate": 110.1,
+        "average_speed": 1.37,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 3",
+        "distance": 1000.0,
+        "moving_time": 643,
+        "average_heartrate": 111.7,
+        "average_speed": 1.56,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 4",
+        "distance": 1000.0,
+        "moving_time": 679,
+        "average_heartrate": 106.7,
+        "average_speed": 1.47,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 5",
+        "distance": 1000.0,
+        "moving_time": 616,
+        "average_heartrate": 114.7,
+        "average_speed": 1.62,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 6",
+        "distance": 1000.0,
+        "moving_time": 544,
+        "average_heartrate": 119.6,
+        "average_speed": 1.84,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 7",
+        "distance": 1000.0,
+        "moving_time": 723,
+        "average_heartrate": 118.0,
+        "average_speed": 1.38,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 8",
+        "distance": 1000.0,
+        "moving_time": 650,
+        "average_heartrate": 111.2,
+        "average_speed": 1.54,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 9",
+        "distance": 1000.0,
+        "moving_time": 517,
+        "average_heartrate": 124.5,
+        "average_speed": 1.93,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 10",
+        "distance": 1000.0,
+        "moving_time": 717,
+        "average_heartrate": 120.1,
+        "average_speed": 1.39,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 11",
+        "distance": 1000.0,
+        "moving_time": 510,
+        "average_heartrate": 122.2,
+        "average_speed": 1.96,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 12",
+        "distance": 1000.0,
+        "moving_time": 575,
+        "average_heartrate": 117.0,
+        "average_speed": 1.74,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 13",
+        "distance": 1000.0,
+        "moving_time": 534,
+        "average_heartrate": 122.9,
+        "average_speed": 1.87,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 14",
+        "distance": 1000.0,
+        "moving_time": 898,
+        "average_heartrate": 108.2,
+        "average_speed": 1.11,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 15",
+        "distance": 1000.0,
+        "moving_time": 545,
+        "average_heartrate": 113.5,
+        "average_speed": 1.83,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 16",
+        "distance": 1000.0,
+        "moving_time": 573,
+        "average_heartrate": 117.7,
+        "average_speed": 1.75,
+        "total_elevation_gain": 0.0
+      },
+      {
+        "name": "Lap 17",
+        "distance": 951.7,
+        "moving_time": 609,
+        "average_heartrate": 117.2,
+        "average_speed": 1.56,
+        "total_elevation_gain": 0.0
+      }
+    ],
+    "calories": 1131.0,
+    "average_cadence": 68.5
+  },
+  "18167156556": {
+    "id": 18167156556,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 774,
+        "distance": 1001.1,
+        "elevation_difference": 98.0,
+        "average_heartrate": null,
+        "average_speed": 1.29,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 689,
+        "distance": 1000.5,
+        "elevation_difference": 104.2,
+        "average_heartrate": null,
+        "average_speed": 1.45,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 599,
+        "distance": 999.2,
+        "elevation_difference": 82.2,
+        "average_heartrate": null,
+        "average_speed": 1.67,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 569,
+        "distance": 753.9,
+        "elevation_difference": 71.3,
+        "average_heartrate": null,
+        "average_speed": 1.32,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 3754.7,
+        "moving_time": 2631,
+        "average_heartrate": null,
+        "average_speed": 1.43,
+        "total_elevation_gain": 355.7
+      }
+    ],
+    "calories": 495.0,
+    "description": "ADVANCED INTENSITY - iFIT Trainer Evan Dollard will lead you on a steep hike up Mount Schoberstein in the Höllengebirge mountain range, also known as the mountains of hell. The climb to the top will be worth it as you enjoy incredible views of Austria’s third largest lake—Lake Attersee. "
   }
 }
