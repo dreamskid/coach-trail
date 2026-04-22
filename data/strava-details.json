@@ -9114,5 +9114,88 @@
     ],
     "calories": 495.0,
     "description": "ADVANCED INTENSITY - iFIT Trainer Evan Dollard will lead you on a steep hike up Mount Schoberstein in the Höllengebirge mountain range, also known as the mountains of hell. The climb to the top will be worth it as you enjoy incredible views of Austria’s third largest lake—Lake Attersee. "
+  },
+  "18194785616": {
+    "id": 18194785616,
+    "polyline": "_|jwGanw[o@Bs@CC?EHFnD?hAC\\Dl@?^AJB^En@BTADCC?A@@Ch@@VCL@\\@A@@C^@h@Cv@BS@cAEtA@K?[@k@?n@Ef@D]Cg@@Q@VE|@DmB@DA@AIBRCvACBDqA?v@E\\ACDiA@GAtAA?@wABb@Et@AABU?_A@xACCBa@C[@a@GMOGAEVHRL?BIEQ@?@JGH@ABG?@JExA@{@B[?n@C^AFB{A@bACVC?BW?}@@EA|ACCB]?i@@Q@jAAHCD@I@mAISEEMEAEZHXNC@WKWQt@\\ABOGEJ?BAC?nACDDuA?`AAPA@@QAu@BM?|@EZBGAgA@I@x@AZA@ByA?b@Ep@B?A@@eA@MCc@@[@cBFa@@[IgABqAEkF?GHKNMt@A^@",
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 503,
+        "distance": 1000.5,
+        "elevation_difference": 30.4,
+        "average_heartrate": 121.95064377682404,
+        "average_speed": 1.99,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 656,
+        "distance": 1000.6,
+        "elevation_difference": -2.8,
+        "average_heartrate": 123.53926701570681,
+        "average_speed": 1.53,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 372,
+        "distance": 860.8,
+        "elevation_difference": -24.6,
+        "average_heartrate": 141.28328611898016,
+        "average_speed": 2.31,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 632,
+        "average_heartrate": 121.9,
+        "average_speed": 1.58,
+        "total_elevation_gain": 61.2
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 769,
+        "average_heartrate": 123.7,
+        "average_speed": 1.3,
+        "total_elevation_gain": 87.6
+      },
+      {
+        "name": "Lap 3",
+        "distance": 861.9,
+        "moving_time": 409,
+        "average_heartrate": 141.3,
+        "average_speed": 2.11,
+        "total_elevation_gain": 26.8
+      }
+    ],
+    "calories": 300.0,
+    "average_cadence": 69.9,
+    "best_efforts": [
+      {
+        "name": "400m",
+        "distance": 400,
+        "moving_time": 132
+      },
+      {
+        "name": "1/2 mile",
+        "distance": 805,
+        "moving_time": 367
+      },
+      {
+        "name": "1K",
+        "distance": 1000,
+        "moving_time": 515
+      },
+      {
+        "name": "1 mile",
+        "distance": 1609,
+        "moving_time": 995
+      }
+    ]
   }
 }
