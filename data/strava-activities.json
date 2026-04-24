@@ -1,5 +1,22 @@
 [
   {
+    "id": 18223120509,
+    "name": "Course à pied le midi",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-04-23T11:27:25Z",
+    "distance": 4673.8,
+    "moving_time": 1964,
+    "elapsed_time": 2040,
+    "total_elevation_gain": 143.0,
+    "average_speed": 2.38,
+    "max_speed": 7.46,
+    "average_heartrate": 137.3,
+    "max_heartrate": 172.0,
+    "suffer_score": 37.0,
+    "kudos_count": 0
+  },
+  {
     "id": 18208580292,
     "name": "Course à pied le matin",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": 133.4,
     "max_heartrate": 155.0,
     "suffer_score": 32.0,
-    "kudos_count": 0
-  },
-  {
-    "id": 17908595429,
-    "name": "Course à pied le matin",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-03-30T07:05:41Z",
-    "distance": 5890.6,
-    "moving_time": 2401,
-    "elapsed_time": 2401,
-    "total_elevation_gain": 0,
-    "average_speed": 2.453,
-    "max_speed": 3.08,
-    "average_heartrate": 137.7,
-    "max_heartrate": 168.0,
-    "suffer_score": 56.0,
     "kudos_count": 0
   }
 ]
