@@ -1,5 +1,22 @@
 [
   {
+    "id": 18256794895,
+    "name": "Morning Trail Run",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-04-25T06:30:18Z",
+    "distance": 86758.1,
+    "moving_time": 51388,
+    "elapsed_time": 54376,
+    "total_elevation_gain": 4183.0,
+    "average_speed": 1.688,
+    "max_speed": 4.06,
+    "average_heartrate": 142.5,
+    "max_heartrate": 169.0,
+    "suffer_score": 1113.0,
+    "kudos_count": 6
+  },
+  {
     "id": 18194913931,
     "name": "Afternoon Run",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 156.0,
     "suffer_score": 28.0,
     "kudos_count": 6
-  },
-  {
-    "id": 17587843644,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-03-03T13:37:33Z",
-    "distance": 10023.7,
-    "moving_time": 2714,
-    "elapsed_time": 2714,
-    "total_elevation_gain": 0,
-    "average_speed": 3.693,
-    "max_speed": 5.0,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 4
   }
 ]
