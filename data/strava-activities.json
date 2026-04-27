@@ -1,5 +1,22 @@
 [
   {
+    "id": 18267121834,
+    "name": "Mistral Marathon Trail - Mont Ventoux",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-04-26T06:41:13Z",
+    "distance": 51496.6,
+    "moving_time": 32688,
+    "elapsed_time": 34892,
+    "total_elevation_gain": 2555.0,
+    "average_speed": 1.476,
+    "max_speed": 3.536,
+    "average_heartrate": 141.3,
+    "max_heartrate": 173.0,
+    "suffer_score": 766.0,
+    "kudos_count": 8
+  },
+  {
     "id": 18223120509,
     "name": "Course à pied le midi",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": 135.6,
     "max_heartrate": 170.0,
     "suffer_score": 59.0,
-    "kudos_count": 0
-  },
-  {
-    "id": 17922336725,
-    "name": "Course à pied le midi",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-03-31T11:10:40Z",
-    "distance": 5934.4,
-    "moving_time": 2280,
-    "elapsed_time": 2287,
-    "total_elevation_gain": 56.0,
-    "average_speed": 2.603,
-    "max_speed": 3.6,
-    "average_heartrate": 133.4,
-    "max_heartrate": 155.0,
-    "suffer_score": 32.0,
     "kudos_count": 0
   }
 ]
