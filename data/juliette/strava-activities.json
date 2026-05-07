@@ -1,5 +1,22 @@
 [
   {
+    "id": 18402925132,
+    "name": "Death Road Pillar Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-06T19:20:38Z",
+    "distance": 9332.8,
+    "moving_time": 3702,
+    "elapsed_time": 3702,
+    "total_elevation_gain": 0,
+    "average_speed": 2.521,
+    "max_speed": 2.92,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 3
+  },
+  {
     "id": 18387318512,
     "name": "Afternoon Run",
     "type": "Run",
@@ -491,22 +508,5 @@
     "max_heartrate": 153.0,
     "suffer_score": 9.0,
     "kudos_count": 4
-  },
-  {
-    "id": 17606020896,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-03-04T21:17:23Z",
-    "distance": 7499.2,
-    "moving_time": 2959,
-    "elapsed_time": 2959,
-    "total_elevation_gain": 0,
-    "average_speed": 2.534,
-    "max_speed": 4.8,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 6
   }
 ]

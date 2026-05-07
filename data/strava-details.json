@@ -11026,5 +11026,88 @@
         "moving_time": 6130
       }
     ]
+  },
+  "18400938670": {
+    "id": 18400938670,
+    "polyline": "}{jwG_nw[cABc@?C?CHFpA@n@ETB`BETFb@?XCZB|@KrABLAjADFF@G?AFCpAAJ@wA@n@Cf@?oABIBHCrAA}@@e@CGGECEVHDDOGACHB@DHBADGAGD@B?E@n@EP?V@_@A_@@U@?An@?d@AwA@A@FCN@NCt@BwA@@@ACfA@FE_@@q@EOIGAETFVP?DC@SQGC@BF@@BCBAG?LBDChAA??{@BW?vAAC?_A@SAB@LA^BXAJC{@B[CdA@LAG@IAc@B_@CKSO[CCCZBRJF?PLCDIGGBDF?tAEA@uA@BArAC}@DUCMEGDD@J@tAA?AKA_ABI?rAAq@@YC_@@w@Bw@?w@Dg@Gs@@}@C_B?gBAy@EWFIHAp@?p@A",
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 488,
+        "distance": 1000.5,
+        "elevation_difference": 27.0,
+        "average_heartrate": 133.15938864628822,
+        "average_speed": 2.05,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 626,
+        "distance": 1000.0,
+        "elevation_difference": -13.6,
+        "average_heartrate": 132.10928961748633,
+        "average_speed": 1.6,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 215,
+        "distance": 591.4,
+        "elevation_difference": -13.6,
+        "average_heartrate": 140.47906976744187,
+        "average_speed": 2.75,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 569,
+        "average_heartrate": 133.1,
+        "average_speed": 1.76,
+        "total_elevation_gain": 56.4
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 825,
+        "average_heartrate": 132.2,
+        "average_speed": 1.21,
+        "total_elevation_gain": 84.2
+      },
+      {
+        "name": "Lap 3",
+        "distance": 591.9,
+        "moving_time": 214,
+        "average_heartrate": 140.6,
+        "average_speed": 2.77,
+        "total_elevation_gain": 2.4
+      }
+    ],
+    "calories": 280.0,
+    "average_cadence": 68.4,
+    "best_efforts": [
+      {
+        "name": "400m",
+        "distance": 400,
+        "moving_time": 140
+      },
+      {
+        "name": "1/2 mile",
+        "distance": 805,
+        "moving_time": 381
+      },
+      {
+        "name": "1K",
+        "distance": 1000,
+        "moving_time": 535
+      },
+      {
+        "name": "1 mile",
+        "distance": 1609,
+        "moving_time": 1059
+      }
+    ]
   }
 }
