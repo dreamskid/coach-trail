@@ -1,5 +1,39 @@
 [
   {
+    "id": 18412966124,
+    "name": "Afternoon Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-07T14:33:46Z",
+    "distance": 17626.6,
+    "moving_time": 5847,
+    "elapsed_time": 5847,
+    "total_elevation_gain": 0,
+    "average_speed": 3.015,
+    "max_speed": 4.875,
+    "average_heartrate": 147.5,
+    "max_heartrate": 165.0,
+    "suffer_score": 177.0,
+    "kudos_count": 2
+  },
+  {
+    "id": 18412627893,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-07T14:21:55Z",
+    "distance": 20013.0,
+    "moving_time": 5636,
+    "elapsed_time": 5636,
+    "total_elevation_gain": 0,
+    "average_speed": 3.551,
+    "max_speed": 3.62,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 3
+  },
+  {
     "id": 18402925132,
     "name": "Death Road Pillar Run",
     "type": "Run",
@@ -14,7 +48,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 3
+    "kudos_count": 4
   },
   {
     "id": 18387318512,
@@ -31,7 +65,7 @@
     "average_heartrate": 134.3,
     "max_heartrate": 169.0,
     "suffer_score": 29.0,
-    "kudos_count": 4
+    "kudos_count": 5
   },
   {
     "id": 18256794895,
@@ -474,39 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 6
-  },
-  {
-    "id": 17648369692,
-    "name": "Trail des Cabornis 8f 1er de cat",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-03-08T09:02:03Z",
-    "distance": 41719.0,
-    "moving_time": 18401,
-    "elapsed_time": 18598,
-    "total_elevation_gain": 2006.0,
-    "average_speed": 2.267,
-    "max_speed": 4.76,
-    "average_heartrate": 157.7,
-    "max_heartrate": 179.0,
-    "suffer_score": 792.0,
-    "kudos_count": 22
-  },
-  {
-    "id": 17612261117,
-    "name": "Lunch Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-03-05T12:42:30Z",
-    "distance": 3687.8,
-    "moving_time": 2090,
-    "elapsed_time": 2272,
-    "total_elevation_gain": 141.0,
-    "average_speed": 1.764,
-    "max_speed": 4.58,
-    "average_heartrate": 113.2,
-    "max_heartrate": 153.0,
-    "suffer_score": 9.0,
-    "kudos_count": 4
   }
 ]
