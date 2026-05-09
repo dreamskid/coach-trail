@@ -1,5 +1,22 @@
 [
   {
+    "id": 18429105972,
+    "name": "Course à pied en soirée",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-08T20:18:30Z",
+    "distance": 2535.5,
+    "moving_time": 1347,
+    "elapsed_time": 1600,
+    "total_elevation_gain": 133.0,
+    "average_speed": 1.882,
+    "max_speed": 4.02,
+    "average_heartrate": 132.8,
+    "max_heartrate": 163.0,
+    "suffer_score": 19.0,
+    "kudos_count": 0
+  },
+  {
     "id": 18412914715,
     "name": "Course à pied dans l'après-midi",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": 147.4,
     "max_heartrate": 168.0,
     "suffer_score": 111.0,
-    "kudos_count": 0
-  },
-  {
-    "id": 18129114832,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-04-16T10:33:47Z",
-    "distance": 11364.8,
-    "moving_time": 3600,
-    "elapsed_time": 3600,
-    "total_elevation_gain": 0,
-    "average_speed": 3.157,
-    "max_speed": 4.68,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
     "kudos_count": 0
   }
 ]
