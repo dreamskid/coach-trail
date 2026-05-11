@@ -12200,5 +12200,362 @@
         "moving_time": 8556
       }
     ]
+  },
+  "18454014128": {
+    "id": 18454014128,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 582,
+        "distance": 1000.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.72,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 558,
+        "distance": 1001.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.79,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 519,
+        "distance": 1000.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.93,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 561,
+        "distance": 1000.4,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.78,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 564,
+        "distance": 1001.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.77,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 561,
+        "distance": 997.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.78,
+        "pace_zone": 1
+      },
+      {
+        "km": 7,
+        "moving_time": 558,
+        "distance": 1000.6,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.79,
+        "pace_zone": 1
+      },
+      {
+        "km": 8,
+        "moving_time": 554,
+        "distance": 1001.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.81,
+        "pace_zone": 1
+      },
+      {
+        "km": 9,
+        "moving_time": 555,
+        "distance": 999.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.8,
+        "pace_zone": 1
+      },
+      {
+        "km": 10,
+        "moving_time": 594,
+        "distance": 1000.2,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.68,
+        "pace_zone": 1
+      },
+      {
+        "km": 11,
+        "moving_time": 546,
+        "distance": 999.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.83,
+        "pace_zone": 1
+      },
+      {
+        "km": 12,
+        "moving_time": 61,
+        "distance": 101.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.67,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 11102.9,
+        "moving_time": 6213,
+        "average_heartrate": null,
+        "average_speed": 1.79,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 818.0,
+    "description": "Workout created from log"
+  },
+  "18452473345": {
+    "id": 18452473345,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 566,
+        "distance": 1000.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.77,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 579,
+        "distance": 999.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.73,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 4,
+        "distance": 6.6,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 1.65,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2006.9,
+        "moving_time": 1149,
+        "average_heartrate": null,
+        "average_speed": 1.75,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 142.0,
+    "description": "Workout created from log"
+  },
+  "18454010625": {
+    "id": 18454010625,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 672,
+        "distance": 1000.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": 97.17857142857143,
+        "average_speed": 1.49,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 706,
+        "distance": 1000.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": 91.6680697534576,
+        "average_speed": 1.42,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 642,
+        "distance": 1000.9,
+        "elevation_difference": 0.0,
+        "average_heartrate": 99.22585669781931,
+        "average_speed": 1.56,
+        "pace_zone": 1
+      },
+      {
+        "km": 4,
+        "moving_time": 604,
+        "distance": 998.5,
+        "elevation_difference": 0.0,
+        "average_heartrate": 102.95198675496688,
+        "average_speed": 1.65,
+        "pace_zone": 1
+      },
+      {
+        "km": 5,
+        "moving_time": 624,
+        "distance": 1000.6,
+        "elevation_difference": 0.0,
+        "average_heartrate": 95.70279039584685,
+        "average_speed": 1.6,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 652,
+        "distance": 999.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": 94.90950920245399,
+        "average_speed": 1.53,
+        "pace_zone": 1
+      },
+      {
+        "km": 7,
+        "moving_time": 747,
+        "distance": 1000.9,
+        "elevation_difference": 0.0,
+        "average_heartrate": 91.92369477911646,
+        "average_speed": 1.34,
+        "pace_zone": 1
+      },
+      {
+        "km": 8,
+        "moving_time": 607,
+        "distance": 999.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": 99.00494233937397,
+        "average_speed": 1.65,
+        "pace_zone": 1
+      },
+      {
+        "km": 9,
+        "moving_time": 692,
+        "distance": 999.8,
+        "elevation_difference": 0.0,
+        "average_heartrate": 91.39450867052022,
+        "average_speed": 1.44,
+        "pace_zone": 1
+      },
+      {
+        "km": 10,
+        "moving_time": 673,
+        "distance": 999.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": 95.05349182763744,
+        "average_speed": 1.49,
+        "pace_zone": 1
+      },
+      {
+        "km": 11,
+        "moving_time": 3,
+        "distance": 0.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": 87.25,
+        "average_speed": 0.0,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 672,
+        "average_heartrate": 97.2,
+        "average_speed": 1.49,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 705,
+        "average_heartrate": 91.7,
+        "average_speed": 1.42,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 3",
+        "distance": 1000.0,
+        "moving_time": 641,
+        "average_heartrate": 99.3,
+        "average_speed": 1.56,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 4",
+        "distance": 1000.0,
+        "moving_time": 604,
+        "average_heartrate": 102.9,
+        "average_speed": 1.66,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 5",
+        "distance": 1000.0,
+        "moving_time": 623,
+        "average_heartrate": 95.7,
+        "average_speed": 1.61,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 6",
+        "distance": 1000.0,
+        "moving_time": 652,
+        "average_heartrate": 94.9,
+        "average_speed": 1.53,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 7",
+        "distance": 1000.0,
+        "moving_time": 746,
+        "average_heartrate": 91.9,
+        "average_speed": 1.34,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 8",
+        "distance": 1000.0,
+        "moving_time": 607,
+        "average_heartrate": 99.0,
+        "average_speed": 1.65,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 9",
+        "distance": 1000.0,
+        "moving_time": 692,
+        "average_heartrate": 91.4,
+        "average_speed": 1.45,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 10",
+        "distance": 1000.0,
+        "moving_time": 675,
+        "average_heartrate": 94.9,
+        "average_speed": 1.48,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 525.0,
+    "average_cadence": 64.7
   }
 }
