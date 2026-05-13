@@ -16588,5 +16588,67 @@
     ],
     "calories": 1349.0,
     "description": "Workout created from log"
+  },
+  "18487623353": {
+    "id": 18487623353,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 578,
+        "distance": 1000.0,
+        "elevation_difference": 161.0,
+        "average_heartrate": null,
+        "average_speed": 1.73,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 472,
+        "distance": 1000.4,
+        "elevation_difference": 103.3,
+        "average_heartrate": null,
+        "average_speed": 2.12,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 550,
+        "distance": 999.6,
+        "elevation_difference": 143.9,
+        "average_heartrate": null,
+        "average_speed": 1.82,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 643,
+        "distance": 1000.0,
+        "elevation_difference": 197.9,
+        "average_heartrate": null,
+        "average_speed": 1.56,
+        "pace_zone": 4
+      },
+      {
+        "km": 5,
+        "moving_time": 514,
+        "distance": 1002.7,
+        "elevation_difference": 93.2,
+        "average_heartrate": null,
+        "average_speed": 1.95,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 5002.7,
+        "moving_time": 2757,
+        "average_heartrate": null,
+        "average_speed": 1.81,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 561.0,
+    "description": "Head back to the mountains to crush some intervals with iFIT Trainer John Peel. You’ll do 20 rounds, alternating between one minute of running and one minute of speed walking. Once you reach the peak, you’ll hop off your machine and finish with a 6-minute core circuit. "
   }
 }
