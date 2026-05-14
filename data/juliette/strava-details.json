@@ -16650,5 +16650,378 @@
     ],
     "calories": 561.0,
     "description": "Head back to the mountains to crush some intervals with iFIT Trainer John Peel. You’ll do 20 rounds, alternating between one minute of running and one minute of speed walking. Once you reach the peak, you’ll hop off your machine and finish with a 6-minute core circuit. "
+  },
+  "18489514795": {
+    "id": 18489514795,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 300,
+        "distance": 1001.4,
+        "elevation_difference": -18.7,
+        "average_heartrate": null,
+        "average_speed": 3.34,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 293,
+        "distance": 1001.0,
+        "elevation_difference": -20.0,
+        "average_heartrate": null,
+        "average_speed": 3.42,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 292,
+        "distance": 997.7,
+        "elevation_difference": -18.8,
+        "average_heartrate": null,
+        "average_speed": 3.42,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 292,
+        "distance": 1000.2,
+        "elevation_difference": -15.0,
+        "average_heartrate": null,
+        "average_speed": 3.43,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 291,
+        "distance": 1002.3,
+        "elevation_difference": -15.1,
+        "average_heartrate": null,
+        "average_speed": 3.44,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 288,
+        "distance": 996.0,
+        "elevation_difference": -14.9,
+        "average_heartrate": null,
+        "average_speed": 3.46,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 5998.6,
+        "moving_time": 1756,
+        "average_heartrate": null,
+        "average_speed": 3.42,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 345.0,
+    "description": "Workout created from log"
+  },
+  "18489125948": {
+    "id": 18489125948,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 630,
+        "distance": 1000.2,
+        "elevation_difference": 170.0,
+        "average_heartrate": null,
+        "average_speed": 1.59,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 461,
+        "distance": 1000.9,
+        "elevation_difference": 91.7,
+        "average_heartrate": null,
+        "average_speed": 2.17,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 552,
+        "distance": 1000.5,
+        "elevation_difference": 148.9,
+        "average_heartrate": null,
+        "average_speed": 1.81,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 673,
+        "distance": 998.4,
+        "elevation_difference": 202.4,
+        "average_heartrate": null,
+        "average_speed": 1.48,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 508,
+        "distance": 1003.0,
+        "elevation_difference": 79.9,
+        "average_heartrate": null,
+        "average_speed": 1.97,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 5003.0,
+        "moving_time": 2824,
+        "average_heartrate": null,
+        "average_speed": 1.77,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 559.0,
+    "description": "Head back to the mountains to crush some intervals with iFIT Trainer John Peel. You’ll do 20 rounds, alternating between one minute of running and one minute of speed walking. Once you reach the peak, you’ll hop off your machine and finish with a 6-minute core circuit. "
+  },
+  "18488571459": {
+    "id": 18488571459,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 329,
+        "distance": 1003.3,
+        "elevation_difference": -14.6,
+        "average_heartrate": null,
+        "average_speed": 3.05,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 297,
+        "distance": 998.7,
+        "elevation_difference": -15.0,
+        "average_heartrate": null,
+        "average_speed": 3.36,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 295,
+        "distance": 999.7,
+        "elevation_difference": -15.0,
+        "average_heartrate": null,
+        "average_speed": 3.39,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 293,
+        "distance": 999.9,
+        "elevation_difference": -19.2,
+        "average_heartrate": null,
+        "average_speed": 3.41,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 292,
+        "distance": 1000.9,
+        "elevation_difference": -20.1,
+        "average_heartrate": null,
+        "average_speed": 3.43,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 290,
+        "distance": 998.9,
+        "elevation_difference": -19.9,
+        "average_heartrate": null,
+        "average_speed": 3.44,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 147,
+        "distance": 502.9,
+        "elevation_difference": -10.1,
+        "average_heartrate": null,
+        "average_speed": 3.42,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6504.3,
+        "moving_time": 1943,
+        "average_heartrate": null,
+        "average_speed": 3.35,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 373.0,
+    "description": "Workout created from log"
+  },
+  "18488244673": {
+    "id": 18488244673,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 607,
+        "distance": 1000.6,
+        "elevation_difference": 166.2,
+        "average_heartrate": null,
+        "average_speed": 1.65,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 465,
+        "distance": 1002.1,
+        "elevation_difference": 95.3,
+        "average_heartrate": null,
+        "average_speed": 2.16,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 559,
+        "distance": 999.8,
+        "elevation_difference": 147.0,
+        "average_heartrate": null,
+        "average_speed": 1.79,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 655,
+        "distance": 998.1,
+        "elevation_difference": 198.4,
+        "average_heartrate": null,
+        "average_speed": 1.52,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 485,
+        "distance": 1000.2,
+        "elevation_difference": 86.5,
+        "average_heartrate": null,
+        "average_speed": 2.06,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 300,
+        "distance": 1000.1,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 3.33,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 1,
+        "distance": 3.3,
+        "elevation_difference": 0.0,
+        "average_heartrate": null,
+        "average_speed": 3.3,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6004.2,
+        "moving_time": 3072,
+        "average_heartrate": null,
+        "average_speed": 1.95,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 623.0,
+    "description": "Head back to the mountains to crush some intervals with iFIT Trainer John Peel. You’ll do 20 rounds, alternating between one minute of running and one minute of speed walking. Once you reach the peak, you’ll hop off your machine and finish with a 6-minute core circuit. "
+  },
+  "18487825395": {
+    "id": 18487825395,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 309,
+        "distance": 1002.6,
+        "elevation_difference": -0.7,
+        "average_heartrate": null,
+        "average_speed": 3.24,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 300,
+        "distance": 1000.0,
+        "elevation_difference": -6.9,
+        "average_heartrate": null,
+        "average_speed": 3.33,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 298,
+        "distance": 1000.2,
+        "elevation_difference": -10.0,
+        "average_heartrate": null,
+        "average_speed": 3.36,
+        "pace_zone": 3
+      },
+      {
+        "km": 4,
+        "moving_time": 296,
+        "distance": 998.1,
+        "elevation_difference": -11.3,
+        "average_heartrate": null,
+        "average_speed": 3.37,
+        "pace_zone": 3
+      },
+      {
+        "km": 5,
+        "moving_time": 295,
+        "distance": 999.6,
+        "elevation_difference": -15.0,
+        "average_heartrate": null,
+        "average_speed": 3.39,
+        "pace_zone": 3
+      },
+      {
+        "km": 6,
+        "moving_time": 295,
+        "distance": 999.7,
+        "elevation_difference": -15.0,
+        "average_heartrate": null,
+        "average_speed": 3.39,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 149,
+        "distance": 504.9,
+        "elevation_difference": -7.5,
+        "average_heartrate": null,
+        "average_speed": 3.39,
+        "pace_zone": 3
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6505.1,
+        "moving_time": 1942,
+        "average_heartrate": null,
+        "average_speed": 3.35,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 386.0,
+    "description": "Workout created from log"
   }
 }
