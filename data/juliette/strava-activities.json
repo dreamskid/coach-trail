@@ -1,5 +1,22 @@
 [
   {
+    "id": 18526665454,
+    "name": "Lunch Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-16T11:16:15Z",
+    "distance": 6020.7,
+    "moving_time": 2502,
+    "elapsed_time": 2535,
+    "total_elevation_gain": 121.0,
+    "average_speed": 2.406,
+    "max_speed": 5.42,
+    "average_heartrate": 129.6,
+    "max_heartrate": 163.0,
+    "suffer_score": 22.0,
+    "kudos_count": 2
+  },
+  {
     "id": 18507249983,
     "name": "Evening Run",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": 128.3,
     "max_heartrate": 163.0,
     "suffer_score": 20.0,
-    "kudos_count": 3
+    "kudos_count": 4
   },
   {
     "id": 18489514795,
@@ -491,22 +508,5 @@
     "max_heartrate": 172.0,
     "suffer_score": 93.0,
     "kudos_count": 8
-  },
-  {
-    "id": 17958951712,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-04-03T09:37:57Z",
-    "distance": 8874.9,
-    "moving_time": 4269,
-    "elapsed_time": 4269,
-    "total_elevation_gain": 0,
-    "average_speed": 2.079,
-    "max_speed": 3.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 5
   }
 ]
