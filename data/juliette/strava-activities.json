@@ -1,5 +1,39 @@
 [
   {
+    "id": 18551370422,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-18T08:33:29Z",
+    "distance": 7608.8,
+    "moving_time": 2401,
+    "elapsed_time": 2401,
+    "total_elevation_gain": 0,
+    "average_speed": 3.169,
+    "max_speed": 5.0,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 1
+  },
+  {
+    "id": 18546649824,
+    "name": "Afternoon Run",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-17T17:58:33Z",
+    "distance": 2776.2,
+    "moving_time": 1745,
+    "elapsed_time": 1746,
+    "total_elevation_gain": 105.0,
+    "average_speed": 1.591,
+    "max_speed": 2.7,
+    "average_heartrate": 117.1,
+    "max_heartrate": 145.0,
+    "suffer_score": 7.0,
+    "kudos_count": 2
+  },
+  {
     "id": 18526665454,
     "name": "Lunch Run",
     "type": "Run",
@@ -14,7 +48,7 @@
     "average_heartrate": 129.6,
     "max_heartrate": 163.0,
     "suffer_score": 22.0,
-    "kudos_count": 2
+    "kudos_count": 4
   },
   {
     "id": 18507249983,
@@ -473,40 +507,6 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 8
-  },
-  {
-    "id": 18014026562,
-    "name": "Afternoon Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-04-07T16:15:52Z",
-    "distance": 4000.6,
-    "moving_time": 1841,
-    "elapsed_time": 2295,
-    "total_elevation_gain": 132.0,
-    "average_speed": 2.173,
-    "max_speed": 4.48,
-    "average_heartrate": 128.8,
-    "max_heartrate": 167.0,
-    "suffer_score": 24.0,
-    "kudos_count": 4
-  },
-  {
-    "id": 17983790123,
-    "name": "Morning Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-04-05T09:04:06Z",
-    "distance": 9412.0,
-    "moving_time": 3314,
-    "elapsed_time": 3990,
-    "total_elevation_gain": 203.0,
-    "average_speed": 2.84,
-    "max_speed": 4.229,
-    "average_heartrate": 147.7,
-    "max_heartrate": 172.0,
-    "suffer_score": 93.0,
     "kudos_count": 8
   }
 ]
