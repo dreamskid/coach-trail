@@ -14750,5 +14750,200 @@
     ],
     "calories": 614.0,
     "description": "Head back to the mountains to crush some intervals with iFIT Trainer John Peel. You’ll do 20 rounds, alternating between one minute of running and one minute of speed walking. Once you reach the peak, you’ll hop off your machine and finish with a 6-minute core circuit. "
+  },
+  "18578169451": {
+    "id": 18578169451,
+    "polyline": "{bjwGe`w[Ib@MZUb@CJWR@AE\\@\\Ep@@XBL^r@DXAb@Ot@CXFl@FJ?PIXIDYDy@UiAEo@J?@g@Ng@H]A]@IDGRBLLPJF^b@`Ax@r@Tx@JRFTPVb@J^v@tBTXt@r@l@x@DL@^ItBCVCv@EXQ^_ArA{@hAa@r@Qd@I^[|@_@p@[z@Qv@KZINw@d@E@WRi@j@y@jAKBKCUKi@a@YKE?ABNBXLr@`@FBJ?LMf@u@n@s@ZWf@SPMLSHU^yA|@mBd@_BXu@Xg@f@c@r@cATUP]Dc@DuBNaBIQ]i@w@u@e@k@_@w@i@yAQ[OKe@ScASa@QoAeAYYOa@@SDIHIXD`@@vB_@^?b@Dn@RV?PEDCFOBOKu@A[PkA@[E_@[q@CW?mA@_@DODENGB@@BG?KDCCBENB?AKDLKAC?BB?AE@D?C_@V@VCbBBPTd@Nd@?TMn@Gh@Bb@Jj@ANEJGHe@HUM_AMg@CoAXSFk@DMC]AGBCFCRBLV\\ZTh@l@\\VXLf@JZBNDb@RZb@Tt@n@hBTXl@d@Z^Zd@BL@\\MjBCrAEZSd@e@n@YVCJc@d@[d@Uj@g@~Aw@~AUl@WhAMVMNg@RYTo@p@u@fAEDMBOEeAq@SC_@@YCUGoA{@mAw@[Me@M_@CY?KB[Te@TGHGTIpBKn@c@zEELEp@]nCOj@o@bB]pAY|AK~@?fDE`FI|ABx@LdA@^MnDGv@AJBDBGHoCH{A?UMqAG{AJqGAkCB}@Hs@Z{AZmAl@eBR}@NwA^}Df@cEF}ABOLQb@_@ZO\\Ch@@ZHv@b@f@V^\\RJd@^NHf@H\\EPBl@\\\\XDBPAv@mA`@c@f@a@f@SNMLSn@{Bt@_Bj@cBZq@T_@x@cAT_@`@g@J[DWB{ANoBCYGUa@k@w@s@QWWk@q@oBSY]WSK_@Ig@Ea@OuAiA_@c@EO@[DIJEd@DVAzA_@^Cr@BRD\\NV?RCJGDM@QKs@?WPmA?SGa@[{@Ci@?qABQd@eAXy@Ly@AQKSSIi@Eu@?{@M",
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 516,
+        "distance": 1000.6,
+        "elevation_difference": 58.6,
+        "average_heartrate": 132.43478260869566,
+        "average_speed": 1.94,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 425,
+        "distance": 999.4,
+        "elevation_difference": 29.0,
+        "average_heartrate": 155.34515366430261,
+        "average_speed": 2.35,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 376,
+        "distance": 1000.5,
+        "elevation_difference": -81.4,
+        "average_heartrate": 136.18835616438355,
+        "average_speed": 2.66,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 502,
+        "distance": 999.9,
+        "elevation_difference": 82.8,
+        "average_heartrate": 154.69521912350598,
+        "average_speed": 1.99,
+        "pace_zone": 2
+      },
+      {
+        "km": 5,
+        "moving_time": 429,
+        "distance": 1000.4,
+        "elevation_difference": 39.2,
+        "average_heartrate": 158.26107226107226,
+        "average_speed": 2.33,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 357,
+        "distance": 1001.3,
+        "elevation_difference": -8.0,
+        "average_heartrate": 159.52974504249292,
+        "average_speed": 2.8,
+        "pace_zone": 3
+      },
+      {
+        "km": 7,
+        "moving_time": 303,
+        "distance": 999.0,
+        "elevation_difference": -56.6,
+        "average_heartrate": 157.95379537953795,
+        "average_speed": 3.3,
+        "pace_zone": 4
+      },
+      {
+        "km": 8,
+        "moving_time": 296,
+        "distance": 1001.7,
+        "elevation_difference": -60.8,
+        "average_heartrate": 151.07432432432432,
+        "average_speed": 3.38,
+        "pace_zone": 3
+      },
+      {
+        "km": 9,
+        "moving_time": 68,
+        "distance": 229.9,
+        "elevation_difference": -3.8,
+        "average_heartrate": 160.80882352941177,
+        "average_speed": 3.38,
+        "pace_zone": 4
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 516,
+        "average_heartrate": 132.5,
+        "average_speed": 1.94,
+        "total_elevation_gain": 61.4
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 425,
+        "average_heartrate": 155.3,
+        "average_speed": 2.35,
+        "total_elevation_gain": 65.6
+      },
+      {
+        "name": "Lap 3",
+        "distance": 1000.0,
+        "moving_time": 376,
+        "average_heartrate": 136.0,
+        "average_speed": 2.66,
+        "total_elevation_gain": 2.0
+      },
+      {
+        "name": "Lap 4",
+        "distance": 1000.0,
+        "moving_time": 502,
+        "average_heartrate": 154.9,
+        "average_speed": 1.99,
+        "total_elevation_gain": 85.8
+      },
+      {
+        "name": "Lap 5",
+        "distance": 1000.0,
+        "moving_time": 428,
+        "average_heartrate": 158.3,
+        "average_speed": 2.34,
+        "total_elevation_gain": 45.2
+      },
+      {
+        "name": "Lap 6",
+        "distance": 1000.0,
+        "moving_time": 356,
+        "average_heartrate": 159.5,
+        "average_speed": 2.81,
+        "total_elevation_gain": 21.0
+      },
+      {
+        "name": "Lap 7",
+        "distance": 1000.0,
+        "moving_time": 303,
+        "average_heartrate": 157.9,
+        "average_speed": 3.3,
+        "total_elevation_gain": 7.2
+      },
+      {
+        "name": "Lap 8",
+        "distance": 1000.0,
+        "moving_time": 295,
+        "average_heartrate": 151.2,
+        "average_speed": 3.39,
+        "total_elevation_gain": 2.8
+      },
+      {
+        "name": "Lap 9",
+        "distance": 232.7,
+        "moving_time": 68,
+        "average_heartrate": 160.9,
+        "average_speed": 3.42,
+        "total_elevation_gain": 0.0
+      }
+    ],
+    "calories": 699.0,
+    "average_cadence": 80.1,
+    "best_efforts": [
+      {
+        "name": "400m",
+        "distance": 400,
+        "moving_time": 112
+      },
+      {
+        "name": "1/2 mile",
+        "distance": 805,
+        "moving_time": 233
+      },
+      {
+        "name": "1K",
+        "distance": 1000,
+        "moving_time": 293
+      },
+      {
+        "name": "1 mile",
+        "distance": 1609,
+        "moving_time": 473
+      },
+      {
+        "name": "2 mile",
+        "distance": 3219,
+        "moving_time": 1019
+      },
+      {
+        "name": "5K",
+        "distance": 5000,
+        "moving_time": 1845
+      }
+    ]
   }
 }
