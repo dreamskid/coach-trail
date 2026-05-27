@@ -1,5 +1,22 @@
 [
   {
+    "id": 18671475352,
+    "name": "Course à pied le matin",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-27T09:01:52Z",
+    "distance": 4075.6,
+    "moving_time": 1401,
+    "elapsed_time": 1454,
+    "total_elevation_gain": 24.0,
+    "average_speed": 2.909,
+    "max_speed": 3.76,
+    "average_heartrate": 135.7,
+    "max_heartrate": 163.0,
+    "suffer_score": 23.0,
+    "kudos_count": 0
+  },
+  {
     "id": 18640705603,
     "name": "Trail de nuit",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 0
-  },
-  {
-    "id": 18343302261,
-    "name": "Trail le matin",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-05-02T10:01:57Z",
-    "distance": 15175.8,
-    "moving_time": 6247,
-    "elapsed_time": 6285,
-    "total_elevation_gain": 399.0,
-    "average_speed": 2.429,
-    "max_speed": 4.24,
-    "average_heartrate": 150.6,
-    "max_heartrate": 167.0,
-    "suffer_score": 227.0,
     "kudos_count": 0
   }
 ]
