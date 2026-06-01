@@ -1,5 +1,22 @@
 [
   {
+    "id": 18731837477,
+    "name": "Demi tour du lac - Maxi race",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-05-31T08:14:13Z",
+    "distance": 57704.9,
+    "moving_time": 34040,
+    "elapsed_time": 35973,
+    "total_elevation_gain": 3549.0,
+    "average_speed": 1.604,
+    "max_speed": 4.62,
+    "average_heartrate": 146.0,
+    "max_heartrate": 172.0,
+    "suffer_score": 906.0,
+    "kudos_count": 12
+  },
+  {
     "id": 18690805822,
     "name": "Afternoon Run",
     "type": "Run",
@@ -14,7 +31,7 @@
     "average_heartrate": 131.9,
     "max_heartrate": 154.0,
     "suffer_score": 21.0,
-    "kudos_count": 3
+    "kudos_count": 4
   },
   {
     "id": 18624927971,
@@ -491,22 +508,5 @@
     "max_heartrate": 169.0,
     "suffer_score": 29.0,
     "kudos_count": 5
-  },
-  {
-    "id": 18256794895,
-    "name": "Morning Trail Run",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-04-25T06:30:18Z",
-    "distance": 86758.1,
-    "moving_time": 51388,
-    "elapsed_time": 54376,
-    "total_elevation_gain": 4183.0,
-    "average_speed": 1.688,
-    "max_speed": 4.06,
-    "average_heartrate": 142.5,
-    "max_heartrate": 169.0,
-    "suffer_score": 1113.0,
-    "kudos_count": 16
   }
 ]
