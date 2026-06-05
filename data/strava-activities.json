@@ -1,5 +1,22 @@
 [
   {
+    "id": 18794282919,
+    "name": "Course à pied le midi",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-05T11:11:23Z",
+    "distance": 5874.6,
+    "moving_time": 2063,
+    "elapsed_time": 2070,
+    "total_elevation_gain": 35.0,
+    "average_speed": 2.848,
+    "max_speed": 7.66,
+    "average_heartrate": 146.4,
+    "max_heartrate": 172.0,
+    "suffer_score": 64.0,
+    "kudos_count": 0
+  },
+  {
     "id": 18726632405,
     "name": "Maxirace - Marathon eXperience",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 0
-  },
-  {
-    "id": 18429105972,
-    "name": "Course à pied en soirée",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-08T20:18:30Z",
-    "distance": 2535.5,
-    "moving_time": 1347,
-    "elapsed_time": 1600,
-    "total_elevation_gain": 133.0,
-    "average_speed": 1.882,
-    "max_speed": 4.02,
-    "average_heartrate": 132.8,
-    "max_heartrate": 163.0,
-    "suffer_score": 19.0,
     "kudos_count": 0
   }
 ]
