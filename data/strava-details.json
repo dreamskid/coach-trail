@@ -19750,5 +19750,109 @@
     ],
     "calories": 359.0,
     "average_cadence": 77.8
+  },
+  "18895338290": {
+    "id": 18895338290,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 438,
+        "distance": 1000.7,
+        "elevation_difference": 0.0,
+        "average_heartrate": 110.30365296803653,
+        "average_speed": 2.28,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 567,
+        "distance": 1000.0,
+        "elevation_difference": 0.0,
+        "average_heartrate": 116.72486772486772,
+        "average_speed": 1.76,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 222,
+        "distance": 478.9,
+        "elevation_difference": 0.0,
+        "average_heartrate": 142.94144144144144,
+        "average_speed": 2.16,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 1000.0,
+        "moving_time": 438,
+        "average_heartrate": 110.4,
+        "average_speed": 2.28,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 2",
+        "distance": 1000.0,
+        "moving_time": 567,
+        "average_heartrate": 116.6,
+        "average_speed": 1.76,
+        "total_elevation_gain": 0
+      },
+      {
+        "name": "Lap 3",
+        "distance": 479.6,
+        "moving_time": 221,
+        "average_heartrate": 143.4,
+        "average_speed": 2.17,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 191.0,
+    "average_cadence": 71.4
+  },
+  "18895364685": {
+    "id": 18895364685,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 431,
+        "distance": 1001.7,
+        "elevation_difference": 31.2,
+        "average_heartrate": null,
+        "average_speed": 2.32,
+        "pace_zone": 2
+      },
+      {
+        "km": 2,
+        "moving_time": 431,
+        "distance": 998.3,
+        "elevation_difference": 60.4,
+        "average_heartrate": null,
+        "average_speed": 2.32,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 407,
+        "distance": 878.3,
+        "elevation_difference": 44.6,
+        "average_heartrate": null,
+        "average_speed": 2.16,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2878.3,
+        "moving_time": 1269,
+        "average_heartrate": null,
+        "average_speed": 2.27,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 282.0,
+    "description": "Workout created in workout creator at 2026-06-12T22:58:20.659"
   }
 }
