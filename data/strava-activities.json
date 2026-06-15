@@ -1,5 +1,22 @@
 [
   {
+    "id": 18917337195,
+    "name": "UTMB Saint-Jacques - Monistrail",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-06-14T07:09:56Z",
+    "distance": 53820.6,
+    "moving_time": 29484,
+    "elapsed_time": 29489,
+    "total_elevation_gain": 2111.0,
+    "average_speed": 1.825,
+    "max_speed": 7.66,
+    "average_heartrate": 147.6,
+    "max_heartrate": 171.0,
+    "suffer_score": 890.0,
+    "kudos_count": 11
+  },
+  {
     "id": 18895338290,
     "name": "Course à pied de nuit",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": 144.2,
     "max_heartrate": 168.0,
     "suffer_score": 335.0,
-    "kudos_count": 0
-  },
-  {
-    "id": 18515022034,
-    "name": "Trail le matin",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-05-15T09:04:52Z",
-    "distance": 27805.5,
-    "moving_time": 13772,
-    "elapsed_time": 13800,
-    "total_elevation_gain": 962.8,
-    "average_speed": 2.019,
-    "max_speed": 5.9,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
     "kudos_count": 0
   }
 ]
