@@ -1,5 +1,39 @@
 [
   {
+    "id": 18961689352,
+    "name": "Course à pied dans l'après-midi",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-17T17:03:53Z",
+    "distance": 4406.4,
+    "moving_time": 1261,
+    "elapsed_time": 1261,
+    "total_elevation_gain": 0,
+    "average_speed": 3.494,
+    "max_speed": 27.8,
+    "average_heartrate": 125.1,
+    "max_heartrate": 163.0,
+    "suffer_score": 12.0,
+    "kudos_count": 3
+  },
+  {
+    "id": 18959238328,
+    "name": "Manual Workout",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-17T17:03:47Z",
+    "distance": 2704.0,
+    "moving_time": 1261,
+    "elapsed_time": 1261,
+    "total_elevation_gain": 0,
+    "average_speed": 2.144,
+    "max_speed": 4.74,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 3
+  },
+  {
     "id": 18954210989,
     "name": "Choishi Stupa Trail Long Run",
     "type": "Run",
@@ -14,7 +48,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 0
+    "kudos_count": 3
   },
   {
     "id": 18954312235,
@@ -31,7 +65,7 @@
     "average_heartrate": 144.2,
     "max_heartrate": 182.0,
     "suffer_score": 138.0,
-    "kudos_count": 1
+    "kudos_count": 4
   },
   {
     "id": 18946046993,
@@ -48,7 +82,7 @@
     "average_heartrate": 126.6,
     "max_heartrate": 158.0,
     "suffer_score": 10.0,
-    "kudos_count": 3
+    "kudos_count": 5
   },
   {
     "id": 18945225325,
@@ -65,7 +99,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 2
+    "kudos_count": 4
   },
   {
     "id": 18939773212,
@@ -82,7 +116,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 2
+    "kudos_count": 4
   },
   {
     "id": 18731837477,
@@ -474,39 +508,5 @@
     "max_heartrate": null,
     "suffer_score": null,
     "kudos_count": 4
-  },
-  {
-    "id": 18454972574,
-    "name": "Afternoon Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-10T17:51:15Z",
-    "distance": 3436.1,
-    "moving_time": 1870,
-    "elapsed_time": 1885,
-    "total_elevation_gain": 19.0,
-    "average_speed": 1.837,
-    "max_speed": 3.138,
-    "average_heartrate": 102.0,
-    "max_heartrate": 130.0,
-    "suffer_score": 5.0,
-    "kudos_count": 5
-  },
-  {
-    "id": 18449087184,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-10T09:55:55Z",
-    "distance": 20018.7,
-    "moving_time": 5840,
-    "elapsed_time": 5840,
-    "total_elevation_gain": 0,
-    "average_speed": 3.428,
-    "max_speed": 4.1,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 3
   }
 ]
