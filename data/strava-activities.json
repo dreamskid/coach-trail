@@ -1,5 +1,22 @@
 [
   {
+    "id": 18983207478,
+    "name": "Lunch Trail Run",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-06-19T12:11:01Z",
+    "distance": 11579.9,
+    "moving_time": 5668,
+    "elapsed_time": 5703,
+    "total_elevation_gain": 390.0,
+    "average_speed": 2.043,
+    "max_speed": 4.18,
+    "average_heartrate": 137.8,
+    "max_heartrate": 170.0,
+    "suffer_score": 106.0,
+    "kudos_count": 0
+  },
+  {
     "id": 18917337195,
     "name": "UTMB Saint-Jacques - Monistrail",
     "type": "Run",
@@ -490,23 +507,6 @@
     "average_heartrate": 154.3,
     "max_heartrate": 173.0,
     "suffer_score": 148.0,
-    "kudos_count": 0
-  },
-  {
-    "id": 18514947352,
-    "name": "Trail le matin",
-    "type": "Run",
-    "sport_type": "TrailRun",
-    "start_date_local": "2026-05-15T09:05:25Z",
-    "distance": 25928.5,
-    "moving_time": 12881,
-    "elapsed_time": 12947,
-    "total_elevation_gain": 976.0,
-    "average_speed": 2.013,
-    "max_speed": 4.02,
-    "average_heartrate": 144.2,
-    "max_heartrate": 168.0,
-    "suffer_score": 335.0,
     "kudos_count": 0
   }
 ]

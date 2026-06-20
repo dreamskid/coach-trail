@@ -1,5 +1,39 @@
 [
   {
+    "id": 18992863416,
+    "name": "Morning Trail Run",
+    "type": "Run",
+    "sport_type": "TrailRun",
+    "start_date_local": "2026-06-20T07:05:03Z",
+    "distance": 22178.7,
+    "moving_time": 9434,
+    "elapsed_time": 9480,
+    "total_elevation_gain": 544.0,
+    "average_speed": 2.351,
+    "max_speed": 3.66,
+    "average_heartrate": 132.9,
+    "max_heartrate": 160.0,
+    "suffer_score": 117.0,
+    "kudos_count": 2
+  },
+  {
+    "id": 18982907458,
+    "name": "Mount Fitz Roy Summit Tempo and Strength",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-19T12:43:41Z",
+    "distance": 2578.1,
+    "moving_time": 2056,
+    "elapsed_time": 2056,
+    "total_elevation_gain": 0,
+    "average_speed": 1.254,
+    "max_speed": 1.72,
+    "average_heartrate": null,
+    "max_heartrate": null,
+    "suffer_score": null,
+    "kudos_count": 2
+  },
+  {
     "id": 18982517758,
     "name": "Mount Fitz Roy Summit Tempo and Strength",
     "type": "Run",
@@ -14,7 +48,24 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 0
+    "kudos_count": 2
+  },
+  {
+    "id": 18982902863,
+    "name": "Course à pied le midi",
+    "type": "Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-19T11:55:31Z",
+    "distance": 2361.8,
+    "moving_time": 4870,
+    "elapsed_time": 4946,
+    "total_elevation_gain": 0,
+    "average_speed": 0.485,
+    "max_speed": 5.18,
+    "average_heartrate": 122.3,
+    "max_heartrate": 181.0,
+    "suffer_score": 41.0,
+    "kudos_count": 2
   },
   {
     "id": 18982018848,
@@ -31,7 +82,7 @@
     "average_heartrate": 137.5,
     "max_heartrate": 177.0,
     "suffer_score": 187.0,
-    "kudos_count": 0
+    "kudos_count": 2
   },
   {
     "id": 18972244195,
@@ -48,7 +99,7 @@
     "average_heartrate": 149.1,
     "max_heartrate": 184.0,
     "suffer_score": 126.0,
-    "kudos_count": 1
+    "kudos_count": 2
   },
   {
     "id": 18969851102,
@@ -65,7 +116,7 @@
     "average_heartrate": null,
     "max_heartrate": null,
     "suffer_score": null,
-    "kudos_count": 2
+    "kudos_count": 3
   },
   {
     "id": 18961689352,
@@ -457,56 +508,5 @@
     "max_heartrate": 163.0,
     "suffer_score": 20.0,
     "kudos_count": 4
-  },
-  {
-    "id": 18489514795,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-13T13:07:38Z",
-    "distance": 5998.6,
-    "moving_time": 1756,
-    "elapsed_time": 1756,
-    "total_elevation_gain": 0,
-    "average_speed": 3.416,
-    "max_speed": 4.1,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 3
-  },
-  {
-    "id": 18489125948,
-    "name": "Martial Glacier Interval Run",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-13T12:20:01Z",
-    "distance": 5003.0,
-    "moving_time": 2824,
-    "elapsed_time": 2824,
-    "total_elevation_gain": 0,
-    "average_speed": 1.772,
-    "max_speed": 3.34,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 4
-  },
-  {
-    "id": 18488571459,
-    "name": "Manual Workout",
-    "type": "Run",
-    "sport_type": "Run",
-    "start_date_local": "2026-05-13T11:46:48Z",
-    "distance": 6504.3,
-    "moving_time": 1943,
-    "elapsed_time": 1943,
-    "total_elevation_gain": 0,
-    "average_speed": 3.348,
-    "max_speed": 4.14,
-    "average_heartrate": null,
-    "max_heartrate": null,
-    "suffer_score": null,
-    "kudos_count": 3
   }
 ]
