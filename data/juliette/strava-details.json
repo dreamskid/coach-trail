@@ -23153,5 +23153,387 @@
     ],
     "calories": 413.0,
     "average_cadence": 72.7
+  },
+  "19070795989": {
+    "id": 19070795989,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 406,
+        "distance": 1000.3,
+        "elevation_difference": -7.5,
+        "average_heartrate": null,
+        "average_speed": 2.46,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 359,
+        "distance": 999.8,
+        "elevation_difference": 9.0,
+        "average_heartrate": null,
+        "average_speed": 2.78,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 360,
+        "distance": 1001.6,
+        "elevation_difference": 21.6,
+        "average_heartrate": null,
+        "average_speed": 2.78,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 356,
+        "distance": 999.3,
+        "elevation_difference": 11.9,
+        "average_heartrate": null,
+        "average_speed": 2.81,
+        "pace_zone": 2
+      },
+      {
+        "km": 5,
+        "moving_time": 358,
+        "distance": 1000.4,
+        "elevation_difference": 18.4,
+        "average_heartrate": null,
+        "average_speed": 2.79,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 355,
+        "distance": 998.8,
+        "elevation_difference": 14.0,
+        "average_heartrate": null,
+        "average_speed": 2.81,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 354,
+        "distance": 1001.7,
+        "elevation_difference": 3.3,
+        "average_heartrate": null,
+        "average_speed": 2.83,
+        "pace_zone": 2
+      },
+      {
+        "km": 8,
+        "moving_time": 354,
+        "distance": 998.8,
+        "elevation_difference": 7.7,
+        "average_heartrate": null,
+        "average_speed": 2.82,
+        "pace_zone": 2
+      },
+      {
+        "km": 9,
+        "moving_time": 354,
+        "distance": 1001.6,
+        "elevation_difference": -9.8,
+        "average_heartrate": null,
+        "average_speed": 2.83,
+        "pace_zone": 2
+      },
+      {
+        "km": 10,
+        "moving_time": 355,
+        "distance": 998.6,
+        "elevation_difference": 7.4,
+        "average_heartrate": null,
+        "average_speed": 2.81,
+        "pace_zone": 2
+      },
+      {
+        "km": 11,
+        "moving_time": 65,
+        "distance": 121.4,
+        "elevation_difference": -3.9,
+        "average_heartrate": null,
+        "average_speed": 1.87,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 10122.2,
+        "moving_time": 3676,
+        "average_heartrate": null,
+        "average_speed": 2.75,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 651.0,
+    "description": "Get ready to gear up for your last endurance run of the series with iFIT Trainer Leah Dana Rosenfeld!  You’ll maintain an RPE of 5 for 60-minutes today as you explore Pico Island. Listen as Leah shares some history about the island and leads you to see some beautiful views of the Atlantic Ocean as well as getting an up-close look at a windmill!"
+  },
+  "19064048953": {
+    "id": 19064048953,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 571,
+        "distance": 1000.3,
+        "elevation_difference": 99.3,
+        "average_heartrate": null,
+        "average_speed": 1.75,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 543,
+        "distance": 1004.1,
+        "elevation_difference": 99.9,
+        "average_heartrate": null,
+        "average_speed": 1.85,
+        "pace_zone": 1
+      },
+      {
+        "km": 3,
+        "moving_time": 448,
+        "distance": 827.2,
+        "elevation_difference": 82.3,
+        "average_heartrate": null,
+        "average_speed": 1.85,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2831.6,
+        "moving_time": 1562,
+        "average_heartrate": null,
+        "average_speed": 1.81,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 256.0,
+    "description": "Workout created from log"
+  },
+  "19058619828": {
+    "id": 19058619828,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 450,
+        "distance": 1000.3,
+        "elevation_difference": 94.1,
+        "average_heartrate": null,
+        "average_speed": 2.22,
+        "pace_zone": 3
+      },
+      {
+        "km": 2,
+        "moving_time": 441,
+        "distance": 999.9,
+        "elevation_difference": 54.5,
+        "average_heartrate": null,
+        "average_speed": 2.27,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 360,
+        "distance": 1001.4,
+        "elevation_difference": -9.5,
+        "average_heartrate": null,
+        "average_speed": 2.78,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 376,
+        "distance": 999.6,
+        "elevation_difference": 21.8,
+        "average_heartrate": null,
+        "average_speed": 2.66,
+        "pace_zone": 2
+      },
+      {
+        "km": 5,
+        "moving_time": 393,
+        "distance": 1000.5,
+        "elevation_difference": 23.9,
+        "average_heartrate": null,
+        "average_speed": 2.55,
+        "pace_zone": 2
+      },
+      {
+        "km": 6,
+        "moving_time": 389,
+        "distance": 998.9,
+        "elevation_difference": 34.8,
+        "average_heartrate": null,
+        "average_speed": 2.57,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 103,
+        "distance": 227.5,
+        "elevation_difference": 32.9,
+        "average_heartrate": null,
+        "average_speed": 2.21,
+        "pace_zone": 6
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 6228.1,
+        "moving_time": 2512,
+        "average_heartrate": null,
+        "average_speed": 2.48,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 462.0,
+    "description": "Join iFIT Trainer Tommy Rivs Puzey for another pillar run! You’ll perform 1-minute VO2max intervals and 1-minute recoveries."
+  },
+  "19051030033": {
+    "id": 19051030033,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 579,
+        "distance": 1003.9,
+        "elevation_difference": 98.9,
+        "average_heartrate": null,
+        "average_speed": 1.73,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 533,
+        "distance": 996.6,
+        "elevation_difference": 99.2,
+        "average_heartrate": null,
+        "average_speed": 1.87,
+        "pace_zone": 2
+      },
+      {
+        "km": 3,
+        "moving_time": 414,
+        "distance": 781.4,
+        "elevation_difference": 77.7,
+        "average_heartrate": null,
+        "average_speed": 1.89,
+        "pace_zone": 2
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 2781.9,
+        "moving_time": 1526,
+        "average_heartrate": null,
+        "average_speed": 1.82,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 251.0,
+    "description": "Workout created from log"
+  },
+  "19047548931": {
+    "id": 19047548931,
+    "splits": [
+      {
+        "km": 1,
+        "moving_time": 422,
+        "distance": 1001.5,
+        "elevation_difference": 18.8,
+        "average_heartrate": null,
+        "average_speed": 2.37,
+        "pace_zone": 1
+      },
+      {
+        "km": 2,
+        "moving_time": 403,
+        "distance": 1000.3,
+        "elevation_difference": 58.9,
+        "average_heartrate": null,
+        "average_speed": 2.48,
+        "pace_zone": 3
+      },
+      {
+        "km": 3,
+        "moving_time": 404,
+        "distance": 999.5,
+        "elevation_difference": 47.5,
+        "average_heartrate": null,
+        "average_speed": 2.47,
+        "pace_zone": 2
+      },
+      {
+        "km": 4,
+        "moving_time": 461,
+        "distance": 999.3,
+        "elevation_difference": 98.3,
+        "average_heartrate": null,
+        "average_speed": 2.17,
+        "pace_zone": 4
+      },
+      {
+        "km": 5,
+        "moving_time": 393,
+        "distance": 1001.3,
+        "elevation_difference": 0.9,
+        "average_heartrate": null,
+        "average_speed": 2.55,
+        "pace_zone": 1
+      },
+      {
+        "km": 6,
+        "moving_time": 393,
+        "distance": 998.7,
+        "elevation_difference": 16.7,
+        "average_heartrate": null,
+        "average_speed": 2.54,
+        "pace_zone": 2
+      },
+      {
+        "km": 7,
+        "moving_time": 393,
+        "distance": 1001.4,
+        "elevation_difference": -2.1,
+        "average_heartrate": null,
+        "average_speed": 2.55,
+        "pace_zone": 1
+      },
+      {
+        "km": 8,
+        "moving_time": 392,
+        "distance": 998.7,
+        "elevation_difference": 10.0,
+        "average_heartrate": null,
+        "average_speed": 2.55,
+        "pace_zone": 1
+      },
+      {
+        "km": 9,
+        "moving_time": 456,
+        "distance": 960.5,
+        "elevation_difference": -10.7,
+        "average_heartrate": null,
+        "average_speed": 2.11,
+        "pace_zone": 1
+      }
+    ],
+    "laps": [
+      {
+        "name": "Lap 1",
+        "distance": 8961.2,
+        "moving_time": 3717,
+        "average_heartrate": null,
+        "average_speed": 2.41,
+        "total_elevation_gain": 0
+      }
+    ],
+    "calories": 634.0,
+    "description": "Run through the rainforest with iFIT Trainer Leah Dana Rosenfeld on this long run! Keep your pace steady at an RPE 5 as you learn Leah’s best tips on how to run for over an hour. Along the way, Leah will show you some of the incredible hidden surprises Costa Rica has to offer. Lace up your shoes and get going!"
   }
 }
